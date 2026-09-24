@@ -23,9 +23,10 @@ func setup(b: Breakdown, p_level: int) -> void:
 	theme_type_variation = &"BreakdownPanel"
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	add_to_group("breakdown_tooltip")
-	var width: float = 360.0
+	# Wider with larger text, so a long value does not squeeze its source to a word per line.
+	var width: float = 360.0 * maxf(1.0, Settings.text_scale)
 	if Layout.compact:
-		width = minf(360.0, Layout.logical_size.x - 16.0 - Layout.safe_margins.x - Layout.safe_margins.z)
+		width = minf(width, Layout.logical_size.x - 16.0 - Layout.safe_margins.x - Layout.safe_margins.z)
 	custom_minimum_size.x = width
 	_build()
 
