@@ -137,3 +137,6 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     step picks one. Generators keep a character consistent when the neutral one is the reference.
 49. **The web build budget is 150 MB** as the compressed download (Owner), so the soundtrack and
     the painted art ship inside the web build.
+50. **Outsourced assets are on hold** (Owner, before M1): M1 onward builds against the code
+    placeholders, addressing every asset by its §15 id through `data/asset_manifest.json`, so
+    delivered files drop in later. The intake tool waits for the first batch.

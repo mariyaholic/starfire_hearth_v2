@@ -1,10 +1,16 @@
-# STARFIRE HEARTH: Complete Build Prompt (rewrite 2, after M0)
+# STARFIRE HEARTH: Complete Build Prompt (rewrite 3, after the M0 review)
 
 **To the builder** (the AI coding agent reading this): this document is your whole brief. You are
 building a complete game in the GitHub repository `mariyaholic/starfire_hearth_v2`, working alone
 under the direction of the project Owner. It replaces the original build prompt. It keeps every
-game-design rule of the original, records what milestone M0 has already built, and adds a
-pipeline for art, sound and music made outside the repository.
+game-design rule of the original, records what milestone M0 has already built, and adds the
+Owner's decisions from the M0 review:
+- display renames and units
+- a flat interface over painted-diorama world art
+- a visual-novel-style soundtrack and story presentation
+- a 150 MB web budget
+- a pipeline for outsourced art, sound and music, on hold for now, so the game is built against
+  code placeholders
 
 Read the whole document before writing any code.
 
@@ -33,7 +39,9 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Item | State |
 | --- | --- |
 | Repository | `mariyaholic/starfire_hearth_v2`, **public**. Licence: "All rights reserved" (§14) |
-| M0: Foundation and UI kit | **Built and merged** (PR #1, merge `8cf17cf`). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. Owner feedback: the look is approved, with display renames and units (applied as a follow-up; §5.0) |
+| M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
+| After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
+| Outsourced assets | **On hold** (Owner, before M1). The briefs of §15 are ready. The game uses its code placeholders until the Owner resumes (DESIGN_LOG 50) |
 | Main scene | The UI kit showcase (sample data). M1 replaces it with the title screen |
 | Next | **M1: First Light** (§12). Write `docs/milestones/M1_PLAN.md` first |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
@@ -103,7 +111,9 @@ explains itself beats a bigger one that doesn't.
 
 **Outsourced assets never block the build.** Every asset kind in §15 has a procedural or
 placeholder fallback in code. An asset that arrives replaces its fallback through the intake
-pipeline (§15.2). An asset that never arrives costs nothing.
+pipeline (§15.2). An asset that never arrives costs nothing. Outsourcing is **on hold** for now
+(Owner, before M1): build every screen against the placeholders, and address each asset by its
+§15 id, so delivered files drop in later without code changes.
 
 ### 0.2 Repository bootstrap (done in M0)
 
@@ -119,8 +129,9 @@ with a DESIGN_LOG entry and re-baselined golden hashes.
 
 ## 1. The game in one page
 
-Starfire Hearth is a turn-based space 4X for PC and mobile, built in Godot 4 with GDScript in a
-clean modern-flat visual style.
+Starfire Hearth is a turn-based space 4X for PC and mobile, built in Godot 4 with GDScript. It
+has a clean, flat interface over a painted-diorama world, and its story plays out in illustrated
+scenes, like a visual novel.
 
 **Premise: the Long Silence.** In 2297 the Sol relay stopped transmitting. There was no warning,
 no last message, and no reply to anything sent since. The slowboat colonies that humanity seeded
@@ -956,7 +967,7 @@ listing every resource with its unit, the Noise meter and the date.
 
 ---
 
-## 8. Art direction: modern-flat
+## 8. Art direction: a flat interface over a painted world
 
 ### 8.1 Principles
 
@@ -1643,7 +1654,7 @@ Each chain lists its vignette id, used by §15.7.
 | Pirate faction | 1 | faction record |
 | Event chains | 25 | — |
 | Vignettes | ≥ 25 (one per chain; 20 at the least) | 1 showcase sample |
-| Portraits | 6 named characters, plus generic generators | — |
+| Portraits | 6 named characters (neutral, plus optional warm, worried and stern), plus generic generators | — |
 | Codex entries | every one of the above, plus a Mechanics section | — |
 | Advisor lines | at least 1 per mechanic | — |
 | Scenarios | 3, with briefing and debrief | S1 stub |
@@ -1750,7 +1761,8 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
    Megaplex decisions (§10.3, §10.4), the full Scenario 1 (objectives, tutorial, legacies),
    vignettes and portraits as fallback parameters.
 4. **Events engine:** triggers, the director and pacing, choices, costs and effects, delays,
-   flags, the log, and "Uncertain" ranges. Content: the S1 chains (Founders' Vote, Cold Sleepers,
+   flags, the log, and "Uncertain" ranges. Each step can name its speaking character (a portrait
+   and an expression) and a music cue. Content: the S1 chains (Founders' Vote, Cold Sleepers,
    Labor Strike, The Sealed Order steps 1–2, The Ark's Last Engine) and the S1-eligible emergent
    chains.
 5. **Screens:**
@@ -1760,7 +1772,7 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
    - the system view
    - the colony planner (with the adjacency ghost preview and deltas)
    - research (cards and the tree)
-   - the event modal
+   - the event modal: the story scene, the speaking character's portrait, the text, the choices
    - the turn report
    - Why?
    - the advisor tutorial
@@ -1768,11 +1780,13 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
    - settings
    - save and load (auto-saves, checkpoints, thumbnails)
    - briefing and debrief
+   - the planet renderer upgraded to lit spheres, to match the painted world (§8.3)
 6. **Audio:** music playback (the title theme, era tracks, and event cues with crossfades; §15.5)
    and the UI sound hooks (the bus layout, volume sliders, mute), using the §15.4 files when
    delivered and synthesised blips otherwise.
-7. **Asset intake:** build `tools/import_assets.gd` and `data/asset_manifest.json` (§15.2). Accept
-   the first vignette and portrait batches if the Owner has them.
+7. **Asset ids:** `data/asset_manifest.json` lists every §15 id with its kind and status, and the
+   game resolves each id to a delivered file or its placeholder. The intake tool
+   (`tools/import_assets.gd`, §15.2) is built when the first batch arrives; outsourcing is on hold.
 8. **Bot:** the balanced, economy, turtle and random-legal policies playing the full S1; the
    telemetry tools with real balance gates. Reachability in `validate_data` becomes real.
 9. **Main scene:** the title screen. The showcase moves to a debug menu item (and stays in the
@@ -1785,7 +1799,7 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
 **Tasks:**
 - the multi-system map, fog, travel and ETA, survey and auto-explore, anomalies
 - fleets, the designer, auto-fit, combat and the forecast, the replay and the breakdown
-- ship silhouettes: code fallback, plus the §15.8 SVGs if delivered
+- ship sprites: code fallback, plus the §15.8 sprites if delivered
 - the VFX kit (§15.6) for the replay, beacons and jumps
 - the Unlit AI, beacons, Noise
 - the S2 chains, the Codex additions, a military bot policy
@@ -1863,7 +1877,8 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
 | A9 | Music (priority tracks first) | M1 (priority), M2–M4 (rest) | §15.5 |
 | A10 | Store art | M4 | §15.9 |
 
-Each batch goes through the intake of §15.2 and gets its own changelog entry.
+Each batch goes through the intake of §15.2 and gets its own changelog entry. **The track is on
+hold** (Owner, before M1): milestones use the code placeholders until the Owner resumes it.
 
 ---
 
@@ -2069,7 +2084,10 @@ Each run writes per-turn JSON:
 - **Soundtrack:** visual-novel style, with character themes and mood cues from M1 (Owner, after
   M0; §8.6, §15.5).
 - **Web build budget:** 150 MB as the compressed download (Owner, after M0).
-- **Technical decisions** DESIGN_LOG 1–41 (M0), listed in the M0 report, stand unless overruled.
+- **Outsourced assets are on hold:** M1 onward builds against the code placeholders until the
+  Owner resumes (DESIGN_LOG 50).
+- **Technical decisions** DESIGN_LOG 1–41 (M0, listed in the M0 report) and 42–50 (after the M0
+  review) stand unless overruled.
 
 ### 14.2 Still open (continue with the default until the Owner answers)
 
