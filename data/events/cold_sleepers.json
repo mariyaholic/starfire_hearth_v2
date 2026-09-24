@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "id": "cold_sleepers",
+  "kind": "scripted",
+  "vignette": "vault_frost",
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 18,
+        "flags_all": [
+          "founders_vote_done"
+        ]
+      },
+      "speaker": "archivist_sola",
+      "expression": "worried",
+      "music": "mood_sorrow",
+      "title_key": "event.cold_sleepers.1.title",
+      "body_key": "event.cold_sleepers.1.body",
+      "hint_key": "event.cold_sleepers.1.hint",
+      "choices": [
+        {
+          "label_key": "event.cold_sleepers.1.c0",
+          "cost": {
+            "food": 10000
+          },
+          "effects": [
+            {
+              "key": "add_pops",
+              "value": 6,
+              "over_turns": 10
+            },
+            {
+              "key": "stability_add",
+              "value": -10,
+              "target": "colony",
+              "turns": 10
+            }
+          ],
+          "set_flags": [
+            "sleepers_woken"
+          ]
+        },
+        {
+          "label_key": "event.cold_sleepers.1.c1",
+          "effects": [
+            {
+              "key": "add_pops",
+              "value": 2
+            },
+            {
+              "key": "research_bp:all",
+              "value": 1000
+            }
+          ],
+          "set_flags": [
+            "sleepers_specialists"
+          ]
+        },
+        {
+          "label_key": "event.cold_sleepers.1.c2",
+          "set_flags": [
+            "sleepers_waiting"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 20
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "archivist_sola",
+      "expression": "neutral",
+      "music": "mood_sorrow",
+      "title_key": "event.cold_sleepers.2.title",
+      "body_key": "event.cold_sleepers.2.body",
+      "choices": [
+        {
+          "label_key": "event.cold_sleepers.2.c0",
+          "cost": {
+            "food": 8000
+          },
+          "effects": [
+            {
+              "key": "add_pops",
+              "value": 6,
+              "over_turns": 8
+            },
+            {
+              "key": "stability_add",
+              "value": -5,
+              "target": "colony",
+              "turns": 8
+            }
+          ],
+          "set_flags": [
+            "sleepers_woken"
+          ]
+        },
+        {
+          "label_key": "event.cold_sleepers.2.c1",
+          "effects": [
+            {
+              "key": "add_stock:influence",
+              "value": 6000
+            }
+          ],
+          "set_flags": [
+            "sleepers_kept"
+          ]
+        }
+      ]
+    }
+  ]
+}

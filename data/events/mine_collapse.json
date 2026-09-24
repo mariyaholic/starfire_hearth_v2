@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "id": "mine_collapse",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "mine_collapse",
+  "cooldown": 30,
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 12,
+        "has_district": "mining"
+      },
+      "speaker": "steward_varga",
+      "expression": "worried",
+      "music": "mood_tension",
+      "title_key": "event.mine_collapse.1.title",
+      "body_key": "event.mine_collapse.1.body",
+      "choices": [
+        {
+          "label_key": "event.mine_collapse.1.c0",
+          "cost": {
+            "minerals": 5000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5,
+              "target": "colony",
+              "turns": 10
+            }
+          ],
+          "set_flags": [
+            "miners_rescued"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 5
+          }
+        },
+        {
+          "label_key": "event.mine_collapse.1.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": -10,
+              "target": "colony",
+              "turns": 10
+            }
+          ],
+          "set_flags": [
+            "gallery_sealed"
+          ],
+          "next": {
+            "step": 3,
+            "delay_turns": 5
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.mine_collapse.2.title",
+      "body_key": "event.mine_collapse.2.body",
+      "choices": [
+        {
+          "label_key": "event.mine_collapse.2.c0",
+          "cost": {
+            "energy": 3000
+          },
+          "effects": [
+            {
+              "key": "resource_output_bp:minerals",
+              "value": 1500,
+              "target": "colony",
+              "turns": 20
+            }
+          ]
+        },
+        {
+          "label_key": "event.mine_collapse.2.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "speaker": "steward_varga",
+      "expression": "stern",
+      "music": "mood_sorrow",
+      "title_key": "event.mine_collapse.3.title",
+      "body_key": "event.mine_collapse.3.body",
+      "choices": [
+        {
+          "label_key": "event.mine_collapse.3.c0",
+          "cost": {
+            "influence": 2000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 8,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.mine_collapse.3.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": -5,
+              "target": "colony",
+              "turns": 10
+            },
+            {
+              "key": "resource_output_bp:minerals",
+              "value": 1000,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

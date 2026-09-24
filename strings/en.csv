@@ -618,3 +618,402 @@ character.brandt.name,Captain Oduya Brandt
 character.hale.name,Director Kasimir Hale
 character.speaker.name,Speaker-of-Seven
 character.rook.name,Mother Rook
+branch.physics.name,Physics
+branch.society.name,Society
+branch.engineering.name,Engineering
+stage.outpost.name,Outpost
+stage.settlement.name,Settlement
+stage.colony.name,Colony
+stage.city.name,City
+ship_role.survey.name,Survey Probe
+ship_role.construction.name,Construction Ship
+ship_role.colony.name,Colony Ship
+breakdown.building_upkeep,Building upkeep on {colony}
+breakdown.cap,{resource} storage
+breakdown.colony_net,{resource} on {colony}
+breakdown.colony_research,{branch} research on {colony}
+breakdown.decode,Sealed Order decoding per turn
+breakdown.district_output,{district}s on {colony}
+breakdown.district_upkeep,District upkeep on {colony}
+breakdown.empire_net,"{resource} per turn, all colonies"
+breakdown.growth,Growth on {colony}
+breakdown.housing,Housing on {colony}
+breakdown.ordinance_slots,Ordinance slots
+breakdown.ordinance_upkeep,Ordinance upkeep
+breakdown.outpost_cost,Cost of an outpost
+breakdown.outpost_turns,Time to build an outpost
+breakdown.research_branch,{branch} research per turn
+breakdown.ship_upkeep,Ship upkeep
+error.build.already_first,It is already at the front of the queue.
+error.build.already_upgrading,This district is already being upgraded.
+error.build.bad_slot,There is no such slot on this planet.
+error.build.blocked_slot,The ground here is blocked.
+error.build.branch_needed,Choose a research branch for this district.
+error.build.building_cap,This colony already has {max} buildings.
+error.build.busy_slot,Something is being built here. Cancel it first.
+error.build.cannot_afford,Needs {need} {resource}; you have {have}.
+error.build.max_tier,This district is at its highest tier.
+error.build.needs_dome_world,Only on a dome world.
+error.build.needs_stage,Tier {tier} needs the colony to reach the {stage} stage.
+error.build.needs_tech,Needs {tech}.
+error.build.no_branch,Only Research districts take a branch.
+error.build.no_district,There is no district here.
+error.build.not_queued,That is no longer in the queue.
+error.build.nothing_there,There is nothing here to demolish.
+error.build.outpost,An outpost has no settlers to build with or govern.
+error.build.queue_full,The build queue is full ({max} items).
+error.build.slot_queued,Something is already queued for this slot.
+error.build.slot_taken,This slot is already in use.
+error.build.story_only,This is a landmark. It cannot be built or removed.
+error.build.unique_colony,Only one per colony.
+error.build.unique_empire,Only one in the whole Compact.
+error.build.unknown,Unknown district or building.
+error.colony.needs_domes,Settling a dome world needs Habitat Domes.
+error.colony.not_habitable,No one can live here. Build an outpost instead.
+error.event.bad_choice,That choice does not exist.
+error.event.choice_locked,Not available: {reason}.
+error.event.choice_locked_generic,its conditions are not met
+error.event.not_pending,This event has already been answered.
+error.event.not_yours,This event belongs to another empire.
+error.governor.already_vetoed,This plan is already vetoed.
+error.governor.bad_budget,The budget must be between {min}% and {max}%.
+error.governor.bad_focus,Unknown governor focus.
+error.governor.bad_plan,That is not a plan a governor can have.
+error.ordinance.active,This ordinance is already active.
+error.ordinance.locked,Not available in this scenario.
+error.ordinance.no_slot,All {max} ordinance slots are in use.
+error.ordinance.not_active,This ordinance is not active.
+error.ordinance.unknown,Unknown ordinance.
+error.outpost.not_here,Outposts go on gas giants and asteroid belts.
+error.outpost.wrong_kind,This body cannot yield that.
+error.planet.already_surveyed,Already surveyed.
+error.planet.not_found,Unknown planet.
+error.planet.not_surveyed,Survey it first.
+error.planet.taken,Someone already lives or works here.
+error.research.already_picked,Already being researched.
+error.research.bad_branch,Unknown research branch.
+error.research.not_offered,That card is not in this hand.
+error.research.nothing_new,There are no other cards to draw.
+error.ship.busy,This ship is already on a task.
+error.ship.needs_spaceport,Needs a Spaceport on this colony.
+error.ship.not_found,Unknown ship.
+error.ship.not_in_system,The ship is not in that system.
+error.ship.not_owned,That ship is not yours.
+error.ship.target_taken,Another ship is already working there.
+error.ship.warships_later,Warships arrive with the fleet in Scenario 2.
+error.ship.wrong_role,Needs a {role}.
+error.tutorial.already_done,Already done.
+error.tutorial.bad_step,Unknown tutorial step.
+governor.reason.best_value,Best value for its cost right now
+governor.reason.colony_ship,Metals for the colony ship
+governor.reason.growth,Faster growth while homes are free
+governor.reason.housing,Only {free} free homes left
+governor.reason.jobs,{count}k settlers need work
+governor.reason.low,{resource} income is thin
+governor.reason.output,More {resource}
+governor.reason.shortfall,{resource} is falling by {net} a turn
+governor.reason.spaceport,No shipyard in the Compact
+governor.reason.stability,Stability needs support
+governor.reason.storage,Stores are nearly full
+note.outpost_cost_floor,Outpost discounts stop at {pct}% off.
+outcome.all_objectives,Every required objective is complete.
+outcome.capital_autonomy,The capital declared autonomy.
+outcome.capital_empty,The capital has no settlers left.
+report.autonomy,{colony} has declared autonomy.
+report.autonomy_warning,{colony} declares autonomy in {turns} turns unless its stability rises above 5.
+report.build_done,{what} finished on {colony}.
+report.colony_founded,A new colony on {planet}.
+report.effect_pops,{count}k settlers arrived on {colony}: {name}.
+report.event,{title}
+report.famine,Famine on {colony}: a pop will be lost in {turns} turns.
+report.famine_loss,"Famine on {colony}: 1k settlers lost, {pops}k remain."
+report.governor_queued,{colony}'s governor started a {what}: {reason}.
+report.modifier_ended,{name} has ended.
+report.new_pop,New settlers on {colony}: {pops}k now.
+report.objective_done,Objective complete: {objective}
+report.ordinance_ended,The {name} ordinance has ended.
+report.outpost_done,"Outpost built on {planet}, yielding {resource}."
+report.overflow,{resource} is full: {lost} lost this turn.
+report.scenario_lost,The scenario is lost: {reason}
+report.scenario_won,Every required objective is complete.
+report.stability_fell,Stability on {colony} fell from {from} to {stability}.
+report.stock_empty,{resource} ran out.
+report.survey_done,{planet} surveyed: its traits and slots are known.
+report.tech_done,{tech} researched ({branch}).
+report.unrest,Unrest on {colony}: stability {stability}.
+report.upgrade_done,{what} on {colony} reached tier {tier}.
+report.will_overflow,{resource} will be full in {turns} turns.
+report.will_run_out,{resource} runs out in {turns} turns.
+source.adjacency_housing,{name} next to {with} ({count})
+source.adjacency_output,"Next to {with} (+{each_pct}% each, up to +{cap_pct}%)"
+source.adjacency_stability,{name} next to {with} ({count})
+source.at_least_one_turn,at least one turn
+source.building_upkeep,Building upkeep ({count})
+source.cap_base,Base storage
+source.capital_research,The capital's own research
+source.colony,{name}
+source.decode_rate,The Archive of Sol decodes {pct}% of research
+source.decode_research,All research this turn
+source.district_group,{district}s ({count})
+source.district_upkeep_each,{district}s ({count} × {each})
+source.effect.building,{name}
+source.effect.building_at,{name} on {colony}
+source.effect.difficulty,Difficulty: {name}
+source.effect.event,{name}
+source.effect.event_timed,{name} ({turns} more turns)
+source.effect.legacy,{name} (legacy)
+source.effect.ordinance,{name} (ordinance)
+source.effect.origin,Origin: {name}
+source.effect.planet_type,{name} world
+source.effect.stable,Stable colony (stability {at} or more)
+source.effect.tech,{name} (tech)
+source.effect.trait,{name} (planet trait)
+source.effect.unstable,Unrest (stability {at} or less)
+source.energy_short,Energy grid short
+source.famine,Famine
+source.growth_base,"10 + 2 per free home, up to 20 ({free} free)"
+source.growth_paused_food,Paused: food is running down
+source.habitability,Habitability {pct}%
+source.homeless,{count}k settlers without homes
+source.homeless_growth,Homeless settlers grow at half speed ({count}k)
+source.housing_districts,Other districts ({count})
+source.housing_habitation,Habitation districts ({count}) at {pct}% habitability
+source.industry_short_alloys,Industry slowed to {pct}%: not enough minerals
+source.industry_short_minerals,Minerals left unused: industry ran at {pct}%
+source.job_input,{job} jobs at work ({count})
+source.jobs_filled,{filled} of {jobs} {job} jobs at {each} each
+source.never_negative,never below zero
+source.ordinance_slots_base,Base slots
+source.ordinance_upkeep,Ordinances ({count})
+source.outpost_base,Base cost
+source.outpost_turns_base,Base time
+source.outpost_upkeep,Outpost upkeep
+source.outpost_yield,Outpost yield
+source.ship_upkeep,Ships ({count})
+source.ship_upkeep_each,{hull}s ({count} × {each})
+source.tier_bonus,Tier {tier} districts
+why.cond.colonies_min,You have {count} colonies
+why.cond.colony,About {colony}
+why.cond.decode,Enough of the Sealed Order is decoded
+why.cond.has_district,{colony} has a {district}
+why.cond.min_turn,Turn {turn} or later
+why.cond.net_max,{resource} income is low
+why.cond.pops,{colony} has {count}k settlers
+why.cond.stability_low,{colony} is at stability {stability}
+why.event.cause_scripted,A story step whose time has come
+why.event.cause_main_arc,The main story moves on
+why.event.cause_director,Picked by the event director (one every 4 to 6 turns)
+why.event.cause_chain,The next step of a chain you started
+why.event.cause_status,A colony's condition
+event.labor_strike.1.title,Labor Strike
+event.labor_strike.1.body,"At the change of shift, three hundred miners sat down on the ramp of Aster's first pit and would not stand up. Their spokesperson, Tove Lindqvist, is a welder with a burned hand and a clear voice, and she has a list: shorter rotations, a seat on the Stewardship council, and hot water in the barracks. Steward Varga reads it twice. ""They are not wrong,"" the Steward says, ""and they are not patient."" Archivist Sola adds a footnote, as always: stability is a colony's patience made visible. It falls with idle hands and broken promises, and it rises with fair dealing."
+event.labor_strike.1.hint,Stability runs from 0 to 100. At 70 or more a colony works 10% harder; at 30 or less it loses 15% of its output. Hover over or tap a colony's stability to see every source.
+event.labor_strike.1.c0,Negotiate in good faith
+event.labor_strike.1.c1,Grant every demand
+event.labor_strike.1.c2,Order them back to work
+event.labor_strike.2.title,A Seat at the Table
+event.labor_strike.2.body,"Tove Lindqvist took her seat on the council in a borrowed jacket and asked, before anything else, who had written the pit schedules. Nobody quite remembered. Within a month the rotations were redrawn, the barracks water ran hot by six, and the shift bell no longer sounded like an accusation. Now she has a second proposal, sketched on the back of a ration card: a standing crew of clerks to settle grievances before they reach the ramp. It would cost the Compact a little every month, and spare it a great deal."
+event.labor_strike.2.c0,Fund the grievance clerks
+event.labor_strike.2.c1,Put the money into the pits
+event.labor_strike.3.title,The Pit Remembers
+event.labor_strike.3.body,"The pit reopened on schedule and ran hot for a month. The ore counts were the best since landing. Then the graffiti started, small and neat, stencilled on the ramp where the strikers had sat: a hand with a burn across the palm. Nobody saw who painted it. Steward Varga sends for Tove Lindqvist, who arrives with her hands in her pockets. ""You won,"" Lindqvist says. ""I just want to know what you think you won."" The council waits to see whether you will answer her."
+event.labor_strike.3.c0,Apologise and open talks
+event.labor_strike.3.c1,Let the matter rest
+event.founders_vote.1.title,The Founders' Vote
+event.founders_vote.1.body,"The Ark was never meant to be a nation. It was a ship with a captain, a crew, and forty thousand passengers who agreed to be patient. Now there is ground under the Compact and a sky over it, and the old ship rules sit badly on a living world. Steward Varga has called the Founders' Vote in the hull's great hall, where the ceiling still shows the route from Sol. Three proposals are on the table. Whatever the Compact chooses tonight, it will live with for a long time."
+event.founders_vote.1.hint,"This choice is permanent. Each form of government gives a lasting bonus, shown in breakdowns as The Founders' Vote."
+event.founders_vote.1.c0,A council of the colonies
+event.founders_vote.1.c1,A strong Steward
+event.founders_vote.1.c2,An open assembly
+event.founders_vote.2.title,The Council's First Session
+event.founders_vote.2.body,"The first Council met in the old navigation deck because it was the only room with enough chairs. Delegates from every district argued for eleven hours and agreed on almost nothing, except that the next meeting should have better coffee. Yet the arguing did something the ship rules never could: each district went home believing it had been heard. Steward Varga, now first among equals, asks what the Council should take up first: the granaries, or the schools. The Council will follow your lead."
+event.founders_vote.2.c0,Stock the granaries
+event.founders_vote.2.c1,Open the schools
+event.founders_vote.3.title,The Steward's Charter
+event.founders_vote.3.body,"Steward Varga signed the Charter with the same pen used for the ration rolls, and then put the pen back in a pocket. The Compact wanted a steady hand, and it has one: shipments move on time, disputes end at the Steward's desk, and the districts complain a little less because they know who to complain to. But a strong Steward needs strong deputies. There are two candidates. One is a quartermaster who has never missed a delivery. The other is a teacher everyone trusts."
+event.founders_vote.3.c0,Appoint the quartermaster
+event.founders_vote.3.c1,Appoint the teacher
+event.founders_vote.4.title,The Assembly Convenes
+event.founders_vote.4.body,"Every adult on the Compact's rolls may speak in the Assembly, and on the first night about two thousand of them tried. Archivist Sola has never been happier. The debates spill out of the hall into the corridors and the farms, and questions nobody asked on the ship are suddenly asked everywhere: why the stars are where they are, why Sol went quiet, why the soil on Aster smells of iron after rain. The Assembly can fund one great study this year. The choice is yours to frame."
+event.founders_vote.4.c0,A survey of Aster's soil
+event.founders_vote.4.c1,A study of the old logs
+event.cold_sleepers.1.title,Cold Sleepers
+event.cold_sleepers.1.body,"Frost feathers the viewing glass of Vault Three, where four hundred people have slept since the Ark left Sol. They were the last to board and the first to be forgotten: engineers, midwives, a string quartet, and a man listed only as ""gardener, excellent"". Archivist Sola has read every file twice. ""The vault can hold them another century,"" Sola says, ""but they did not sign up to be furniture."" Waking them costs food and patience. Leaving them costs nothing today. Sola would like you to decide, and to be kind about it."
+event.cold_sleepers.1.hint,"New settlers need homes and jobs. Without them, each homeless thousand costs 8 stability and each idle thousand costs 3."
+event.cold_sleepers.1.c0,Wake them all over ten turns
+event.cold_sleepers.1.c1,Wake only the specialists
+event.cold_sleepers.1.c2,Let them sleep for now
+event.cold_sleepers.2.title,The Sleepers' Families
+event.cold_sleepers.2.body,"Twenty months after the Compact chose to let Vault Three sleep, a delegation came to the Archive: cousins of the sleepers' families, carrying a petition with nine hundred signatures and a photograph of the string quartet. They are not angry. They simply want to know when. Archivist Sola lays out the choice again with the new numbers: the colonies are bigger now and the granaries fuller. Or the vault could stay sealed for the next world the Compact reaches, as a gift from this one to that one."
+event.cold_sleepers.2.c0,Wake them now
+event.cold_sleepers.2.c1,Keep them for the next world
+event.sealed_order.1.title,The Sealed Order
+event.sealed_order.1.body,"Behind the Archive's last bulkhead, under a century of dust sheets, Archivist Sola found a cabinet nobody had opened since launch. Inside was a single data core, sealed with Sol's own cipher and stamped with a date two years after the Ark departed. Nobody on the Ark could have received it. Yet here it is. ""Someone loaded this after we left,"" Sola says quietly, ""which means someone meant it for us."" Decoding it will take time, study and patience. The first question is who is allowed to watch."
+event.sealed_order.1.hint,The Archive of Sol decodes 5% of all your research each turn. Wake Theory adds a whole fragment at once. The first fragment completes this scenario's last objective.
+event.sealed_order.1.c0,Open the archive to everyone
+event.sealed_order.1.c1,Keep it among the archivists
+event.sealed_order.2.title,The First Fragment
+event.sealed_order.2.body,"The first fragment resolved at dawn, while Sola was asleep at the desk beside a cold cup of tea. Three words, then static: ""... all beacons dark ..."" The timestamp is Sol's own, and the order is signed by the Office of the Quiet Directive, a body no Ark record mentions. Why would Sol darken its own beacons, the only bridges between the stars? Sola has drafted two notices. One tells the Compact everything. The other tells the Stewardship council and nobody else, until the rest can be read."
+event.sealed_order.2.c0,Tell the whole Compact
+event.sealed_order.2.c1,Tell only the council
+event.ark_last_engine.1.title,The Ark's Last Engine
+event.ark_last_engine.1.body,"The Ark's last working drive coil hangs in the aft hold like a bell nobody rings. Captain Oduya Brandt has kept it polished for a hundred years out of stubbornness and, the captain admits, boredom. Now the foundries want its metals, the Assembly wants a monument, and Archivist Sola wants to know why its field geometry matches no design in the archive. Brandt taps the housing with a knuckle, and it answers with a long, low note. ""It carried us here,"" Brandt says. ""Whatever you decide, decide it properly."""
+event.ark_last_engine.1.c0,Salvage it for the foundries
+event.ark_last_engine.1.c1,Keep it as a monument
+event.ark_last_engine.1.c2,Let the Archive study it
+event.ark_last_engine.2.title,The Last Pour
+event.ark_last_engine.2.body,"The foundry crews worked the coil for three weeks, and on the last night they poured the final ingot while half the colony watched from the gantries. It was the quietest pour anyone could remember. Captain Brandt stayed until the metal cooled. The foreman has kept back a small billet, enough for a plate with the names of the crew who first flew the Ark, and asks whether it should be cast. It would take metal the shipyards could use. Nobody else will ask."
+event.ark_last_engine.2.c0,Cast the memorial plate
+event.ark_last_engine.2.c1,Use every gram
+event.ark_last_engine.3.title,The Bell in the Hold
+event.ark_last_engine.3.body,"The coil stays where it has always hung, and now the aft hold has visitors. School classes come on Fridays. Old crew come on Sundays and tell the classes, at length, exactly how the coil was aligned during the Crossing. Captain Brandt gives the tours in a pressed uniform and pretends not to enjoy it. The Stewardship would like to know whether to open the hold to everyone, with a ticket office and a gift stand, or keep it the quiet, slightly dusty place the old crew love."
+event.ark_last_engine.3.c0,Open it to every visitor
+event.ark_last_engine.3.c1,Keep it quiet and dignified
+event.ark_last_engine.4.title,Fields That Should Not Fold
+event.ark_last_engine.4.body,"Archivist Sola has not left the aft hold in nine days. The drive coil's field geometry does not match any design in the archive, but it does match something else: the cipher on the Sealed Order. The same folds, the same odd symmetries, as if whoever sealed the message had built the coil, or learned from whoever did. Sola wants to keep working, and is not sure whether to share the discovery. ""Some footnotes,"" Sola says, ""are best published. Others are best understood first."""
+event.ark_last_engine.4.c0,Publish the findings
+event.ark_last_engine.4.c1,Keep studying in private
+event.unrest.1.title,Unrest
+event.unrest.1.body,"The night markets on {colony} have closed early for a week, and the posters on the transit walls are no longer about lost pets. Crowds gather at the distribution points and do not quite disperse. Nobody has been hurt yet. Steward Varga has spent two days on the ground listening, and has come back with a short report: people feel unheard, overworked or unhoused, and usually all three. ""Stability is not a feeling,"" Varga writes. ""It is a ledger, and they can read it too."""
+event.unrest.1.hint,At stability 5 or less a colony declares autonomy after five turns of warning. The colony's stability breakdown shows exactly what is pulling it down.
+event.unrest.1.c0,Send envoys with concessions
+event.unrest.1.c1,Impose a curfew
+event.unrest.1.c2,Wait for it to pass
+event.unrest.2.title,After the Unrest
+event.unrest.2.body,"The posters have faded and the markets keep later hours again, but {colony} remembers. The Steward's deputies have gathered the complaints that surfaced during the unrest into a single, surprisingly orderly document: housing first, then work, then a place to be heard. Some of it the Compact can fix with bricks and budgets. Some of it needs a decision about what kind of place {colony} is going to be. Steward Varga asks which you would like to answer first."
+event.unrest.2.c0,Build homes first
+event.unrest.2.c1,Give them a voice in council
+event.famine.1.title,Empty Granaries
+event.famine.1.body,"The granaries on {colony} ring hollow when the quartermasters knock on them. Ration cards are already cut to the bone, and the queues at the distribution points are quiet in a way that frightens Steward Varga more than shouting would. Every third month without food, a colony loses a thousand people to hunger, departure and despair. The Steward has three ideas, none of them good: burn energy to force the hydroponic racks, eat the seed reserve, or send the hungriest families to relatives on other worlds."
+event.famine.1.hint,"Food runs out when the Compact eats more than it grows. Farm districts, Hydroponics Bays and the Ark Hull make food; every thousand settlers eats 1.00 a turn."
+event.famine.1.c0,Force the hydroponic racks
+event.famine.1.c1,Eat the seed reserve
+event.famine.1.c2,Send some families away
+event.famine.2.title,Lessons in the Ledger
+event.famine.2.body,"The hunger months are over, and nobody on {colony} wants to live through them again. The agronomists have two proposals, each with a thick appendix. The first is a ring of reserve silos, so that one bad season never again empties the granaries. The second is a program of hardier crops, bred for Aster's iron-heavy soil, that would grow more in the good years too. Steward Varga has read both appendices and would, for once, be happy to be told what to do."
+event.famine.2.c0,Build the reserve silos
+event.famine.2.c1,Breed hardier crops
+event.autonomy_return.1.title,Envoys of the Autonomy
+event.autonomy_return.1.body,"The envoys from {colony} arrived on the regular shuttle, in their best clothes, carrying a flag nobody had seen before: the colony's own emblem stitched over the Compact's hearth. They are polite and they are tired. They did not leave the Compact to be free of it, they explain, but to be heard by it. Now they want terms: a fair share of the budget, a guarantee against neglect, and a promise in writing. Steward Varga thinks the price is fair. The council is less sure."
+event.autonomy_return.1.c0,Accept their terms
+event.autonomy_return.1.c1,Let them go their own way
+event.autonomy_return.2.title,Homecoming
+event.autonomy_return.2.body,"{colony} flew the Compact's hearth again within the week, a little faded from its time in a drawer. The colony's own emblem flies beside it now, which the council has decided, after one short and one very long meeting, is fine. The returning delegates ask for one more thing before business resumes: a homecoming supper in the square, with every district invited. Or they can skip the speeches and get straight back to work, which some of them, frankly, would prefer."
+event.autonomy_return.2.c0,Hold the homecoming supper
+event.autonomy_return.2.c1,Get straight back to work
+event.solar_flare.1.title,Solar Flare
+event.solar_flare.1.body,"Ember coughed at dawn. The K-type star threw off a flare that turned Aster's sky green along the horizon and set every radio on the colony hissing. Captain Brandt, on the night watch, reports a proton storm arriving within the day: nothing dangerous to people under a roof, but ruinous to exposed power lines and transformer yards. The grid crews can shield the most exposed lines if they start now, at a price. Or the Compact can ride out the storm and repair whatever burns."
+event.solar_flare.1.c0,Shield the grid
+event.solar_flare.1.c1,Ride out the storm
+event.solar_flare.2.title,Aurora Season
+event.solar_flare.2.body,"The storm passed, but it left a gift: for weeks the nights over Ember have shimmered with auroras, great folding curtains of green and violet. Children stay up late to watch. Astronomers stay up later. The flare also stirred something in the star's corona that the archive's instruments have never recorded, a faint periodic ripple in its light. Captain Brandt thinks it is instrument noise. The physics section would like a month of observing time to be sure, and the colony would like a festival."
+event.solar_flare.2.c0,Give the astronomers a month
+event.solar_flare.2.c1,Hold an aurora festival
+event.crop_blight.1.title,Crop Blight
+event.crop_blight.1.body,"A grey bloom has appeared on the wheat in the western fields of {colony}, fine as ash and spreading along the irrigation lines. Agronomist Petra Okafor has seen nothing like it in the seed archive's records. She thinks it came down with the last supply drop, riding on a sack. She can quarantine the affected fields and lose their harvest, or try an untested fungicide and hope, or burn a firebreak across the valley, which is certain, costly and very hard to watch."
+event.crop_blight.1.hint,"An uncertain choice shows every outcome and its chance. The result is rolled when you choose, and the turn report says which one happened."
+event.crop_blight.1.c0,Quarantine the fields
+event.crop_blight.1.c1,Try the untested fungicide
+event.crop_blight.1.c1.o0,"The fungicide works, and the fields come back greener than before."
+event.crop_blight.1.c1.o1,"The fungicide fails, and the blight takes half the valley."
+event.crop_blight.1.c2,Burn a firebreak
+event.crop_blight.2.title,Okafor's Strain
+event.crop_blight.2.body,"Petra Okafor spent the blight months in a greenhouse with the grey bloom, a microscope and very little sleep. She came out with a wheat strain that shrugs the mould off entirely, and a theory about why: the blight hates iron, and Aster's soil is full of it. With support she could breed the resistance into every crop the Compact grows. Or she could publish her notes and let every farm district run its own trials, which is slower but costs nothing."
+event.crop_blight.2.c0,Fund her breeding program
+event.crop_blight.2.c1,Publish her notes
+event.mine_collapse.1.title,Mine Collapse
+event.mine_collapse.1.body,"A gallery in the deep seam on {colony} has come down, and eleven miners are behind the fall. Rescue lines report tapping on the pipes: they are alive, for now. Shift boss Ibrahim Sesay wants to cut a relief shaft through the unstable rock, which will take every drill and every tonne of shoring the colony has. The mine engineers say sealing the gallery is the only way to save the rest of the seam. Everybody is looking at the Steward's office, and the Steward is looking at you."
+event.mine_collapse.1.c0,Cut the relief shaft
+event.mine_collapse.1.c1,Seal the gallery
+event.mine_collapse.2.title,The Eleven
+event.mine_collapse.2.body,"All eleven came up alive, blinking at the floodlights, and the whole colony turned out to cheer them. Ibrahim Sesay has barely slept since. He has an idea born in the dark: the collapse happened because nobody mapped the old seam properly, and the survey maps the Ark brought are a century out of date. Give him a crew and a season, and he will map the whole deposit. The survey costs power for the scanners, and it will pay back for years."
+event.mine_collapse.2.c0,Give Sesay his season
+event.mine_collapse.2.c1,Honour them and move on
+event.mine_collapse.3.title,The Sealed Gallery
+event.mine_collapse.3.body,"The seam was saved. The gallery stays shut, and eleven names are chalked on the shoring at its mouth, rewritten every morning by someone nobody has caught. Output is up and morale is down. Shift boss Ibrahim Sesay has asked, formally and in writing, for a memorial and an inquiry. The mine engineers have asked, informally and loudly, that the matter be closed. It will not be closed, Steward Varga notes, simply because someone says it is."
+event.mine_collapse.3.c0,Hold the inquiry and build the memorial
+event.mine_collapse.3.c1,Close the matter
+event.founding_day.1.title,Founding Day
+event.founding_day.1.body,"It is the anniversary of first landfall on Aster, and the colony has been decorating for a week without anyone quite organising it. Paper lanterns hang from the cargo cranes, the bakery has attempted a cake shaped like the Ark, and somebody has taught the school choir a song from Sol that nobody else remembers the words to. Steward Varga would like to know how grand the Compact wants to be about it. A great festival costs real food and power. A quiet supper costs almost nothing."
+event.founding_day.1.c0,Throw a grand festival
+event.founding_day.1.c1,Share a quiet supper
+event.founding_day.1.c2,Make it a working holiday
+event.founding_day.2.title,The Morning After
+event.founding_day.2.body,"The lanterns came down, the cake was eaten, and the choir's Sol song has become, overnight, the most hummed tune on Aster. During the clean-up, a volunteer found a time capsule sealed at first landing and forgotten under the old landing pad: letters from the founders to whoever came after, a seed packet, and a data slate labelled only ""for the archive"". Archivist Sola would like the slate. The school would like the letters. Both, it turns out, would very much like the seeds."
+event.founding_day.2.c0,The slate goes to the Archive
+event.founding_day.2.c1,The letters go to the school
+event.frontier_doctor.1.title,The Frontier Doctor
+event.frontier_doctor.1.body,"Dr. Amaru Quispe arrived on the supply shuttle with two cases of instruments, a folding operating table and a reputation. She has spent twenty years walking between the Compact's outlying homesteads, setting bones and delivering babies, and she would like to know whether {colony} needs her. Archivist Sola has already checked her references, twice, and reports that they are embarrassingly good. Quispe asks for very little: a room, a stipend, and the freedom to leave when another colony needs her more."
+event.frontier_doctor.1.hint,"Growth fills free homes: 10 progress a turn, plus 2 for every free home up to 20, and a new thousand settlers arrives at 100."
+event.frontier_doctor.1.c0,Give her a clinic here
+event.frontier_doctor.1.c1,Make her the Compact's physician
+event.frontier_doctor.1.c2,Thank her and let her travel on
+event.frontier_doctor.2.title,The Doctor Returns
+event.frontier_doctor.2.body,"Dr. Quispe came back through {colony} with a new apprentice, a crate of vaccines grown from Aster's own soil bacteria, and news: two families from a failed homestead on the outer moons want to settle somewhere with a doctor nearby. She has vouched for them. The vaccines will keep the colony healthy through the dry season. The families would bring skills and hands. Quispe, being practical, suggests the Compact take both, and apologises in advance for the paperwork."
+event.frontier_doctor.2.c0,Welcome the families
+event.frontier_doctor.2.c1,Share the vaccines widely
+event.refugee_slowboat.1.title,Refugee Slowboat
+event.refugee_slowboat.1.body,"A slowboat nobody expected has limped into Ember on a dying reactor: the Kestrel, eighty years out of a colony that failed. Captain Brandt's patrol boarded her and found three thousand people in cramped decks, thin, polite and very frightened. Their captain, a grey-haired woman named Sunniva Arnesen, asks for nothing but water and a chance. The council is divided. The Compact has room, but not much, and newcomers who arrive hungry can unsettle a colony that is still learning to feel settled itself."
+event.refugee_slowboat.1.c0,Take them all in
+event.refugee_slowboat.1.c1,Take the sick and the children
+event.refugee_slowboat.1.c2,Resupply them and send them on
+event.refugee_slowboat.2.title,New Neighbours
+event.refugee_slowboat.2.body,"The Kestrel's people have settled faster than anyone feared. They brought a trade Aster had nearly lost: Sunniva Arnesen's crew rebuilt reactors for a living, and her engineers are already arguing happily with the Compact's. The newcomers have also brought their own festivals, their own recipes and one very loud brass band. Now Arnesen asks for a small thing: a quarter of their own on {colony}, where they can keep their old names for the streets. The council waits for your word."
+event.refugee_slowboat.2.c0,Give them their quarter
+event.refugee_slowboat.2.c1,Mix them in everywhere
+event.ice_comet.1.title,Ice Comet Capture
+event.ice_comet.1.body,"A dirty snowball the size of a mountain is falling through Ember on a long, slow orbit, and Captain Brandt has done the arithmetic twice: with a few tugs and a lot of patience, it could be nudged into a parking orbit around Aster and mined for water. Water means irrigation, and irrigation means food. The nudge costs energy and minerals up front. There is also a chance, which Brandt puts honestly at three in ten, that the comet breaks apart and rains debris on the colony's orbital lanes."
+event.ice_comet.1.c0,Nudge it into orbit
+event.ice_comet.1.c0.o0,A perfect capture: a new moon of ice hangs over Aster.
+event.ice_comet.1.c0.o1,"The comet breaks apart; some ice is saved, and the lanes are dangerous for a while."
+event.ice_comet.1.c1,Let it pass by
+event.ice_comet.2.title,Meltwater
+event.ice_comet.2.body,"The captured comet hangs over Aster like a second, smaller moon, trailing a faint tail when the sun catches it. Its meltwater has turned the southern flats green for the first time since landing. Now the engineers ask what to do with the rest of it. The ice could be piped to the farms for years, or cracked into hydrogen and oxygen to feed the colony's power plants. Captain Brandt votes for the power plants. Steward Varga votes, emphatically, for the farms."
+event.ice_comet.2.c0,Pipe it to the farms
+event.ice_comet.2.c1,Crack it for fuel
+event.debris_cascade.1.title,Orbital Debris Cascade
+event.debris_cascade.1.body,"Two dead satellites from the Ark's first survey collided over Aster last night, and the fragments have started hitting other fragments. Captain Brandt has the tracking plots up: a thin, growing ring of debris across the orbits the shipyard uses. Nothing is in danger today. In a month, the lanes above the Spaceport will be a hailstorm. A clean-up takes tugs, fuel and minerals for shielding. Or the Compact can wait, watch the telescopes go blind one by one, and let the ring thin out on its own."
+event.debris_cascade.1.c0,Clean it up now
+event.debris_cascade.1.c1,Let it thin out
+event.debris_cascade.2.title,Salvage Rights
+event.debris_cascade.2.body,"The clean-up crews did their job and found something unexpected in the wreckage: the old survey satellites were built with the best materials Sol could spare, and the fragments are rich in rare metals. Captain Brandt suggests keeping the tugs busy for another month to sort and smelt the salvage. The Archive would rather have the satellites' memory cores, scorched but perhaps readable, for their century-old survey data. There is time and fuel for one of the two."
+event.debris_cascade.2.c0,Smelt the salvage
+event.debris_cascade.2.c1,Recover the memory cores
+scenario.s1.briefing,"Month 1, Year 100 of the Silence. A century after the Ark came down at Ember, its children still live in the shadow of the ship. Aster is green, crowded and hopeful; its sister worlds are empty. The slowboats need refitting before anyone can go farther, so for now the Compact's whole future lies in this one system. Build Aster up, settle Brume and Cinder, raise an outpost over Dross or on the Tithe Belt, and keep your people steady while you do it. And in the Archive, where Archivist Sola keeps the Ark's memory, something sealed is waiting to be read."
+scenario.s1.debrief,"Ember is no longer a landing site. It is a home: living colonies, an outpost humming in the dark, and a people who have learned to govern themselves. The first fragment of the Sealed Order sits on Archivist Sola's desk, three words and a century of questions. The slowboats are nearly refitted. Beyond Ember lie Halden's Gate, a dark beacon, and whatever Sol wanted its colonies not to hear. Choose one legacy to carry forward."
+objective.s1.develop_3,"Develop 3 colonies in Ember, each with 5k settlers and 6 districts"
+objective.s1.outpost_1,Build an outpost over Dross or on the Tithe Belt
+objective.s1.stable_10,"Keep every colony at stability 40 or more for 10 turns in a row, once you have 2 colonies"
+objective.s1.sealed_order_1,Decode the first fragment of the Sealed Order
+objective.s1.pops_40,Reach 40k settlers
+objective.s1.techs_8,Research 8 techs
+objective.s1.never_starve,Never let the food run out
+tutorial.s1.report,"Every turn begins with this report: the three things that matter most, then everything else by topic. Read it, then close it. Nothing in the Compact happens without a reason, and the report is where the reasons are kept."
+tutorial.s1.food,"Every number can explain itself. Hover over Food in the top bar, or tap it, to see where each kilotonne comes from and where it goes."
+tutorial.s1.farm,"Aster's settlers will soon outgrow its farms. Open Aster's planner and place a Farm district. Before you commit, the planner shows what it would change, including the bonus for farms beside farms."
+tutorial.s1.research,Research comes in cards. Each branch offers up to three; pick one in each and the Compact studies all three at once. Research you have not spent waits for the next card.
+tutorial.s1.industry,"A colony ship needs metals, and only an Industry district makes them. Its metallurgists turn minerals into metals, so plan for the minerals too."
+tutorial.s1.stability,"The strike is answered. Open Aster's stability to see every source: clerks and landmarks raise it, and settlers without work or homes lower it."
+tutorial.s1.survey,"Brume, the ocean world, could hold a colony. First the Survey Probe must study it: select the probe, then Brume, and order a survey. It takes two turns."
+tutorial.s1.colony_ship,"The Spaceport on Aster can build a Colony Ship. It costs food, minerals and metals, and carries two thousand settlers with their first shelter."
+tutorial.s1.found,Send the Colony Ship to Brume to found the Compact's second colony. It starts with a Habitation district and two thousand settlers who will need work.
+tutorial.s1.governor,"Two colonies are a lot to plan by hand. A governor builds within a budget you set, always shows its next plan and the reason for it, and obeys your veto. Turn one on."
+tutorial.s1.ordinance,"Ordinances are laws with a price: influence to pass, and energy every turn. A Festival steadies every colony for ten turns. Try one."
+tutorial.s1.storage,"Stores have limits. When a stock is full, the extra is lost, and the report warns you two turns ahead. A Storehouse raises every limit."
+tutorial.s1.outpost,"Dross and the Tithe Belt cannot hold settlers, but they can hold machines. Survey one, then send the Construction Ship to build an outpost there."
+tutorial.s1.sealed_order,"Something in the Archive has waited a hundred years for us. Read the Sealed Order, then follow the decoding in your objectives. I have footnotes ready."
+why.cond.stock_low,{resource} has run out
+why.cond.autonomous,{colony} declared autonomy
+report.rejoined,{colony} has rejoined the Compact.
+breakdown.trade,Trade in {resource}
+source.trade_rate_buy,Buy {amount} at {rate} energy each
+source.trade_rate_sell,Sell {amount} at {rate} energy each
+error.market.closed,The market opens with a Market Exchange.
+error.market.not_traded,That cannot be traded.
+error.market.bad_amount,Trade between 1 and {max} lots of 10.
+source.governor_savings,Set aside by the governor of {colony} ({pct}%)
+breakdown.rush_cost,Cost of rushing one turn
+source.rush_per_turn,"Its price spread over {turns} turns of work, at market rates"
+error.build.rush_not_first,Only the build in progress can be rushed.
+error.build.rush_last_turn,It already finishes this turn.
+error.build.rush_once,It can be rushed once a turn.

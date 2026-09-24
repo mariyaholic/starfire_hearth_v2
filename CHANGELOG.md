@@ -3,7 +3,63 @@
 Newest first. A claim marked **Verified** names the command that proved it, run from the
 repository root after `godot --headless --path . --import`. Everything else is **Unverified**.
 
-## Unreleased (after M0)
+## Unreleased: M1, First Light (in progress)
+
+### Simulation: the Scenario 1 rules (DESIGN_LOG 51–84)
+
+- State schema 2 (research branches, build queues, governors, ordinances, surveys, modifiers,
+  events, the event log, objectives, famine and autonomy counters) with migration `v1_to_v2`.
+  **Verified:** `godot --headless --path . -s tests/run_tests.gd`: the M0 fixture save still loads
+  and passes the invariants, and a new schema 2 fixture (`tests/fixtures/saves/s1_v2.json`, 16
+  scripted turns of Scenario 1) does too.
+- Rules in `sim/rules/`, each with breakdowns: economy (jobs by priority, district and colony
+  bonuses, flat upkeep and consumption, industry input and mineral shortages, caps and overflow,
+  influence), population (growth, homelessness, famine), stability (every §5.4 source, bands,
+  unrest and autonomy), research (costs, seeded hands, carry-over, rerolls, story and objective
+  techs), construction (queues, tiers, adjacency, building limits, demolition, rushing),
+  governors (advisor plans with reasons, purses, vetoes), ordinances, civilian ships (surveys,
+  outposts, colonisation), the market, objectives and the tutorial. **Verified:** the test run
+  above: 135 passed, 0 failed, 1,196 checks, including Aster's starting numbers against §5
+  (food +13.00, energy +10.00, minerals +11.00, research 1.80 per branch, influence +4.00,
+  housing 20, stability 67).
+- Event engine: triggers from a closed set of conditions with Why? reasons, scripted and status
+  chains, a paced director (at most one emergent event every 4–6 turns), choices with costs,
+  lasting modifiers, "Uncertain" outcomes on the EVENTS stream, delayed chain steps, and the
+  log. **Verified:** `--filter events` (7 tests).
+- 21 new commands, each validated with a reason (districts, upgrades, demolition, buildings,
+  ships, queue edits, rushing, research picks and rerolls, ordinances, governors, vetoes,
+  surveys, outposts, colonising, event choices, tutorial steps, trades). **Verified:**
+  `--filter commands` (every type round-trips through the registry).
+- **Golden re-baseline.** Reason: "M1: the economy, events and orders run in every phase; schema
+  2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
+  `--filter golden` (4 tests, including a save and load at every turn).
+
+### Content
+
+- Scenario 1 is playable: the full start state (Ark Hull, Spaceport, both ships, seeded research
+  hands), 4 required and 3 optional objectives, 14 tutorial steps, loss rules, locked
+  ordinances, the tech pool and the balance scope. Cinder is now a small dome world (DESIGN_LOG
+  66).
+- 16 event chains with 36 fully written steps: The Founders' Vote, Cold Sleepers, Labor Strike,
+  The Sealed Order (steps 1–2), The Ark's Last Engine; the status chains Unrest, Empty Granaries
+  and Envoys of the Autonomy; and 8 emergent chains (Solar Flare, Crop Blight, Mine Collapse,
+  Founding Day, The Frontier Doctor, Refugee Slowboat, Ice Comet Capture, Orbital Debris
+  Cascade). Every body is 60–140 words. **Verified:** `godot --headless --path . -s
+  tools/validate_data.gd`: 0 errors, 0 skipped checks, including the new reachability walk and
+  event word counts.
+
+### Bots and balance telemetry
+
+- Bot policies balanced, economy, turtle and random-legal play the whole scenario through the
+  same commands as a player; per-turn telemetry now records income, gross income, caps,
+  overflow, builds, techs, events, objectives and the outcome. `tools/telemetry_report.gd`
+  computes all five balance gates. **Verified** on 6 seeds per policy (105 turns, Normal):
+  balanced wins 6 of 6 (median win turn 79; expected 70); random-legal wins 0 of 6; no dead
+  turns; end-turn p95 34 ms. **Failing, still being tuned:** no hoarding (food early, metals
+  after the colony ships), everything matters (Foundry, Fusion Plant, Research Institute,
+  Hydroponics Bay rarely built), and the balanced win rate is above the 60–90% band.
+
+## After M0
 
 - Display renames and units (Owner request, DESIGN_LOG 42): Metals (was Alloys), Ordinance (was
   Edict), settlers (1 pop = 1,000), and units kt, GW, Mt, kt on food, energy, minerals and metals

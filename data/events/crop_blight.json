@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "id": "crop_blight",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "crop_blight",
+  "cooldown": 30,
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 10,
+        "has_district": "agriculture"
+      },
+      "speaker": "steward_varga",
+      "expression": "worried",
+      "music": "mood_tension",
+      "title_key": "event.crop_blight.1.title",
+      "body_key": "event.crop_blight.1.body",
+      "hint_key": "event.crop_blight.1.hint",
+      "choices": [
+        {
+          "label_key": "event.crop_blight.1.c0",
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": -2000,
+              "target": "colony",
+              "turns": 5
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        },
+        {
+          "label_key": "event.crop_blight.1.c1",
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          },
+          "uncertain": true,
+          "outcomes": [
+            {
+              "chance_bp": 5000,
+              "text_key": "event.crop_blight.1.c1.o0",
+              "effects": [
+                {
+                  "key": "resource_output_bp:food",
+                  "value": 1000,
+                  "target": "colony",
+                  "turns": 5
+                }
+              ]
+            },
+            {
+              "chance_bp": 5000,
+              "text_key": "event.crop_blight.1.c1.o1",
+              "effects": [
+                {
+                  "key": "resource_output_bp:food",
+                  "value": -4000,
+                  "target": "colony",
+                  "turns": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label_key": "event.crop_blight.1.c2",
+          "cost": {
+            "minerals": 3000
+          },
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": -1000,
+              "target": "colony",
+              "turns": 3
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "warm",
+      "music": "mood_hope",
+      "title_key": "event.crop_blight.2.title",
+      "body_key": "event.crop_blight.2.body",
+      "choices": [
+        {
+          "label_key": "event.crop_blight.2.c0",
+          "cost": {
+            "influence": 2500
+          },
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": 1000
+            }
+          ]
+        },
+        {
+          "label_key": "event.crop_blight.2.c1",
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": 1000,
+              "turns": 15
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

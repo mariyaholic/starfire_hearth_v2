@@ -4,11 +4,12 @@ extends RefCounted
 ## scenario document is DataValidator's job; this assumes a valid document.
 
 
-static func build(db: ContentDb, scenario_id: String, game_seed: int) -> GameState:
+static func build(db: ContentDb, scenario_id: String, game_seed: int, difficulty_id: String = "normal") -> GameState:
 	var sc: Dictionary = db.scenarios.get(scenario_id, {})
 	var s: GameState = GameState.new()
 	s.game_seed = game_seed & GameState.MAX_SEED
 	s.scenario_id = scenario_id
+	s.difficulty_id = difficulty_id if db.has("difficulty", difficulty_id) else "normal"
 	var map: Dictionary = DictIO.dict_of(sc, "map")
 	for sv: Variant in DictIO.arr_of(map, "systems"):
 		var sd: Dictionary = sv
@@ -59,8 +60,16 @@ static func build(db: ContentDb, scenario_id: String, game_seed: int) -> GameSta
 		e.name_key = DictIO.str_of(db.record("factions", e.faction_id), "name_key")
 		e.stock = DictIO.int_map(ed, "stock")
 		e.techs = DictIO.str_arr(ed, "techs")
+		for t: String in e.techs:
+			e.tech_turns[t] = 0
+		e.legacies = DictIO.str_arr(ed, "legacies")
+		e.surveyed_planets = DictIO.str_arr(ed, "surveyed")
 		for sys_id: String in DictIO.str_arr(ed, "known_systems"):
 			e.known_systems[sys_id] = Empire.FOG_SURVEYED
+		var hands: Dictionary = DictIO.dict_of(ed, "research_hands")
+		for branch: String in Empire.BRANCHES:
+			var rb: ResearchBranch = e.branch(branch)
+			rb.hand = DictIO.str_arr(hands, branch)
 		s.empires[e.id] = e
 		if e.is_player:
 			s.player_id = e.id
@@ -72,12 +81,15 @@ static func build(db: ContentDb, scenario_id: String, game_seed: int) -> GameSta
 			c.owner_id = e.id
 			c.pops = DictIO.int_of(cd, "pops")
 			c.stability = DictIO.int_of(cd, "stability", 50)
+			if DictIO.bool_of(cd, "capital") or e.capital_id.is_empty():
+				e.capital_id = c.id
 			for dv: Variant in DictIO.arr_of(cd, "districts"):
 				var dd: Dictionary = dv
 				var pd: Colony.PlacedDistrict = Colony.PlacedDistrict.new()
 				pd.slot = DictIO.int_of(dd, "slot")
 				pd.district_id = DictIO.str_of(dd, "district")
 				pd.tier = DictIO.int_of(dd, "tier", 1)
+				pd.branch = DictIO.str_of(dd, "branch")
 				c.districts.append(pd)
 			for bv: Variant in DictIO.arr_of(cd, "buildings"):
 				var bd: Dictionary = bv
@@ -86,9 +98,30 @@ static func build(db: ContentDb, scenario_id: String, game_seed: int) -> GameSta
 				pb.building_id = DictIO.str_of(bd, "building")
 				c.buildings.append(pb)
 			s.colonies[c.id] = c
+			if not e.surveyed_planets.has(c.planet_id):
+				e.surveyed_planets.append(c.planet_id)
 			if s.planets.has(c.planet_id):
 				s.planets[c.planet_id].colony_id = c.id
 				var sys_of: String = s.planets[c.planet_id].system_id
 				if s.systems.has(sys_of) and s.systems[sys_of].owner_id.is_empty():
 					s.systems[sys_of].owner_id = e.id
+		for shv: Variant in DictIO.arr_of(ed, "ships"):
+			var shd: Dictionary = shv
+			var f: Fleet = Fleet.new()
+			f.id = s.next_id("flt")
+			f.owner_id = e.id
+			f.system_id = DictIO.str_of(shd, "system")
+			s.fleets[f.id] = f
+			var sh: Ship = Ship.new()
+			sh.id = s.next_id("shp")
+			sh.hull = DictIO.str_of(shd, "hull")
+			sh.owner_id = e.id
+			sh.fleet_id = f.id
+			s.ships[sh.id] = sh
+			f.ship_ids.append(sh.id)
+	# Starting stability comes from its sources, like every later turn.
+	for cid: String in DictIO.sorted_keys(s.colonies):
+		var col: Colony = s.colonies[cid]
+		if not col.is_outpost() and not col.owner_id.is_empty():
+			col.stability = Stability.target(s, col, Economy.colony(s, col)).total
 	return s

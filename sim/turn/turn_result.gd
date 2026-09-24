@@ -18,3 +18,6 @@ var rejected: Array[Dictionary] = []
 var phase_log: Array[String] = []
 ## SHA-256 of the canonical state after the turn.
 var state_hash: String = ""
+## Each empire's economy as the production phase computed it (not saved; phases 4 and 5 and the
+## telemetry read it).
+var reports: Dictionary[String, Economy.EmpireReport] = {}

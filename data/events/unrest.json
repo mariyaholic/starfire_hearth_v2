@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "id": "unrest",
+  "kind": "status",
+  "vignette": "labor_strike",
+  "cooldown": 15,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "colony_stability_max": 15
+      },
+      "speaker": "steward_varga",
+      "expression": "stern",
+      "music": "mood_tension",
+      "title_key": "event.unrest.1.title",
+      "body_key": "event.unrest.1.body",
+      "hint_key": "event.unrest.1.hint",
+      "choices": [
+        {
+          "label_key": "event.unrest.1.c0",
+          "cost": {
+            "influence": 3000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 15,
+              "target": "colony",
+              "turns": 6
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        },
+        {
+          "label_key": "event.unrest.1.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 8,
+              "target": "colony",
+              "turns": 6
+            },
+            {
+              "key": "output_bp",
+              "value": -1500,
+              "target": "colony",
+              "turns": 6
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        },
+        {
+          "label_key": "event.unrest.1.c2",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": -3,
+              "target": "colony",
+              "turns": 6
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "neutral",
+      "music": "mood_hope",
+      "title_key": "event.unrest.2.title",
+      "body_key": "event.unrest.2.body",
+      "choices": [
+        {
+          "label_key": "event.unrest.2.c0",
+          "cost": {
+            "minerals": 5000
+          },
+          "effects": [
+            {
+              "key": "housing_add",
+              "value": 2,
+              "target": "colony"
+            }
+          ]
+        },
+        {
+          "label_key": "event.unrest.2.c1",
+          "cost": {
+            "influence": 2000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 4,
+              "target": "colony"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

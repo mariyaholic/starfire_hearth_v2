@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "id": "refugee_slowboat",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "refugee_slowboat",
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 20,
+        "colony_is_capital": true
+      },
+      "speaker": "captain_brandt",
+      "expression": "worried",
+      "music": "mood_sorrow",
+      "title_key": "event.refugee_slowboat.1.title",
+      "body_key": "event.refugee_slowboat.1.body",
+      "choices": [
+        {
+          "label_key": "event.refugee_slowboat.1.c0",
+          "cost": {
+            "food": 6000
+          },
+          "effects": [
+            {
+              "key": "add_pops",
+              "value": 3,
+              "over_turns": 3
+            },
+            {
+              "key": "stability_add",
+              "value": -8,
+              "target": "colony",
+              "turns": 8
+            }
+          ],
+          "set_flags": [
+            "kestrel_welcomed"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 10
+          }
+        },
+        {
+          "label_key": "event.refugee_slowboat.1.c1",
+          "cost": {
+            "food": 2500
+          },
+          "effects": [
+            {
+              "key": "add_pops",
+              "value": 1
+            },
+            {
+              "key": "stability_add",
+              "value": -2,
+              "target": "colony",
+              "turns": 5
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 10
+          }
+        },
+        {
+          "label_key": "event.refugee_slowboat.1.c2",
+          "cost": {
+            "food": 4000,
+            "energy": 3000
+          },
+          "effects": [
+            {
+              "key": "add_stock:influence",
+              "value": 2500
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "captain_brandt",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.refugee_slowboat.2.title",
+      "body_key": "event.refugee_slowboat.2.body",
+      "choices": [
+        {
+          "label_key": "event.refugee_slowboat.2.c0",
+          "cost": {
+            "minerals": 3000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5,
+              "target": "colony",
+              "turns": 10
+            },
+            {
+              "key": "resource_output_bp:energy",
+              "value": 1000,
+              "target": "colony",
+              "turns": 20
+            }
+          ]
+        },
+        {
+          "label_key": "event.refugee_slowboat.2.c1",
+          "effects": [
+            {
+              "key": "resource_output_bp:energy",
+              "value": 1000,
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

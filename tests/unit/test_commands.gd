@@ -62,3 +62,57 @@ func test_queue_validates_against_preview_and_undoes(t: T) -> void:
 	q.undo()
 	t.eq(q.undo(), null, "nothing left to undo")
 	t.eq(q.preview().colonies["col_0001"].name, "")
+
+
+func test_every_command_type_round_trips(t: T) -> void:
+	var s: GameState = S1.build()
+	var cid: String = S1.aster(s).id
+	var cmds: Array[Command] = [
+		PlaceDistrictCommand.create("emp_player", cid, 8, "research", "society"),
+		UpgradeDistrictCommand.create("emp_player", cid, 2),
+		DemolishCommand.create("emp_player", cid, 4),
+		BuildBuildingCommand.create("emp_player", cid, 9, "park_commons"),
+		BuildShipCommand.create("emp_player", cid, "colony_ship"),
+		CancelBuildCommand.create("emp_player", cid, "bld_0001"),
+		MoveBuildUpCommand.create("emp_player", cid, "bld_0002"),
+		RushBuildCommand.create("emp_player", cid, "bld_0001"),
+		PickResearchCommand.create("emp_player", "society", "hydroponics"),
+		RerollResearchCommand.create("emp_player", "physics"),
+		ActivateOrdinanceCommand.create("emp_player", "festival"),
+		CancelOrdinanceCommand.create("emp_player", "festival"),
+		SetGovernorCommand.create("emp_player", cid, true, "research", 7000),
+		VetoPlanCommand.create("emp_player", cid, "district:mining"),
+		SurveyCommand.create("emp_player", "shp_0002", "pl_brume"),
+		BuildOutpostCommand.create("emp_player", "shp_0001", "pl_dross", "research"),
+		ColoniseCommand.create("emp_player", "shp_0003", "pl_brume"),
+		ChooseEventCommand.create("emp_player", "evt_0001", 2),
+		AcknowledgeCommand.create("emp_player", "t_food"),
+		TradeCommand.create("emp_player", "alloys", 3, true),
+	]
+	var types: Dictionary[String, bool] = {}
+	for cmd: Command in cmds:
+		var d: Dictionary = cmd.to_dict()
+		var back: Command = CommandRegistry.from_dict(d)
+		t.ne(back, null, cmd.type_id())
+		if back != null:
+			t.eq(back.to_dict(), d, cmd.type_id())
+		types[cmd.type_id()] = true
+	for type: String in CommandRegistry.known_types():
+		if type != RenameColonyCommand.TYPE and type != SetJobPriorityCommand.TYPE:
+			t.ok(types.has(type), "%s is covered" % type)
+
+
+func test_orders_validate_against_the_preview(t: T) -> void:
+	var s: GameState = S1.build()
+	var q: CommandQueue = CommandQueue.new(s)
+	var cid: String = S1.aster(s).id
+	for slot: int in [8, 9, 10, 11]:
+		t.ok(q.submit(PlaceDistrictCommand.create("emp_player", cid, slot, "agriculture")).ok)
+	t.eq(q.submit(PlaceDistrictCommand.create("emp_player", cid, 12, "agriculture")).reason_key, "error.build.cannot_afford", "the fifth farm costs more than is left")
+	q.undo()
+	t.eq(q.preview().player().stock_of("minerals"), 25000 - 3 * 6000, "undo refunds through the rebuilt preview")
+	s.player().stock["minerals"] = 100000
+	var q2: CommandQueue = CommandQueue.new(s)
+	for slot2: int in [8, 9, 10, 11, 12]:
+		t.ok(q2.submit(PlaceDistrictCommand.create("emp_player", cid, slot2, "agriculture")).ok)
+	t.eq(q2.submit(PlaceDistrictCommand.create("emp_player", cid, 13, "agriculture")).reason_key, "error.build.queue_full")

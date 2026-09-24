@@ -37,33 +37,85 @@ static func run(state: GameState, player_commands: Array[Command]) -> TurnResult
 			"commands":
 				_phase_commands(r, player_commands, ai_commands)
 			"construction":
-				pass
+				_phase_construction(r)
 			"production":
-				pass
+				_phase_production(r)
 			"food_growth":
-				pass
+				_phase_food_growth(r)
 			"research":
-				pass
+				_phase_research(r)
 			"movement":
 				pass
 			"combat":
 				pass
 			"occupation":
-				pass
+				Ships.advance(r.state, r)
 			"stability_edicts":
-				pass
+				_phase_stability(r)
 			"diplomacy":
 				pass
 			"noise":
 				pass
 			"events":
-				pass
+				Events.run(r.state, r)
 			"victory":
-				pass
+				Objectives.update(r.state, r)
 			"report":
 				_phase_report(r)
 		r.phase_log.append(phase)
 	return r
+
+
+## Empires that take part in the economy, in id order.
+static func _active_empires(state: GameState) -> Array[Empire]:
+	var out: Array[Empire] = []
+	for eid: String in DictIO.sorted_keys(state.empires):
+		out.append(state.empires[eid])
+	return out
+
+
+static func _phase_construction(r: TurnResult) -> void:
+	for e: Empire in _active_empires(r.state):
+		Governor.run(r.state, e, r)
+	Construction.advance(r.state, r)
+
+
+static func _phase_production(r: TurnResult) -> void:
+	for e: Empire in _active_empires(r.state):
+		var er: Economy.EmpireReport = Economy.empire(r.state, e.id)
+		r.reports[e.id] = er
+		Production.apply(r.state, e, er, r)
+
+
+static func _phase_food_growth(r: TurnResult) -> void:
+	for e: Empire in _active_empires(r.state):
+		if not r.reports.has(e.id):
+			continue
+		var er: Economy.EmpireReport = r.reports[e.id]
+		var food_net: int = er.net_of("food")
+		var food_stock: int = e.stock_of("food")
+		for c: Colony in r.state.colonies_of(e.id):
+			if er.colonies.has(c.id):
+				Population.update(r.state, c, er.colonies[c.id], food_net, food_stock, r)
+
+
+static func _phase_research(r: TurnResult) -> void:
+	for e: Empire in _active_empires(r.state):
+		if r.reports.has(e.id):
+			Research.update(r.state, e, r.reports[e.id], r)
+
+
+static func _phase_stability(r: TurnResult) -> void:
+	var state: GameState = r.state
+	for e: Empire in _active_empires(state):
+		for c: Colony in state.colonies_of(e.id):
+			if c.is_outpost():
+				continue
+			var cr: Economy.ColonyReport = Economy.colony(state, c)
+			if Stability.update(state, c, cr, r):
+				Stability.declare_autonomy(state, c, r)
+		Ordinances.tick(state, e, r)
+	Events.tick_modifiers(state, r)
 
 
 static func _phase_commands(r: TurnResult, player_commands: Array[Command], ai_commands: Array[Command]) -> void:

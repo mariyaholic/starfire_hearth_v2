@@ -18,8 +18,9 @@ const PLAIN: Array[String] = [
 	"clear_blocked_slot", "add_trait", "remove_trait",
 	# Added in M0 for planet traits (DESIGN_LOG): slot count and ship cost modifiers.
 	"slots_add", "ship_cost_bp",
-	# Added in M1: the Archive's decode rate, outpost build time, and story buildings.
-	"decode_rate_bp", "outpost_time_bp", "add_building",
+	# Added in M1: the Archive's decode rate, outpost build time, story buildings, and a colony
+	# that declared autonomy coming back.
+	"decode_rate_bp", "outpost_time_bp", "add_building", "rejoin_colony",
 ]
 
 const PARAMETRIC: Array[String] = [

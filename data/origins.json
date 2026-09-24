@@ -1,9 +1,9 @@
 {
   "version": 1,
   "origins": [
-    { "id": "generation_ark", "name_key": "origin.generation_ark.name", "desc_key": "origin.generation_ark.desc", "modes": ["campaign", "sandbox"] },
-    { "id": "corporate_charter", "name_key": "origin.corporate_charter.name", "desc_key": "origin.corporate_charter.desc", "modes": ["sandbox"] },
-    { "id": "exile_fleet", "name_key": "origin.exile_fleet.name", "desc_key": "origin.exile_fleet.desc", "modes": ["sandbox"] },
-    { "id": "survey_mission", "name_key": "origin.survey_mission.name", "desc_key": "origin.survey_mission.desc", "modes": ["sandbox"] }
+    {"id": "generation_ark", "name_key": "origin.generation_ark.name", "desc_key": "origin.generation_ark.desc", "modes": ["campaign", "sandbox"], "effects": [{"key": "stability_add", "value": 10}, {"key": "research_bp:all", "value": -1000}]},
+    {"id": "corporate_charter", "name_key": "origin.corporate_charter.name", "desc_key": "origin.corporate_charter.desc", "modes": ["sandbox"], "effects": [{"key": "stability_add", "value": -10}]},
+    {"id": "exile_fleet", "name_key": "origin.exile_fleet.name", "desc_key": "origin.exile_fleet.desc", "modes": ["sandbox"], "effects": []},
+    {"id": "survey_mission", "name_key": "origin.survey_mission.name", "desc_key": "origin.survey_mission.desc", "modes": ["sandbox"], "effects": []}
   ]
 }

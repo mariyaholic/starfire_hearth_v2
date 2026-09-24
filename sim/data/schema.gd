@@ -69,7 +69,7 @@ const TABLES: Dictionary = {
 	},
 	"origins": {
 		"file": "origins.json", "list": "origins",
-		"fields": {"id": "id", "name_key": "key", "desc_key": "key", "modes": "list:enum:campaign|sandbox"},
+		"fields": {"id": "id", "name_key": "key", "desc_key": "key", "modes": "list:enum:campaign|sandbox", "effects": "effects"},
 	},
 	"buildings": {
 		"file": "buildings.json", "list": "buildings",

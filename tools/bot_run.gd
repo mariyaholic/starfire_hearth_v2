@@ -1,7 +1,8 @@
 extends SceneTree
 ## Headless bot playthroughs -> telemetry JSON (§13.7).
-##   godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy balanced --seeds 1-20 --turns 60 --out telemetry/
-## Options: --check-determinism replays every seed and fails if the final hash differs.
+##   godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy balanced --seeds 1-20 --turns 105 --out telemetry/
+## Options: --check-determinism replays every seed and fails if the final hash differs;
+## --difficulty story|normal|hard (default normal). A run stops early when the scenario ends.
 ## Exits 1 if any run broke an invariant or was not deterministic.
 
 
@@ -26,10 +27,10 @@ func _initialize() -> void:
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	var failed: bool = false
 	for game_seed: int in opts["seeds"]:
-		var run: BotRunner.Run = BotRunner.run(db, scenario_id, policy, game_seed, opts["turns"])
+		var run: BotRunner.Run = BotRunner.run(db, scenario_id, policy, game_seed, opts["turns"], opts["difficulty"])
 		var doc: Dictionary = run.to_dict()
 		if opts["check_determinism"]:
-			var again: BotRunner.Run = BotRunner.run(db, scenario_id, policy, game_seed, opts["turns"])
+			var again: BotRunner.Run = BotRunner.run(db, scenario_id, policy, game_seed, opts["turns"], opts["difficulty"])
 			var same: bool = again.hashes == run.hashes
 			doc["meta"]["determinism_checked"] = true
 			doc["meta"]["deterministic"] = same
@@ -41,19 +42,19 @@ func _initialize() -> void:
 			failed = true
 			for p: String in run.problems.slice(0, 10):
 				printerr("  ", p)
-		var path: String = out_dir.path_join("%s_%s_seed%d.json" % [scenario_id, policy, game_seed])
+		var path: String = out_dir.path_join("%s_%s_%s_seed%d.json" % [scenario_id, policy, opts["difficulty"], game_seed])
 		var f: FileAccess = FileAccess.open(path, FileAccess.WRITE)
 		f.store_string(JSON.stringify(doc, " ", false) + "\n")
 		f.close()
-		print("%s %s seed %d: %d turns, %d invariant problem(s), end turn mean %.2f ms p95 %.2f ms -> %s" % [
-			scenario_id, policy, game_seed, s["turns"], s["invariant_problems"], s["end_turn_ms_mean"], s["end_turn_ms_p95"], path])
+		print("%s %s %s seed %d: %s at turn %d (%d turns), %d invariant problem(s), end turn mean %.2f ms p95 %.2f ms" % [
+			scenario_id, policy, opts["difficulty"], game_seed, s["outcome"] if s["outcome"] != "" else "unfinished", s["outcome_turn"], s["turns"], s["invariant_problems"], s["end_turn_ms_mean"], s["end_turn_ms_p95"]])
 	quit(1 if failed else 0)
 
 
 func _parse(args: PackedStringArray) -> Dictionary:
 	var o: Dictionary = {
 		"scenario": "s1", "policy": "balanced", "seeds": [1], "turns": 60,
-		"out": "telemetry", "check_determinism": false,
+		"out": "telemetry", "check_determinism": false, "difficulty": "normal",
 	}
 	var i: int = 0
 	while i < args.size():
@@ -77,6 +78,9 @@ func _parse(args: PackedStringArray) -> Dictionary:
 				i += 1
 			"--check-determinism":
 				o["check_determinism"] = true
+			"--difficulty":
+				o["difficulty"] = next
+				i += 1
 		i += 1
 	return o
 

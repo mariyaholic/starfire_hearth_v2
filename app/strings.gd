@@ -3,7 +3,9 @@ extends Node
 ##
 ## fmt() fills {name} placeholders from `args`. An argument whose name ends in "_key" is itself a
 ## string key: it is resolved first and offered to the text without the suffix, so
-## {"reason_key": "error.colony.not_found"} fills {reason}.
+## {"reason_key": "error.colony.not_found"} fills {reason}. An argument ending in "_c" is an
+## amount in centi-units and is shown as a decimal without trailing zeros: {"each_c": 450} fills
+## {each} with "4.5".
 
 var table: StringTable
 var _translation: Translation
@@ -42,6 +44,21 @@ func fmt(key: String, args: Dictionary = {}) -> String:
 		var arg_name: String = str(k)
 		if arg_name.ends_with("_key") and typeof(args[k]) == TYPE_STRING:
 			values[arg_name.trim_suffix("_key")] = fmt(args[k], plain)
+		elif arg_name.ends_with("_c") and typeof(args[k]) == TYPE_INT:
+			values[arg_name.trim_suffix("_c")] = centi(args[k])
 		else:
 			values[arg_name] = str(args[k])
 	return text.format(values)
+
+
+## A centi-unit amount as a short decimal: 450 -> "4.5", 400 -> "4", -25 -> "−0.25".
+static func centi(v: int) -> String:
+	var sign: String = "\u2212" if v < 0 else ""
+	var a: int = absi(v)
+	var whole: int = a / 100
+	var frac: int = a % 100
+	if frac == 0:
+		return "%s%d" % [sign, whole]
+	if frac % 10 == 0:
+		return "%s%d.%d" % [sign, whole, frac / 10]
+	return "%s%d.%02d" % [sign, whole, frac]

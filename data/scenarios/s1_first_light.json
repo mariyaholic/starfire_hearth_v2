@@ -3,69 +3,562 @@
   "id": "s1_first_light",
   "name_key": "scenario.s1.name",
   "desc_key": "scenario.s1.desc",
-  "status": "stub",
+  "briefing_key": "scenario.s1.briefing",
+  "debrief_key": "scenario.s1.debrief",
+  "status": "playable",
   "origin": "generation_ark",
+  "expected_turns": 70,
+  "director_start": 8,
+  "teaches": [
+    "colonies",
+    "economy",
+    "research",
+    "stability",
+    "governors",
+    "ordinances"
+  ],
+  "tech_pool": {
+    "exclude_military": true,
+    "always_offer": [
+      "habitat_domes"
+    ]
+  },
+  "locked_ordinances": [
+    "radio_silence"
+  ],
+  "music": {
+    "briefing": "mus_title",
+    "main": "mus_slowboat_1"
+  },
   "map": {
     "systems": [
       {
-        "id": "sys_ember", "name_key": "system.ember.name", "x": 0, "y": 0, "spectral": "K", "magnitude": 3,
-        "specials": [], "beacon": "none",
+        "id": "sys_ember",
+        "name_key": "system.ember.name",
+        "x": 0,
+        "y": 0,
+        "spectral": "K",
+        "magnitude": 3,
+        "specials": [],
+        "beacon": "none",
         "planets": [
-          { "id": "pl_aster", "name_key": "planet.aster.name", "type": "continental", "size": "medium", "orbit": 1,
-            "traits": ["fertile_soil"], "blocked_slots": [7, 15], "art_seed": 11 },
-          { "id": "pl_brume", "name_key": "planet.brume.name", "type": "ocean", "size": "small", "orbit": 2,
-            "traits": ["geothermal"], "blocked_slots": [], "art_seed": 23 },
-          { "id": "pl_cinder", "name_key": "planet.cinder.name", "type": "barren", "size": "tiny", "orbit": 0,
-            "traits": ["rich_veins"], "blocked_slots": [], "art_seed": 37 },
-          { "id": "pl_dross", "name_key": "planet.dross.name", "type": "gas_giant", "size": "", "orbit": 3,
-            "traits": [], "blocked_slots": [], "art_seed": 41 },
-          { "id": "pl_tithe", "name_key": "planet.tithe.name", "type": "asteroid_belt", "size": "", "orbit": 4,
-            "traits": [], "blocked_slots": [], "art_seed": 53 }
+          {
+            "id": "pl_aster",
+            "name_key": "planet.aster.name",
+            "type": "continental",
+            "size": "medium",
+            "orbit": 1,
+            "traits": [
+              "fertile_soil"
+            ],
+            "blocked_slots": [
+              7,
+              15
+            ],
+            "art_seed": 11
+          },
+          {
+            "id": "pl_brume",
+            "name_key": "planet.brume.name",
+            "type": "ocean",
+            "size": "small",
+            "orbit": 2,
+            "traits": [
+              "geothermal"
+            ],
+            "blocked_slots": [
+              10
+            ],
+            "art_seed": 23
+          },
+          {
+            "id": "pl_cinder",
+            "name_key": "planet.cinder.name",
+            "type": "barren",
+            "size": "small",
+            "orbit": 0,
+            "traits": [
+              "rich_veins"
+            ],
+            "blocked_slots": [],
+            "art_seed": 37
+          },
+          {
+            "id": "pl_dross",
+            "name_key": "planet.dross.name",
+            "type": "gas_giant",
+            "size": "",
+            "orbit": 3,
+            "traits": [],
+            "blocked_slots": [],
+            "art_seed": 41
+          },
+          {
+            "id": "pl_tithe",
+            "name_key": "planet.tithe.name",
+            "type": "asteroid_belt",
+            "size": "",
+            "orbit": 4,
+            "traits": [],
+            "blocked_slots": [],
+            "art_seed": 53
+          }
         ]
       },
-      { "id": "sys_halden", "name_key": "system.halden.name", "x": 420, "y": -180, "spectral": "G", "magnitude": 3, "specials": ["dormant_beacon"], "beacon": "dormant", "planets": [] },
-      { "id": "sys_vesper", "name_key": "system.vesper.name", "x": -310, "y": -260, "spectral": "G", "magnitude": 4, "specials": [], "beacon": "none", "planets": [] },
-      { "id": "sys_shroud", "name_key": "system.shroud.name", "x": -380, "y": 170, "spectral": "M", "magnitude": 2, "specials": ["nebula", "derelict"], "beacon": "none", "planets": [] },
-      { "id": "sys_tessel", "name_key": "system.tessel.name", "x": 250, "y": 300, "spectral": "K", "magnitude": 2, "specials": ["rich_asteroids"], "beacon": "none", "planets": [] },
-      { "id": "sys_scour", "name_key": "system.scour.name", "x": 560, "y": 120, "spectral": "M", "magnitude": 1, "specials": [], "beacon": "none", "planets": [] },
-      { "id": "sys_corrie", "name_key": "system.corrie.name", "x": 30, "y": -420, "spectral": "white_dwarf", "magnitude": 1, "specials": ["ruins"], "beacon": "none", "planets": [] }
+      {
+        "id": "sys_halden",
+        "name_key": "system.halden.name",
+        "x": 420,
+        "y": -180,
+        "spectral": "G",
+        "magnitude": 3,
+        "specials": [
+          "dormant_beacon"
+        ],
+        "beacon": "dormant",
+        "planets": []
+      },
+      {
+        "id": "sys_vesper",
+        "name_key": "system.vesper.name",
+        "x": -310,
+        "y": -260,
+        "spectral": "G",
+        "magnitude": 4,
+        "specials": [],
+        "beacon": "none",
+        "planets": []
+      },
+      {
+        "id": "sys_shroud",
+        "name_key": "system.shroud.name",
+        "x": -380,
+        "y": 170,
+        "spectral": "M",
+        "magnitude": 2,
+        "specials": [
+          "nebula",
+          "derelict"
+        ],
+        "beacon": "none",
+        "planets": []
+      },
+      {
+        "id": "sys_tessel",
+        "name_key": "system.tessel.name",
+        "x": 250,
+        "y": 300,
+        "spectral": "K",
+        "magnitude": 2,
+        "specials": [
+          "rich_asteroids"
+        ],
+        "beacon": "none",
+        "planets": []
+      },
+      {
+        "id": "sys_scour",
+        "name_key": "system.scour.name",
+        "x": 560,
+        "y": 120,
+        "spectral": "M",
+        "magnitude": 1,
+        "specials": [],
+        "beacon": "none",
+        "planets": []
+      },
+      {
+        "id": "sys_corrie",
+        "name_key": "system.corrie.name",
+        "x": 30,
+        "y": -420,
+        "spectral": "white_dwarf",
+        "magnitude": 1,
+        "specials": [
+          "ruins"
+        ],
+        "beacon": "none",
+        "planets": []
+      }
     ],
     "lanes": [
-      { "a": "sys_ember", "b": "sys_halden", "length_cly": 450, "kind": "deep" },
-      { "a": "sys_ember", "b": "sys_vesper", "length_cly": 400, "kind": "deep" },
-      { "a": "sys_ember", "b": "sys_shroud", "length_cly": 420, "kind": "deep" },
-      { "a": "sys_ember", "b": "sys_tessel", "length_cly": 390, "kind": "deep" },
-      { "a": "sys_ember", "b": "sys_corrie", "length_cly": 420, "kind": "deep" },
-      { "a": "sys_halden", "b": "sys_scour", "length_cly": 320, "kind": "deep" }
+      {
+        "a": "sys_ember",
+        "b": "sys_halden",
+        "length_cly": 450,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_ember",
+        "b": "sys_vesper",
+        "length_cly": 400,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_ember",
+        "b": "sys_shroud",
+        "length_cly": 420,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_ember",
+        "b": "sys_tessel",
+        "length_cly": 390,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_ember",
+        "b": "sys_corrie",
+        "length_cly": 420,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_halden",
+        "b": "sys_scour",
+        "length_cly": 320,
+        "kind": "deep"
+      }
     ],
-    "fog_locked": ["sys_halden", "sys_vesper", "sys_shroud", "sys_tessel", "sys_scour", "sys_corrie"]
+    "fog_locked": [
+      "sys_halden",
+      "sys_vesper",
+      "sys_shroud",
+      "sys_tessel",
+      "sys_scour",
+      "sys_corrie"
+    ]
   },
   "start": {
     "empires": [
       {
-        "id": "emp_player", "faction": "ark", "origin": "generation_ark", "is_player": true,
-        "stock": { "food": 15000, "energy": 12000, "minerals": 25000, "alloys": 0, "influence": 6000 },
+        "id": "emp_player",
+        "faction": "ark",
+        "origin": "generation_ark",
+        "is_player": true,
+        "stock": {
+          "food": 15000,
+          "energy": 12000,
+          "minerals": 25000,
+          "alloys": 0,
+          "influence": 6000
+        },
         "techs": [],
-        "known_systems": ["sys_ember"],
+        "known_systems": [
+          "sys_ember"
+        ],
+        "surveyed": [
+          "pl_aster"
+        ],
+        "research_hands": {
+          "physics": [
+            "fusion_efficiency",
+            "sensor_arrays"
+          ],
+          "society": [
+            "hydroponics",
+            "frontier_medicine",
+            "civic_charters"
+          ],
+          "engineering": [
+            "automated_mining",
+            "orbital_construction"
+          ]
+        },
+        "ships": [
+          {
+            "hull": "construction_ship",
+            "system": "sys_ember"
+          },
+          {
+            "hull": "survey_probe",
+            "system": "sys_ember"
+          }
+        ],
         "colonies": [
           {
-            "planet": "pl_aster", "pops": 10, "stability": 60,
+            "planet": "pl_aster",
+            "pops": 10,
+            "capital": true,
             "districts": [
-              { "slot": 0, "district": "habitation" },
-              { "slot": 1, "district": "habitation" },
-              { "slot": 2, "district": "agriculture" },
-              { "slot": 3, "district": "agriculture" },
-              { "slot": 4, "district": "energy" },
-              { "slot": 5, "district": "mining" }
+              {
+                "slot": 0,
+                "district": "habitation"
+              },
+              {
+                "slot": 1,
+                "district": "habitation"
+              },
+              {
+                "slot": 2,
+                "district": "agriculture"
+              },
+              {
+                "slot": 3,
+                "district": "agriculture"
+              },
+              {
+                "slot": 4,
+                "district": "energy"
+              },
+              {
+                "slot": 5,
+                "district": "mining"
+              }
+            ],
+            "buildings": [
+              {
+                "slot": -1,
+                "building": "ark_hull"
+              },
+              {
+                "slot": 6,
+                "building": "spaceport"
+              }
             ]
           }
         ]
       }
     ]
   },
-  "objectives": { "required": [], "optional": [] },
-  "tutorial": [],
-  "scripted_events": [],
-  "legacies": [],
-  "loss": []
+  "objectives": {
+    "required": [
+      {
+        "id": "develop_3",
+        "type": "colonies_developed",
+        "count": 3,
+        "system": "sys_ember",
+        "text_key": "objective.s1.develop_3"
+      },
+      {
+        "id": "outpost_1",
+        "type": "outposts",
+        "count": 1,
+        "text_key": "objective.s1.outpost_1"
+      },
+      {
+        "id": "stable_10",
+        "type": "stability_streak",
+        "min": 40,
+        "turns": 10,
+        "min_colonies": 2,
+        "text_key": "objective.s1.stable_10"
+      },
+      {
+        "id": "sealed_order_1",
+        "type": "flag",
+        "flag": "sealed_order_fragment_1",
+        "text_key": "objective.s1.sealed_order_1"
+      }
+    ],
+    "optional": [
+      {
+        "id": "pops_40",
+        "type": "total_pops",
+        "count": 40,
+        "text_key": "objective.s1.pops_40"
+      },
+      {
+        "id": "techs_8",
+        "type": "techs",
+        "count": 8,
+        "text_key": "objective.s1.techs_8"
+      },
+      {
+        "id": "never_starve",
+        "type": "never_flag",
+        "flag": "food_ran_out",
+        "text_key": "objective.s1.never_starve"
+      }
+    ]
+  },
+  "tutorial": [
+    {
+      "id": "t_report",
+      "turn": 1,
+      "highlight": "report",
+      "text_key": "tutorial.s1.report",
+      "complete_on": {
+        "ui": "report_closed"
+      }
+    },
+    {
+      "id": "t_food",
+      "turn": 1,
+      "highlight": "topbar.food",
+      "text_key": "tutorial.s1.food",
+      "complete_on": {
+        "ui": "breakdown_opened:food"
+      }
+    },
+    {
+      "id": "t_farm",
+      "turn": 2,
+      "highlight": "colony.planner",
+      "text_key": "tutorial.s1.farm",
+      "complete_on": {
+        "state": "queued_district:agriculture"
+      }
+    },
+    {
+      "id": "t_research",
+      "turn": 3,
+      "highlight": "nav.research",
+      "text_key": "tutorial.s1.research",
+      "complete_on": {
+        "state": "research_picked"
+      }
+    },
+    {
+      "id": "t_industry",
+      "turn": 4,
+      "highlight": "colony.planner",
+      "text_key": "tutorial.s1.industry",
+      "complete_on": {
+        "state": "queued_district:industry"
+      }
+    },
+    {
+      "id": "t_stability",
+      "turn": 5,
+      "highlight": "colony.stability",
+      "text_key": "tutorial.s1.stability",
+      "complete_on": {
+        "state": "event_answered:labor_strike"
+      }
+    },
+    {
+      "id": "t_survey",
+      "turn": 8,
+      "highlight": "nav.system",
+      "text_key": "tutorial.s1.survey",
+      "complete_on": {
+        "state": "survey_ordered:pl_brume"
+      }
+    },
+    {
+      "id": "t_colony_ship",
+      "turn": 12,
+      "highlight": "colony.shipyard",
+      "text_key": "tutorial.s1.colony_ship",
+      "complete_on": {
+        "state": "queued_ship:colony_ship"
+      }
+    },
+    {
+      "id": "t_found",
+      "turn": 15,
+      "highlight": "nav.system",
+      "text_key": "tutorial.s1.found",
+      "complete_on": {
+        "state": "colonies:2"
+      }
+    },
+    {
+      "id": "t_governor",
+      "turn": 20,
+      "highlight": "colony.governor",
+      "text_key": "tutorial.s1.governor",
+      "complete_on": {
+        "state": "governor_on"
+      }
+    },
+    {
+      "id": "t_ordinance",
+      "turn": 25,
+      "highlight": "nav.ordinances",
+      "text_key": "tutorial.s1.ordinance",
+      "complete_on": {
+        "state": "ordinance_active"
+      }
+    },
+    {
+      "id": "t_storage",
+      "turn": 30,
+      "highlight": "colony.planner",
+      "text_key": "tutorial.s1.storage",
+      "complete_on": {
+        "state": "building:storehouse"
+      }
+    },
+    {
+      "id": "t_outpost",
+      "turn": 35,
+      "highlight": "nav.system",
+      "text_key": "tutorial.s1.outpost",
+      "complete_on": {
+        "state": "outpost_ordered"
+      }
+    },
+    {
+      "id": "t_sealed_order",
+      "turn": 40,
+      "highlight": "nav.objectives",
+      "text_key": "tutorial.s1.sealed_order",
+      "complete_on": {
+        "state": "flag:sealed_order_active"
+      }
+    }
+  ],
+  "scripted_events": [
+    "labor_strike",
+    "founders_vote",
+    "cold_sleepers",
+    "sealed_order",
+    "ark_last_engine",
+    "unrest",
+    "famine",
+    "autonomy_return"
+  ],
+  "legacies": [
+    "seasoned_farmers",
+    "archive_scholars",
+    "steady_hands"
+  ],
+  "loss": [
+    {
+      "type": "capital_pops_zero"
+    },
+    {
+      "type": "capital_autonomy"
+    }
+  ],
+  "balance_scope": {
+    "districts": [
+      "habitation",
+      "agriculture",
+      "energy",
+      "mining",
+      "industry",
+      "research"
+    ],
+    "buildings": [
+      "storehouse",
+      "hydroponics_bay",
+      "fusion_plant",
+      "foundry",
+      "research_institute",
+      "civic_hall",
+      "park_commons",
+      "clinic",
+      "habitat_dome"
+    ],
+    "techs": [
+      "fusion_efficiency",
+      "sensor_arrays",
+      "plasma_containment",
+      "wake_theory",
+      "hydroponics",
+      "frontier_medicine",
+      "civic_charters",
+      "colonial_administration",
+      "habitat_domes",
+      "genetic_crop_tailoring",
+      "cultural_archive",
+      "research_network",
+      "automated_mining",
+      "orbital_construction",
+      "foundry_automation",
+      "advanced_districts"
+    ]
+  }
 }

@@ -13,7 +13,7 @@ var last_result: TurnResult = null
 
 
 func _init() -> void:
-	db = ContentDb.load_from()
+	db = Content.db()
 	for e: String in db.errors:
 		push_error("Game data: " + e)
 

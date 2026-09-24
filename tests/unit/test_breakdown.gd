@@ -51,3 +51,21 @@ func test_to_dict_is_canonical_json_safe(t: T) -> void:
 	var errors: Array[String] = []
 	CanonicalJson.stringify(b.to_dict(), errors)
 	t.empty(errors)
+
+
+func test_flat_lines_apply_after_mults(t: T) -> void:
+	var b: Breakdown = Breakdown.for_resource("breakdown.energy", "energy")
+	b.base("source.jobs.technicians", 1000).mult("source.tech", 1000).flat("source.upkeep", -350)
+	b.finish()
+	t.eq(b.lines[1].value, 100, "+10% of the 10.00 produced, not of the upkeep")
+	t.eq(b.total, 750)
+	t.ok(b.verify())
+
+
+func test_caps_clamp_after_flat_lines(t: T) -> void:
+	var b: Breakdown = Breakdown.make("breakdown.stability", Breakdown.UNIT_POINTS)
+	b.base("source.base", 10).flat("source.famine", -15).cap_min(0, "source.cap.min")
+	b.finish()
+	t.eq(b.total, 0)
+	t.eq(b.lines[2].value, 5, "the floor gives back what the famine took below zero")
+	t.ok(b.verify())

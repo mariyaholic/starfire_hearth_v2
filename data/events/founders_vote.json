@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "id": "founders_vote",
+  "kind": "scripted",
+  "vignette": "founders_hall",
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 10
+      },
+      "speaker": "steward_varga",
+      "expression": "neutral",
+      "music": "theme_varga",
+      "title_key": "event.founders_vote.1.title",
+      "body_key": "event.founders_vote.1.body",
+      "hint_key": "event.founders_vote.1.hint",
+      "on_fire": {
+        "set_flags": [
+          "founders_vote_done"
+        ]
+      },
+      "choices": [
+        {
+          "label_key": "event.founders_vote.1.c0",
+          "effects": [
+            {
+              "key": "influence_per_turn_add",
+              "value": 100
+            }
+          ],
+          "set_flags": [
+            "gov_council"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 5
+          }
+        },
+        {
+          "label_key": "event.founders_vote.1.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5
+            }
+          ],
+          "set_flags": [
+            "gov_steward"
+          ],
+          "next": {
+            "step": 3,
+            "delay_turns": 5
+          }
+        },
+        {
+          "label_key": "event.founders_vote.1.c2",
+          "effects": [
+            {
+              "key": "research_bp:all",
+              "value": 1000
+            }
+          ],
+          "set_flags": [
+            "gov_assembly"
+          ],
+          "next": {
+            "step": 4,
+            "delay_turns": 5
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "warm",
+      "music": "theme_varga",
+      "title_key": "event.founders_vote.2.title",
+      "body_key": "event.founders_vote.2.body",
+      "choices": [
+        {
+          "label_key": "event.founders_vote.2.c0",
+          "effects": [
+            {
+              "key": "add_stock:food",
+              "value": 5000
+            }
+          ]
+        },
+        {
+          "label_key": "event.founders_vote.2.c1",
+          "effects": [
+            {
+              "key": "research_bp:all",
+              "value": 500,
+              "turns": 20
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "speaker": "steward_varga",
+      "expression": "neutral",
+      "music": "theme_varga",
+      "title_key": "event.founders_vote.3.title",
+      "body_key": "event.founders_vote.3.body",
+      "choices": [
+        {
+          "label_key": "event.founders_vote.3.c0",
+          "effects": [
+            {
+              "key": "resource_output_bp:minerals",
+              "value": 1000,
+              "turns": 15
+            }
+          ]
+        },
+        {
+          "label_key": "event.founders_vote.3.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5,
+              "turns": 15
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "speaker": "archivist_sola",
+      "expression": "warm",
+      "music": "theme_sola",
+      "title_key": "event.founders_vote.4.title",
+      "body_key": "event.founders_vote.4.body",
+      "choices": [
+        {
+          "label_key": "event.founders_vote.4.c0",
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": 1000,
+              "turns": 20
+            }
+          ]
+        },
+        {
+          "label_key": "event.founders_vote.4.c1",
+          "effects": [
+            {
+              "key": "decode_progress_add",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

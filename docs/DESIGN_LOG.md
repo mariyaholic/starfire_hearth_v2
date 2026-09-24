@@ -179,3 +179,63 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     techs). Tier III: Habitation with Arcology Design; the other districts with Foundry
     Automation's "Industrial Megaplex" effect. These settle the two open questions of §10.3 and
     §10.4 with the build prompt's defaults.
+66. **Cinder is small, not tiny.** A tiny dome world has 6 slots and its Habitat Dome takes one,
+    so it could never hold the 6 districts a developed colony needs. A small dome world has 8.
+    Brume gets one blocked slot, as §5.4 asks of every planet.
+67. **Where each bonus applies** (refines 53). Tier, adjacency and district traits raise that
+    district's own job output. Resource, output and research bonuses raise the colony's whole
+    output of that resource, flat building output included. Upkeep, what settlers eat and
+    industry's mineral input are flat lines applied after both (a new `flat` breakdown line
+    kind), so no bonus ever scales a cost. Within a level, percentages add up.
+68. **Inside a job group, the most productive district fills first,** then the lowest slot, so a
+    new Research district next to Energy districts is never left idle behind an older one.
+69. **Hex layout:** slot 0 is the centre, rings fill in order, and a partly used ring spreads its
+    slots evenly around the ring. Adjacency is the six axial neighbours. The planner draws the
+    same coordinates, so what looks adjacent is what counts.
+70. **Research progress belongs to the branch** and carries over. Switching cards loses nothing.
+    When a tech completes, the two unpicked cards stay and one new card is drawn; a reroll
+    keeps the picked card and story cards.
+71. **A governor's budget is a share of the minerals income** (default 50%), not of the stock.
+    Revised by 80.
+72. **Outpost discounts stop at −75%.** Colonial Administration and Frontier Charter together would
+    otherwise make outposts free; the breakdown notes the floor when it applies.
+73. **Stability is recomputed every turn from its sources,** with no drift, so its breakdown is the
+    whole story. A colony at 5 or below counts down five warned turns before declaring autonomy.
+74. **Homeless settlers keep growing at half speed** with no cap (§5.4), so a housing shortfall
+    shows up in stability rather than silently stopping growth.
+75. **Radio Silence is locked in Scenario 1** (the scenario's `locked_ordinances`): Noise arrives in
+    Scenario 2.
+76. **Civilian ship tasks:** a survey takes 2 turns, an outpost 4 (Orbital Construction halves
+    it), and a colony is founded at the end of the turn the landing is ordered. In M1 a ship
+    works only inside its own system.
+77. **A colony ship's hull becomes the first shelter,** free: a Habitation district on an open world,
+    the Habitat Dome on a dome world (revises 61, which charged for the dome). A new colony
+    otherwise starts with two homeless, jobless thousands and falls below the stability
+    objective at once.
+78. **The market is in M1** (brought forward from M3): a Market Exchange (Colonial Administration)
+    opens it at §5.3's fixed rates, in lots of 10.00, and every trade shows its rate. Scenario 1
+    has few sinks for energy and food otherwise. Dynamic prices and trade deals stay in M3.
+79. **A scenario's tech pool** can exclude military techs and name techs that are always offered
+    once their prerequisites are met, like story techs. Scenario 1 always offers Habitat Domes,
+    because its objectives need a dome world and a seeded draw could hide the card for many
+    turns.
+80. **Governors pay from a purse.** The production phase sets aside each governor's share of the
+    minerals income into its colony's purse, shown as a line of the minerals breakdown; the
+    governor pays a build's minerals from it, and turning the governor off returns it. With a
+    shared stock the player's own orders (phase 1) always spent the minerals before the governor
+    (phase 2) could, so governors silently never built.
+81. **Rushing a build:** pay energy to take one turn off the build in progress, once a turn,
+    never finishing it before the end of the turn. The cost is the item's price per turn of
+    work, valued at the market's buying rates. Construction is one item at a time, so minerals
+    outrun build slots while energy has few uses in Scenario 1; rushing trades one for the
+    other.
+82. **Telemetry measures gross income** as production before the flat lines (upkeep,
+    consumption, inputs). The hoarding gate leaves out random-legal runs, which never manage
+    their stocks by design. While M1 is tuned, CI prints every balance gate but only
+    invariants, determinism and performance fail the build.
+83. **The stability objective counts turns with two or more colonies:** "every colony at 40 or
+    more for 10 turns in a row" would otherwise complete in the first ten turns, before the
+    player has learned anything.
+84. **Event titles carry no placeholders** because they name modifiers in breakdowns; bodies are
+    checked by the validator for §10.6's 60–140 words. A string argument ending in `_c` is an
+    amount in centi-units that the string layer shows as a short decimal.

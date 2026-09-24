@@ -276,6 +276,68 @@ func _check_scenario(sid: String, sc: Dictionary) -> void:
 	var start: Dictionary = DictIO.dict_of(sc, "start")
 	for e: Variant in DictIO.arr_of(start, "empires"):
 		_check_start_empire(e, planets, systems, w)
+	if DictIO.str_of(sc, "status") == "playable":
+		_check_playable(sid, sc, w)
+
+
+## The parts a playable scenario needs: objectives, tutorial, events, legacies, loss rules and
+## the balance scope.
+func _check_playable(_sid: String, sc: Dictionary, w: String) -> void:
+	for k: String in ["briefing_key", "debrief_key"]:
+		_check_key(sc.get(k), "%s.%s" % [w, k])
+	if DictIO.int_of(sc, "expected_turns") < 10:
+		error(w, "expected_turns must be at least 10")
+	var objs: Dictionary = DictIO.dict_of(sc, "objectives")
+	var obj_ids: Dictionary[String, bool] = {}
+	if DictIO.arr_of(objs, "required").is_empty():
+		error(w, "a playable scenario needs at least one required objective")
+	for group: String in ["required", "optional"]:
+		for ov: Variant in DictIO.arr_of(objs, group):
+			var od: Dictionary = ov
+			var id: String = DictIO.str_of(od, "id")
+			var ow: String = "%s.objectives.%s" % [w, id]
+			if id.is_empty() or obj_ids.has(id):
+				error(ow, "objective ids must be present and unique")
+			obj_ids[id] = true
+			_check_key(od.get("text_key"), ow + ".text_key")
+			var type: String = DictIO.str_of(od, "type")
+			if not Objectives.TYPES.has(type):
+				error(ow, "unknown objective type \"%s\"" % type)
+			if type in ["flag", "never_flag"] and DictIO.str_of(od, "flag").is_empty():
+				error(ow, "a flag objective names its flag")
+	var tut_ids: Dictionary[String, bool] = {}
+	for tv: Variant in DictIO.arr_of(sc, "tutorial"):
+		var td: Dictionary = tv
+		var id: String = DictIO.str_of(td, "id")
+		var tw: String = "%s.tutorial.%s" % [w, id]
+		if not id.begins_with("t_") or tut_ids.has(id):
+			error(tw, "tutorial step ids start with t_ and are unique")
+		tut_ids[id] = true
+		_check_key(td.get("text_key"), tw + ".text_key")
+		var done: Dictionary = DictIO.dict_of(td, "complete_on")
+		if not done.has("ui") and not done.has("state"):
+			error(tw, "complete_on needs a ui or state condition")
+		if done.has("state") and not Tutorial.is_known_condition(DictIO.str_of(done, "state")):
+			error(tw, "unknown state condition \"%s\"" % DictIO.str_of(done, "state"))
+	for cid: Variant in DictIO.arr_of(sc, "scripted_events"):
+		if not db.events.has(str(cid)):
+			error(w, "scripted event chain \"%s\" has no file in data/events" % str(cid))
+	for lid: Variant in DictIO.arr_of(sc, "legacies"):
+		if not db.has("legacies", str(lid)):
+			error(w, "unknown legacy \"%s\"" % str(lid))
+	if DictIO.arr_of(sc, "loss").is_empty():
+		error(w, "a playable scenario needs a loss rule")
+	for lv: Variant in DictIO.arr_of(sc, "loss"):
+		if not Objectives.LOSS_TYPES.has(DictIO.str_of(lv, "type")):
+			error(w, "unknown loss type \"%s\"" % DictIO.str_of(lv, "type"))
+	for o: Variant in DictIO.arr_of(sc, "locked_ordinances"):
+		if not db.has("edicts", str(o)):
+			error(w, "unknown ordinance \"%s\" in locked_ordinances" % str(o))
+	var scope: Dictionary = DictIO.dict_of(sc, "balance_scope")
+	for pair: Array in [["districts", "districts"], ["buildings", "buildings"], ["techs", "techs"]]:
+		for id: Variant in DictIO.arr_of(scope, pair[0]):
+			if not db.has(pair[1], str(id)):
+				error(w, "balance_scope lists unknown %s \"%s\"" % [pair[0], str(id)])
 
 
 func _check_planet(pd: Dictionary, pw: String) -> void:
@@ -318,6 +380,23 @@ func _check_start_empire(e: Variant, planets: Dictionary[String, Dictionary], sy
 	for t: Variant in DictIO.arr_of(ed, "techs"):
 		if not db.has("techs", str(t)):
 			error(ew, "unknown tech \"%s\"" % str(t))
+	var hands: Dictionary = DictIO.dict_of(ed, "research_hands")
+	for b: Variant in hands.keys():
+		if not Empire.BRANCHES.has(str(b)):
+			error(ew, "research_hands has unknown branch \"%s\"" % str(b))
+			continue
+		for t: Variant in hands[b]:
+			if not db.has("techs", str(t)) or DictIO.str_of(db.record("techs", str(t)), "branch") != str(b):
+				error(ew, "research hand %s lists \"%s\", which is not a %s tech" % [str(b), str(t), str(b)])
+	for sv: Variant in DictIO.arr_of(ed, "ships"):
+		var shd: Dictionary = sv
+		if not db.has("hulls", DictIO.str_of(shd, "hull")):
+			error(ew, "unknown hull \"%s\"" % DictIO.str_of(shd, "hull"))
+		if not systems.has(DictIO.str_of(shd, "system")):
+			error(ew, "ship system %s is not on the map" % DictIO.str_of(shd, "system"))
+	for pv: Variant in DictIO.arr_of(ed, "surveyed"):
+		if not planets.has(str(pv)):
+			error(ew, "surveyed planet %s is not on the map" % str(pv))
 	for c: Variant in DictIO.arr_of(ed, "colonies"):
 		var cd: Dictionary = c
 		var pid: String = DictIO.str_of(cd, "planet")
@@ -341,25 +420,141 @@ func _check_start_empire(e: Variant, planets: Dictionary[String, Dictionary], sy
 			if used.has(slot):
 				error(cw, "slot %d used twice" % slot)
 			used[slot] = true
+		for bv: Variant in DictIO.arr_of(cd, "buildings"):
+			var bd: Dictionary = bv
+			var bid: String = DictIO.str_of(bd, "building")
+			var bslot: int = DictIO.int_of(bd, "slot", -2)
+			if not db.has("buildings", bid):
+				error(cw, "unknown building \"%s\"" % bid)
+				continue
+			if DictIO.bool_of(db.record("buildings", bid), "landmark"):
+				if bslot != -1:
+					error(cw, "landmark %s takes no slot (slot -1)" % bid)
+				continue
+			if bslot < 0 or bslot >= slots or blocked.has(bslot) or used.has(bslot):
+				error(cw, "building %s slot %d is invalid, blocked or taken" % [bid, bslot])
+			used[bslot] = true
 		if DictIO.int_of(cd, "pops", -1) < 0:
 			error(cw, "pops must be 0 or more")
 
 
+const EVENT_KINDS: Array[String] = ["scripted", "main_arc", "status", "emergent"]
+const EXPRESSIONS: Array[String] = ["neutral", "warm", "worried", "stern"]
+const BODY_WORDS_MIN: int = 60
+const BODY_WORDS_MAX: int = 140
+
+
 func _check_events() -> void:
 	for cid: String in DictIO.sorted_keys(db.events):
-		var chain: Dictionary = db.events[cid]
-		for step: Variant in DictIO.arr_of(chain, "steps"):
-			var sd: Dictionary = step
-			for k: String in DataSchema.KEY_FIELDS:
-				if sd.has(k):
-					_check_key(sd[k], "events/%s.%s" % [cid, k])
-			for ch: Variant in DictIO.arr_of(sd, "choices"):
-				var chd: Dictionary = ch
-				if chd.has("label_key"):
-					_check_key(chd["label_key"], "events/%s.choice" % cid)
-				_check_effects(DictIO.arr_of(chd, "effects"), "events/%s.choice.effects" % cid)
+		_check_chain(cid, db.events[cid])
 
 
+func _check_chain(cid: String, chain: Dictionary) -> void:
+	var w: String = "events/" + cid
+	if DictIO.int_of(chain, "version", -1) != 1:
+		error(w, "top-level \"version\" must be 1")
+	if not EVENT_KINDS.has(DictIO.str_of(chain, "kind")):
+		error(w, "kind must be one of %s" % ", ".join(EVENT_KINDS))
+	for sid: Variant in DictIO.arr_of(chain, "scenarios"):
+		if not db.scenarios.has(str(sid)):
+			error(w, "unknown scenario \"%s\"" % str(sid))
+	var vignette: String = DictIO.str_of(chain, "vignette")
+	if not vignette.is_empty() and not db.has("vignettes", vignette):
+		error(w, "vignette \"%s\" is not in vignettes.json" % vignette)
+	var steps: Dictionary[int, Dictionary] = {}
+	for sv: Variant in DictIO.arr_of(chain, "steps"):
+		var sd: Dictionary = sv
+		var n: int = DictIO.int_of(sd, "step", 0)
+		if n < 1 or steps.has(n):
+			error(w, "step numbers start at 1 and are unique")
+		steps[n] = sd
+	if not steps.has(1):
+		error(w, "a chain needs a step 1")
+	for n: int in steps.keys():
+		_check_step(cid, n, steps[n], steps)
+
+
+func _check_step(cid: String, n: int, sd: Dictionary, steps: Dictionary[int, Dictionary]) -> void:
+	var w: String = "events/%s.step%d" % [cid, n]
+	_check_key(sd.get("title_key"), w + ".title_key")
+	_check_key(sd.get("body_key"), w + ".body_key")
+	if sd.has("hint_key"):
+		_check_key(sd["hint_key"], w + ".hint_key")
+	var body: String = strings.entries.get(DictIO.str_of(sd, "body_key"), "")
+	var words: int = body.split(" ", false).size()
+	if not body.is_empty() and (words < BODY_WORDS_MIN or words > BODY_WORDS_MAX):
+		error(w, "the body has %d words; event bodies are %d to %d words (section 10.6)" % [words, BODY_WORDS_MIN, BODY_WORDS_MAX])
+	_check_trigger(DictIO.dict_of(sd, "trigger"), w + ".trigger")
+	var speaker: String = DictIO.str_of(sd, "speaker")
+	if not speaker.is_empty() and not db.has("portraits", speaker):
+		error(w, "speaker \"%s\" is not in portraits.json" % speaker)
+	if sd.has("expression") and not EXPRESSIONS.has(DictIO.str_of(sd, "expression")):
+		error(w, "expression must be one of %s" % ", ".join(EXPRESSIONS))
+	var music: String = DictIO.str_of(sd, "music")
+	if not music.is_empty() and DictIO.str_of(db.record("assets", music), "kind") != "music":
+		error(w, "music cue \"%s\" is not a music id in asset_manifest.json" % music)
+	var on_fire: Dictionary = DictIO.dict_of(sd, "on_fire")
+	_check_effects(DictIO.arr_of(on_fire, "effects"), w + ".on_fire.effects")
+	var choices: Array = DictIO.arr_of(sd, "choices")
+	if choices.size() > 4:
+		error(w, "a step has at most 4 choices")
+	for i in choices.size():
+		var cw: String = "%s.choice%d" % [w, i]
+		if typeof(choices[i]) != TYPE_DICTIONARY:
+			error(cw, "a choice is an object")
+			continue
+		var ch: Dictionary = choices[i]
+		_check_key(ch.get("label_key"), cw + ".label_key")
+		if ch.has("cost"):
+			_check_value(ch["cost"], "res_map", cw + ".cost")
+		_check_effects(DictIO.arr_of(ch, "effects"), cw + ".effects")
+		if ch.has("requires"):
+			_check_trigger(DictIO.dict_of(ch, "requires"), cw + ".requires")
+		if ch.has("locked_key"):
+			_check_key(ch["locked_key"], cw + ".locked_key")
+		_check_next(DictIO.dict_of(ch, "next"), steps, cw)
+		var outcomes: Array = DictIO.arr_of(ch, "outcomes")
+		if not outcomes.is_empty():
+			var sum: int = 0
+			for j in outcomes.size():
+				var od: Dictionary = outcomes[j]
+				var ow: String = "%s.outcome%d" % [cw, j]
+				sum += DictIO.int_of(od, "chance_bp")
+				_check_key(od.get("text_key"), ow + ".text_key")
+				_check_effects(DictIO.arr_of(od, "effects"), ow + ".effects")
+				_check_next(DictIO.dict_of(od, "next"), steps, ow)
+			if sum != 10000:
+				error(cw, "outcome chances add up to %d, not 10000" % sum)
+			if not DictIO.bool_of(ch, "uncertain"):
+				error(cw, "a choice with outcomes is marked \"uncertain\"")
+
+
+func _check_next(next: Dictionary, steps: Dictionary[int, Dictionary], w: String) -> void:
+	if next.is_empty():
+		return
+	if not steps.has(DictIO.int_of(next, "step")):
+		error(w, "next step %d does not exist" % DictIO.int_of(next, "step"))
+	if DictIO.int_of(next, "delay_turns", 1) < 1:
+		error(w, "delay_turns is at least 1")
+
+
+func _check_trigger(trig: Dictionary, w: String) -> void:
+	for k: Variant in trig.keys():
+		if not Events.CONDITIONS.has(str(k)) and not ["weight", "scripted", "chance_bp"].has(str(k)):
+			error(w, "unknown trigger condition \"%s\"" % str(k))
+	for t: Variant in DictIO.arr_of(trig, "techs_all"):
+		if not db.has("techs", str(t)):
+			error(w, "unknown tech \"%s\"" % str(t))
+	if trig.has("has_building") and not db.has("buildings", DictIO.str_of(trig, "has_building")):
+		error(w, "unknown building \"%s\"" % DictIO.str_of(trig, "has_building"))
+	if trig.has("has_district") and not db.has("districts", DictIO.str_of(trig, "has_district")):
+		error(w, "unknown district \"%s\"" % DictIO.str_of(trig, "has_district"))
+
+
+## For every playable scenario, walks what can be reached from its start: techs through their
+## prerequisites (inside the scenario's tech pool), buildings through their unlocking tech or a
+## story event, and district tiers through their tech. Everything in the balance scope must be
+## reachable.
 func _check_reachability() -> void:
 	var playable: Array[String] = []
 	for sid: String in DictIO.sorted_keys(db.scenarios):
@@ -368,5 +563,63 @@ func _check_reachability() -> void:
 	if playable.is_empty():
 		skip("reachability", "no playable scenario yet, so district and building reachability is not checked")
 		return
-	# M1 replaces this with a build-graph walk over each playable scenario's techs and events.
-	skip("reachability", "reachability walk arrives with the build rules in M1")
+	for sid: String in playable:
+		_check_scenario_reach(sid, db.scenarios[sid])
+
+
+func _check_scenario_reach(sid: String, sc: Dictionary) -> void:
+	var w: String = "scenarios/%s.reachability" % sid
+	var no_military: bool = DictIO.bool_of(DictIO.dict_of(sc, "tech_pool"), "exclude_military")
+	var techs: Dictionary[String, bool] = {}
+	var buildings: Dictionary[String, bool] = {}
+	for ev: Variant in DictIO.arr_of(DictIO.dict_of(sc, "start"), "empires"):
+		if not DictIO.bool_of(ev, "is_player"):
+			continue
+		for t: Variant in DictIO.arr_of(ev, "techs"):
+			techs[str(t)] = true
+		for cv: Variant in DictIO.arr_of(ev, "colonies"):
+			for bv: Variant in DictIO.arr_of(cv, "buildings"):
+				buildings[DictIO.str_of(bv, "building")] = true
+	var grew: bool = true
+	while grew:
+		grew = false
+		for tid: String in db.ids("techs"):
+			if techs.has(tid):
+				continue
+			var t: Dictionary = db.record("techs", tid)
+			if no_military and DictIO.bool_of(t, "military"):
+				continue
+			var ok: bool = true
+			for p: String in DictIO.str_arr(t, "prereqs"):
+				if not techs.has(p):
+					ok = false
+			if ok:
+				techs[tid] = true
+				grew = true
+	for bid: String in db.ids("buildings"):
+		var b: Dictionary = db.record("buildings", bid)
+		if DictIO.bool_of(b, "story"):
+			continue
+		var tech: String = DictIO.str_of(b, "unlock_tech")
+		if tech.is_empty() or techs.has(tech):
+			buildings[bid] = true
+	for cid: Variant in DictIO.arr_of(sc, "scripted_events"):
+		for step: Variant in DictIO.arr_of(db.events.get(str(cid), {}), "steps"):
+			var fx: Array = DictIO.arr_of(DictIO.dict_of(step, "on_fire"), "effects").duplicate()
+			for ch: Variant in DictIO.arr_of(step, "choices"):
+				fx.append_array(DictIO.arr_of(ch, "effects"))
+			for e: Variant in fx:
+				if DictIO.str_of(e, "key") == "add_building":
+					buildings[DictIO.str_of(e, "target")] = true
+	var scope: Dictionary = DictIO.dict_of(sc, "balance_scope")
+	for tid: Variant in DictIO.arr_of(scope, "techs"):
+		if not techs.has(str(tid)):
+			error(w, "tech \"%s\" is in the balance scope but cannot be researched" % str(tid))
+	for bid2: Variant in DictIO.arr_of(scope, "buildings"):
+		if not buildings.has(str(bid2)):
+			error(w, "building \"%s\" is in the balance scope but cannot be built" % str(bid2))
+	for did: String in db.ids("districts"):
+		for tv: Variant in DictIO.arr_of(db.record("districts", did), "tiers"):
+			var req: String = DictIO.str_of(tv, "requires_tech")
+			if not req.is_empty() and not techs.has(req) and DictIO.arr_of(scope, "districts").has(did):
+				error(w, "%s tier %d needs %s, which cannot be researched here" % [did, DictIO.int_of(tv, "tier"), req])
