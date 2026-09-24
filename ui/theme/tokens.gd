@@ -33,6 +33,17 @@ const HIGH_CONTRAST: Dictionary[String, Color] = {
 	"text.secondary": Color("#E6E6E6"),
 }
 
+## Star colours by spectral class (art palette, §8.3).
+const STAR: Dictionary[String, Color] = {
+	"M": Color("#FF8B5E"),
+	"K": Color("#FFB870"),
+	"G": Color("#FFE08A"),
+	"F": Color("#FFF3D1"),
+	"A": Color("#CFE3FF"),
+	"white_dwarf": Color("#EEF5FF"),
+	"binary": Color("#FFE08A"),
+}
+
 ## Semantic aliases used by components.
 const POSITIVE: String = "hearth.gold"
 const NEGATIVE: String = "alert.ember"

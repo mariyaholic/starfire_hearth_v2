@@ -32,13 +32,31 @@ static func run(data_root: String = ContentDb.DEFAULT_ROOT, strings_path: String
 	for token: String in DictIO.sorted_keys(v.used_tokens):
 		if not Tokens.has(token):
 			rep.errors.append("%s: \"%s\" is not a colour token in ui/theme/tokens.gd" % [v.used_tokens[token], token])
-	for k: String in v.orphaned_keys(code_string_keys()):
+	var used_in_code: Dictionary[String, bool] = code_string_keys()
+	for id: String in icon_ids():
+		used_in_code["icon." + id] = true
+		if not st.entries.has("icon." + id):
+			rep.errors.append("strings/en.csv: icon \"%s\" has no display name (key icon.%s)" % [id, id])
+	for k: String in v.orphaned_keys(used_in_code):
 		rep.errors.append("strings/en.csv: key \"%s\" is not used by any data file or code" % k)
 	rep.tables = DataSchema.TABLES.size()
 	for t: String in db.tables.keys():
 		rep.records += db.table(t).size()
 	rep.strings = st.keys.size()
 	return rep
+
+
+## Every icon id (filled variants) in assets/icons.
+static func icon_ids() -> Array[String]:
+	var out: Array[String] = []
+	var dir: DirAccess = DirAccess.open(ICON_DIR)
+	if dir == null:
+		return out
+	for f: String in dir.get_files():
+		if f.ends_with(".svg") and not f.ends_with("_outline.svg"):
+			out.append(f.get_basename())
+	out.sort()
+	return out
 
 
 ## Every dotted lower-case string literal in code, e.g. "ui.topbar.food". A superset of the keys
