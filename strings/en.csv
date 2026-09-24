@@ -1,16 +1,20 @@
 key,en
 res.food.name,Food
-res.food.desc,"Feeds your people. Every pop eats food each month, and only a surplus lets a colony grow."
+res.food.desc,"Feeds your people, measured in kilotonnes. Every thousand settlers eat each month, and only a surplus lets a colony grow."
 res.energy.name,Energy
-res.energy.desc,"The currency of the frontier. It pays the upkeep of districts, buildings, fleets and beacons, and buys goods on the market."
+res.energy.desc,"The currency of the frontier, measured in gigawatts of grid power. It pays the upkeep of districts, buildings, fleets and beacons, and buys goods on the market."
 res.minerals.name,Minerals
-res.minerals.desc,"Stone and ore. Spent on districts, buildings and ships, and refined into alloys."
-res.alloys.name,Alloys
-res.alloys.desc,"Refined metal for hulls, starbases, beacons and great projects."
+res.minerals.desc,"Stone and ore, measured in megatonnes. Spent on districts, buildings and ships, and refined into metals."
+res.alloys.name,Metals
+res.alloys.desc,"Refined metal, measured in kilotonnes, for hulls, starbases, beacons and great projects."
+res.food.unit,kt
+res.energy.unit,GW
+res.minerals.unit,Mt
+res.alloys.unit,kt
 res.research.name,Research
 res.research.desc,"Insight from researchers and anomalies. It flows into the tech cards you are studying in physics, society and engineering."
 res.influence.name,Influence
-res.influence.desc,"Political capital. Spent on outposts, claims, treaties, edicts and hard choices."
+res.influence.desc,"Political capital. Spent on outposts, claims, treaties, ordinances and hard choices."
 job.farmer.name,Farmer
 job.technician.name,Technician
 job.miner.name,Miner
@@ -26,7 +30,7 @@ district.energy.desc,"Solar fields, fusion cells and the technicians who run the
 district.mining.name,Mining district
 district.mining.desc,"Pits and shafts worked by miners. Industry built next door gets its ore cheaper."
 district.industry.name,Industry district
-district.industry.desc,"Smelters that turn minerals into alloys. Their smoke unsettles nearby homes."
+district.industry.desc,"Smelters that turn minerals into metals. Their smoke unsettles nearby homes."
 district.research.name,Research district
 district.research.desc,"Laboratories staffed by researchers in the branch you choose. They run better next to a reliable power supply."
 planet_type.continental.name,Continental world
@@ -61,7 +65,7 @@ trait.tidally_locked.desc,"One face always burns and the other always freezes. L
 trait.toxic_atmosphere.name,Toxic Atmosphere
 trait.toxic_atmosphere.desc,The air would kill you. Settle under domes only; industry thrives on the chemistry.
 trait.low_gravity.name,Low Gravity
-trait.low_gravity.desc,Light footsteps and cheap launches. Alloys come easier and ships built here cost less.
+trait.low_gravity.desc,Light footsteps and cheap launches. Metals come easier and ships built here cost less.
 trait.ancient_ruins.name,Ancient Ruins
 trait.ancient_ruins.desc,Something was built here long before us. One slot stays blocked until the ruins are surveyed.
 trait.radiation_belt.name,Radiation Belt
@@ -121,6 +125,7 @@ ui.breakdown.hint_pointer,Hover a line with an arrow to see where it comes from.
 ui.breakdown.cap_max,Capped at {limit} ({source})
 ui.breakdown.cap_min,Held at {limit} ({source})
 ui.fmt.per_turn,/ turn
+ui.fmt.name_unit,{name} ({unit})
 ui.fmt.rate,{value} {resource} / turn
 ui.calendar.date,"Month {month}, Year {year} S."
 ui.toast.dismiss,Dismiss
@@ -222,7 +227,7 @@ ui.token.other_magenta,Vael magenta
 ui.token.ok_green,Green: food
 ui.token.energy_yellow,Energy yellow
 ui.token.mineral_slate,Mineral slate
-ui.token.alloy_copper,Alloy copper
+ui.token.alloy_copper,Metal copper
 ui.token.sci_cyan,Science cyan
 ui.token.influence_violet,Influence violet
 ui.icons.intro,"Every icon, filled and outlined, at the standard and the small size. Each is authored as SVG text and drawn crisp at any scale."
@@ -269,7 +274,7 @@ source.jobs,{count} {job} jobs at {each} each
 source.trait,{trait} (planet trait)
 source.districts,{count} × {district}
 source.building,{building}
-source.pop_upkeep,{count} pops eat
+source.pop_upkeep,{count}k settlers eat
 source.district_upkeep,Upkeep of {count} districts
 source.none_yet,No {job} jobs yet
 source.origin,Origin: {origin}
@@ -277,7 +282,7 @@ source.influence_base,Base income
 source.stable_colonies,Colonies at stability 60 or more ({count})
 source.stability_base,Base
 source.jobs_stability,{count} {job} jobs
-source.unemployed,{count} unemployed pops
+source.unemployed,{count}k settlers without work
 source.stability_range,stability runs from 0 to 100
 source.tech_tier,Tier {tier} base cost
 source.colony_count,"{count} colonies, +5% for each after the first"
@@ -292,7 +297,7 @@ source.progress,Research done so far
 source.choice,Paid when you choose
 source.choice_effect,{effect}
 note.food_growth,"A surplus lets colonies grow. Below zero, growth stops."
-note.alloys_start,Industry districts turn minerals into alloys.
+note.alloys_start,Industry districts turn minerals into metals.
 note.stability_bands,At 70 or more output rises by 10%. At 30 or less it falls by 15%; at 15 or less unrest begins.
 note.noise_thresholds,"At 25, 50 and 75, something far away takes notice."
 note.calendar,"One turn is one month. The Silence began in 2297, and this is its hundredth year."
@@ -302,7 +307,7 @@ sample.tech.hydroponics,Hydroponics
 sample.report.overflow,"{resource} will overflow in {turns} turns: grow, trade or store it."
 sample.report.tech_done,Research complete: {tech}. New cards are ready.
 sample.report.sealed_order,Archivist Sola asks to see you about the sealed order.
-sample.report.pop_grew,A new pop has joined the colony on {colony}.
+sample.report.pop_grew,"A thousand new settlers have joined the colony on {colony}."
 sample.report.probe_idle,Your survey probe is idle at Ember.
 sample.event.title,The Founders' Vote
 sample.event.speaker,Steward Anneliese Varga
@@ -357,7 +362,7 @@ icon.planet_gas_giant,Gas giant
 icon.planet_ice,Ice
 icon.planet_ocean,Ocean
 icon.planet_toxic,Toxic
-icon.res_alloys,Alloys
+icon.res_alloys,Metals
 icon.res_energy,Energy
 icon.res_food,Food
 icon.res_influence,Influence
@@ -375,7 +380,7 @@ icon.stance_last_stand,Last Stand
 icon.stat_growth,Growth
 icon.stat_housing,Housing
 icon.stat_noise,Noise
-icon.stat_pops,Pops
+icon.stat_pops,Settlers
 icon.stat_stability,Stability
 icon.trait_fertile,Fertile Soil
 icon.trait_geothermal,Geothermal
@@ -397,7 +402,7 @@ icon.ui_close,Close
 icon.ui_codex,Codex
 icon.ui_colony,Colony
 icon.ui_diplomacy,Diplomacy
-icon.ui_edict,Edict
+icon.ui_edict,Ordinance
 icon.ui_end_turn,End turn
 icon.ui_event,Event
 icon.ui_fleet_move,Move fleet

@@ -86,6 +86,27 @@ static func rate(v: int, resource_name: String) -> String:
 	return Strings.fmt("ui.fmt.rate", {"value": centi(v, true, 2, 1), "resource": resource_name.to_lower()})
 
 
+## A resource's display unit ("kt", "GW", from its `unit_key` in data), or "" if it has none.
+static func unit(resource_id: String) -> String:
+	if Game.db == null:
+		return ""
+	var key: String = str(Game.db.record("resources", resource_id).get("unit_key", ""))
+	return "" if key.is_empty() else Strings.fmt(key)
+
+
+## What follows a breakdown total: " kt / turn" for a resource flow, " kt" for a stock.
+static func suffix(b: Breakdown, with_per_turn: bool = true) -> String:
+	if b.unit != Breakdown.UNIT_RESOURCE:
+		return ""
+	var out: String = ""
+	var u: String = unit(b.resource)
+	if not u.is_empty():
+		out += " " + u
+	if with_per_turn and b.per_turn:
+		out += " " + Strings.fmt("ui.fmt.per_turn")
+	return out
+
+
 ## The date for a turn: "Month 4, Year 101 S.".
 static func date(turn: int) -> String:
 	return Strings.fmt("ui.calendar.date", {"month": Calendar.month_of(turn), "year": Calendar.year_of(turn)})

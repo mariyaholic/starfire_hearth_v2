@@ -3,6 +3,24 @@
 Newest first. A claim marked **Verified** names the command that proved it, run from the
 repository root after `godot --headless --path . --import`. Everything else is **Unverified**.
 
+## Unreleased (after M0)
+
+- Display renames and units (Owner request, DESIGN_LOG 42): Metals (was Alloys), Ordinance (was
+  Edict), settlers (1 pop = 1,000), and units kt, GW, Mt, kt on food, energy, minerals and metals
+  in breakdowns, rate labels and the "More" drawer. Internal ids are unchanged. **Verified:**
+  `godot --headless --path . -s tools/validate_data.gd` (0 errors, 420 strings),
+  `godot --headless --path . -s tests/run_tests.gd` (85 passed), and the screenshot tour (68
+  screenshots, 0 audit issues), with `screens/pc_100/02_breakdown_pinned.png` inspected.
+- Art and sound direction (Owner, DESIGN_LOG 45–49): a flat interface over "painted diorama"
+  world art; a visual-novel-style soundtrack with character themes and mood cues from M1; ships
+  as top-down painted sprites; portraits with optional expressions; §15 briefs rewritten to match.
+  Documentation only.
+- The web build budget is 150 MB as the compressed download (Owner). The CI size step now checks
+  150,000,000 bytes. **Unverified** until the next CI run.
+- `docs/BUILD_PROMPT.md`: the rewritten build brief (status, the full game, remaining milestones,
+  and outsourcing briefs with an intake contract for sound, music, VFX and art). Documentation
+  only.
+
 ## 0.1.0-m0: foundation and UI kit (not released)
 
 ### Breakdowns at large text sizes

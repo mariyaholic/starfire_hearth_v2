@@ -3,22 +3,22 @@
   "resources": [
     {
       "id": "food", "name_key": "res.food.name", "desc_key": "res.food.desc",
-      "icon": "res_food", "color": "ok.green", "cap": 50000, "tradable": true,
+      "unit_key": "res.food.unit", "icon": "res_food", "color": "ok.green", "cap": 50000, "tradable": true,
       "sinks": ["pop_upkeep", "pop_growth", "colony_ships", "market_sell"]
     },
     {
       "id": "energy", "name_key": "res.energy.name", "desc_key": "res.energy.desc",
-      "icon": "res_energy", "color": "energy.yellow", "cap": 50000, "tradable": false,
+      "unit_key": "res.energy.unit", "icon": "res_energy", "color": "energy.yellow", "cap": 50000, "tradable": false,
       "sinks": ["district_upkeep", "building_upkeep", "fleet_upkeep", "beacon_upkeep", "market_buy", "edicts"]
     },
     {
       "id": "minerals", "name_key": "res.minerals.name", "desc_key": "res.minerals.desc",
-      "icon": "res_minerals", "color": "mineral.slate", "cap": 50000, "tradable": true,
+      "unit_key": "res.minerals.unit", "icon": "res_minerals", "color": "mineral.slate", "cap": 50000, "tradable": true,
       "sinks": ["districts", "buildings", "construction_ships", "outposts", "refining"]
     },
     {
       "id": "alloys", "name_key": "res.alloys.name", "desc_key": "res.alloys.desc",
-      "icon": "res_alloys", "color": "alloy.copper", "cap": 25000, "tradable": true,
+      "unit_key": "res.alloys.unit", "icon": "res_alloys", "color": "alloy.copper", "cap": 25000, "tradable": true,
       "sinks": ["ships", "starbases", "beacons", "megaprojects"]
     },
     {

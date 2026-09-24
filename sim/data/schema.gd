@@ -23,6 +23,7 @@ const TABLES: Dictionary = {
 		"fields": {
 			"id": "id", "name_key": "key", "desc_key": "key", "icon": "icon", "color": "token",
 			"cap": "?centi", "tradable": "bool", "branches": "?list:str", "sinks": "list:str",
+			"unit_key": "?key",
 		},
 	},
 	"jobs": {
