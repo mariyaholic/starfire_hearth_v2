@@ -32,6 +32,8 @@ var safe_margins: Vector4 = Vector4.ZERO
 ## The theme applied to the root window.
 var theme: Theme = null
 var _theme_key: String = ""
+## The layout class last written to the browser console.
+var _logged: String = ""
 
 
 func _ready() -> void:
@@ -50,12 +52,18 @@ func target_size() -> float:
 	return float(Tokens.TOUCH_TARGET_DP) if touch_ui else float(Tokens.POINTER_TARGET_PX)
 
 
+## The layout class, for logs: "compact, touch", "wide, pointer" and so on.
+func describe() -> String:
+	return "%s, %s" % ["compact" if compact else "wide", "touch" if touch_ui else "pointer"]
+
+
 func refresh() -> void:
 	var win: Window = get_window()
 	var size: Vector2 = Vector2(win.size)
 	if size.x <= 0.0 or size.y <= 0.0:
 		return
-	var mobile: bool = OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios")
+	var device_touch: bool = _is_touch_device()
+	var mobile: bool = device_touch
 	match profile:
 		Profile.PC:
 			mobile = false
@@ -64,7 +72,7 @@ func refresh() -> void:
 	touch_ui = mobile
 	var desired: float
 	if mobile:
-		desired = _touch_scale()
+		desired = _touch_scale(device_touch)
 	else:
 		desired = maxf(1.0, size.y / 1080.0)
 	desired *= Settings.ui_scale
@@ -73,7 +81,11 @@ func refresh() -> void:
 	scale = desired
 	logical_size = size / desired
 	compact = logical_size.x < COMPACT_MAX_WIDTH or logical_size.y < COMPACT_MAX_HEIGHT
-	safe_margins = _safe_margins(win, desired)
+	safe_margins = _safe_margins(win, desired, device_touch)
+	# The browser console is where web playtest reports come from, so say which layout was chosen.
+	if OS.has_feature("web") and describe() != _logged:
+		_logged = describe()
+		print("Starfire Hearth layout: %s, UI scale %.2f, %dx%d logical" % [_logged, scale, roundi(logical_size.x), roundi(logical_size.y)])
 	_apply_theme()
 	changed.emit()
 
@@ -89,16 +101,30 @@ func _apply_theme() -> void:
 	theme_rebuilt.emit()
 
 
-func _touch_scale() -> float:
-	if profile == Profile.PHONE and not OS.has_feature("mobile") and not OS.has_feature("web_android") and not OS.has_feature("web_ios"):
+## Phones and tablets: native mobile builds, and browsers that report a phone or tablet system or
+## whose main pointer is a finger (iPadOS Safari reports itself as macOS).
+func _is_touch_device() -> bool:
+	if OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios"):
+		return true
+	if OS.has_feature("web"):
+		# JavaScript booleans arrive as integers.
+		var coarse: Variant = JavaScriptBridge.eval("window.matchMedia('(pointer: coarse)').matches", true)
+		return typeof(coarse) in [TYPE_BOOL, TYPE_INT, TYPE_FLOAT] and bool(coarse)
+	return false
+
+
+func _touch_scale(device_touch: bool) -> float:
+	if not device_touch:
+		# The phone profile forced on a PC simulates the reference phone.
 		return PHONE_DPI / 160.0
 	if OS.has_feature("web"):
+		# A CSS pixel on a phone or tablet browser is one dp.
 		return maxf(1.0, DisplayServer.screen_get_scale())
 	return maxf(1.0, DisplayServer.screen_get_dpi() / 160.0)
 
 
-func _safe_margins(win: Window, desired: float) -> Vector4:
-	if profile == Profile.PHONE and not OS.has_feature("mobile"):
+func _safe_margins(win: Window, desired: float, device_touch: bool) -> Vector4:
+	if profile == Profile.PHONE and not device_touch:
 		return PHONE_SAFE_MARGINS
 	if not OS.has_feature("mobile"):
 		return Vector4.ZERO
