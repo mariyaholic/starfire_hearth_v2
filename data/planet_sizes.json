@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "planet_sizes": [
+    { "id": "tiny", "name_key": "planet_size.tiny.name", "slots": 12, "radius": 60 },
+    { "id": "small", "name_key": "planet_size.small.name", "slots": 16, "radius": 72 },
+    { "id": "medium", "name_key": "planet_size.medium.name", "slots": 20, "radius": 84 },
+    { "id": "large", "name_key": "planet_size.large.name", "slots": 25, "radius": 96 },
+    { "id": "huge", "name_key": "planet_size.huge.name", "slots": 30, "radius": 108 }
+  ]
+}

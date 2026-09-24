@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "planet_types": [
+    {
+      "id": "continental", "name_key": "planet_type.continental.name", "desc_key": "planet_type.continental.desc",
+      "icon": "planet_continental", "habitability": "open", "habitability_bp": 10000, "gen_weight": 2,
+      "effects": [], "palette": ["#2F6FAE", "#4FAF6A", "#8FD18F", "#EAF2F8"]
+    },
+    {
+      "id": "ocean", "name_key": "planet_type.ocean.name", "desc_key": "planet_type.ocean.desc",
+      "icon": "planet_ocean", "habitability": "open", "habitability_bp": 8000, "gen_weight": 5,
+      "effects": [ { "key": "resource_output_bp:food", "value": 1000 } ],
+      "palette": ["#1F5F9E", "#2E86C8", "#56B6E8", "#DDF3FF"]
+    },
+    {
+      "id": "arid", "name_key": "planet_type.arid.name", "desc_key": "planet_type.arid.desc",
+      "icon": "planet_arid", "habitability": "open", "habitability_bp": 6000, "gen_weight": 6,
+      "effects": [ { "key": "resource_output_bp:minerals", "value": 1000 } ],
+      "palette": ["#C98A4B", "#E0A964", "#A8683A", "#F3D6A4"]
+    },
+    {
+      "id": "ice", "name_key": "planet_type.ice.name", "desc_key": "planet_type.ice.desc",
+      "icon": "planet_ice", "habitability": "domes", "habitability_bp": 4000, "gen_weight": 10,
+      "effects": [ { "key": "resource_output_bp:research", "value": 1000 } ],
+      "palette": ["#BFE0F2", "#96C6E4", "#F4FBFF", "#6FA4C9"]
+    },
+    {
+      "id": "barren", "name_key": "planet_type.barren.name", "desc_key": "planet_type.barren.desc",
+      "icon": "planet_barren", "habitability": "domes", "habitability_bp": 4000, "gen_weight": 14,
+      "effects": [ { "key": "resource_output_bp:minerals", "value": 2000 } ],
+      "palette": ["#8B8F96", "#6E737A", "#A7ADB5", "#55595F"]
+    },
+    {
+      "id": "toxic", "name_key": "planet_type.toxic.name", "desc_key": "planet_type.toxic.desc",
+      "icon": "planet_toxic", "habitability": "domes", "habitability_bp": 4000, "gen_weight": 10,
+      "effects": [ { "key": "resource_output_bp:energy", "value": 2000 } ],
+      "palette": ["#8FA83A", "#C7C94A", "#6B7F2A", "#E0E57A"]
+    },
+    {
+      "id": "gas_giant", "name_key": "planet_type.gas_giant.name", "desc_key": "planet_type.gas_giant.desc",
+      "icon": "planet_gas_giant", "habitability": "orbital", "habitability_bp": 0, "gen_weight": 12,
+      "effects": [], "palette": ["#D9A066", "#E8C39E", "#B9784A", "#F2DDC4"]
+    },
+    {
+      "id": "asteroid_belt", "name_key": "planet_type.asteroid_belt.name", "desc_key": "planet_type.asteroid_belt.desc",
+      "icon": "planet_asteroid_belt", "habitability": "outpost", "habitability_bp": 0, "gen_weight": 10,
+      "effects": [], "palette": ["#8C8C8C", "#A7B4C2", "#6B6B6B", "#C2C2C2"]
+    }
+  ]
+}

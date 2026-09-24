@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "id": "s2_the_crossing",
+  "name_key": "scenario.s2.name",
+  "desc_key": "scenario.s2.desc",
+  "status": "stub",
+  "origin": "generation_ark",
+  "map": { "systems": [], "lanes": [], "fog_locked": [] },
+  "start": { "empires": [] },
+  "objectives": { "required": [], "optional": [] },
+  "tutorial": [],
+  "scripted_events": [],
+  "legacies": [],
+  "loss": []
+}

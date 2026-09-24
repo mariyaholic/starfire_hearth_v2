@@ -1,0 +1,58 @@
+; Engine configuration file.
+; Godot version is pinned in .godot-version.
+
+config_version=5
+
+[application]
+
+config/name="Starfire Hearth"
+config/description="A turn-based space 4X of frontier colonies in the Long Silence."
+config/version="0.1.0-m0"
+run/main_scene="res://ui/screens/showcase/showcase.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/bg_color=Color(0.0431373, 0.0862745, 0.133333, 1)
+boot_splash/show_image=false
+config/icon="res://icon.svg"
+
+[autoload]
+
+Settings="*res://app/settings.gd"
+Strings="*res://app/strings.gd"
+Layout="*res://app/layout.gd"
+Overlay="*res://app/overlay.gd"
+Game="*res://app/game.gd"
+SaveService="*res://app/save_service.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/integer_division=0
+gdscript/warnings/narrowing_conversion=0
+gdscript/warnings/return_value_discarded=0
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[gui]
+
+common/snap_controls_to_pixels=true
+theme/default_font_antialiasing=1
+theme/default_font_subpixel_positioning=1
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=false
+pointing/emulate_mouse_from_touch=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.0431373, 0.0862745, 0.133333, 1)

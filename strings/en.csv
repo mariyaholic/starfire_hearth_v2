@@ -1,0 +1,416 @@
+key,en
+res.food.name,Food
+res.food.desc,"Feeds your people. Every pop eats food each month, and only a surplus lets a colony grow."
+res.energy.name,Energy
+res.energy.desc,"The currency of the frontier. It pays the upkeep of districts, buildings, fleets and beacons, and buys goods on the market."
+res.minerals.name,Minerals
+res.minerals.desc,"Stone and ore. Spent on districts, buildings and ships, and refined into alloys."
+res.alloys.name,Alloys
+res.alloys.desc,"Refined metal for hulls, starbases, beacons and great projects."
+res.research.name,Research
+res.research.desc,"Insight from researchers and anomalies. It flows into the tech cards you are studying in physics, society and engineering."
+res.influence.name,Influence
+res.influence.desc,"Political capital. Spent on outposts, claims, treaties, edicts and hard choices."
+job.farmer.name,Farmer
+job.technician.name,Technician
+job.miner.name,Miner
+job.metallurgist.name,Metallurgist
+job.researcher.name,Researcher
+job.clerk.name,Clerk
+district.habitation.name,Habitation district
+district.habitation.desc,"Terraced homes, commons and a clerk's office. It adds housing, a little energy and a little calm."
+district.agriculture.name,Farm district
+district.agriculture.desc,"Fields and greenhouses worked by farmers. Farms next to other farms share water and machinery."
+district.energy.name,Energy district
+district.energy.desc,"Solar fields, fusion cells and the technicians who run them."
+district.mining.name,Mining district
+district.mining.desc,"Pits and shafts worked by miners. Industry built next door gets its ore cheaper."
+district.industry.name,Industry district
+district.industry.desc,"Smelters that turn minerals into alloys. Their smoke unsettles nearby homes."
+district.research.name,Research district
+district.research.desc,"Laboratories staffed by researchers in the branch you choose. They run better next to a reliable power supply."
+planet_type.continental.name,Continental world
+planet_type.continental.desc,"Oceans, continents and weather that people can live in without a dome. Rare, and worth a great deal."
+planet_type.ocean.name,Ocean world
+planet_type.ocean.desc,Nearly all water. Fisheries and kelp farms make it generous with food.
+planet_type.arid.name,Arid world
+planet_type.arid.desc,"Dry, bright and rich in minerals. Livable, if you do not mind the dust."
+planet_type.ice.name,Ice world
+planet_type.ice.desc,"A frozen crust over dark water. Only domed settlements survive, but the cold suits delicate instruments."
+planet_type.barren.name,Barren world
+planet_type.barren.desc,Airless rock. Domes only; the ground itself is the prize.
+planet_type.toxic.name,Toxic world
+planet_type.toxic.desc,A poisonous sky full of restless chemistry. Domes only; the reactions can be tapped for energy.
+planet_type.gas_giant.name,Gas giant
+planet_type.gas_giant.desc,No surface to stand on. Orbital outposts can skim energy or study the storms.
+planet_type.asteroid_belt.name,Asteroid belt
+planet_type.asteroid_belt.desc,"A ring of rubble around the star. Outposts only, for minerals."
+planet_size.tiny.name,Tiny
+planet_size.small.name,Small
+planet_size.medium.name,Medium
+planet_size.large.name,Large
+planet_size.huge.name,Huge
+trait.fertile_soil.name,Fertile Soil
+trait.fertile_soil.desc,Deep living soil left by an older climate. Farm districts here yield more.
+trait.rich_veins.name,Rich Veins
+trait.rich_veins.desc,Ore close to the surface. Mining districts here yield more.
+trait.geothermal.name,Geothermal
+trait.geothermal.desc,Heat rises from the mantle. Energy districts here yield more.
+trait.tidally_locked.name,Tidally Locked
+trait.tidally_locked.desc,"One face always burns and the other always freezes. Less room to build, strong sunlight, uneasy people."
+trait.toxic_atmosphere.name,Toxic Atmosphere
+trait.toxic_atmosphere.desc,The air would kill you. Settle under domes only; industry thrives on the chemistry.
+trait.low_gravity.name,Low Gravity
+trait.low_gravity.desc,Light footsteps and cheap launches. Alloys come easier and ships built here cost less.
+trait.ancient_ruins.name,Ancient Ruins
+trait.ancient_ruins.desc,Something was built here long before us. One slot stays blocked until the ruins are surveyed.
+trait.radiation_belt.name,Radiation Belt
+trait.radiation_belt.desc,"Charged particles sing through the magnetosphere. Good for research, hard on the nerves."
+faction.ark.name,The Ember Compact
+faction.ark.desc,"Descendants of the generation ark that settled Ember a century ago. Cohesive, patient, and short of almost everything."
+faction.meridian.name,The Meridian Directorate
+faction.meridian.desc,"A human successor state grown from the Meridian beacon-keepers, who kept more of Sol's technology than anyone else. Orderly, ambitious, and sure it is Earth's rightful heir."
+faction.vael.name,The Vael
+faction.vael.desc,"Long-lived colonial organisms who speak in modulated light. Patient, cautious and courteous, and convinced that humans are dangerously loud."
+faction.unlit.name,The Unlit
+faction.unlit.desc,"Descendants of beacon crews stranded when the network went dark. They raid lanes and demand tolls, but they can be paid, hired or beaten."
+origin.generation_ark.name,Generation Ark
+origin.generation_ark.desc,"A large, close-knit people who crossed the dark in one great ship. The Ark's archive holds a sealed order from Sol that no one can open."
+origin.corporate_charter.name,Corporate Charter
+origin.corporate_charter.desc,"Founded as a company venture: good at trade and energy, restless under rule. The parent company may still exist, and may still want its dividends."
+origin.exile_fleet.name,Exile Fleet
+origin.exile_fleet.desc,"Sent away with their warships and without their records. Strong in battle, and unsure who exiled them, or why."
+origin.survey_mission.name,Survey Mission
+origin.survey_mission.desc,"Explorers first and settlers second. The mission's true target was a beacon Sol never admitted to building."
+scenario.s1.name,First Light
+scenario.s1.desc,Year 100 of the Silence. Grow the Ark's colonies at Ember and open the sealed order.
+scenario.s2.name,The Crossing
+scenario.s2.desc,"Refit the slowboats, cross the dark lanes, face the Unlit, and wake the beacon at Halden's Gate."
+scenario.s3.name,Neighbours
+scenario.s3.desc,"Meet the Meridian Directorate and the Vael, and learn what the Vael heard."
+system.ember.name,Ember
+system.halden.name,Halden's Gate
+system.vesper.name,Vesper
+system.shroud.name,The Shroud
+system.tessel.name,Tessel
+system.scour.name,Scour
+system.corrie.name,Corrie
+planet.aster.name,Aster
+planet.brume.name,Brume
+planet.cinder.name,Cinder
+planet.dross.name,Dross
+planet.tithe.name,The Tithe Belt
+error.command.unknown,That order is not recognised.
+error.empire.not_found,That empire no longer exists.
+error.colony.not_found,That colony no longer exists.
+error.colony.not_owned,That colony is not yours to command.
+error.name.too_long,Names can be at most {max} characters long.
+error.name.invalid_chars,Names cannot contain control characters.
+error.job_priority.not_permutation,Job priorities must list every job group exactly once.
+report.order_rejected,An order could not be carried out: {reason}
+save.error.corrupt,This save file is damaged and cannot be read.
+save.error.not_a_save,This file is not a Starfire Hearth save.
+save.error.too_new,This save comes from a newer version of the game.
+save.error.checksum,This save file has been changed or damaged since it was written.
+save.error.no_migration,This save is too old for this version of the game.
+ui.tooltip.close,Close
+ui.breakdown.total,Total
+ui.breakdown.codex_link,Open in the Codex
+ui.breakdown.hint_touch,Tap a line with an arrow to see where it comes from.
+ui.breakdown.hint_pointer,Hover a line with an arrow to see where it comes from.
+ui.breakdown.cap_max,Capped at {limit} ({source})
+ui.breakdown.cap_min,Held at {limit} ({source})
+ui.fmt.per_turn,/ turn
+ui.fmt.rate,{value} {resource} / turn
+ui.calendar.date,"Month {month}, Year {year} S."
+ui.toast.dismiss,Dismiss
+ui.overlay.close,Close
+ui.topbar.more,More
+ui.topbar.more_title,Resources and status
+ui.topbar.menu,Menu
+ui.topbar.noise,Noise
+ui.topbar.date,Date
+ui.report.category.colonies,Colonies
+ui.report.category.research,Research
+ui.report.category.fleets,Fleets
+ui.report.category.diplomacy,Diplomacy
+ui.report.category.story,Story
+ui.report.jump,Go there
+ui.showcase.page.components,Components
+ui.showcase.page.icons,Icons
+ui.showcase.page.worlds,Stars and planets
+ui.showcase.options,Options
+ui.showcase.text_100,Text 100%
+ui.showcase.text_150,Text 150%
+ui.showcase.text_200,Text 200%
+ui.showcase.high_contrast,High contrast
+ui.showcase.reduce_motion,Reduce motion
+ui.showcase.layout_auto,Automatic layout
+ui.showcase.layout_pc,PC layout
+ui.showcase.layout_phone,Phone layout
+ui.showcase.title,Starfire Hearth UI kit
+ui.showcase.subtitle,Foundation milestone · sample data
+ui.showcase.intro,"Every component the game will use, shown with sample numbers from Aster's first months. Change the text size, contrast and layout above, and try the same page on a phone."
+ui.showcase.numbers.title,Numbers that explain themselves
+ui.showcase.numbers.subtitle,Every number opens its breakdown
+ui.showcase.numbers.food,Food on Aster
+ui.showcase.numbers.stability,Stability on Aster
+ui.showcase.numbers.research_cost,Cost of Hydroponics
+ui.showcase.numbers.noise,Noise
+ui.showcase.numbers.hint_touch,Tap a number to see where it comes from; long-press any icon or status. Lines with an arrow open their own breakdown.
+ui.showcase.numbers.hint_pointer,Hover a number to see where it comes from and click to pin it. Lines with an arrow open their own breakdown.
+ui.showcase.resources.title,Resources and meters
+ui.showcase.resources.subtitle,"Stock, change per turn, and progress"
+ui.showcase.resources.warning,The warning sign beside food means the store is nearly full.
+ui.showcase.resources.stability,Stability
+ui.showcase.resources.physics,Physics
+ui.showcase.resources.society,Society
+ui.showcase.resources.engineering,Engineering
+ui.showcase.buttons.title,Buttons
+ui.showcase.buttons.subtitle,"Primary, secondary, quiet and dangerous actions"
+ui.showcase.buttons.end_turn,End turn
+ui.showcase.buttons.planner,Open planner
+ui.showcase.buttons.codex,Codex
+ui.showcase.buttons.war,Declare war
+ui.showcase.buttons.search,Search
+ui.showcase.buttons.undo,Undo
+ui.showcase.buttons.pin,Pin
+ui.showcase.buttons.why,Why?
+ui.showcase.buttons.build,Build Industry district
+ui.showcase.buttons.build_reason,Not enough minerals. A refused order always says why.
+ui.showcase.tabs.colonies,Colonies
+ui.showcase.tabs.colonies_body,"Aster, Brume and Cinder share one star and one fate."
+ui.showcase.tabs.research,Research
+ui.showcase.tabs.research_body,Three branches study in parallel; each offers a hand of cards.
+ui.showcase.tabs.fleets,Fleets
+ui.showcase.tabs.fleets_body,The slowboats are still being refitted.
+ui.showcase.hex.title,Colony planner cells
+ui.showcase.hex.subtitle,"Districts, tiers and states"
+ui.showcase.hex.empty,Empty slot
+ui.showcase.hex.blocked,Blocked
+ui.showcase.hex.building,Being built
+ui.showcase.hex.ghost,Preview
+ui.showcase.hex.selected,Selected
+ui.showcase.hex.note,Dots under a district mark its tier. A preview shows what placing a district would change before you commit.
+ui.showcase.report.title,Turn report
+ui.showcase.report.subtitle,"The three things that matter most, then everything else"
+ui.showcase.overlays.title,Overlays
+ui.showcase.overlays.subtitle,"Dialogs, drawers, sheets and notices"
+ui.showcase.overlays.modal,Open a dialog
+ui.showcase.overlays.drawer,Open a drawer
+ui.showcase.overlays.sheet,Open a bottom sheet
+ui.showcase.overlays.toasts,Show notices
+ui.showcase.overlays.tooltip,Pin a breakdown
+ui.showcase.type.title,Type and colour
+ui.showcase.type.subtitle,IBM Plex Sans and IBM Plex Mono
+ui.showcase.type.display,Starfire Hearth
+ui.showcase.type.h1,The Long Silence
+ui.showcase.type.h2,A century of quiet
+ui.showcase.type.body,"People are competent, communities are warm, and space is vast and slow."
+ui.showcase.type.caption,"Captions carry the small print: sources, notes and hints."
+ui.token.bg_deep,Deep space
+ui.token.bg_panel,Panel
+ui.token.bg_panel_alt,Raised panel
+ui.token.line_subtle,Divider
+ui.token.text_primary,Text
+ui.token.text_secondary,Secondary text
+ui.token.accent_teal,Teal: you
+ui.token.hearth_gold,Hearth gold
+ui.token.alert_ember,Ember: danger
+ui.token.ally_blue,Meridian blue
+ui.token.other_magenta,Vael magenta
+ui.token.ok_green,Green: food
+ui.token.energy_yellow,Energy yellow
+ui.token.mineral_slate,Mineral slate
+ui.token.alloy_copper,Alloy copper
+ui.token.sci_cyan,Science cyan
+ui.token.influence_violet,Influence violet
+ui.icons.intro,"Every icon, filled and outlined, at the standard and the small size. Each is authored as SVG text and drawn crisp at any scale."
+ui.icons.group.resources,Resources
+ui.icons.group.branches,Research branches
+ui.icons.group.districts,Districts
+ui.icons.group.planets,Planet types
+ui.icons.group.traits,Planet traits
+ui.icons.group.emblems,Faction emblems
+ui.icons.group.stances,Fleet stances
+ui.icons.group.alerts,Alerts
+ui.icons.group.treaties,Treaties
+ui.icons.group.damage,Damage types
+ui.icons.group.stats,Colony and empire stats
+ui.icons.group.ships,Ships
+ui.icons.group.map,Map
+ui.icons.group.interface,Interface
+ui.worlds.stars.title,Stars
+ui.worlds.stars.subtitle,"Coloured by spectral class, sized by brightness"
+ui.worlds.star.m,Red dwarf
+ui.worlds.star.k,Orange dwarf
+ui.worlds.star.g,Yellow dwarf
+ui.worlds.star.f,Yellow-white star
+ui.worlds.star.a,White star
+ui.worlds.star.white_dwarf,White dwarf
+ui.worlds.star.binary,Binary pair
+ui.worlds.magnitude_1,Faint
+ui.worlds.magnitude_2,Dim
+ui.worlds.magnitude_3,Steady
+ui.worlds.magnitude_4,Bright
+ui.worlds.magnitude_5,Brilliant
+ui.worlds.planets.title,Planets
+ui.worlds.planets.subtitle,Each type drawn from three different seeds
+breakdown.farm_output,Farm output on {colony}
+breakdown.resource_net,{resource} per turn
+breakdown.stability,Stability on {colony}
+breakdown.research_cost,Cost of {tech}
+breakdown.noise,Noise
+breakdown.turn,Turn
+breakdown.card_progress,{branch} card progress
+breakdown.choice_cost,Cost of this choice
+breakdown.choice_effect,What this choice does
+source.jobs,{count} {job} jobs at {each} each
+source.trait,{trait} (planet trait)
+source.districts,{count} × {district}
+source.building,{building}
+source.pop_upkeep,{count} pops eat
+source.district_upkeep,Upkeep of {count} districts
+source.none_yet,No {job} jobs yet
+source.origin,Origin: {origin}
+source.influence_base,Base income
+source.stable_colonies,Colonies at stability 60 or more ({count})
+source.stability_base,Base
+source.jobs_stability,{count} {job} jobs
+source.unemployed,{count} unemployed pops
+source.stability_range,stability runs from 0 to 100
+source.tech_tier,Tier {tier} base cost
+source.colony_count,"{count} colonies, +5% for each after the first"
+source.catch_up,Already known by an empire you have met
+source.noise_last,Noise last month
+source.noise_beacon,Active beacon at {system}
+source.noise_transits,{count} beacon transits
+source.noise_decay,Natural decay
+source.noise_range,Noise runs from 0 to 100
+source.turns_played,Months played since the game began
+source.progress,Research done so far
+source.choice,Paid when you choose
+source.choice_effect,{effect}
+note.food_growth,"A surplus lets colonies grow. Below zero, growth stops."
+note.alloys_start,Industry districts turn minerals into alloys.
+note.stability_bands,At 70 or more output rises by 10%. At 30 or less it falls by 15%; at 15 or less unrest begins.
+note.noise_thresholds,"At 25, 50 and 75, something far away takes notice."
+note.calendar,"One turn is one month. The Silence began in 2297, and this is its hundredth year."
+sample.building.ark_hull,Ark Hull
+sample.building.ark_archive,Ark archive
+sample.tech.hydroponics,Hydroponics
+sample.report.overflow,"{resource} will overflow in {turns} turns: grow, trade or store it."
+sample.report.tech_done,Research complete: {tech}. New cards are ready.
+sample.report.sealed_order,Archivist Sola asks to see you about the sealed order.
+sample.report.pop_grew,A new pop has joined the colony on {colony}.
+sample.report.probe_idle,Your survey probe is idle at Ember.
+sample.event.title,The Founders' Vote
+sample.event.speaker,Steward Anneliese Varga
+sample.event.body,"Steward Anneliese Varga stands on an upturned seed crate in the Ark's old cargo hall, three hundred faces turned up to her. ""We have run this colony by habit for a century,"" she says. ""Habit is not a constitution."" Archivist Imre Sola, footnoting as always, reminds everyone that the Ark's charter lapsed the day the relay went quiet. The assembly wants a vote before the harvest. How should Ember govern itself?"
+sample.event.choice_council,Govern by open council
+sample.event.effect_council,More influence every month
+sample.event.choice_steward,Keep a strong Steward
+sample.event.effect_steward,Every colony is steadier
+sample.event.choice_assembly,Call a full assembly (uncertain)
+sample.event.effect_assembly,"Uncertain: either faster research, or a restless decade"
+sample.modal.title,The sealed order
+sample.modal.body,"Archivist Imre Sola lays the Ark's oldest case on the table: a Sol seal, unbroken for a century. The lock answers to no key the Ark ever carried. ""It is addressed to whoever leads,"" Sola says. ""That, I am afraid, is you."""
+sample.modal.accept,Open the archive
+sample.modal.later,Not yet
+sample.drawer.title,Outliner
+sample.drawer.probe,Survey probe
+sample.drawer.constructor,Construction ship
+sample.sheet.body,"A calm orange star, home for a century. Five worlds circle it; one is settled so far."
+sample.sheet.enter,Enter system
+sample.sheet.survey,Survey
+sample.toast.info,Beacon lanes shimmer gold on the map.
+sample.toast.good,Hydroponics researched.
+sample.toast.warning,Food stores are nearly full.
+icon.alert_critical,Critical
+icon.alert_info,Information
+icon.alert_success,Success
+icon.alert_warning,Warning
+icon.branch_engineering,Engineering
+icon.branch_physics,Physics
+icon.branch_society,Society
+icon.district_agriculture,Farm
+icon.district_energy,Energy district
+icon.district_habitation,Habitation
+icon.district_industry,Industry
+icon.district_mining,Mining
+icon.district_research,Research district
+icon.dmg_explosive,Explosive
+icon.dmg_kinetic,Kinetic
+icon.dmg_thermal,Thermal
+icon.emblem_broken_circle,The Unlit
+icon.emblem_compass,Meridian Directorate
+icon.emblem_hearth,The Ember Compact
+icon.emblem_spiral,The Vael
+icon.map_anomaly,Anomaly
+icon.map_beacon,Beacon
+icon.map_outpost,Outpost
+icon.planet_arid,Arid
+icon.planet_asteroid_belt,Asteroid belt
+icon.planet_barren,Barren
+icon.planet_continental,Continental
+icon.planet_gas_giant,Gas giant
+icon.planet_ice,Ice
+icon.planet_ocean,Ocean
+icon.planet_toxic,Toxic
+icon.res_alloys,Alloys
+icon.res_energy,Energy
+icon.res_food,Food
+icon.res_influence,Influence
+icon.res_minerals,Minerals
+icon.res_research,Research
+icon.ship_colony,Colony ship
+icon.ship_construction,Construction ship
+icon.ship_fleet,Fleet
+icon.ship_starbase,Starbase
+icon.ship_survey,Survey probe
+icon.stance_aggressive,Aggressive
+icon.stance_balanced,Balanced
+icon.stance_cautious,Cautious
+icon.stance_last_stand,Last Stand
+icon.stat_growth,Growth
+icon.stat_housing,Housing
+icon.stat_noise,Noise
+icon.stat_pops,Pops
+icon.stat_stability,Stability
+icon.trait_fertile,Fertile Soil
+icon.trait_geothermal,Geothermal
+icon.trait_locked,Tidally Locked
+icon.trait_low_gravity,Low Gravity
+icon.trait_radiation,Radiation Belt
+icon.trait_ruins,Ancient Ruins
+icon.trait_toxic,Toxic Atmosphere
+icon.trait_veins,Rich Veins
+icon.treaty_nap,Non-Aggression Pact
+icon.treaty_open_borders,Open Borders
+icon.treaty_peace,Peace
+icon.treaty_research,Research Pact
+icon.treaty_trade,Trade Deal
+icon.ui_back,Back
+icon.ui_check,Confirm
+icon.ui_chevron_right,Open
+icon.ui_close,Close
+icon.ui_codex,Codex
+icon.ui_colony,Colony
+icon.ui_diplomacy,Diplomacy
+icon.ui_edict,Edict
+icon.ui_end_turn,End turn
+icon.ui_event,Event
+icon.ui_fleet_move,Move fleet
+icon.ui_governor,Governor
+icon.ui_lock,Locked
+icon.ui_menu,Menu
+icon.ui_minus,Less
+icon.ui_pin,Pin
+icon.ui_plus,More
+icon.ui_report,Turn report
+icon.ui_save,Save
+icon.ui_search,Search
+icon.ui_settings,Settings
+icon.ui_undo,Undo
+icon.ui_why,Why?
+ui.icons.sheet_title,Starfire Hearth icons
