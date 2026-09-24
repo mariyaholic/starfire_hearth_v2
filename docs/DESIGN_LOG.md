@@ -140,3 +140,42 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 50. **Outsourced assets are on hold** (Owner, before M1): M1 onward builds against the code
     placeholders, addressing every asset by its §15 id through `data/asset_manifest.json`, so
     delivered files drop in later. The intake tool waits for the first batch.
+
+## M1
+
+51. **Rules read content through `Content.db()`**, a static accessor loaded once from `data/`;
+    tests can swap it. Rule and command signatures stay unchanged, and content is constant during
+    a game, so determinism holds.
+52. **State schema 2**, with the migration `v1_to_v2` filling defaults for every new field, so the
+    M0 fixture save still loads.
+53. **Modifiers stack additively:** output = base × (1 + the sum of bonuses), so each bonus is one
+    readable breakdown line on the same base.
+54. **A resource never goes negative.** An energy shortfall clamps at 0 and costs −10 stability on
+    every colony while it lasts; Industry uses only the minerals available and slows
+    proportionally. Both show in breakdowns and are warned two turns ahead.
+55. **Every capital produces 2.00 research in each branch,** so research cards (tutorial T3) move
+    before the first Research district.
+56. **Buildings: 4 per colony, +1 at City.** The Ark Hull and the Archive of Sol are landmarks that
+    take no hex slot and do not count, which gives the City stage's "+1 building slot" a meaning
+    and story buildings a home.
+57. **Construction is one build at a time per colony, in a queue.** The cost is paid when an item
+    is queued, and cancelling refunds it in full; demolishing is instant and refunds nothing.
+58. **A Research district's branch is chosen when it is placed** (§5.4).
+59. **Planets start unsurveyed** apart from the capital's. A Survey Probe takes 2 turns to reveal
+    traits and slots; colonising and outposts need a survey. This makes tutorial beat T8 an
+    action.
+60. **Outposts:** an asteroid belt makes 6.00 minerals; a gas giant 6.00 energy or 3.00 research in
+    each branch (the player picks). Upkeep is 0.50 energy. Building one takes the Construction
+    Ship 4 turns (Orbital Construction halves it) and 50 influence.
+61. **Founding a dome world needs Habitat Domes;** the founding places its Habitat Dome and charges
+    the dome's cost. This avoids a chicken-and-egg problem.
+62. **Tutorial progress lives in state flags,** set by a no-effect `acknowledge` command: saved,
+    deterministic, and ignored by the rules.
+63. **"Winnable" in telemetry means every required objective is done within 1.5× the expected
+    duration;** without a deadline a competent bot always wins eventually.
+64. **"Everything matters" covers what the scenario teaches** (its `teaches` list), not the whole
+    tech tree; military techs and war buildings have no use in Scenario 1.
+65. **The Research Institute unlocks with Research Network,** a new tier II Society tech (37
+    techs). Tier III: Habitation with Arcology Design; the other districts with Foundry
+    Automation's "Industrial Megaplex" effect. These settle the two open questions of §10.3 and
+    §10.4 with the build prompt's defaults.
