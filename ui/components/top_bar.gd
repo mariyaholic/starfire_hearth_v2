@@ -129,7 +129,11 @@ func open_more() -> void:
 	for rid: String in model.resource_order:
 		if not model.resources.has(rid):
 			continue
-		d.body.add_child(_labelled(Strings.fmt(str(model.resources[rid].get("name_key", ""))), _chip(rid)))
+		var label: String = Strings.fmt(str(model.resources[rid].get("name_key", "")))
+		var u: String = Fmt.unit(rid)
+		if not u.is_empty():
+			label = Strings.fmt("ui.fmt.name_unit", {"name": label, "unit": u})
+		d.body.add_child(_labelled(label, _chip(rid)))
 	d.body.add_child(_labelled(Strings.fmt("ui.topbar.noise"), _noise_block()))
 	d.body.add_child(_labelled(Strings.fmt("ui.topbar.date"), _date_block()))
 	d.open()

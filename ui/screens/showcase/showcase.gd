@@ -229,7 +229,7 @@ func _stat_row(grid: GridContainer, label_key: String, b: Breakdown, icon: Strin
 	grid.add_child(name_row)
 	var v: Label = Label.new()
 	v.theme_type_variation = &"MonoStrongLabel"
-	v.text = Fmt.total(b) + ("" if not (b.unit == Breakdown.UNIT_RESOURCE and b.per_turn) else " " + Strings.fmt("ui.fmt.per_turn"))
+	v.text = Fmt.total(b) + Fmt.suffix(b)
 	var e: Explainable = Explainable.wrap(v, b)
 	e.custom_minimum_size.y = Layout.target_size()
 	e.size_flags_horizontal = Control.SIZE_SHRINK_END

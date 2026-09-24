@@ -85,7 +85,7 @@ func _build() -> void:
 	tl.text = Strings.fmt("ui.breakdown.total")
 	tl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	total_row.add_child(tl)
-	total_row.add_child(_value_label(Fmt.total(breakdown), breakdown.total, true))
+	total_row.add_child(_value_label(Fmt.total(breakdown) + Fmt.suffix(breakdown, false), breakdown.total, true))
 	col.add_child(total_row)
 
 	if not breakdown.note_key.is_empty():
@@ -159,9 +159,7 @@ func _value_label(text: String, value: int, strong: bool) -> Label:
 
 
 func _unit_suffix() -> String:
-	if breakdown.unit == Breakdown.UNIT_RESOURCE and breakdown.per_turn:
-		return " " + Strings.fmt("ui.fmt.per_turn")
-	return ""
+	return Fmt.suffix(breakdown)
 
 
 func _has_children() -> bool:
