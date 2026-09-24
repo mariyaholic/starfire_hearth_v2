@@ -32,6 +32,9 @@ static func run(data_root: String = ContentDb.DEFAULT_ROOT, strings_path: String
 	for token: String in DictIO.sorted_keys(v.used_tokens):
 		if not Tokens.has(token):
 			rep.errors.append("%s: \"%s\" is not a colour token in ui/theme/tokens.gd" % [v.used_tokens[token], token])
+	for folder: String in ["scenarios", "events", "codex"]:
+		if not DirAccess.dir_exists_absolute(data_root.path_join(folder)):
+			rep.errors.append("data/%s: folder is missing (it is part of the layout in section 9.2)" % folder)
 	var used_in_code: Dictionary[String, bool] = code_string_keys()
 	for id: String in icon_ids():
 		used_in_code["icon." + id] = true

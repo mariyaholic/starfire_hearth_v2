@@ -29,9 +29,9 @@ static func load_from(p_root: String = DEFAULT_ROOT) -> ContentDb:
 	db.root = p_root
 	for tname: String in DataSchema.TABLES.keys():
 		db._load_table(tname, DataSchema.TABLES[tname])
-	db._load_dir_json("scenarios", db.scenarios, db.scenario_files)
+	db._load_dir_json("scenarios", db.scenarios, db.scenario_files, true)
 	var event_files: Dictionary[String, String] = {}
-	db._load_dir_json("events", db.events, event_files)
+	db._load_dir_json("events", db.events, event_files, false)
 	db._load_codex()
 	return db
 
@@ -127,11 +127,14 @@ func _convert_value(v: Variant, ftype: String, where: String) -> Variant:
 	return v
 
 
-func _load_dir_json(sub: String, into: Dictionary, files: Dictionary) -> void:
+## Folders that hold only a placeholder are not packed into exports, so only required folders
+## report their absence.
+func _load_dir_json(sub: String, into: Dictionary, files: Dictionary, required: bool) -> void:
 	var dir_path: String = root.path_join(sub)
 	var dir: DirAccess = DirAccess.open(dir_path)
 	if dir == null:
-		errors.append("missing folder data/%s" % sub)
+		if required:
+			errors.append("missing folder data/%s" % sub)
 		return
 	var names: Array[String] = []
 	for f: String in dir.get_files():
@@ -158,7 +161,6 @@ func _load_codex() -> void:
 	var dir_path: String = root.path_join("codex")
 	var dir: DirAccess = DirAccess.open(dir_path)
 	if dir == null:
-		errors.append("missing folder data/codex")
 		return
 	for f: String in dir.get_files():
 		if f.ends_with(".md"):
