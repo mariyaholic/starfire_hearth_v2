@@ -11,6 +11,12 @@ repository root after `godot --headless --path . --import`. Everything else is *
   `godot --headless --path . -s tools/validate_data.gd` (0 errors, 420 strings),
   `godot --headless --path . -s tests/run_tests.gd` (85 passed), and the screenshot tour (68
   screenshots, 0 audit issues), with `screens/pc_100/02_breakdown_pinned.png` inspected.
+- Art and sound direction (Owner, DESIGN_LOG 45–49): a flat interface over "painted diorama"
+  world art; a visual-novel-style soundtrack with character themes and mood cues from M1; ships
+  as top-down painted sprites; portraits with optional expressions; §15 briefs rewritten to match.
+  Documentation only.
+- The web build budget is 150 MB as the compressed download (Owner). The CI size step now checks
+  150,000,000 bytes. **Unverified** until the next CI run.
 - `docs/BUILD_PROMPT.md`: the rewritten build brief (status, the full game, remaining milestones,
   and outsourcing briefs with an intake contract for sound, music, VFX and art). Documentation
   only.

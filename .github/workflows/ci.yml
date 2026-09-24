@@ -111,14 +111,14 @@ jobs:
           test -f build/windows/StarfireHearth.exe
           test -f build/linux/StarfireHearth.x86_64
 
-      # Section 9.11 budget: under 40 MB, measured as the compressed download (DESIGN_LOG 37).
+      # Section 9.11 budget: under 150 MB, measured as the compressed download (DESIGN_LOG 37, 49).
       - name: Web build size
         run: |
           raw=$(du -sb build/web | cut -f1)
           gz=0
           for f in build/web/*; do gz=$((gz + $(gzip -9 -c "$f" | wc -c))); done
-          echo "Web build: $raw bytes on disk, $gz bytes as a gzip download (budget 40000000)"
-          test "$gz" -lt 40000000
+          echo "Web build: $raw bytes on disk, $gz bytes as a gzip download (budget 150000000)"
+          test "$gz" -lt 150000000
 
       - name: Web build smoke test (headless Chromium as a PC, an Android phone and an iPad)
         env:

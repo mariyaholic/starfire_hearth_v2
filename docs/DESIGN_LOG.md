@@ -123,3 +123,17 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     code".*
 44. **`docs/BUILD_PROMPT.md` is the rewritten build brief** (Owner request), replacing the original
     prompt; it records the as-built state and the remaining plan.
+45. **Art direction: painted diorama** (Owner, a mix of the "cozy diorama" and "painterly space
+    age" options): a flat interface over a painted world, sharing one palette. Rendered art may use
+    any shades of the key colours and is checked by eye and a dominant-hue report rather than exact
+    hex; SVG stays for icons and the logo. The flat outsourced art read as too simple, and the
+    Owner wants 2.5D depth. This replaces the flat-only asset rules under entry 43.
+46. **Visual-novel soundtrack** (Owner): a main theme, era tracks, a theme per named character,
+    mood pieces and endings. Event steps name a theme or mood that crossfades in, and music moves
+    from M4 to M1. UI sounds are tuned to D major pentatonic so they sit inside the score.
+47. **Ship sprites are drawn straight from above,** with light baked in from the upper left.
+    Battle replays rotate ships, and a tilted three-quarter view looks wrong when turned.
+48. **Portraits have a neutral base and optional warm, worried and stern expressions;** an event
+    step picks one. Generators keep a character consistent when the neutral one is the reference.
+49. **The web build budget is 150 MB** as the compressed download (Owner), so the soundtrack and
+    the painted art ship inside the web build.
