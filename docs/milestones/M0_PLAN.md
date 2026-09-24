@@ -90,7 +90,7 @@ Gate (from §12): CI green, and the Owner approves the look of the showcase and 
 | --- | --- |
 | Data valid | `godot --headless --path . -s tools/validate_data.gd` |
 | Tests green | `godot --headless --path . -s tests/run_tests.gd` |
-| Bot smoke | `godot --headless --path . -s tools/bot_run.gd -- --scenario skeleton --policy random-legal --seeds 1-3 --turns 60 --out telemetry/` then `tools/telemetry_report.gd` |
+| Bot smoke | `godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy random-legal --seeds 1-3 --turns 60 --out telemetry/ --check-determinism` then `tools/telemetry_report.gd` |
 | Screens + audit | `xvfb-run -a godot --rendering-driver opengl3 --path . -s tools/screenshot_tour.gd -- --out screens/`, then I look at every PNG |
 | Exports | `godot --headless --path . --export-release "Web" build/web/index.html` (and Windows, Linux) |
 | CI green | GitHub Actions run on the pushed branch |
