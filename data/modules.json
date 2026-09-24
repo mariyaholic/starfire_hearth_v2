@@ -1,4 +1,17 @@
 {
   "version": 1,
-  "modules": []
+  "modules": [
+    {"id": "mass_driver", "name_key": "module.mass_driver.name", "desc_key": "module.mass_driver.desc", "icon": "dmg_kinetic", "slot": "S", "kind": "kinetic", "damage": 10, "cost": {"alloys": 1000}},
+    {"id": "railgun", "name_key": "module.railgun.name", "desc_key": "module.railgun.desc", "icon": "dmg_kinetic", "slot": "M", "kind": "kinetic", "damage": 24, "cost": {"alloys": 2500}, "unlock_tech": "railguns"},
+    {"id": "laser", "name_key": "module.laser.name", "desc_key": "module.laser.desc", "icon": "dmg_thermal", "slot": "S", "kind": "thermal", "damage": 9, "cost": {"alloys": 1000}, "unlock_tech": "laser_weapons"},
+    {"id": "pulse_laser", "name_key": "module.pulse_laser.name", "desc_key": "module.pulse_laser.desc", "icon": "dmg_thermal", "slot": "M", "kind": "thermal", "damage": 22, "cost": {"alloys": 2500}, "unlock_tech": "pulse_lasers"},
+    {"id": "missile_rack", "name_key": "module.missile_rack.name", "desc_key": "module.missile_rack.desc", "icon": "dmg_explosive", "slot": "S", "kind": "explosive", "damage": 14, "cost": {"alloys": 1500}, "unlock_tech": "missile_systems"},
+    {"id": "torpedo", "name_key": "module.torpedo.name", "desc_key": "module.torpedo.desc", "icon": "dmg_explosive", "slot": "L", "kind": "explosive", "damage": 60, "cost": {"alloys": 5000}, "unlock_tech": "cruiser_hulls"},
+    {"id": "composite_armor", "name_key": "module.composite_armor.name", "desc_key": "module.composite_armor.desc", "icon": "stance_cautious", "slot": "U", "kind": "armour", "armour": 80, "cost": {"alloys": 1000}, "unlock_tech": "composite_armor"},
+    {"id": "heavy_armor", "name_key": "module.heavy_armor.name", "desc_key": "module.heavy_armor.desc", "icon": "stance_cautious", "slot": "U", "kind": "armour", "armour": 180, "cost": {"alloys": 2500}, "unlock_tech": "heavy_armor"},
+    {"id": "deflector", "name_key": "module.deflector.name", "desc_key": "module.deflector.desc", "icon": "treaty_nap", "slot": "U", "kind": "shield", "shield": 60, "regen_bp": 2000, "cost": {"alloys": 1500}, "unlock_tech": "deflector_shields"},
+    {"id": "hardened_deflector", "name_key": "module.hardened_deflector.name", "desc_key": "module.hardened_deflector.desc", "icon": "treaty_nap", "slot": "U", "kind": "shield", "shield": 140, "regen_bp": 2000, "cost": {"alloys": 3000}, "unlock_tech": "hardened_deflectors"},
+    {"id": "point_defence", "name_key": "module.point_defence.name", "desc_key": "module.point_defence.desc", "icon": "stance_balanced", "slot": "U", "kind": "defence", "intercept_bp": 4000, "cost": {"alloys": 1500}, "unlock_tech": "point_defence"},
+    {"id": "sensor_suite", "name_key": "module.sensor_suite.name", "desc_key": "module.sensor_suite.desc", "icon": "ui_search", "slot": "U", "kind": "utility", "hit_bp": 1000, "cost": {"alloys": 1000}, "unlock_tech": "sensor_arrays"}
+  ]
 }

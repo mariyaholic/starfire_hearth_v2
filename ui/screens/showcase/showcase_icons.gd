@@ -8,6 +8,7 @@ const GROUP_KEYS: Array[Array] = [
 	["res_", "ui.icons.group.resources"],
 	["branch_", "ui.icons.group.branches"],
 	["district_", "ui.icons.group.districts"],
+	["bld_", "ui.icons.group.buildings"],
 	["planet_", "ui.icons.group.planets"],
 	["trait_", "ui.icons.group.traits"],
 	["emblem_", "ui.icons.group.emblems"],

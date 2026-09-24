@@ -234,6 +234,7 @@ ui.icons.intro,"Every icon, filled and outlined, at the standard and the small s
 ui.icons.group.resources,Resources
 ui.icons.group.branches,Research branches
 ui.icons.group.districts,Districts
+ui.icons.group.buildings,Buildings
 ui.icons.group.planets,Planet types
 ui.icons.group.traits,Planet traits
 ui.icons.group.emblems,Faction emblems
@@ -418,4 +419,202 @@ icon.ui_search,Search
 icon.ui_settings,Settings
 icon.ui_undo,Undo
 icon.ui_why,Why?
+icon.bld_ark_hull,Ark Hull
+icon.bld_storehouse,Storehouse
+icon.bld_hydroponics_bay,Hydroponics Bay
+icon.bld_fusion_plant,Fusion Plant
+icon.bld_foundry,Foundry
+icon.bld_research_institute,Research Institute
+icon.bld_civic_hall,Civic Hall
+icon.bld_park_commons,Park Commons
+icon.bld_clinic,Clinic
+icon.bld_spaceport,Spaceport
+icon.bld_planetary_shield,Planetary Shield
+icon.bld_market_exchange,Market Exchange
+icon.bld_archive_of_sol,Archive of Sol
+icon.bld_listening_post,Listening Post
+icon.bld_habitat_dome,Habitat Dome
+icon.ui_play,Play
+icon.ui_upgrade,Upgrade
+icon.ui_demolish,Demolish
+icon.ui_objective,Objective
+icon.ui_advisor,Advisor
+icon.ui_legacy,Legacy
+icon.ui_queue,Build queue
+icon.ui_reroll,Reroll
+icon.ui_tree,Tech tree
+icon.ui_sound,Sound
+icon.ui_star,Story
+icon.ui_load,Load
+icon.ui_checkpoint,Checkpoint
+icon.ui_display,Display
+icon.ui_accessibility,Accessibility
 ui.icons.sheet_title,Starfire Hearth icons
+building.ark_hull.name,Ark Hull
+building.ark_hull.desc,"The generation ship that carried the colony here, landed for good. Its holds still store grain and power cells, and people still gather in its shadow."
+building.storehouse.name,Storehouse
+building.storehouse.desc,"Cold rooms, bunkers and silos. Raises how much food, energy, minerals and metals the colony can keep before the surplus is lost."
+building.hydroponics_bay.name,Hydroponics Bay
+building.hydroponics_bay.desc,"Racks of greens under warm lamps. Grows food anywhere, even under a dome on a dead rock."
+building.fusion_plant.name,Fusion Plant
+building.fusion_plant.desc,"A contained star in a concrete jacket. Plenty of power, but its hum and heat unsettle the homes next to it."
+building.foundry.name,Foundry
+building.foundry.desc,"Arc furnaces and patient metallurgists. Makes every Industry district on this colony more productive."
+building.research_institute.name,Research Institute
+building.research_institute.desc,"Libraries, laboratories and long arguments over tea. Raises all research from this colony."
+building.civic_hall.name,Civic Hall
+building.civic_hall.desc,"Where disputes are heard and ordinances are drafted. Steadies the colony, adds influence, and makes homes beside it roomier. One per colony."
+building.park_commons.name,Park Commons
+building.park_commons.desc,"Grass, a fountain and room to breathe. Calms the colony, and homes beside it gain space."
+building.clinic.name,Clinic
+building.clinic.desc,"Midwives, surgeons and a waiting room that is never empty. New settlers arrive faster."
+building.spaceport.name,Spaceport
+building.spaceport.desc,"Launch cradles and a busy shipyard. Needed to build ships at this colony. One per colony."
+building.planetary_shield.name,Planetary Shield
+building.planetary_shield.desc,"A lattice of projectors that can close a shimmering dome over the colony. Protects against attack from orbit in wartime."
+building.market_exchange.name,Market Exchange
+building.market_exchange.desc,"A trading floor with slow, careful prices. Opens the market, where energy buys and sells other goods."
+building.archive_of_sol.name,Archive of Sol
+building.archive_of_sol.desc,"The Ark's sealed records from Earth. Research spent here slowly decodes the order that Sol sealed a century ago."
+building.listening_post.name,Listening Post
+building.listening_post.desc,"A quiet dish that hears far and says nothing. Extends how far the colony can see."
+building.habitat_dome.name,Habitat Dome
+building.habitat_dome.desc,"A pressurised dome with gardens and homes. Needed to live on a world with no breathable air, and adds housing."
+tech.fusion_efficiency.name,Fusion Efficiency
+tech.fusion_efficiency.desc,Tighter magnetic bottles and better fuel pellets. More energy from every source.
+tech.sensor_arrays.name,Sensor Arrays
+tech.sensor_arrays.desc,Wide-aperture telescopes and patient listeners. See further; unlocks the Listening Post and the Sensor Suite.
+tech.laser_weapons.name,Laser Weapons
+tech.laser_weapons.desc,Focused light that burns through armour. Unlocks the Laser for warships.
+tech.deflector_shields.name,Deflector Shields
+tech.deflector_shields.desc,Field projectors that turn projectiles aside. Unlocks the Deflector and the Planetary Shield.
+tech.plasma_containment.name,Plasma Containment
+tech.plasma_containment.desc,Hotter reactions held safely. More energy; unlocks the Fusion Plant.
+tech.wake_theory.name,Wake Theory
+tech.wake_theory.desc,"The mathematics of the ripples a jump leaves behind. Helps decode the Sealed Order, and lets you read other empires' Noise."
+tech.pulse_lasers.name,Pulse Lasers
+tech.pulse_lasers.desc,Rapid bursts that overload armour. Unlocks the Pulse Laser.
+tech.hardened_deflectors.name,Hardened Deflectors
+tech.hardened_deflectors.desc,Layered fields that shrug off heavy fire. Unlocks the Hardened Deflector.
+tech.jump_field_mathematics.name,Jump Field Mathematics
+tech.jump_field_mathematics.desc,"The first step toward folding space, rebuilt from fragments. Helps decode the Sealed Order."
+tech.beacon_resonance.name,Beacon Resonance
+tech.beacon_resonance.desc,How the old relay beacons held their lanes open. Lets construction ships restore or build beacons.
+tech.jump_drive.name,Jump Drive
+tech.jump_drive.desc,"Ships leap straight to any system near a beacon or starbase. Fast, powerful, and loud."
+tech.quiet_drive.name,Quiet Drive
+tech.quiet_drive.desc,A gentler fold that leaves a fainter wake. Halves the Noise of every jump.
+tech.hydroponics.name,Hydroponics
+tech.hydroponics.desc,Roots in mist instead of soil. More food; unlocks the Hydroponics Bay.
+tech.frontier_medicine.name,Frontier Medicine
+tech.frontier_medicine.desc,Care for a small population far from any hospital. Colonies grow faster; unlocks the Clinic.
+tech.civic_charters.name,Civic Charters
+tech.civic_charters.desc,Written rules for how the colony governs itself. One more ordinance slot; unlocks the Civic Hall.
+tech.colonial_administration.name,Colonial Administration
+tech.colonial_administration.desc,Clerks who can run a claim from far away. Outposts cost half the influence; unlocks the Market Exchange.
+tech.habitat_domes.name,Habitat Domes
+tech.habitat_domes.desc,"Pressure domes that make dead worlds livable. Lets colony ships settle dome worlds."
+tech.genetic_crop_tailoring.name,Genetic Crop Tailoring
+tech.genetic_crop_tailoring.desc,Grains bred for alien light and thin soil. Much more food.
+tech.cultural_archive.name,Cultural Archive
+tech.cultural_archive.desc,"Songs, recipes and stories from home, kept and shared. Every colony is steadier."
+tech.research_network.name,Research Network
+tech.research_network.desc,Shared journals and open laboratories. More research; unlocks the Research Institute.
+tech.xenolinguistics.name,Xenolinguistics
+tech.xenolinguistics.desc,How to begin talking with minds unlike ours. Needed to understand the Vael.
+tech.diplomatic_corps.name,Diplomatic Corps
+tech.diplomatic_corps.desc,Trained envoys and a protocol office. More influence every month.
+tech.arcology_design.name,Arcology Design
+tech.arcology_design.desc,Whole towns in a single tower. Habitation districts can reach tier III.
+tech.federation_theory.name,Federation Theory
+tech.federation_theory.desc,How free worlds can share a single voice. Allows federations.
+tech.hearthlight_theory.name,Hearthlight Theory
+tech.hearthlight_theory.desc,A structure that could hide a whole region from what listens. The first step toward the Hearthlight.
+tech.automated_mining.name,Automated Mining
+tech.automated_mining.desc,Tireless drills and careful sorting. More minerals from every mine.
+tech.orbital_construction.name,Orbital Construction
+tech.orbital_construction.desc,Building in vacuum without losing tools. Outposts go up twice as fast; allows starbases.
+tech.mass_driver_refinement.name,Mass Driver Refinement
+tech.mass_driver_refinement.desc,Better rails and truer slugs. Kinetic weapons hit harder.
+tech.composite_armor.name,Composite Armor
+tech.composite_armor.desc,Layered plating that spreads the blow. Unlocks Composite Armor.
+tech.foundry_automation.name,Foundry Automation
+tech.foundry_automation.desc,"Furnaces that run all night. More metals, the Foundry, and tier III for every district except Habitation."
+tech.frigate_hulls.name,Frigate Hulls
+tech.frigate_hulls.desc,A proper warship frame. Unlocks the frigate.
+tech.missile_systems.name,Missile Systems
+tech.missile_systems.desc,Guided warheads that slip past shields. Unlocks the Missile Rack.
+tech.point_defence.name,Point Defence
+tech.point_defence.desc,Fast guns that swat missiles out of the sky. Unlocks Point Defence.
+tech.advanced_districts.name,Advanced Districts
+tech.advanced_districts.desc,Denser layouts and better machines. Every district can reach tier II.
+tech.cruiser_hulls.name,Cruiser Hulls
+tech.cruiser_hulls.desc,A heavy hull with room for a torpedo. Unlocks the cruiser and the Torpedo.
+tech.heavy_armor.name,Heavy Armor
+tech.heavy_armor.desc,Thick plating for ships that must hold the line. Unlocks Heavy Armor.
+tech.railguns.name,Railguns
+tech.railguns.desc,Magnetic cannons with frightening reach. Unlocks the Railgun.
+edict.festival.name,Festival
+edict.festival.desc,"Music in the squares and extra rations for ten months. Every colony is happier while it lasts."
+edict.work_drive.name,Work Drive
+edict.work_drive.desc,"Extra shifts in the mines and foundries for ten months. More minerals and metals, but people grow tired."
+edict.research_grants.name,Research Grants
+edict.research_grants.desc,Funding for anyone with a good question. More research for as long as it runs.
+edict.radio_silence.name,Radio Silence
+edict.radio_silence.desc,"No broadcasts, no signals, no loud machines. The colony's Noise fades faster, but trade suffers."
+edict.frontier_charter.name,Frontier Charter
+edict.frontier_charter.desc,Land grants for anyone willing to build out there. Outposts cost half the influence.
+hull.survey_probe.name,Survey Probe
+hull.survey_probe.desc,"A small, fast ship full of instruments. Surveys planets and explores."
+hull.construction_ship.name,Construction Ship
+hull.construction_ship.desc,"A tug with arms and a hold full of tools. Builds outposts, starbases and beacons."
+hull.colony_ship.name,Colony Ship
+hull.colony_ship.desc,"Two thousand settlers, seed stock and a prefabricated town. Founds a new colony."
+hull.corvette.name,Corvette
+hull.corvette.desc,Small and quick; hard to hit.
+hull.frigate.name,Frigate
+hull.frigate.desc,The workhorse warship: balanced and adaptable.
+hull.cruiser.name,Cruiser
+hull.cruiser.desc,"Slow, tough and heavily armed."
+module.mass_driver.name,Mass Driver
+module.mass_driver.desc,A magnetic sling for metal slugs. Kinetic damage: strong against shields.
+module.railgun.name,Railgun
+module.railgun.desc,A heavy mass driver for medium slots. Kinetic damage: strong against shields.
+module.laser.name,Laser
+module.laser.desc,A focused beam. Thermal damage: strong against armour.
+module.pulse_laser.name,Pulse Laser
+module.pulse_laser.desc,Bursts of focused light. Thermal damage: strong against armour.
+module.missile_rack.name,Missile Rack
+module.missile_rack.desc,Guided missiles that pass through shields. Point defence can stop them.
+module.torpedo.name,Torpedo
+module.torpedo.desc,A huge warhead for large slots. Passes through shields.
+module.composite_armor.name,Composite Armor
+module.composite_armor.desc,Layered plates that absorb damage after the shields fall.
+module.heavy_armor.name,Heavy Armor
+module.heavy_armor.desc,Thick plates that absorb a great deal of damage.
+module.deflector.name,Deflector
+module.deflector.desc,A field that absorbs damage and recovers each round.
+module.hardened_deflector.name,Hardened Deflector
+module.hardened_deflector.desc,A stronger deflector for ships that expect heavy fire.
+module.point_defence.name,Point Defence
+module.point_defence.desc,Fast guns that stop a share of incoming missiles.
+module.sensor_suite.name,Sensor Suite
+module.sensor_suite.desc,Better targeting. Ships with it may strike first.
+difficulty.story.name,Story
+difficulty.story.desc,"For enjoying the story. Your colonies produce more, and events are gentler."
+difficulty.normal.name,Normal
+difficulty.normal.desc,"The game as designed. The AI plays by the same rules as you."
+difficulty.hard.name,Hard
+difficulty.hard.desc,"For experienced players. Your colonies produce less, events are harsher, and rivals get more output (shown in every breakdown)."
+legacy.seasoned_farmers.name,Seasoned Farmers
+legacy.seasoned_farmers.desc,The first harvests taught the colony well. +10% food in every later scenario.
+legacy.archive_scholars.name,Archive Scholars
+legacy.archive_scholars.desc,The archivists trained a generation of researchers. +10% research in every later scenario.
+legacy.steady_hands.name,Steady Hands
+legacy.steady_hands.desc,The colony learned to weather hard times together. +5 stability on every colony in later scenarios.
+character.sola.name,Archivist Imre Sola
+character.varga.name,Steward Anneliese Varga
+character.brandt.name,Captain Oduya Brandt
+character.hale.name,Director Kasimir Hale
+character.speaker.name,Speaker-of-Seven
+character.rook.name,Mother Rook

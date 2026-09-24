@@ -1,4 +1,11 @@
 {
   "version": 1,
-  "hulls": []
+  "hulls": [
+    {"id": "survey_probe", "name_key": "hull.survey_probe.name", "desc_key": "hull.survey_probe.desc", "icon": "ship_survey", "class": "civilian", "role": "survey", "cost": {"minerals": 5000}, "upkeep": {"energy": 50}, "build_turns": 2, "speed_cp": 150},
+    {"id": "construction_ship", "name_key": "hull.construction_ship.name", "desc_key": "hull.construction_ship.desc", "icon": "ship_construction", "class": "civilian", "role": "construction", "cost": {"minerals": 10000}, "upkeep": {"energy": 100}, "build_turns": 3, "speed_cp": 100},
+    {"id": "colony_ship", "name_key": "hull.colony_ship.name", "desc_key": "hull.colony_ship.desc", "icon": "ship_colony", "class": "civilian", "role": "colony", "cost": {"food": 10000, "minerals": 15000, "alloys": 5000}, "upkeep": {"energy": 100}, "build_turns": 4, "speed_cp": 100},
+    {"id": "corvette", "name_key": "hull.corvette.name", "desc_key": "hull.corvette.desc", "icon": "ship_fleet", "class": "military", "cost": {"alloys": 6000}, "upkeep": {"energy": 100}, "speed_cp": 150, "structure": 150, "slots": {"S": 2, "U": 1}, "evasion_bp": 1500},
+    {"id": "frigate", "name_key": "hull.frigate.name", "desc_key": "hull.frigate.desc", "icon": "ship_fleet", "class": "military", "cost": {"alloys": 14000}, "upkeep": {"energy": 200}, "speed_cp": 100, "structure": 350, "slots": {"S": 2, "M": 1, "U": 2}, "unlock_tech": "frigate_hulls"},
+    {"id": "cruiser", "name_key": "hull.cruiser.name", "desc_key": "hull.cruiser.desc", "icon": "ship_fleet", "class": "military", "cost": {"alloys": 32000}, "upkeep": {"energy": 400}, "speed_cp": 75, "structure": 800, "slots": {"M": 2, "L": 1, "U": 3}, "unlock_tech": "cruiser_hulls"}
+  ]
 }

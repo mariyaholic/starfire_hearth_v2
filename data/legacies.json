@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "legacies": [
+    {"id": "seasoned_farmers", "name_key": "legacy.seasoned_farmers.name", "desc_key": "legacy.seasoned_farmers.desc", "icon": "district_agriculture", "effects": [{"key": "resource_output_bp:food", "value": 1000}]},
+    {"id": "archive_scholars", "name_key": "legacy.archive_scholars.name", "desc_key": "legacy.archive_scholars.desc", "icon": "bld_archive_of_sol", "effects": [{"key": "research_bp:all", "value": 1000}]},
+    {"id": "steady_hands", "name_key": "legacy.steady_hands.name", "desc_key": "legacy.steady_hands.desc", "icon": "stat_stability", "effects": [{"key": "stability_add", "value": 5}]}
+  ]
+}

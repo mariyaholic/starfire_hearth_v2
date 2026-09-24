@@ -89,12 +89,17 @@ const FONT_MONO_MEDIUM: String = "res://assets/fonts/plex_mono/IBMPlexMono-Mediu
 static var high_contrast: bool = false
 
 
+## Palette tokens, plus "star.<class>" for the star colours.
 static func has(token: String) -> bool:
+	if token.begins_with("star."):
+		return STAR.has(token.trim_prefix("star."))
 	return PALETTE.has(token)
 
 
 ## The current colour of a token (respects the high-contrast variant).
 static func color(token: String) -> Color:
+	if token.begins_with("star."):
+		return STAR.get(token.trim_prefix("star."), Color.MAGENTA)
 	if high_contrast and HIGH_CONTRAST.has(token):
 		return HIGH_CONTRAST[token]
 	return PALETTE.get(token, Color.MAGENTA)

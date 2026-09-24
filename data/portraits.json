@@ -1,4 +1,11 @@
 {
   "version": 1,
-  "portraits": []
+  "portraits": [
+    {"id": "archivist_sola", "name_key": "character.sola.name", "kind": "human", "skin": "#9A6440", "hair": "#D8D8D8", "hair_style": "short", "collar": "accent.teal", "accessory": "glasses", "age": "older"},
+    {"id": "steward_varga", "name_key": "character.varga.name", "kind": "human", "skin": "#F2D2B6", "hair": "#8C6A4A", "hair_style": "bun", "collar": "hearth.gold", "accessory": "badge", "age": "middle"},
+    {"id": "captain_brandt", "name_key": "character.brandt.name", "kind": "human", "skin": "#6E4630", "hair": "#2B211C", "hair_style": "cropped", "collar": "accent.teal", "accessory": "none", "age": "young"},
+    {"id": "director_hale", "name_key": "character.hale.name", "kind": "human", "skin": "#E0B08A", "hair": "#5A3B28", "hair_style": "swept", "collar": "ally.blue", "accessory": "pin", "age": "middle"},
+    {"id": "speaker_of_seven", "name_key": "character.speaker.name", "kind": "vael"},
+    {"id": "mother_rook", "name_key": "character.rook.name", "kind": "human", "skin": "#C68A5E", "hair": "#C9A56A", "hair_style": "shaved_side", "collar": "alert.ember", "accessory": "plate", "age": "older"}
+  ]
 }
