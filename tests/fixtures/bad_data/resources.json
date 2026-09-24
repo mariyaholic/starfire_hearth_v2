@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": [
+    {
+      "id": "minerals", "name_key": "res.minerals.name", "desc_key": "res.minerals.desc",
+      "icon": "res_minerals", "colour": "mineral.slate", "color": "mineral.slate", "cap": "4.001", "tradable": true,
+      "sinks": ["districts"]
+    }
+  ]
+}

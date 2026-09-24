@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "factions": [
+    { "id": "ark", "name_key": "faction.ark.name", "desc_key": "faction.ark.desc", "kind": "player", "color": "accent.teal", "emblem": "emblem_hearth" },
+    { "id": "meridian", "name_key": "faction.meridian.name", "desc_key": "faction.meridian.desc", "kind": "power", "color": "ally.blue", "emblem": "emblem_compass" },
+    { "id": "vael", "name_key": "faction.vael.name", "desc_key": "faction.vael.desc", "kind": "power", "color": "other.magenta", "emblem": "emblem_spiral" },
+    { "id": "unlit", "name_key": "faction.unlit.name", "desc_key": "faction.unlit.desc", "kind": "pirate", "color": "alert.ember", "emblem": "emblem_broken_circle" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "traits": [
+    { "id": "fertile_soil", "name_key": "trait.fertile_soil.name", "desc_key": "trait.fertile_soil.desc", "icon": "trait_fertile",
+      "effects": [ { "key": "district_output_bp:agriculture", "value": 2000 } ] },
+    { "id": "rich_veins", "name_key": "trait.rich_veins.name", "desc_key": "trait.rich_veins.desc", "icon": "trait_veins",
+      "effects": [ { "key": "district_output_bp:mining", "value": 2000 } ] },
+    { "id": "geothermal", "name_key": "trait.geothermal.name", "desc_key": "trait.geothermal.desc", "icon": "trait_geothermal",
+      "effects": [ { "key": "district_output_bp:energy", "value": 2000 } ] },
+    { "id": "tidally_locked", "name_key": "trait.tidally_locked.name", "desc_key": "trait.tidally_locked.desc", "icon": "trait_locked",
+      "effects": [ { "key": "slots_add", "value": -2 }, { "key": "district_output_bp:energy", "value": 1000 }, { "key": "stability_add", "value": -5 } ] },
+    { "id": "toxic_atmosphere", "name_key": "trait.toxic_atmosphere.name", "desc_key": "trait.toxic_atmosphere.desc", "icon": "trait_toxic",
+      "domes_only": true,
+      "effects": [ { "key": "district_output_bp:industry", "value": 1000 } ] },
+    { "id": "low_gravity", "name_key": "trait.low_gravity.name", "desc_key": "trait.low_gravity.desc", "icon": "trait_low_gravity",
+      "effects": [ { "key": "resource_output_bp:alloys", "value": 1000 }, { "key": "ship_cost_bp", "value": -1000 } ] },
+    { "id": "ancient_ruins", "name_key": "trait.ancient_ruins.name", "desc_key": "trait.ancient_ruins.desc", "icon": "trait_ruins",
+      "blocked_slots": 1,
+      "effects": [] },
+    { "id": "radiation_belt", "name_key": "trait.radiation_belt.name", "desc_key": "trait.radiation_belt.desc", "icon": "trait_radiation",
+      "effects": [ { "key": "resource_output_bp:research", "value": 1500 }, { "key": "stability_add", "value": -5 } ] }
+  ]
+}

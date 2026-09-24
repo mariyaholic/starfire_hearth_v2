@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "jobs": [
+    { "id": "farmer", "name_key": "job.farmer.name", "group": "food", "output": { "food": 400 } },
+    { "id": "technician", "name_key": "job.technician.name", "group": "energy", "output": { "energy": 500 } },
+    { "id": "miner", "name_key": "job.miner.name", "group": "minerals", "output": { "minerals": 400 } },
+    { "id": "metallurgist", "name_key": "job.metallurgist.name", "group": "alloys", "output": { "alloys": 300 }, "input": { "minerals": 600 } },
+    { "id": "researcher", "name_key": "job.researcher.name", "group": "research", "output": { "research": 400 } },
+    { "id": "clerk", "name_key": "job.clerk.name", "group": "clerks", "output": { "energy": 200 }, "stability_add": 1 }
+  ]
+}

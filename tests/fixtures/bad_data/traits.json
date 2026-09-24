@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "traits": [
+    { "id": "cursed", "name_key": "trait.fertile_soil.name", "desc_key": "trait.fertile_soil.desc", "icon": "trait_fertile",
+      "effects": [ { "key": "make_everything_free", "value": 1 } ] }
+  ]
+}

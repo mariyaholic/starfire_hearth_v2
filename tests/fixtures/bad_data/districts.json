@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "districts": [
+    {
+      "id": "quarry", "name_key": "district.quarry.name", "desc_key": "district.mining.desc",
+      "icon": "district_mining", "cost": { "minerals": "50.50" }, "build_turns": 3,
+      "upkeep": {}, "housing": 1,
+      "jobs": [ { "job": "stonecutter", "count": 2 } ],
+      "adjacency": [], "tiers": []
+    }
+  ]
+}

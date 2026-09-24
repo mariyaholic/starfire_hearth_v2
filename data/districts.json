@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "districts": [
+    {
+      "id": "habitation", "name_key": "district.habitation.name", "desc_key": "district.habitation.desc",
+      "icon": "district_habitation", "cost": { "minerals": 5000 }, "build_turns": 3,
+      "upkeep": { "energy": 100 }, "housing": 6,
+      "jobs": [ { "job": "clerk", "count": 1 } ],
+      "adjacency": [], "tiers": []
+    },
+    {
+      "id": "agriculture", "name_key": "district.agriculture.name", "desc_key": "district.agriculture.desc",
+      "icon": "district_agriculture", "cost": { "minerals": 6000 }, "build_turns": 3,
+      "upkeep": { "energy": 50 }, "housing": 1,
+      "jobs": [ { "job": "farmer", "count": 2 } ],
+      "adjacency": [ { "with": "agriculture", "bonus_bp": 500, "cap_bp": 2000 } ], "tiers": []
+    },
+    {
+      "id": "energy", "name_key": "district.energy.name", "desc_key": "district.energy.desc",
+      "icon": "district_energy", "cost": { "minerals": 6000 }, "build_turns": 3,
+      "upkeep": {}, "housing": 1,
+      "jobs": [ { "job": "technician", "count": 2 } ],
+      "adjacency": [], "tiers": []
+    },
+    {
+      "id": "mining", "name_key": "district.mining.name", "desc_key": "district.mining.desc",
+      "icon": "district_mining", "cost": { "minerals": 6000 }, "build_turns": 3,
+      "upkeep": { "energy": 50 }, "housing": 1,
+      "jobs": [ { "job": "miner", "count": 2 } ],
+      "adjacency": [], "tiers": []
+    },
+    {
+      "id": "industry", "name_key": "district.industry.name", "desc_key": "district.industry.desc",
+      "icon": "district_industry", "cost": { "minerals": 8000 }, "build_turns": 4,
+      "upkeep": { "energy": 100 }, "housing": 1,
+      "jobs": [ { "job": "metallurgist", "count": 2 } ],
+      "adjacency": [
+        { "with": "mining", "bonus_bp": 1000, "cap_bp": 3000 },
+        { "with": "habitation", "stability_add": -2 }
+      ],
+      "tiers": []
+    },
+    {
+      "id": "research", "name_key": "district.research.name", "desc_key": "district.research.desc",
+      "icon": "district_research", "cost": { "minerals": 8000 }, "build_turns": 4,
+      "upkeep": { "energy": 150 }, "housing": 1,
+      "jobs": [ { "job": "researcher", "count": 2 } ], "branch_choice": true,
+      "adjacency": [ { "with": "energy", "bonus_bp": 1000, "cap_bp": 3000 } ], "tiers": []
+    }
+  ]
+}

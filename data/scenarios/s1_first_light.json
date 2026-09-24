@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "id": "s1_first_light",
+  "name_key": "scenario.s1.name",
+  "desc_key": "scenario.s1.desc",
+  "status": "stub",
+  "origin": "generation_ark",
+  "map": {
+    "systems": [
+      {
+        "id": "sys_ember", "name_key": "system.ember.name", "x": 0, "y": 0, "spectral": "K", "magnitude": 3,
+        "specials": [], "beacon": "none",
+        "planets": [
+          { "id": "pl_aster", "name_key": "planet.aster.name", "type": "continental", "size": "medium", "orbit": 1,
+            "traits": ["fertile_soil"], "blocked_slots": [7, 15], "art_seed": 11 },
+          { "id": "pl_brume", "name_key": "planet.brume.name", "type": "ocean", "size": "small", "orbit": 2,
+            "traits": ["geothermal"], "blocked_slots": [], "art_seed": 23 },
+          { "id": "pl_cinder", "name_key": "planet.cinder.name", "type": "barren", "size": "tiny", "orbit": 0,
+            "traits": ["rich_veins"], "blocked_slots": [], "art_seed": 37 },
+          { "id": "pl_dross", "name_key": "planet.dross.name", "type": "gas_giant", "size": "", "orbit": 3,
+            "traits": [], "blocked_slots": [], "art_seed": 41 },
+          { "id": "pl_tithe", "name_key": "planet.tithe.name", "type": "asteroid_belt", "size": "", "orbit": 4,
+            "traits": [], "blocked_slots": [], "art_seed": 53 }
+        ]
+      },
+      { "id": "sys_halden", "name_key": "system.halden.name", "x": 420, "y": -180, "spectral": "G", "magnitude": 3, "specials": ["dormant_beacon"], "beacon": "dormant", "planets": [] },
+      { "id": "sys_vesper", "name_key": "system.vesper.name", "x": -310, "y": -260, "spectral": "G", "magnitude": 4, "specials": [], "beacon": "none", "planets": [] },
+      { "id": "sys_shroud", "name_key": "system.shroud.name", "x": -380, "y": 170, "spectral": "M", "magnitude": 2, "specials": ["nebula", "derelict"], "beacon": "none", "planets": [] },
+      { "id": "sys_tessel", "name_key": "system.tessel.name", "x": 250, "y": 300, "spectral": "K", "magnitude": 2, "specials": ["rich_asteroids"], "beacon": "none", "planets": [] },
+      { "id": "sys_scour", "name_key": "system.scour.name", "x": 560, "y": 120, "spectral": "M", "magnitude": 1, "specials": [], "beacon": "none", "planets": [] },
+      { "id": "sys_corrie", "name_key": "system.corrie.name", "x": 30, "y": -420, "spectral": "white_dwarf", "magnitude": 1, "specials": ["ruins"], "beacon": "none", "planets": [] }
+    ],
+    "lanes": [
+      { "a": "sys_ember", "b": "sys_halden", "length_cly": 450, "kind": "deep" },
+      { "a": "sys_ember", "b": "sys_vesper", "length_cly": 400, "kind": "deep" },
+      { "a": "sys_ember", "b": "sys_shroud", "length_cly": 420, "kind": "deep" },
+      { "a": "sys_ember", "b": "sys_tessel", "length_cly": 390, "kind": "deep" },
+      { "a": "sys_ember", "b": "sys_corrie", "length_cly": 420, "kind": "deep" },
+      { "a": "sys_halden", "b": "sys_scour", "length_cly": 320, "kind": "deep" }
+    ],
+    "fog_locked": ["sys_halden", "sys_vesper", "sys_shroud", "sys_tessel", "sys_scour", "sys_corrie"]
+  },
+  "start": {
+    "empires": [
+      {
+        "id": "emp_player", "faction": "ark", "origin": "generation_ark", "is_player": true,
+        "stock": { "food": 15000, "energy": 12000, "minerals": 25000, "alloys": 0, "influence": 6000 },
+        "techs": [],
+        "known_systems": ["sys_ember"],
+        "colonies": [
+          {
+            "planet": "pl_aster", "pops": 10, "stability": 60,
+            "districts": [
+              { "slot": 0, "district": "habitation" },
+              { "slot": 1, "district": "habitation" },
+              { "slot": 2, "district": "agriculture" },
+              { "slot": 3, "district": "agriculture" },
+              { "slot": 4, "district": "energy" },
+              { "slot": 5, "district": "mining" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "objectives": { "required": [], "optional": [] },
+  "tutorial": [],
+  "scripted_events": [],
+  "legacies": [],
+  "loss": []
+}
