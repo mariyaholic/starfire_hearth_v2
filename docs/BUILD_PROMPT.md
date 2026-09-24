@@ -1842,7 +1842,7 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
 | A5 | Ship silhouettes | M2 | §15.8 |
 | A6 | VFX kit | M2 | §15.6 |
 | A7 | Game sounds | M2–M3 | §15.4 |
-| A8 | Title key art | M3 | §15.9 |
+| A8 | Title key art and logo | M3 | §15.9 |
 | A9 | Music | M4 | §15.5 |
 | A10 | Store art | M4 | §15.9 |
 
@@ -2083,7 +2083,20 @@ batch.
      "source": "who or what made it (person, studio, or tool and version)",
      "items": [ { "id": "ui_click", "file": "ui_click.wav", "notes": "optional" } ] }
    ```
-   Items can be left out; a missing item keeps its fallback. An unknown id is rejected.
+   Items can be left out; a missing item keeps its fallback. An unknown id is rejected. If a
+   maker cannot produce the manifest, the Owner sends the files with their source and licence,
+   and the builder writes the manifest.
+
+   | Kind | Brief | Batches |
+   | --- | --- | --- |
+   | `sfx` | §15.4 | 1 = UI sounds (A1); 2 = game sounds (A7) |
+   | `music` | §15.5 | 1 (A9) |
+   | `vfx` | §15.6 | 1 (A6) |
+   | `vignette` | §15.7 | 1 = the seven Scenario 1 scenes (A2); 2 = the other eighteen (A4) |
+   | `portrait` | §15.7 | 1 (A3) |
+   | `ship` | §15.8 | 1 (A5) |
+   | `art` | §15.9 | 1 = title key art and logo (A8) |
+   | `store` | §15.9 | 1 = store and platform art (A10) |
 3. **Licence:**
    - Allowed: CC0; work-for-hire with all rights assigned to the Owner; or generated with
      commercial-use rights that the tool's terms grant for this plan.
@@ -2100,10 +2113,19 @@ batch.
    brief asks for greyscale. The engine tints and re-maps by exact hex. A hex outside the palette
    is snapped to the nearest token at intake and reported. More than 5% of the area needing a snap
    rejects the file.
+   - **Exception:** portraits, and people in vignettes, may also use these skin and hair tones.
+     Skin: #F2D2B6 #E0B08A #C68A5E #9A6440 #6E4630 #4A2F22. Hair: #2B211C #5A3B28 #8C6A4A #C9A56A
+     #D8D8D8.
+7. **SVG files** have fills and opacity as attributes. They have no `<style>` blocks and no live
+   text: lettering is converted to paths.
 
 ### 15.2 How the builder ingests a batch (to build in M1: `tools/import_assets.gd`)
 
-1. Put the zip in `incoming/`. This folder is git-ignored and `.gdignore`d.
+1. Put the zip in `incoming/`. This folder is git-ignored and `.gdignore`d. The Owner gets it
+   there in one of two ways:
+   - upload it to the repository on a branch; GitHub's web upload takes files up to 25 MB, so big
+     files such as music go one per upload
+   - attach it in the chat
 2. Run: `godot --headless --path . -s tools/import_assets.gd -- --zip incoming/sfh_sfx_batch1.zip`
 3. The tool checks:
    - the manifest
@@ -2187,7 +2209,7 @@ batch.
 | `treaty_signed` | A7 | 0.8–1.5 s | a formal soft chord, as if a seal were pressed |
 | `war_declared` | A7 | 1–2 s | a dark drum hit with a low drone tail |
 | `vael_voice` | A7 | 1–2 s | light made audible: layered glassy tones, no human voice ×3 |
-| `ambient_ui_room` | A7 | 20–40 s loop | an almost-silent ship interior hum behind menus (stereo; loop-seamless) |
+| `ambient_ui_room` | A7 | 20–40 s loop | an almost-silent ship interior hum behind menus (stereo; loop-seamless; about −30 LUFS) |
 
 **Fallback:** synthesised blips in code (square or sine envelopes) for every id.
 
@@ -2199,7 +2221,9 @@ never demand attention. Tempo is slow (60–85 BPM or free). There are no drums 
 tracks, and only soft pulses in the tension tracks. There are no vocals, except wordless textures.
 
 **Technical spec:**
-- **Format:** WAV 48 kHz 24-bit stereo masters. The builder encodes to Ogg Vorbis.
+- **Format:** WAV or FLAC, 48 kHz, 24-bit, stereo masters. The builder encodes to Ogg Vorbis.
+  If a tool only exports compressed audio: Ogg Vorbis at quality 8 or better, or MP3 at 320 kbps
+  as a last resort. The builder then recalculates the loop points.
 - **Loudness:** −18 LUFS integrated (±1), peak ≤ −1 dBTP.
 - **Loops:** every track loops seamlessly. The loop start and end are given in samples in the
   manifest's `notes` (for example `loop 96000-5856000`), and the audio from end to start must be
@@ -2236,7 +2260,9 @@ on).
 - **Format:** PNG, RGBA, straight (non-premultiplied) alpha, sRGB.
 - **Single textures:** square, power-of-two sizes as listed.
 - **Flipbooks:** one PNG per effect, a grid of equal frames left to right then top to bottom, no
-  gaps, with the frame count and grid in the manifest `notes` (for example `4x4 16 frames 24fps`).
+  gaps. The frame size, grid and frame rate are in the table. The effect sits centred in each
+  frame with at least a 4 px margin. Put the grid and frame rate in the manifest `notes` (for
+  example `4x4 16 frames 24fps loop`).
 - **Style:** flat shapes with soft edges only where listed. No photographic smoke or fire; think
   vector explosions made of circles, shards and rings.
 
@@ -2249,13 +2275,13 @@ on).
 | `fx_ring` | 128 | texture | a thin circle outline, 3 px at 128 |
 | `fx_glow` | 256 | texture | a wide, very soft glow for stars and beacons |
 | `fx_hex_shield` | 256 | texture | a faint hex-grid bubble segment (arc), for shield hits |
-| `fx_tracer` | 128×16 | texture | a horizontal beam with a bright head and a fading tail |
-| `fx_explosion_small` | 128 frames | flipbook, 4×4 | a flat burst: a ring expands, shards fly, fades |
-| `fx_explosion_large` | 256 frames | flipbook, 4×4 | the same, larger, with a second ring |
-| `fx_shield_ripple` | 128 frames | flipbook, 4×2 | a hex ripple spreading from a point |
-| `fx_beacon_pulse` | 256 frames | flipbook, 4×4 | concentric rings leaving the centre; loops seamlessly |
-| `fx_jump_flash` | 256 frames | flipbook, 4×4 | an inward collapse, then a sharp flash, then a fading ring |
-| `fx_survey_sweep` | 256 frames | flipbook, 4×4 | a radar sweep arc turning 360°; loops |
+| `fx_tracer` | 128×16 | texture | a horizontal beam, bright head on the right, fading tail to the left |
+| `fx_explosion_small` | frames 128, sheet 512×512 | flipbook, 4×4, 24 fps | a flat burst: a ring expands, shards fly, fades |
+| `fx_explosion_large` | frames 256, sheet 1024×1024 | flipbook, 4×4, 24 fps | the same, larger, with a second ring |
+| `fx_shield_ripple` | frames 128, sheet 512×256 | flipbook, 4×2, 24 fps | a hex ripple spreading from a point |
+| `fx_beacon_pulse` | frames 256, sheet 1024×1024 | flipbook, 4×4, 12 fps, loops | concentric rings leaving the centre |
+| `fx_jump_flash` | frames 256, sheet 1024×1024 | flipbook, 4×4, 24 fps | an inward collapse, then a sharp flash, then a fading ring |
+| `fx_survey_sweep` | frames 256, sheet 1024×1024 | flipbook, 4×4, 12 fps, loops | a radar sweep arc turning 360° |
 
 **Fallback:** code-drawn circles, lines and polygons.
 
@@ -2283,6 +2309,12 @@ tints and animates layers subtly (parallax, light flicker), so the **layers must
 **Also accepted:** layered PNG. Five PNGs per id, `<id>__sky.png`, `<id>__horizon.png`,
 `<id>__midground.png`, `<id>__foreground.png` and `<id>__accent.png`, each 3200×1200, transparent
 except the sky, all aligned on the same canvas.
+
+**Last resort:** one flat PNG, `<id>.png`, 3200×1200. The builder splits it into layers, which
+takes longer.
+
+**Batches:** batch 1 is the Scenario 1 set: `founders_hall`, `vault_frost`, `labor_strike`,
+`sealed_archive`, `ark_engine`, `solar_flare` and `crop_blight`. Batch 2 is the other eighteen.
 
 **Composition:**
 - Keep the key subject in the centre 60% of the width. Phones crop the sides to about 1200×600.
@@ -2326,7 +2358,8 @@ except the sky, all aligned on the same canvas.
 - The same drawing rules as vignettes, except that no gradients are allowed.
 - Flat geometric shapes; a slight three-quarter view; calm expression with a hint of character.
 
-**Also accepted:** layered PNG, 1024×1024 per group, as `<id>__<group>.png`.
+**Also accepted:** layered PNG, 1024×1024 per group, as `<id>__<group>.png`. **Last resort:**
+one flat PNG, `<id>.png`, 1024×1024.
 
 | Id | Character | Notes |
 | --- | --- | --- |
@@ -2347,6 +2380,7 @@ up** (toward y = 0), centred, with the longest dimension about 200.
   engine tints the body with the owner colour, and details a shade darker.
 - The drawing rules are the same as for vignettes. The silhouette must be recognisable at 24 px:
   test it by viewing it at that size.
+- **Also accepted:** PNG, 1024×1024, the same two colours on transparent, with the same layout.
 
 | Id | Ship | Faction signature |
 | --- | --- | --- |
@@ -2365,21 +2399,27 @@ Include no weapons details smaller than 4 px at 256.
 
 ### 15.9 Brief: key art and store art (batches A8, A10)
 
-**Title key art (A8).** Layered, like vignettes:
+**Title key art (A8, kind `art`).** Layered, like vignettes:
 - **SVG:** `viewBox="0 0 3840 2160"`, groups `sky`, `far`, `mid`, `near` and `accent`.
-- **Or layered PNG:** 3840×2160 per layer (`title__sky.png` and so on).
+- **Or layered PNG:** 3840×2160 per layer (`title__sky.png` and so on). The last resort is one
+  flat `title.png` at 3840×2160.
 - **Scene:** the Ember system at dawn from a ridge on Aster. The slowboat Ark hull stands as a
   monument; terraced lights of the settlement; a dark ring beacon faint in the sky; the K-star
   rising (colour #FFB870).
 - Leave the left 40% calmer: the menu sits there.
 - No text; the logo is separate.
 
-**Logo (A10).**
+**Logo (A8, kind `art`, with the key art).**
 - The words "STARFIRE HEARTH" in a geometric sans (it may be custom lettering), plus the hearth
-  emblem (a four-point star in a ring; see `icon.svg` in the repository).
-- Deliver SVG in three versions: light on dark, dark on light, and one-colour white.
+  emblem: a gold four-point star inside a thin ring, with a small teal dot (the placeholder is
+  `icon.svg` in the repository).
+- Deliver SVG, with the lettering converted to paths, as:
+  - `logo_light_on_dark.svg`
+  - `logo_dark_on_light.svg`
+  - `logo_mono_white.svg`
+  - `emblem_mark.svg` (the emblem alone, square)
 
-**Store and platform art (A10).**
+**Store and platform art (A10, kind `store`).**
 - Deliver PNG at these exact sizes (the list follows the common store requirements; confirm with
   the store before submission):
 
