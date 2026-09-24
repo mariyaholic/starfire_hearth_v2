@@ -12,6 +12,11 @@ placeholder, addressed by its §15 id.
 
 Gate: the M1–M3 gate of `docs/BUILD_PROMPT.md` §12.
 
+**Status:** tasks 1–8 are built, except the tuning half of task 8: three balance gates still
+fail. Tasks 9–12 remain: the screens, audio, tooling and the report. The details and the order
+to resume in are in `docs/BUILD_PROMPT.md`, "M1 progress and where to resume". Decisions made
+while building are DESIGN_LOG 66–84.
+
 ## Decisions taken to start (each goes into DESIGN_LOG; the Owner may overrule)
 
 | # | Decision | Reason |

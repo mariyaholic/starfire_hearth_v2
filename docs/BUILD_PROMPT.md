@@ -1,4 +1,4 @@
-# STARFIRE HEARTH: Complete Build Prompt (rewrite 3, after the M0 review)
+# STARFIRE HEARTH: Complete Build Prompt (rewrite 4, M1 in progress)
 
 **To the builder** (the AI coding agent reading this): this document is your whole brief. You are
 building a complete game in the GitHub repository `mariyaholic/starfire_hearth_v2`, working alone
@@ -11,6 +11,10 @@ Owner's decisions from the M0 review:
 - a 150 MB web budget
 - a pipeline for outsourced art, sound and music, on hold for now, so the game is built against
   code placeholders
+
+Rewrite 4 adds the M1 simulation as built, its design decisions (DESIGN_LOG 51–84), the balance
+status, and exactly where to resume: see **M1 progress and where to resume**, right after the
+status table.
 
 Read the whole document before writing any code.
 
@@ -42,9 +46,133 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
 | After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
 | Outsourced assets | **On hold** (Owner, before M1). The briefs of §15 are ready. The game uses its code placeholders until the Owner resumes (DESIGN_LOG 50) |
-| Main scene | The UI kit showcase (sample data). M1 replaces it with the title screen |
-| Next | **M1: First Light** (§12). Write `docs/milestones/M1_PLAN.md` first |
+| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. The simulation, data, story, bots and telemetry are built, tested and pushed; CI is green (run 36006538014). The screens are next |
+| Main scene | Still the UI kit showcase. M1's screens replace it with the title screen |
+| Next | **M1 screens** (§12 M1 task 5; the plan is in "M1 progress and where to resume"), then audio, saves, the Codex, the tour, balance tuning and the M1 report |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
+
+---
+
+## M1 progress and where to resume (rewrite 4)
+
+### What is built (all pushed; CI run 36006538014 green on commit 2afc990)
+
+| Area | As built | Verified by |
+| --- | --- | --- |
+| Data | 15 buildings, 37 techs, 5 ordinances, 6 hulls, 12 modules, district tiers, 3 difficulty presets, 3 legacies, origin effects, 25 story-scene and 6 portrait placeholder records, `data/asset_manifest.json` (169 ids) | `tools/validate_data.gd`: 0 errors, 0 skipped checks |
+| Scenario 1 | Playable data: start state (Ark Hull landmark, Spaceport, both ships, seeded research hands), 4 required + 3 optional objectives, 14 tutorial steps, loss rules, `tech_pool`, `locked_ordinances`, `balance_scope`, `expected_turns` 70, `director_start` 8. Cinder is now small (DESIGN_LOG 66) | the validator's scenario checks and reachability walk |
+| State | Schema 2 with migration `v1_to_v2`; fixtures `tiny_v1.json` and `s1_v2.json` | `tests/unit/test_saves.gd` |
+| Rules | `sim/rules/`: `economy`, `production`, `population`, `stability`, `research`, `construction`, `governor`, `ordinances`, `ships`, `market`, `objectives`, `tutorial`, `events`, `effects`, `modifiers`, `colony_rules`, `hex_grid`; `sim/ai/advisor.gd` | 138 tests, 1,417 checks (`tests/run_tests.gd`), incl. Aster's start numbers against §5 |
+| Commands | 22 player commands (§9.12) | every type round-trips (`--filter commands`) |
+| Story | 16 chains, 36 steps (§10.6 list below) | the validator checks every body is 60–140 words |
+| Bots | balanced, economy, turtle, random-legal (`tools/bot/bot_policy.gd`); per-turn telemetry; all five gates in `tools/telemetry_report.gd` | CI balance job (20 seeds × 4 policies + Story) |
+| Golden | `tests/golden/tiny_hashes.json` and `s1_hashes.json` (24 scripted S1 turns), re-baselined with a CHANGELOG reason | `--filter golden` |
+| UI groundwork | `sim/explain/effect_text.gd` (effects as keys and args), `ui/components/effect_list.gd`, `cost_chips.gd`, `story_scene.gd` and `portrait.gd` (data-driven placeholders), `app/asset_ids.gd` (§15 id → delivered file or null) | `tests/unit/test_effect_text.gd` |
+
+The story chains: scripted Labor Strike (T5), The Founders' Vote (T10), Cold Sleepers (T18), The
+Sealed Order steps 1–2 (T40, then when decoded), The Ark's Last Engine (T45+); status Unrest,
+Empty Granaries (famine), Envoys of the Autonomy; emergent Solar Flare, Crop Blight, Mine
+Collapse, Founding Day, The Frontier Doctor, Refugee Slowboat, Ice Comet Capture, Orbital Debris
+Cascade.
+
+### Balance status (CI run 36006538014: 20 seeds per policy on Normal, plus balanced on Story)
+
+| Gate | Result | Band |
+| --- | --- | --- |
+| Invariants | PASS: 0 problems in 100 runs, 9,101 turns | 0 |
+| Performance | PASS: end-turn p95 36 ms | < 300 ms |
+| Winnable, balanced on Normal | **FAIL**: 20 of 20 won | 60–90% |
+| Winnable, random-legal | PASS: 0 of 20 | < 20% |
+| Winnable, balanced on Story | PASS: 20 of 20 | 85–100% |
+| Pacing | PASS: median win turn 78 | 56–84 |
+| No dead turns | PASS: median 0% | < 25% |
+| No hoarding | **FAIL**: 80 of 80 runs (streaks: food 115, metals 81, influence 51, energy 41) | ≤ 20% of runs |
+| Everything matters | **FAIL**: Foundry 0%, Research Institute 1%, Fusion Plant 3%, Hydroponics Bay 11% | buildings ≥ 25%, techs ≥ 15% |
+
+Balance gates are advisory in CI (`--balance advisory`) until the M1 gate (DESIGN_LOG 82).
+What is known about each failure, to try next:
+- **Food** hoards by turn 17 in every run: the start is food-rich (+13 a turn on 150) and the
+  balanced bot founds Brume around turn 27, while the tutorial expects turn 15. A Colony Ship by
+  turn ~15 (Industry first, then Mining, Rush) spends 100 food in time. Or lower the starting
+  food. Reserving minerals for the ship made things worse (Aster stalled); do not retry that
+  without also raising mineral income first.
+- **Metals** hoard after the two Colony Ships (nothing else uses them in S1): the bot should
+  build the Market Exchange earlier (Colonial Administration) and sell, or stop Industry.
+- **Influence and energy**: the bot spends influence on ordinances and rerolls and energy on
+  rushing; turtle and economy still hoard influence.
+- **Everything matters**: the advisor undervalues the Foundry, Research Institute, Fusion Plant
+  and Hydroponics Bay (their value should come from the colony's gross output of the resource,
+  and Hydroponics from "food without workers").
+- **Balanced wins 100% on Normal**: Normal needs a real chance of failure without pushing the
+  median past turn 84, for example harsher emergent events. This is a candidate question for the
+  Owner.
+
+### Remaining M1 work, in order
+
+1. **Screens** (plan below), PC and phone, 100% and 200% text.
+2. **Audio**: an `Audio` autoload with UI, Effects and Music buses; volume and mute settings;
+   synthesised blips for every §15.4 id; music cues with crossfades, silent until delivered.
+3. **Saves**: auto-save ring of 10, checkpoint ring of 6 (every 5 turns), manual slots, thumbnails;
+   campaign progress (`user://campaign.json`: completed scenarios, chosen legacies).
+4. **Codex**: the S1 subset generated from data plus prose in `data/codex/*.md`.
+5. **Planet renderer** upgraded to lit spheres (§8.3).
+6. **Main scene**: the title screen; the showcase becomes a debug entry (and stays in the tour).
+7. **Tooling**: the screenshot tour visits every screen from fixture saves; the id audit covers
+   them; `tools/web_smoke.mjs` also starts a new game.
+8. **Balance tuning** against the gates above, or an honest report of where they fail.
+9. **M1 report** (`docs/milestones/M1_REPORT.md`), merge, deploy, stop for the Owner's playtest.
+
+### The screen plan (designed, not yet built)
+
+- **`AppRoot`** (new main scene, `ui/screens/app_root.gd`): hosts one screen at a time and routes
+  title → campaign → briefing → game → debrief, plus Codex, settings, load and the showcase.
+- **Title**: Continue (newest save), New Campaign, Load, Codex, Settings, Showcase (debug), Quit
+  (desktop).
+- **Campaign**: the three scenario cards (S2 and S3 locked until the one before is won) and the
+  difficulty preset with its description.
+- **Briefing**: `scenario.s1.briefing`, the objectives, Begin. **Debrief**: outcome, objectives,
+  the legacy pick (1 of 3), then back to the campaign.
+- **Game screen**: the top bar (every resource, net and breakdown; date; menu); navigation (a rail
+  on PC, a bottom tab bar on phones); the current view in the centre; a context panel (right side
+  on PC, a bottom sheet on phones); the advisor card (tutorial: current step, goal, highlight,
+  completes on the player's action through `Tutorial.condition_met` or a UI event, then
+  `AcknowledgeCommand`); End Turn with the checklist (pending events block; idle Construction
+  Ship, empty research card and overflow warnings are listed; critical alerts must be
+  acknowledged).
+  - **Galaxy view**: Ember and the six fogged neighbours; the lanes are locked, with the reason.
+  - **System view**: the star, planets on orbits, ships; a planet's panel shows survey state,
+    traits, slots, and the actions Survey, Colonise and Build an Outpost (with costs and reasons).
+  - **Colony planner**: the hex grid from `HexGrid.coords` with `HexCell`s; header stats (settlers,
+    housing, jobs, stability, growth: each an Explainable); a slot's menu of districts and
+    buildings with cost chips, the adjacency ghost and the change it would make (compare
+    `Economy.colony` before and after on a cloned state); the queue (cancel, move up, rush); job
+    priority; the governor (on or off, focus, budget, plan with its reason, veto).
+  - **Research**: three branch columns of cards with progress and cost breakdowns; reroll; a
+    tech-tree list by branch and tier.
+  - **Ordinances**, **Market** (once open), **Objectives** (progress per objective).
+- **Overlays**: the event scene (StoryScene, speaker Portrait and name, title, body, choices with
+  CostChips and EffectList, uncertain outcomes with their chances, the hint); the turn report (top
+  3, then grouped, each with jump-to); Why? (the WhyLog entries for the selection); settings;
+  save and load.
+- **After End Turn**: `Game.end_turn()`, auto-save, the report, then each pending event in turn;
+  a won or lost outcome opens the debrief.
+
+### Builder notes (learned the hard way)
+
+- Check every new script with `godot --headless --path . --check-only -s <script>`: `--import`
+  does not report parse errors in a class script nothing uses yet.
+- Never name a method after an Object virtual (`_set`, `_get`, `_init` with arguments...).
+- Untyped declarations are errors, including `for` loop variables.
+- Never `pkill -f` a pattern that appears in your own command line: it kills the shell (exit
+  144). Kill by PID.
+- A probe script that fails before `quit()` hangs: run probes under `timeout`.
+- In test messages, `%` must be escaped as `%%` when the string is formatted.
+- String keys that code builds from ids go through `sim/explain/names.gd`, so the data checks can
+  see them; literal keys with the prefixes in `tools/data_checks.gd` must exist.
+- String arguments: `_key` resolves a key; `_c` is a centi amount; `_sc`, `_sp` and `_bp` are
+  signed centi, points and basis points.
+- Local balance loop: run the four policies in parallel with `tools/bot_run.gd --seeds 1-6
+  --turns 105 --out <dir>`, then `tools/telemetry_report.gd -- --in <dir> --balance advisory`.
 
 ---
 
@@ -1309,6 +1437,28 @@ asset-intake validation step once `tools/import_assets.gd` exists (§15.2). Bump
 
 ---
 
+### 9.12 The M1 simulation (as built)
+
+- **Content access:** rules read `Content.db()` (`sim/data/content.gd`), loaded once; tests can swap
+  it with `Content.use()` (DESIGN_LOG 51).
+- **Breakdowns** gained a `flat` line kind, applied after the percentage lines: upkeep,
+  consumption and inputs are never scaled by bonuses (DESIGN_LOG 67).
+- **Turn phases** filled: 1 commands; 2 governors, then construction; 3 production (the
+  `EmpireReport` is kept in `TurnResult.reports`); 4 growth and famine; 5 research and decoding;
+  8 civilian ship tasks; 9 stability, autonomy, ordinance and modifier ticks; 12 events; 13
+  objectives, victory and loss; 14 report. Phases 6, 7, 10 and 11 wait for M2 and M3.
+- **Commands** (22): rename colony, set job priority, place district, upgrade district, demolish,
+  build building, build ship, cancel build, move build up, rush build, pick research, reroll
+  research, activate ordinance, cancel ordinance, set governor, veto plan, survey, build outpost,
+  colonise, choose event, acknowledge (tutorial), trade.
+- **Economy** (`Economy.colony`, `Economy.empire`): derived, never mutating; the UI, the bots and
+  the production phase all read the same reports and breakdowns.
+- **Events:** `Events.check` evaluates a closed set of trigger conditions and returns the colony
+  and readable reasons (written to the Why? log); `Effects.apply` turns lasting effects into
+  `Modifier`s named after the event, applies one-off effects, and schedules gradual ones.
+- **Advisor** (`sim/ai/advisor.gd`): scores every legal build for a colony from the empire's needs
+  and a focus, with a reason key; the governor and the bots share it, and M3's AI will too.
+
 ## 10. Content scope: the 3-scenario mini-campaign (the POC)
 
 ### 10.1 Campaign structure
@@ -1337,7 +1487,7 @@ beyond Ember is locked, and the lock is explained in the story: "our slowboats n
 | --- | --- | --- | --- | --- |
 | Aster | continental, medium | 20 (2 blocked) | Fertile Soil | capital |
 | Brume | ocean, small | 16 | Geothermal | colony target |
-| Cinder | barren, tiny | 12 | Rich Veins | dome world once Habitat Domes is researched |
+| Cinder | barren, small | 16 (8 as a dome world) | Rich Veins | dome world once Habitat Domes is researched (small, not tiny: DESIGN_LOG 66) |
 | Dross | gas giant | — | — | energy or research outpost slot |
 | The Tithe Belt | asteroid belt | — | — | minerals outpost |
 
@@ -1741,6 +1891,10 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
 
 ### M1: First Light
 
+**Status (rewrite 4):** tasks 1–4 and 7–8 below are built (rules, commands, data, events, asset
+ids, bots and telemetry); the balance gates are computed but three still fail. Tasks 5–6 and 9
+(screens, audio, main scene) remain. See "M1 progress and where to resume".
+
 **Tasks:**
 1. **Rules** (`sim/rules/`), each with unit tests and breakdowns:
    - economy: jobs, output, upkeep, caps and overflow warnings
@@ -1957,7 +2111,20 @@ The set lives in `sim/data/effect_keys.gd`.
   ] }
 ```
 
-### 13.5 Scenario format (outline; S1 stub as built)
+**As built in M1:** a chain file also has `version`, `kind` (`scripted`, `main_arc`, `status` or
+`emergent`), optional `scenarios`, `vignette`, `cooldown` and `weight`. A step has `speaker`,
+`expression` (`neutral`, `warm`, `worried`, `stern`), `music` (a §15.5 id), `hint_key`, and
+`on_fire` {`effects`, `set_flags`}; a later step's `trigger` is a requirement it waits for. A
+choice has `cost`, `effects`, `set_flags`, `clear_flags`, `next`, `requires` and `locked_key`; an
+"Uncertain" choice has `uncertain: true` and `outcomes` [{`chance_bp`, `text_key`, `effects`,
+`set_flags`, `next`}] summing to 10000. Trigger conditions: `min_turn`, `max_turn`, `flags_all`,
+`flags_none`, `colony_stability_max`, `colony_stability_min`, `colony_pops_min`, `colonies_min`,
+`has_building`, `has_district`, `techs_all`, `stock_min`, `stock_max`, `net_max`, `net_min`,
+`decode_min`, `outposts_min`, `colony_planet_type`, `colony_is_capital`, `autonomous_colony`.
+Effects with `"target": "colony"` land on the event's colony; `turns` makes them timed and
+`over_turns` gradual.
+
+### 13.5 Scenario format (outline; S1 as built)
 
 ```json
 { "id": "s1_first_light", "name_key": "scenario.s1.name", "origin": "generation_ark",
@@ -1971,6 +2138,16 @@ The set lives in `sim/data/effect_keys.gd`.
   "legacies": ["seasoned_farmers", "archive_scholars", "steady_hands"],
   "loss": [ { "type": "capital_pops_zero" }, { "type": "capital_autonomy" } ] }
 ```
+
+**As built in M1** (see `data/scenarios/s1_first_light.json`): also `briefing_key`, `debrief_key`,
+`status` (`playable`), `expected_turns`, `director_start`, `teaches`, `tech_pool`
+{`exclude_military`, `always_offer`}, `locked_ordinances`, `music`, and `balance_scope`
+{`districts`, `buildings`, `techs`} (what the "everything matters" gate checks). A start empire
+has `surveyed`, `research_hands` per branch, `ships` [{`hull`, `system`}], and colonies with
+`capital`, `buildings` (landmarks use slot −1) and district `branch`. Objective types:
+`colonies_developed`, `outposts`, `stability_streak` (`min`, `turns`, `min_colonies`), `flag`,
+`total_pops`, `techs`, `never_flag`. Tutorial `complete_on` is `{ui: ...}` or `{state: ...}`
+with the conditions of `sim/rules/tutorial.gd`.
 
 ### 13.6 AI personality format
 
@@ -2088,6 +2265,15 @@ Each run writes per-turn JSON:
   Owner resumes (DESIGN_LOG 50).
 - **Technical decisions** DESIGN_LOG 1–41 (M0, listed in the M0 report) and 42–50 (after the M0
   review) stand unless overruled.
+- **M1 decisions** DESIGN_LOG 51–84 (M1 plan and build), all open to the Owner. The ones that change
+  how the game feels:
+  - the fixed-rate market arrives in M1 with the Market Exchange (78)
+  - rushing a build with energy (81)
+  - governors pay from a purse filled by their share of minerals income (80)
+  - a colony ship's hull becomes the colony's free first shelter (77)
+  - Scenario 1 always offers Habitat Domes once Frontier Medicine is known (79)
+  - the stability objective counts only turns with two or more colonies (83)
+  - Cinder is a small dome world (66)
 
 ### 14.2 Still open (continue with the default until the Owner answers)
 
@@ -2098,7 +2284,8 @@ Each run writes per-turn JSON:
 | Polity name | "The Ember Compact" |
 | Music source | outsourced per §15.5 |
 | Event scene layout | the card of §7 (scene on top, portrait beside the text); a full visual-novel layout (scene full-screen, portrait over it, text box below) is offered in the M1 plan |
-| Research Institute unlock and tier III | the §10.3 and §10.4 defaults, logged at M1 |
+| Research Institute unlock and tier III | settled at M1 with the §10.3 and §10.4 defaults (DESIGN_LOG 65) |
+| Balanced bot wins 100% on Normal (band 60–90%) | make Normal harsher (for example emergent events), keeping the median win within turns 56–84; to be proposed in the M1 report |
 
 ---
 

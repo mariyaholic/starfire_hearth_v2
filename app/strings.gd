@@ -5,7 +5,8 @@ extends Node
 ## string key: it is resolved first and offered to the text without the suffix, so
 ## {"reason_key": "error.colony.not_found"} fills {reason}. An argument ending in "_c" is an
 ## amount in centi-units and is shown as a decimal without trailing zeros: {"each_c": 450} fills
-## {each} with "4.5".
+## {each} with "4.5". Signed forms: "_sc" (centi, "+4.5"), "_sp" (points, "+5") and "_bp" (basis
+## points, "+10%").
 
 var table: StringTable
 var _translation: Translation
@@ -46,9 +47,26 @@ func fmt(key: String, args: Dictionary = {}) -> String:
 			values[arg_name.trim_suffix("_key")] = fmt(args[k], plain)
 		elif arg_name.ends_with("_c") and typeof(args[k]) == TYPE_INT:
 			values[arg_name.trim_suffix("_c")] = centi(args[k])
+		elif arg_name.ends_with("_sc") and typeof(args[k]) == TYPE_INT:
+			values[arg_name.trim_suffix("_sc")] = ("+" if int(args[k]) > 0 else "") + centi(args[k])
+		elif arg_name.ends_with("_sp") and typeof(args[k]) == TYPE_INT:
+			var n: int = args[k]
+			values[arg_name.trim_suffix("_sp")] = ("+%d" % n) if n > 0 else (("\u2212%d" % -n) if n < 0 else "0")
+		elif arg_name.ends_with("_bp") and typeof(args[k]) == TYPE_INT:
+			values[arg_name.trim_suffix("_bp")] = percent(args[k])
 		else:
 			values[arg_name] = str(args[k])
 	return text.format(values)
+
+
+## Basis points as a signed percentage: 1000 -> "+10%", -1500 -> "−15%", 250 -> "+2.5%".
+static func percent(bp: int) -> String:
+	var sign: String = "+" if bp > 0 else ("\u2212" if bp < 0 else "")
+	var a: int = absi(bp)
+	var s: String = str(a / 100)
+	if a % 100 != 0:
+		s += (".%02d" % (a % 100)).rstrip("0")
+	return sign + s + "%"
 
 
 ## A centi-unit amount as a short decimal: 450 -> "4.5", 400 -> "4", -25 -> "−0.25".

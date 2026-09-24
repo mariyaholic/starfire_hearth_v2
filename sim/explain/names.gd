@@ -15,6 +15,10 @@ const SHIP_ROLE: Dictionary[String, String] = {
 	"survey": "ship_role.survey.name", "construction": "ship_role.construction.name",
 	"colony": "ship_role.colony.name",
 }
+const DAMAGE: Dictionary[String, String] = {
+	"kinetic": "damage.kinetic.name", "thermal": "damage.thermal.name",
+	"explosive": "damage.explosive.name",
+}
 const EVENT_CAUSE: Dictionary[String, String] = {
 	"scripted": "why.event.cause_scripted", "main_arc": "why.event.cause_main_arc",
 	"director": "why.event.cause_director", "chain": "why.event.cause_chain",
@@ -32,6 +36,10 @@ static func stage(stage_id: String) -> String:
 
 static func ship_role(role: String) -> String:
 	return SHIP_ROLE.get(role, "")
+
+
+static func damage(type_id: String) -> String:
+	return DAMAGE.get(type_id, "")
 
 
 static func event_cause(cause: String) -> String:

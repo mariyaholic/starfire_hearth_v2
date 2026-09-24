@@ -8,7 +8,7 @@ const CODE_ROOTS: Array[String] = ["res://sim", "res://ui", "res://app", "res://
 ## Literal keys with these prefixes in sim/ are string keys the UI will show, so each must exist.
 const SIM_KEY_PREFIXES: Array[String] = [
 	"source.", "breakdown.", "report.", "error.", "governor.", "why.", "note.", "outcome.",
-	"stage.", "ship_role.", "branch.", "objective.", "tutorial.",
+	"stage.", "ship_role.", "branch.", "objective.", "tutorial.", "effect.", "damage.",
 ]
 const ICON_DIR: String = "res://assets/icons"
 

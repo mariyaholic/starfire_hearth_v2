@@ -1017,3 +1017,44 @@ source.rush_per_turn,"Its price spread over {turns} turns of work, at market rat
 error.build.rush_not_first,Only the build in progress can be rushed.
 error.build.rush_last_turn,It already finishes this turn.
 error.build.rush_once,It can be rushed once a turn.
+effect.stability,{value} stability
+effect.output,{value} output
+effect.resource_output,{value} {resource}
+effect.district_output,{value} from each {district}
+effect.research,{value} research
+effect.research_branch,{value} {branch} research
+effect.growth,{value} growth
+effect.housing,{value} housing
+effect.influence_per_turn,{value} influence per turn
+effect.output_add,{value} {resource} per turn
+effect.stock,{value} {resource}
+effect.cap,{value} {resource} storage
+effect.pops,{value}k settlers
+effect.decode,{value} Sealed Order decoding
+effect.decode_rate,decodes {value} of research
+effect.building,adds the {name}
+effect.rejoin,the colony rejoins the Compact
+effect.ordinance_slots,{value} ordinance slot
+effect.outpost_cost,{value} outpost cost
+effect.outpost_time,{value} outpost build time
+effect.sensor,{value} sensor range
+effect.noise,{value} Noise per turn
+effect.noise_transit,{value} Noise from each transit
+effect.slots,{value} planet slots
+effect.ship_cost,{value} ship cost
+effect.opinion,{value} opinion with the {faction}
+effect.damage,{value} {type} damage
+effect.hit_chance,{value} hit chance
+effect.clear_blocked,clears a blocked slot
+effect.add_trait,adds the {name} trait
+effect.remove_trait,removes the {name} trait
+effect.time.for,for {turns} turns
+effect.time.over,over {turns} turns
+effect.time.permanent,for good
+effect.scope.colony,on {colony}
+damage.kinetic.name,kinetic
+damage.thermal.name,thermal
+damage.explosive.name,explosive
+ui.cost.label,Cost in {resource}
+ui.cost.price,Price
+ui.cost.short,You have {have}: not enough yet.

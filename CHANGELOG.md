@@ -34,6 +34,17 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### Display building blocks for the M1 screens
+
+- Effects as readable text (`sim/explain/effect_text.gd`), with signed number arguments in the
+  string layer. New components: `EffectList`, `CostChips`, and code placeholders for story scenes
+  (`StoryScene`) and speaking characters (`Portrait`), drawn from `data/vignettes.json` and
+  `data/portraits.json`. `AssetIds` resolves a §15 id to a delivered file, or to nothing while
+  outsourcing is on hold. **Verified:** `--filter effect_text` (3 tests, 221 checks: every effect
+  in every event choice reads without a raw placeholder).
+- `docs/BUILD_PROMPT.md` rewrite 4: M1 progress, the balance status, the screen plan and where to
+  resume. Documentation only.
+
 ### Content
 
 - Scenario 1 is playable: the full start state (Ark Hull, Spaceport, both ships, seeded research
@@ -55,9 +66,12 @@ repository root after `godot --headless --path . --import`. Everything else is *
   overflow, builds, techs, events, objectives and the outcome. `tools/telemetry_report.gd`
   computes all five balance gates. **Verified** on 6 seeds per policy (105 turns, Normal):
   balanced wins 6 of 6 (median win turn 79; expected 70); random-legal wins 0 of 6; no dead
-  turns; end-turn p95 34 ms. **Failing, still being tuned:** no hoarding (food early, metals
-  after the colony ships), everything matters (Foundry, Fusion Plant, Research Institute,
-  Hydroponics Bay rarely built), and the balanced win rate is above the 60–90% band.
+  turns; end-turn p95 34 ms. On CI, 20 seeds per policy plus Story (run 36006538014): balanced
+  20/20 on Normal and 20/20 on Story, median win turn 78; random-legal 0/20; end-turn p95 36 ms.
+  **Failing, still being tuned:** no hoarding (80 of 80 runs: food early, metals after the
+  colony ships, influence, energy), everything matters (Foundry 0%, Research Institute 1%,
+  Fusion Plant 3%, Hydroponics Bay 11%), and the balanced win rate on Normal is above the 60–90%
+  band.
 
 ## After M0
 
