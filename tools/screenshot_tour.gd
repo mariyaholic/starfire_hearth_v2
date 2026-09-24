@@ -62,6 +62,10 @@ func _run() -> void:
 	settings.set("persist", false)
 	settings.call("set_reduce_motion", true)
 	DirAccess.make_dir_recursive_absolute(_out)
+	# Keep Godot's editor from importing the screenshots as textures.
+	var ignore: FileAccess = FileAccess.open(_out.path_join(".gdignore"), FileAccess.WRITE)
+	if ignore != null:
+		ignore.close()
 	var report: Dictionary = {"profiles": {}, "issue_count": 0, "exemptions": []}
 	var shots: int = 0
 	var started: int = Time.get_ticks_msec()
