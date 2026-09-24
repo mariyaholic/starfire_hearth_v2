@@ -30,8 +30,8 @@ repository root after `godot --headless --path . --import`. Everything else is *
   smoke test with a determinism replay (2 policies x 3 seeds x 60 turns), telemetry gates,
   palette report, screenshot tour and id audit under xvfb, icon sheet, Web, Windows and Linux
   exports, web size check, web smoke test, artifacts, and a GitHub Pages deploy from `main`.
-  **Unverified on GitHub** until its first run; each step was run locally with the same
-  command.
+  **Verified:** [run 35977347923](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/35977347923)
+  passed every job on its first run; the deploy job only runs on `main`.
 - Export presets for Web (single-threaded, so no special server headers), Windows and Linux.
   **Verified:** `godot --headless --path . --export-release "Web" build/web/index.html` (and
   `"Windows"`, `"Linux"`) exit 0. The Linux build ran the showcase for 240 frames with no

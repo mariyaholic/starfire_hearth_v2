@@ -1,8 +1,8 @@
 # M0 Report: Foundation and UI kit
 
-**Status:** every M0 task is built and checked locally. CI is set up to run on the pull request.
-The web build cannot be deployed yet, because GitHub Pages is not enabled on this private
-repository (question 1). Work is stopped here until the Owner's verdict.
+**Status:** every M0 task is built. CI is green on GitHub. The web build cannot be deployed yet,
+because GitHub Pages is not enabled on this private repository (question 1). Work is stopped here
+until the Owner's verdict.
 
 Claims are **Verified** only where the command that proved them is named. Commands run from the
 repository root after `godot --headless --path . --import`.
@@ -71,7 +71,7 @@ Also built:
 | Exports | `godot --headless --path . --export-release "Web" build/web/index.html` (also `"Windows"`, `"Linux"`) | **Verified:** all three exit 0 |
 | Linux build runs | `xvfb-run -a ./build/linux/StarfireHearth.x86_64 --rendering-driver opengl3 --quit-after 240` | **Verified:** exit 0, no script errors. The Windows build has not been run: **Unverified** |
 | Web build runs | `node tools/web_smoke.mjs --build build/web --out screens/web` | **Verified:** 3 of 3 devices pass. PC gets "wide, pointer"; Android phone (873x393 at 2.75x) and iPad get "compact, touch". Each boots in under 2 s with software WebGL |
-| CI green on GitHub | the pull request's checks | **Unverified** when this was written; the pull request reports the result |
+| CI green on GitHub | [run 35977347923](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/35977347923) on commit `067987d` | **Verified:** all three jobs passed. On the runner: 85 tests passed; 68 screenshots with 0 audit issues; web smoke test 3 of 3; end-turn p95 2.06 ms |
 | Web build deployed | Pages deploy job, on `main` | **Not done:** Pages is off (question 1) |
 | Look approved | Owner playtest on PC and phone | Waiting for you |
 
@@ -139,6 +139,9 @@ What I checked in the screenshots, across all 68 and the web captures:
 - **Showcase numbers are sample content** (DESIGN_LOG 30). "Open in the Codex" does nothing yet;
   the Codex arrives with its screen.
 - **Unverified until deployed:** whether Pages serves the web build compressed.
+- **Node 20 warning in CI:** GitHub warns that `actions/cache@v4`, `actions/checkout@v4` and
+  `actions/upload-artifact@v4` target Node 20. It already runs them on Node 24, and they work.
+  They should move to their Node 24 releases when convenient.
 
 ## Deviations from the brief
 
