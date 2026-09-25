@@ -34,6 +34,26 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### The title is the main scene; lit-sphere planets; the tour and web smoke cover the app (DESIGN_LOG 91)
+
+- The game now starts on the title (`ui/screens/app_root.tscn`); the UI showcase is a debug-build
+  entry on it.
+- Planets are lit spheres drawn by `ui/map/planet_sphere.gdshader`: a painted-looking surface
+  from 3D noise on the sphere (seas, land, ice caps and clouds; dunes; ice cracks; craters;
+  swirling haze; gas-giant bands with a storm), a soft terminator, a rim light and an atmosphere
+  glow, all from the type's palette and the seed. Ringed gas giants draw their rings in two halves
+  around the sphere; asteroid belts are unchanged.
+- The screenshot tour also visits the app: title, campaign, briefing, the game route, the debrief
+  of a real win (the balanced bot plays Scenario 1 to victory first), with a legacy chosen and
+  lost, the Codex, an entry and the Codex over a screen. **Verified:** `xvfb-run -a -s "-screen
+  0 2560x1600x24" godot --rendering-driver opengl3 --path . -s tools/screenshot_tour.gd -- --out
+  screens/`: 108 screenshots, 0 audit issues.
+- The web smoke test also opens the game with `?smoke=begin`, which starts Scenario 1 and plays
+  one turn (auto-saving it), and checks that the browser reaches the same state hash as the
+  desktop (`tools/smoke_hash.gd`). **Verified:** `node tools/web_smoke.mjs --build build/web
+  --expect-hash 8d3b3f7d3ce6` after a web export: PC, phone and iPad each reached turn 2 with
+  state `8d3b3f7d3ce6` and 1 save; a wrong expected hash fails all three.
+
 ### Codex, Scenario 1 subset (DESIGN_LOG 90)
 
 - The Codex from the title (search; categories, list and entry side by side on PC, falling back

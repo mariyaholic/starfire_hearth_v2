@@ -269,3 +269,9 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     show: no military technologies, buildings or hulls, and no locked ordinance. Seen events
     appear only while a game is running. A breakdown's Codex link opens the entry over the
     current screen, so reading it never loses the player's place.
+91. **The title is the main scene** once the flow, saves and Codex exist, before the game screen:
+    until that lands, Begin opens its stand-in. Planets are shaded by a canvas shader rather than
+    polygons, because a lit sphere with a soft terminator and a painted surface cannot be drawn
+    well with flat shapes; the shader uses only GLES3 features the web build has. The web smoke
+    test proves the browser and the desktop agree: one turn of Scenario 1 from seed 1 must give
+    the same state hash in both.

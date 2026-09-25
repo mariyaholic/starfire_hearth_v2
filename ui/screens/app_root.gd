@@ -37,6 +37,19 @@ func _ready() -> void:
 	if Settings.persist:
 		progress = CampaignProgress.load_file()
 	go(TITLE)
+	if OS.has_feature("web"):
+		_web_smoke.call_deferred()
+
+
+## The web smoke test (tools/web_smoke.mjs) opens the game with ?smoke=begin: start Scenario 1,
+## play one turn (which auto-saves) and say so in the browser console.
+func _web_smoke() -> void:
+	var v: Variant = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('smoke') || ''", true)
+	if str(v) != "begin":
+		return
+	go(BEGIN, {"scenario": CampaignProgress.ORDER[0], "seed": 1})
+	var r: TurnResult = Game.end_turn()
+	print("Starfire Hearth smoke: new game at turn %d, state %s, %d save(s)" % [r.state.turn, r.state_hash.left(12), SaveService.list_slots().size()])
 
 
 ## The screens this build can open.

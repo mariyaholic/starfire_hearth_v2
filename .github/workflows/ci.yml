@@ -168,7 +168,10 @@ jobs:
         run: |
           npm install --silent --no-audit --no-fund --prefix "$RUNNER_TEMP/pw" playwright@1.56.1
           "$PLAYWRIGHT_DIR/.bin/playwright" install chromium
-          node tools/web_smoke.mjs --build build/web --out screens/web
+          # The browser must reach the same state as the desktop after one turn.
+          HASH=$(godot --headless --path . -s tools/smoke_hash.gd | tail -n 1)
+          echo "desktop state after one turn: $HASH"
+          node tools/web_smoke.mjs --build build/web --out screens/web --expect-hash "$HASH"
 
       - uses: actions/upload-artifact@v4
         if: always()
