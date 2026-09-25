@@ -18,6 +18,8 @@ const SILENT_DB: float = -60.0
 
 ## The music cue last asked for ("" for none), delivered or not.
 var current_music: String = ""
+## The delivered track of that cue, or null while it waits in silence.
+var current_stream: AudioStream = null
 ## The last sound asked for and how many have played: for tests and the preview tool.
 var last_sound: String = ""
 var sounds_played: int = 0
@@ -83,6 +85,7 @@ func play_music(id: String) -> void:
 	current_music = id
 	music_changed.emit(id)
 	var streams: Array = _delivered_streams(id) if not id.is_empty() else []
+	current_stream = streams[0] if not streams.is_empty() else null
 	var old: AudioStreamPlayer = _music[_music_on]
 	if _fade != null and _fade.is_valid():
 		_fade.kill()
@@ -100,7 +103,9 @@ func play_music(id: String) -> void:
 			st.set("loop", not id.begins_with("sting_"))
 		nxt.stream = st
 		nxt.volume_db = SILENT_DB
-		nxt.play()
+		# Headless runs (tests, tools) have no audio output: the track is chosen but not started.
+		if DisplayServer.get_name() != "headless":
+			nxt.play()
 		_fade.tween_property(nxt, "volume_db", 0.0, CROSSFADE)
 	_fade.chain().tween_callback(_stop_faded)
 

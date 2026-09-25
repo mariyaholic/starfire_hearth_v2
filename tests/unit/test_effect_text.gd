@@ -55,4 +55,5 @@ func test_components_build_from_data(t: T) -> void:
 	var odd: Portrait = Portrait.make("archivist_sola", "furious")
 	t.eq(odd.expression, "neutral", "an unknown expression falls back to neutral")
 	odd.free()
-	t.eq(AssetIds.texture("labor_strike"), null, "outsourcing is on hold: every id is a placeholder")
+	t.ok(AssetIds.texture("labor_strike") != null, "a delivered scene has its painting")
+	t.eq(AssetIds.texture("quiet_lane"), null, "a scene not delivered yet draws its placeholder")

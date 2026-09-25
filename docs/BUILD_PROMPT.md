@@ -45,8 +45,8 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Repository | `mariyaholic/starfire_hearth_v2`, **public**. Licence: "All rights reserved" (§14) |
 | M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
 | After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
-| Outsourced assets | **On hold** (Owner, before M1). The briefs of §15 are ready. The game uses its code placeholders until the Owner resumes (DESIGN_LOG 50) |
-| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, and a balance pass. Next: the game screen and its views and overlays |
+| Outsourced assets | **First delivery ingested** (DESIGN_LOG 93): sounds batches 1–2, music batch 1 (all 28 tracks), VFX, the seven Scenario 1 story scenes, the six neutral portraits, ships, the title key art and logo, and store art. Still on their code fallbacks: story scenes batch 2 (18), the portrait expressions (18), `title_cast` and `logo_title` |
+| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, a balance pass, and the asset intake with the first delivery. Next: the game screen and its views and overlays |
 | Main scene | The title (`ui/screens/app_root.tscn`); the UI kit showcase is a debug-build entry on it. Until the game screen lands, Begin opens a stand-in |
 | Next | **The game screen shell**, then the game views and the overlays ("M1 progress and where to resume"); three balance questions wait for the Owner; then the M1 report |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
@@ -69,10 +69,11 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Golden | `tests/golden/tiny_hashes.json` and `s1_hashes.json` (24 scripted S1 turns), re-baselined with a CHANGELOG reason | `--filter golden` |
 | UI groundwork | `sim/explain/effect_text.gd` (effects as keys and args), `ui/components/effect_list.gd`, `cost_chips.gd`, `story_scene.gd` and `portrait.gd` (data-driven placeholders), `app/asset_ids.gd` (§15 id → delivered file or null) | `tests/unit/test_effect_text.gd` |
 | App shell and flow screens | `ui/screens/app_root.tscn` (the main scene; routes; only built screens are offered), `ui/screens/flow/`: title (sky or key art; Continue), campaign (difficulty, scenario cards), briefing, debrief (legacy pick, Try again, the checkpoint after a loss), and a stand-in for the game route; `app/campaign_progress.gd`; `Game.new_game(..., difficulty)` and `Game.resume(state)` | `tests/integration/test_flow_screens.gd` (the flow, and the id audit on 13 states × 4 layouts), `tests/unit/test_campaign_progress.gd` |
-| Audio | `app/audio.gd` (UI, Effects and Music buses; volumes and mute in `Settings`), `app/sound_synth.gd` (a synthesised fallback for every §15.4 id), music cues per screen, silent until delivered; `tools/audio_preview.gd` (CI artifact `audio-preview`) | `tests/unit/test_audio.gd` |
+| Audio | `app/audio.gd` (UI, Effects and Music buses; volumes and mute in `Settings`), `app/sound_synth.gd` (a synthesised fallback for every §15.4 id), music cues per screen (the delivered tracks); `tools/audio_preview.gd` (CI artifact `audio-preview`) | `tests/unit/test_audio.gd` |
 | Saves | `app/save_service.gd`: auto-save after every turn (ring of 10), a checkpoint every 5 turns (ring of 6), numbered manual saves, thumbnails, a listing from the envelopes; `user://campaign.json` | `tests/unit/test_save_service.gd` |
 | Codex | `ui/codex/` (index, live facts, entry view, overlay) and `ui/screens/codex_screen.gd`; 22 mechanics pages in `data/codex/*.md`; every breakdown's Codex link opens its entry | `tests/unit/test_codex.gd`; the Codex states in the flow audit |
 | Planets and tooling | `ui/map/planet_sphere.gdshader` (lit spheres); the screenshot tour visits the app (108 shots, the debrief of a bot-won game); the web smoke test plays a turn and matches the desktop's state hash (`tools/smoke_hash.gd`) | the tour; `node tools/web_smoke.mjs --expect-hash` |
+| Asset intake | `tools/import_assets.py` (§15.2; checks, converts, imports, credits); `assets/delivered/<kind>/`; 131 ids delivered in 9 batches; painted portraits cut to their disc, scenes cropped not stretched, the title's key art and vector logo; the project icon is the delivered emblem | `tests/unit/test_assets.gd` (every delivered id loads); the tour |
 
 The story chains: scripted Labor Strike (T5), The Founders' Vote (T10), Cold Sleepers (T18), The
 Sealed Order steps 1–2 (T40, then when decoded), The Ark's Last Engine (T45+); status Unrest,
@@ -121,8 +122,9 @@ What the balance pass learned, so it is not repeated:
 ### Remaining M1 work, in order
 
 Done since rewrite 4: the app shell and flow screens, audio, saves and campaign progress, the
-Codex, lit-sphere planets, the title as the main scene, the tour and web smoke over the app, and a
-balance pass (CHANGELOG, DESIGN_LOG 85–92). What is left:
+Codex, lit-sphere planets, the title as the main scene, the tour and web smoke over the app, a
+balance pass, and the asset intake with the first delivery (CHANGELOG, DESIGN_LOG 85–93). What is
+left:
 
 1. **The game screen shell** (the plan below): the top bar, navigation, the context panel, the
    advisor tutorial, End Turn with its checklist, and the end-of-turn flow (auto-save, report,
@@ -1285,12 +1287,12 @@ Line height is 1.35. All sizes multiply by the text scale.
 │  │                         # TopBar, Fmt, IconCache, OverlayLayer                     [built]
 │  ├─ screens/               # one folder per screen of §7; showcase/ (M0 main scene)
 │  └─ map/                   # star_disc, planet_disc [built]; galaxy_map, system_map, planner [M1–M2]
-├─ assets/  icons/ (87×2 SVG)  fonts/ (IBM Plex + OFL)  audio/  art/  vfx/  (§15)
+├─ assets/  icons/ (87×2 SVG)  fonts/ (IBM Plex + OFL)  delivered/<kind>/ (§15 batches)
 ├─ app/                      # autoloads: Settings, Strings, Layout, Overlay, Game, SaveService
 ├─ tests/  run_tests.gd  t.gd  unit/  integration/  golden/  fixtures/
 ├─ tools/                    # validate_data, data_checks, bot_run (+bot/), telemetry_report,
 │                            # screenshot_tour, id_audit, icon_sheet, palette_report, colour_vision,
-│                            # regen_golden, web_smoke.mjs; import_assets.gd (§15.2, to build)
+│                            # regen_golden, web_smoke.mjs; import_assets.py (§15.2)
 └─ .github/  workflows/ci.yml  actions/setup-godot/
 ```
 
@@ -1440,8 +1442,9 @@ cancelled; runs on `main` always finish.
 | export | Web, Windows and Linux; web size check (gzip download under 150 MB, DESIGN_LOG 37 and 49); web smoke test; the web-build artifact; desktop builds on `main` and manual runs; the Pages artifact on `main` |
 | deploy | GitHub Pages (Source: GitHub Actions), on pushes to `main` |
 
-**To add:** the Android export at M3 (signing keys from the Owner as repository secrets), and an
-asset-intake validation step once `tools/import_assets.gd` exists (§15.2). Bump
+**To add:** the Android export at M3 (signing keys from the Owner as repository secrets). Asset
+intake runs on the builder's machine (§15.2); CI checks its result in the test job
+(`tests/unit/test_assets.gd`: every delivered id imports and loads). Bump
 `actions/checkout`, `cache` and `upload-artifact` to their Node 24 majors when convenient.
 
 ### 9.11 Performance budgets (checked in CI where possible; reported otherwise)
@@ -1452,9 +1455,9 @@ asset-intake validation step once `tools/import_assets.gd` exists (§15.2). Bump
 | End turn, sandbox (50 systems, 4 AIs) | < 3 s on a mid-range phone | M4 |
 | Map pan and zoom | 60 fps at 50 systems on desktop Compatibility | M2 |
 | Memory | < 400 MB | showcase peak 294 MiB with software GL |
-| Web build size | < 150 MB, as the compressed download (Owner, after M0; DESIGN_LOG 49) | 11.0 MB |
-| Audio added by §15 | music ≤ 70 MB in total as Ogg (about 112 kbps); effects ≤ 5 MB | — |
-| Painted art added by §15 | ≤ 40 MB, shipped as lossy WebP at display size | — |
+| Web build size | < 150 MB, as the compressed download (Owner, after M0; DESIGN_LOG 49) | 48.2 MB with the first delivery (was 11.0 MB) |
+| Audio added by §15 | music ≤ 70 MB in total as Ogg (about 112 kbps); effects ≤ 5 MB | music 27.8 MB (28 tracks); effects 3.6 MB |
+| Painted art added by §15 | ≤ 40 MB, shipped as lossy WebP at display size | 2.9 MB of sources (batch 1) |
 
 ---
 
@@ -1963,7 +1966,7 @@ and where to resume".
    delivered and synthesised blips otherwise.
 7. **Asset ids:** `data/asset_manifest.json` lists every §15 id with its kind and status, and the
    game resolves each id to a delivered file or its placeholder. The intake tool
-   (`tools/import_assets.gd`, §15.2) is built when the first batch arrives; outsourcing is on hold.
+   (`tools/import_assets.py`, §15.2) is built, and the first delivery is in (DESIGN_LOG 93).
 8. **Bot:** the balanced, economy, turtle and random-legal policies playing the full S1; the
    telemetry tools with real balance gates. Reachability in `validate_data` becomes real.
 9. **Main scene:** the title screen. The showcase moves to a debug menu item (and stays in the
@@ -2365,14 +2368,19 @@ batch.
 7. **The logo's SVG files** have fills and opacity as attributes. They have no `<style>` blocks
    and no live text: lettering is converted to paths.
 
-### 15.2 How the builder ingests a batch (to build in M1: `tools/import_assets.gd`)
+### 15.2 How the builder ingests a batch (built in M1: `tools/import_assets.py`, DESIGN_LOG 93)
 
 1. Put the zip in `incoming/`. This folder is git-ignored and `.gdignore`d. The Owner gets it
-   there in one of two ways:
+   there in one of three ways:
    - upload it to the repository on a branch; GitHub's web upload takes files up to 25 MB, so big
      files such as music go one per upload
+   - attach it to a GitHub Release (files up to 2 GB; the first delivery came this way, as one
+     zip holding the batch zips), which the builder downloads
    - attach it in the chat
-2. Run: `godot --headless --path . -s tools/import_assets.gd -- --zip incoming/sfh_sfx_batch1.zip`
+2. Run: `python3 tools/import_assets.py --zip incoming/sfh_sfx_batch1.zip` (repeat `--zip` for
+   more batches; `--check` reports without writing), then
+   `godot --headless --path . --import`. The tool needs
+   `pip install -r tools/requirements-assets.txt`: Godot cannot encode Ogg Vorbis.
 3. The tool checks:
    - the manifest
    - that every id is in `data/asset_manifest.json` (the expected-id list for every kind, with the
@@ -2381,10 +2389,16 @@ batch.
    - for rendered art: the size, and an alpha channel or a flat #00FF00 background to key out.
      It also writes a contact sheet and a dominant-hue report for a visual check
    - for the logo's SVGs: paths only, palette colours, and no raster, filter, text or script
-4. It converts where needed: WAV or FLAC to Ogg for music; PNG to lossy WebP at display size for
-   scenes, portraits and key art; flipbook metadata.
-5. It copies the files to `assets/<kind>/`, and records the licence and source in `CREDITS.md`.
-6. It marks each id "delivered" in `data/asset_manifest.json`, so the game swaps from the fallback.
+4. It converts where needed: WAV or FLAC to Ogg Vorbis for music (and a looping sound); other
+   sounds to 16-bit WAV; PNG to lossy WebP at display size for scenes (2400×900), portraits
+   (768×768) and key art (2560×1440); flipbook metadata from the notes. It trims near-silence
+   before a sound and keys out a #00FF00 background, and says so.
+5. It copies the files to `assets/delivered/<kind>/` with the Godot import settings they need
+   (painted art lossy with mipmaps; music looping except the stings), keeps store art in
+   `assets/delivered/store/` (ignored by Godot, so it never ships in the game), and records the
+   licence and source in `CREDITS.md`.
+6. It marks each id "delivered" in `data/asset_manifest.json` with its file (or variant files),
+   so the game swaps from the fallback.
 7. It prints a PASS or FAIL report per item. It never overwrites a delivered asset without
    `--replace`.
 8. The builder then runs the screenshot tour (and, for audio, a listening check with the level

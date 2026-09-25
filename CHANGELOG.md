@@ -5,6 +5,27 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
+### Outsourced assets: the intake tool and the first delivery (DESIGN_LOG 93)
+
+- `tools/import_assets.py` (§15.2): checks each batch zip against the manifest, the licence
+  rules and the briefs (format, size, length, loudness and true peak, transparency, SVG rules),
+  converts (music to Ogg Vorbis quality 6, sounds to 16-bit WAV, painted art to lossy WebP at
+  display size), writes the Godot import settings, marks ids delivered and credits each batch.
+- Ingested 131 ids in 9 batches: sounds 1–2 (40), music 1 (28), VFX 1 (17), story scenes 1 (7),
+  portraits 1 (6 neutral), ships 1 (17), title key art and logos (5), store art (11, kept out of
+  the game's pack). Two warnings, no failures: `beacon_activate` had 7.6 ms of leading silence
+  (trimmed); `logo_dark_on_light` uses two darker shades outside the palette.
+- In the game: real sounds and music play; the title shows the key art with the menu in its calm
+  left side and the vector logo; portraits are painted and cut to their disc; story scenes are
+  painted and cropped, not stretched; the showcase uses the real scenes; the project icon is the
+  delivered emblem.
+- **Verified:** `godot --headless --path . -s tests/run_tests.gd`: 160 passed, 0 failed, 3,006
+  checks (new `tests/unit/test_assets.gd`); `tools/validate_data.gd`: 0 errors; the screenshot
+  tour: 108 shots, 0 audit issues (before the showcase switched to the real scenes; its two
+  states re-shot with 0 issues); web export: 48.2 MB as a gzip download (budget 150 MB), with no
+  store art in the pack. **Unverified:** the web smoke test on this build (stopped at the
+  Owner's request to save usage).
+
 ### Simulation: the Scenario 1 rules (DESIGN_LOG 51–84)
 
 - State schema 2 (research branches, build queues, governors, ordinances, surveys, modifiers,

@@ -381,7 +381,7 @@ func _hex_item(h: HexCell, caption: String, r: float) -> VBoxContainer:
 func _card_event() -> Card:
 	var c: Card = Card.make(Strings.fmt("sample.event.title"), Strings.fmt("sample.event.speaker"), "ui_event", "hearth.gold")
 	c.name = "CardEvent"
-	c.add_body(ShowcaseVignette.new())
+	c.add_body(StoryScene.make("founders_hall", 150.0))
 	c.add_text(Strings.fmt("sample.event.body"))
 	var council: Breakdown = Breakdown.for_resource("breakdown.choice_effect", "influence", true)
 	council.base("source.choice_effect", 100, {"effect_key": "sample.event.effect_council"}).finish()
@@ -568,7 +568,7 @@ func demo(state_name: String) -> void:
 			p.text = Strings.fmt("sample.modal.body")
 			p.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			m.body.add_child(p)
-			m.body.add_child(ShowcaseVignette.new())
+			m.body.add_child(StoryScene.make("sealed_archive", 150.0))
 			var ok: SfButton = SfButton.make("sample.modal.accept", "ui_check", SfButton.PRIMARY)
 			ok.pressed.connect(m.close)
 			m.add_action(SfButton.make("sample.modal.later", "", SfButton.GHOST))

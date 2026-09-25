@@ -16,6 +16,9 @@ static func make(p_id: String, height: float = 180.0) -> StoryScene:
 	s._record = Content.db().record("vignettes", p_id)
 	s._texture = AssetIds.texture(p_id)
 	s.custom_minimum_size = Vector2(0, height)
+	# The painted scene is drawn at many sizes: smooth it with its mipmaps.
+	if s._texture != null:
+		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	return s
 
 
@@ -30,7 +33,7 @@ func _draw() -> void:
 	if w <= 0.0 or h <= 0.0:
 		return
 	if _texture != null:
-		draw_texture_rect(_texture, Rect2(Vector2.ZERO, size), false)
+		_painted(w, h)
 		return
 	var sky: Array = DictIO.arr_of(_record, "sky")
 	var top: Color = Tokens.color(str(sky[0])) if sky.size() > 0 else Tokens.color("bg.deep")
@@ -55,6 +58,37 @@ func _draw() -> void:
 	var props: Array = DictIO.arr_of(_record, "props")
 	for i in props.size():
 		_prop(str(props[i]), i, props.size(), ground.darkened(0.45), accent, w, h, rng)
+
+
+## The delivered scene, cropped around its centre (where §15.7 keeps the subject) to fill the box
+## without stretching, with the panel's rounded corners.
+func _painted(w: float, h: float) -> void:
+	var ts: Vector2 = _texture.get_size()
+	var src: Rect2 = Rect2(Vector2.ZERO, ts)
+	if ts.x / ts.y > w / h:
+		src.size.x = ts.y * w / h
+		src.position.x = (ts.x - src.size.x) / 2.0
+	else:
+		src.size.y = ts.x * h / w
+		src.position.y = (ts.y - src.size.y) / 2.0
+	var pts: PackedVector2Array = rounded_rect(Rect2(0, 0, w, h), minf(Tokens.RADIUS_PANEL, minf(w, h) / 2.0))
+	var uvs: PackedVector2Array = PackedVector2Array()
+	for p: Vector2 in pts:
+		uvs.append((src.position + p / Vector2(w, h) * src.size) / ts)
+	draw_colored_polygon(pts, Color.WHITE, uvs, _texture)
+
+
+## A rounded rectangle as a polygon: four corner arcs of six steps each.
+static func rounded_rect(r: Rect2, radius: float) -> PackedVector2Array:
+	var centres: Array[Vector2] = [
+		Vector2(r.end.x - radius, r.position.y + radius), r.end - Vector2(radius, radius),
+		Vector2(r.position.x + radius, r.end.y - radius), r.position + Vector2(radius, radius)]
+	var pts: PackedVector2Array = PackedVector2Array()
+	for i in 4:
+		for s in 7:
+			var a: float = -PI / 2.0 + (i + s / 6.0) * PI / 2.0
+			pts.append(centres[i] + Vector2(cos(a), sin(a)) * radius)
+	return pts
 
 
 func _accent(kind: String, col: Color, w: float, h: float, sky_h: float) -> void:

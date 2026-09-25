@@ -26,6 +26,7 @@ func make_backdrop() -> Control:
 	tr.texture = art
 	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	tr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return tr
 
@@ -54,7 +55,21 @@ func build_screen() -> void:
 	else:
 		var col: VBoxContainer = VBoxContainer.new()
 		frame.add_child(col)
-		col.add_child(FlowScreen.scroll_of(_centred(FlowScreen.scrim(_pc_column(menu)))))
+		var block: CenterContainer = _centred(FlowScreen.scrim(_pc_column(menu)))
+		if AssetIds.is_delivered("title"):
+			# The key art keeps its left 40% calm for the menu (§15.9): the column sits there.
+			var row2: HBoxContainer = HBoxContainer.new()
+			row2.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			block.size_flags_stretch_ratio = 0.4
+			row2.add_child(block)
+			var rest: Control = Control.new()
+			rest.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			rest.size_flags_stretch_ratio = 0.6
+			rest.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			row2.add_child(rest)
+			col.add_child(FlowScreen.scroll_of(row2))
+		else:
+			col.add_child(FlowScreen.scroll_of(block))
 		var v: Label = _version()
 		v.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		col.add_child(v)
@@ -85,13 +100,18 @@ func _name_block() -> VBoxContainer:
 	var v: VBoxContainer = VBoxContainer.new()
 	v.name = "NameBlock"
 	v.add_theme_constant_override("separation", Tokens.SPACE_S)
+	# The painted title logo if there is one, else the flat vector logo, else the name as text.
 	var logo: Texture2D = AssetIds.texture("logo_title")
+	if logo == null:
+		logo = AssetIds.texture("logo_light_on_dark")
 	if logo != null:
 		var tr: TextureRect = TextureRect.new()
+		tr.name = "Logo"
 		tr.texture = logo
 		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		tr.custom_minimum_size = Vector2(0, 140)
+		tr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		tr.custom_minimum_size = Vector2(0, 88 if Layout.compact else 128)
 		v.add_child(tr)
 	else:
 		var t: Label = FlowScreen.label(Strings.fmt("ui.title.name"), &"DisplayLabel")

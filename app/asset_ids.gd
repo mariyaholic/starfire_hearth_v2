@@ -1,20 +1,25 @@
 class_name AssetIds
 extends RefCounted
 ## Resolves a §15 asset id (data/asset_manifest.json) to its delivered file, or null so the caller
-## draws its code placeholder. Outsourcing is on hold (DESIGN_LOG 50), so today every id resolves
-## to its placeholder; the intake tool (§15.2) flips an entry to "delivered" with its file.
+## draws its code placeholder. The intake tool (tools/import_assets.py, §15.2) copies a batch under
+## assets/delivered/ and flips each of its entries to "delivered" with its "file" (or "files", one
+## per variant of a sound).
 
 const ROOT: String = "res://assets/delivered"
 
 static var _cache: Dictionary[String, Texture2D] = {}
 
 
-## The delivered file path for an id, or "" when it is still a placeholder.
+## The delivered file path for an id (the first variant of a sound), or "" when it is still a
+## placeholder.
 static func path(asset_id: String) -> String:
 	var rec: Dictionary = Content.db().record("assets", asset_id)
 	if DictIO.str_of(rec, "status") != "delivered":
 		return ""
 	var file: String = DictIO.str_of(rec, "file")
+	var files: Array = DictIO.arr_of(rec, "files")
+	if file.is_empty() and not files.is_empty():
+		file = str(files[0])
 	if file.is_empty():
 		return ""
 	var p: String = ROOT.path_join(file)

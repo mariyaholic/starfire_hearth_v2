@@ -289,3 +289,21 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     when six turns of minerals income will cover it. Results: pacing 78 to 74, Hydroponics Bay
     and Fusion Plant now built often enough; hoarding, the Foundry, the Research Institute and
     the Normal win rate wait for the Owner (BUILD_PROMPT, "Balance status").
+93. **Asset intake is a Python tool** (`tools/import_assets.py`), not the `tools/import_assets.gd`
+    §15.2 first named: Godot cannot encode Ogg Vorbis, and measuring loudness and true peak
+    (ITU-R BS.1770) over 52 minutes of music is far too slow in GDScript. The builder runs it; the
+    Owner never has to. The briefs' specs live in the tool; the manifest keeps only what the game
+    reads (the file or variant files, looping, a flipbook's grid and frame rate, the batch).
+    Files go under `assets/delivered/<kind>/`. Godot re-encodes every texture on import, so
+    painted art is imported lossy with mipmaps (lossless is about five times larger) and drawn
+    with mipmap filtering, since it appears at many sizes; ships and VFX stay lossless PNG.
+    Short sounds stay 16-bit PCM so they start at once; the looping ambient bed and the music
+    are Ogg Vorbis, the music at quality 6 (this sparse music averages about 70 kbps, well
+    inside the 112 kbps the budget allows). Store art is kept in a `.gdignore` folder, so it is
+    in the repository for the store pages but never enters the game's pack. A fault the builder
+    can fix without changing the work is fixed and reported as a warning (near-silence before a
+    sound is trimmed; a #00FF00 background is keyed out); any other broken rule fails the item,
+    which keeps its fallback. In the game, portraits are cut to their disc, story scenes are
+    cropped around their centre instead of stretched, the title's menu moves into the key art's
+    calm left 40%, and the flat vector logo stands in for the optional painted one. Headless runs
+    choose a music track but do not start it, like sounds.

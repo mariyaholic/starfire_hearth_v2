@@ -22,6 +22,9 @@ static func make(p_id: String, p_expression: String = "neutral", p_size: float =
 	if p._texture == null:
 		p._texture = AssetIds.texture(p_id)
 	p.custom_minimum_size = Vector2(p_size, p_size)
+	# A painted portrait is drawn far smaller than it is: smooth it with its mipmaps.
+	if p._texture != null:
+		p.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	return p
 
 
@@ -35,7 +38,7 @@ func _draw() -> void:
 	var r: float = s / 2.0
 	draw_circle(c, r, Tokens.color("bg.panel.alt"), true, -1.0, true)
 	if _texture != null:
-		draw_texture_rect(_texture, Rect2(c - Vector2(r, r), Vector2(s, s)), false)
+		_painted(c, r)
 		return
 	if DictIO.str_of(_record, "kind") == "vael":
 		_vael(c, r)
@@ -73,6 +76,18 @@ func _draw() -> void:
 			draw_circle(c + Vector2(r * 0.32, r * 0.55), r * 0.06, Tokens.color("hearth.gold"), true, -1.0, true)
 		"plate":
 			draw_rect(Rect2(c + Vector2(-r * 0.7, r * 0.35), Vector2(r * 0.4, r * 0.25)), Tokens.color("mineral.slate"))
+
+
+## The delivered portrait on the disc, cut to its circle: the bust's shoulders run off the
+## image's bottom edge (§15.7), so a square would show them past the disc.
+func _painted(c: Vector2, r: float) -> void:
+	var pts: PackedVector2Array = PackedVector2Array()
+	var uvs: PackedVector2Array = PackedVector2Array()
+	for i in 64:
+		var d: Vector2 = Vector2.from_angle(TAU * i / 64.0)
+		pts.append(c + d * r)
+		uvs.append(Vector2(0.5, 0.5) + d * 0.5)
+	draw_colored_polygon(pts, Color.WHITE, uvs, _texture)
 
 
 ## The shoulders: the top of a circle below the head, cut to the disc so nothing spills out.

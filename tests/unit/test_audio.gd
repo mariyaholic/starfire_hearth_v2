@@ -1,7 +1,7 @@
 extends RefCounted
 ## Sound (§8.6, §15.4, §15.5): the buses follow the settings, every sound id has a fallback, the
-## fallback is deterministic, music cues are tracked and silent until delivered, and the UI kit
-## makes its sounds.
+## fallback is deterministic, music cues are tracked (a delivered track plays, anything else waits
+## in silence), and the UI kit makes its sounds.
 
 
 func _root() -> Window:
@@ -58,13 +58,21 @@ func test_the_fallback_is_deterministic(t: T) -> void:
 
 func test_music_cues_are_tracked_and_silent_until_delivered(t: T) -> void:
 	var audio: Node = _root().get_node("Audio")
+	audio.call("play_music", "mus_not_delivered")
+	t.eq(audio.get("current_music"), "mus_not_delivered")
+	t.eq(audio.get("current_stream"), null, "a cue with no delivered track waits in silence")
+	t.not_ok(audio.call("is_music_playing"), "headless runs start nothing")
 	audio.call("play_music", "mus_title")
-	t.eq(audio.get("current_music"), "mus_title")
-	t.not_ok(audio.call("is_music_playing"), "nothing plays until the track is delivered")
-	audio.call("play_music", "theme_sola")
-	t.eq(audio.get("current_music"), "theme_sola", "a new cue replaces the old one")
+	t.eq(audio.get("current_music"), "mus_title", "a new cue replaces the old one")
+	var st: AudioStream = audio.get("current_stream")
+	t.ok(st != null and st == AssetIds.streams("mus_title")[0], "a delivered cue picks its track")
+	t.ok(st != null and st.get("loop"), "a track loops")
+	audio.call("play_music", "sting_victory")
+	var sting: AudioStream = audio.get("current_stream")
+	t.ok(sting != null and not sting.get("loop"), "a sting plays once")
 	audio.call("play_music", "")
 	t.eq(audio.get("current_music"), "")
+	t.eq(audio.get("current_stream"), null)
 
 
 func test_the_ui_kit_makes_its_sounds(t: T) -> void:

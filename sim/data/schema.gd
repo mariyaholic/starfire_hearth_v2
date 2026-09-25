@@ -152,6 +152,8 @@ const TABLES: Dictionary = {
 		"fields": {
 			"id": "id", "kind": "enum:sfx|music|vfx|vignette|portrait|ship|art|store",
 			"status": "enum:placeholder|delivered", "file": "?str", "priority": "?bool", "optional": "?bool",
+			# Written by the intake tool: variant files, the batch, looping, and a flipbook's grid.
+			"files": "?list:str", "batch": "?int", "loop": "?bool", "grid": "?list:int", "fps": "?int",
 		},
 	},
 }

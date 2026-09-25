@@ -1,0 +1,6 @@
+# The asset intake tool (tools/import_assets.py, §15.2): pip install -r tools/requirements-assets.txt
+# The versions it was built and run with. soundfile bundles libsndfile (Ogg Vorbis, FLAC).
+numpy==2.4.6
+scipy==1.17.1
+soundfile==0.14.0
+Pillow==12.3.0
