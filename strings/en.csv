@@ -1058,3 +1058,52 @@ damage.explosive.name,explosive
 ui.cost.label,Cost in {resource}
 ui.cost.price,Price
 ui.cost.short,You have {have}: not enough yet.
+ui.flow.back,Back
+ui.title.name,Starfire Hearth
+ui.title.tagline,Frontier colonies in the Long Silence
+ui.title.continue,Continue
+ui.title.continue_detail,"{scenario}, {date}"
+ui.title.campaign,Campaign
+ui.title.load,Load
+ui.title.codex,Codex
+ui.title.settings,Settings
+ui.title.showcase,UI showcase
+ui.title.quit,Quit
+ui.title.version,Version {version}
+ui.title.unknown_scenario,Unknown scenario
+ui.campaign.title,Campaign
+ui.campaign.intro,"Three scenarios, played in order. Each win unlocks the next, and the legacy you choose at its debrief carries forward."
+ui.campaign.difficulty,Difficulty
+ui.campaign.state.ready,Ready to play
+ui.campaign.state.won,Complete
+ui.campaign.state.won_legacy,Complete. Legacy: {legacy}
+ui.campaign.state.locked,Locked until {previous} is won
+ui.campaign.state.later,Not in this build yet
+ui.campaign.play,Play
+ui.campaign.replay,Replay
+ui.briefing.kicker,Briefing
+ui.briefing.advisor_role,"Keeper of the Ark's records, and your advisor"
+ui.briefing.none,No briefing has been written for this scenario yet.
+ui.briefing.objectives,Objectives
+ui.briefing.objectives_hint,Complete every required objective to win.
+ui.briefing.optional,Optional
+ui.briefing.difficulty,Difficulty: {name}. {desc}
+ui.briefing.begin,Begin
+ui.debrief.won,Scenario complete
+ui.debrief.lost,Scenario lost
+ui.debrief.no_reason,The scenario has ended.
+ui.debrief.when,"Ended in {date}, on turn {turn}"
+ui.debrief.won_body,The colonies did what was asked of them.
+ui.debrief.lost_body,"The Ark's children endure, but the plan failed this time. Start again from the briefing, with what you have learned."
+ui.debrief.objectives,Objectives
+ui.debrief.legacy_title,Choose a legacy
+ui.debrief.legacy_hint,One lesson from this scenario carries into every later one.
+ui.debrief.legacy_pick,Choose
+ui.debrief.pick_first,Choose a legacy to continue.
+ui.debrief.continue,Continue
+ui.debrief.to_campaign,Campaign
+ui.debrief.retry,Try again
+ui.pending.title,Under construction
+ui.pending.game,The game screen is still being built. Your new game has been created and will open here once it is.
+ui.pending.current,"{scenario}, {date}, {difficulty}"
+ui.debrief.legacy_chosen,Chosen

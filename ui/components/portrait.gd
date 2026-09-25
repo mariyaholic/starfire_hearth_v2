@@ -44,7 +44,7 @@ func _draw() -> void:
 	var hair: Color = Color(DictIO.str_of(_record, "hair", "#2B211C"))
 	var collar: Color = Tokens.color(DictIO.str_of(_record, "collar", "accent.teal"))
 	# Shoulders and collar.
-	draw_circle(c + Vector2(0, r * 1.05), r * 0.78, collar.darkened(0.35), true, -1.0, true)
+	_shoulders(c, r, collar.darkened(0.35))
 	draw_colored_polygon(PackedVector2Array([c + Vector2(-r * 0.3, r * 0.3), c + Vector2(0, r * 0.62), c + Vector2(r * 0.3, r * 0.3)]), collar)
 	# Neck and head.
 	draw_rect(Rect2(c + Vector2(-r * 0.12, r * 0.05), Vector2(r * 0.24, r * 0.3)), skin.darkened(0.12))
@@ -73,6 +73,29 @@ func _draw() -> void:
 			draw_circle(c + Vector2(r * 0.32, r * 0.55), r * 0.06, Tokens.color("hearth.gold"), true, -1.0, true)
 		"plate":
 			draw_rect(Rect2(c + Vector2(-r * 0.7, r * 0.35), Vector2(r * 0.4, r * 0.25)), Tokens.color("mineral.slate"))
+
+
+## The shoulders: the top of a circle below the head, cut to the disc so nothing spills out.
+func _shoulders(c: Vector2, r: float, col: Color) -> void:
+	var sc: Vector2 = c + Vector2(0, r * 1.05)
+	var sr: float = r * 0.78
+	var pts: PackedVector2Array = PackedVector2Array()
+	for i in 49:
+		var a: float = PI + PI * i / 48.0
+		var p: Vector2 = sc + Vector2(cos(a), sin(a)) * sr
+		if p.distance_to(c) <= r:
+			pts.append(p)
+	if pts.size() < 2:
+		return
+	# Back along the rim of the disc, from the right shoulder round the bottom to the left one.
+	var a_right: float = (pts[pts.size() - 1] - c).angle()
+	var a_left: float = (pts[0] - c).angle()
+	if a_left < a_right:
+		a_left += TAU
+	for i in 17:
+		var a2: float = lerpf(a_right, a_left, i / 16.0)
+		pts.append(c + Vector2(cos(a2), sin(a2)) * r)
+	draw_colored_polygon(pts, col)
 
 
 func _hair(style: String, head: Vector2, r: float, hair: Color) -> void:

@@ -34,6 +34,29 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### Screens: the app shell and the campaign flow (DESIGN_LOG 85–87)
+
+- `AppRoot` (`ui/screens/app_root.tscn`) hosts one screen at a time and routes title → campaign →
+  briefing → game → debrief, plus the showcase in debug builds. Only screens that exist are
+  offered; until the game screen lands, a stand-in names the game that Begin started. Not yet the
+  main scene: the showcase stays the main scene until the M1 screen work is complete.
+- Title (the sky with lane pulses, or the painted key art once delivered; Continue opens the newest
+  save that loads), campaign select (the difficulty preset, three scenario cards: ready, won with
+  its legacy, locked until the one before is won, or not in this build), briefing (Archivist
+  Sola, the briefing, required and optional objectives, the difficulty, Begin) and debrief (the
+  outcome and why, the objectives as they ended, the legacy pick after a win; Try again after a
+  loss). Phones scroll the scenario cards sideways and put each screen's buttons in its heading
+  row. `CampaignProgress` holds the difficulty, wins and legacy picks for the session.
+  **Verified:** `godot --headless --path . -s tests/run_tests.gd -- --filter flow_screens` (2
+  tests: the whole flow driven through the AppRoot, and the id audit on 8 screen states as a PC
+  and a phone at 100% and 200% text, 0 issues) and `--filter campaign_progress` (3 tests).
+- Fixed: a tab button marked pressed before it entered the tree lost the mark, so the showcase's
+  page and text-size tabs never showed which was selected. Fixed: a portrait's shoulders were
+  drawn outside its disc, over the text beside it. **Verified:** the full suite (143 passed, 0
+  failed, 1,498 checks) and `xvfb-run -a -s "-screen 0 2560x1600x24" godot --rendering-driver
+  opengl3 --path . -s tools/screenshot_tour.gd -- --out screens/` (68 screenshots, 0 audit
+  issues).
+
 ### Display building blocks for the M1 screens
 
 - Effects as readable text (`sim/explain/effect_text.gd`), with signed number arguments in the

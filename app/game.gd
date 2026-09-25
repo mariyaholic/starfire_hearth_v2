@@ -22,8 +22,13 @@ func game_version() -> String:
 	return str(ProjectSettings.get_setting("application/config/version", "0"))
 
 
-func new_game(scenario_id: String, game_seed: int) -> void:
-	state = ScenarioLoader.build(db, scenario_id, game_seed)
+func new_game(scenario_id: String, game_seed: int, difficulty_id: String = "normal") -> void:
+	resume(ScenarioLoader.build(db, scenario_id, game_seed, difficulty_id))
+
+
+## Takes over a state (a new game or a loaded save) with an empty order queue.
+func resume(s: GameState) -> void:
+	state = s
 	queue = CommandQueue.new(state)
 	last_result = null
 	orders_changed.emit()

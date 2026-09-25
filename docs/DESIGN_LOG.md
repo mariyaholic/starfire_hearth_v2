@@ -239,3 +239,14 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 84. **Event titles carry no placeholders** because they name modifiers in breakdowns; bodies are
     checked by the validator for §10.6's 60–140 words. A string argument ending in `_c` is an
     amount in centi-units that the string layer shows as a short decimal.
+85. **The app offers only screens that exist.** The title lists a menu entry once its screen is
+    routed by the `AppRoot` (Load, Codex and Settings arrive with their tasks), so no button
+    leads nowhere. Until the game screen is built, the game route shows a stand-in that names
+    the game Begin started. The showcase is a debug-build entry; release exports leave it out.
+86. **Campaign progress** (difficulty, wins, legacy picks) lives in `CampaignProgress`, owned by
+    the `AppRoot`; it is written to `user://campaign.json` when the save rings land. A win counts
+    as soon as the debrief opens, so leaving before picking a legacy keeps it; the legacy is
+    recorded on Continue, and winning a scenario again lets the player pick a different one.
+87. **Difficulty is picked on the campaign screen** (the three presets of §5.13, each with its
+    description), shown again on the briefing, and passed to the scenario loader when Begin
+    starts the game. The per-value sliders of §5.13 wait for the settings screen.

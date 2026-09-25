@@ -3,11 +3,16 @@ extends Control
 ## and planet generators. It is the main scene of the M0 build so the Owner can judge the look on a
 ## PC and on a phone. The toolbar switches text size (100-200%), high contrast, reduce motion and
 ## the layout profile (Auto, PC, Phone) live.
-## demo(name) puts the screen in a named state for the screenshot tour.
+## demo(name) puts the screen in a named state for the screenshot tour. Opened from the title
+## (a debug entry) it shows a Back button that emits back_requested.
+
+signal back_requested
 
 const PAGES: Array[String] = ["components", "icons", "worlds"]
 
 var page: String = "components"
+## Set by the AppRoot before the showcase enters the tree.
+var show_back: bool = false
 var _top_bar: TopBar
 var _toolbar: HFlowContainer
 var _page_host: MarginContainer
@@ -96,6 +101,11 @@ func _make_toolbar() -> Control:
 	_toolbar.name = "Toolbar"
 	_toolbar.add_theme_constant_override("h_separation", Tokens.SPACE_S)
 	_toolbar.add_theme_constant_override("v_separation", Tokens.SPACE_S)
+	if show_back:
+		var back: SfButton = SfButton.make("ui.flow.back", "ui_back", SfButton.GHOST)
+		back.name = "Back"
+		back.pressed.connect(func() -> void: back_requested.emit())
+		_toolbar.add_child(back)
 	var group: ButtonGroup = ButtonGroup.new()
 	var keys: Dictionary[String, String] = {"components": "ui.showcase.page.components", "icons": "ui.showcase.page.icons", "worlds": "ui.showcase.page.worlds"}
 	var icons: Dictionary[String, String] = {"components": "district_habitation", "icons": "emblem_hearth", "worlds": "planet_gas_giant"}

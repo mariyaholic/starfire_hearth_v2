@@ -68,6 +68,7 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Bots | balanced, economy, turtle, random-legal (`tools/bot/bot_policy.gd`); per-turn telemetry; all five gates in `tools/telemetry_report.gd` | CI balance job (20 seeds × 4 policies + Story) |
 | Golden | `tests/golden/tiny_hashes.json` and `s1_hashes.json` (24 scripted S1 turns), re-baselined with a CHANGELOG reason | `--filter golden` |
 | UI groundwork | `sim/explain/effect_text.gd` (effects as keys and args), `ui/components/effect_list.gd`, `cost_chips.gd`, `story_scene.gd` and `portrait.gd` (data-driven placeholders), `app/asset_ids.gd` (§15 id → delivered file or null) | `tests/unit/test_effect_text.gd` |
+| App shell and flow screens | `ui/screens/app_root.tscn` (routes; only built screens are offered), `ui/screens/flow/`: title (sky or key art; Continue), campaign (difficulty, scenario cards), briefing, debrief (legacy pick, Try again), and a stand-in for the game route; `app/campaign_progress.gd` (in memory until the save task); `Game.new_game(..., difficulty)` and `Game.resume(state)` | `tests/integration/test_flow_screens.gd` (the flow, and the id audit on 8 states × 4 layouts), `tests/unit/test_campaign_progress.gd` |
 
 The story chains: scripted Labor Strike (T5), The Founders' Vote (T10), Cold Sleepers (T18), The
 Sealed Order steps 1–2 (T40, then when decoded), The Ark's Last Engine (T45+); status Unrest,
@@ -109,7 +110,9 @@ What is known about each failure, to try next:
 
 ### Remaining M1 work, in order
 
-1. **Screens** (plan below), PC and phone, 100% and 200% text.
+1. **Screens** (plan below), PC and phone, 100% and 200% text. Built: the `AppRoot` and the flow
+   screens (title, campaign, briefing, debrief). Next: the game screen shell (replacing the
+   stand-in on the game route), then the game views and overlays.
 2. **Audio**: an `Audio` autoload with UI, Effects and Music buses; volume and mute settings;
    synthesised blips for every §15.4 id; music cues with crossfades, silent until delivered.
 3. **Saves**: auto-save ring of 10, checkpoint ring of 6 (every 5 turns), manual slots, thumbnails;
@@ -124,14 +127,16 @@ What is known about each failure, to try next:
 
 ### The screen plan (designed, not yet built)
 
-- **`AppRoot`** (new main scene, `ui/screens/app_root.gd`): hosts one screen at a time and routes
-  title → campaign → briefing → game → debrief, plus Codex, settings, load and the showcase.
-- **Title**: Continue (newest save), New Campaign, Load, Codex, Settings, Showcase (debug), Quit
-  (desktop).
-- **Campaign**: the three scenario cards (S2 and S3 locked until the one before is won) and the
+- **`AppRoot`** (built; becomes the main scene with task 6 below, `ui/screens/app_root.gd`): hosts
+  one screen at a time and routes title → campaign → briefing → game → debrief, plus Codex,
+  settings, load and the showcase. A route joins `AppRoot.routes()` when its screen exists.
+- **Title** (built): Continue (newest save), Campaign, Load, Codex, Settings, Showcase (debug),
+  Quit (desktop).
+- **Campaign** (built): the three scenario cards (S2 and S3 locked until the one before is won) and the
   difficulty preset with its description.
-- **Briefing**: `scenario.s1.briefing`, the objectives, Begin. **Debrief**: outcome, objectives,
-  the legacy pick (1 of 3), then back to the campaign.
+- **Briefing** (built): `scenario.s1.briefing`, the objectives, Begin. **Debrief** (built):
+  outcome, objectives, the legacy pick (1 of 3), then back to the campaign; after a loss, Try
+  again (the checkpoint reload joins it with the save rings).
 - **Game screen**: the top bar (every resource, net and breakdown; date; menu); navigation (a rail
   on PC, a bottom tab bar on phones); the current view in the centre; a context panel (right side
   on PC, a bottom sheet on phones); the advisor card (tutorial: current step, goal, highlight,

@@ -29,6 +29,8 @@ static func make(p_text_key: String, p_icon: String = "", p_variant: String = SE
 	b.icon_id = p_icon
 	b.variant = p_variant
 	b.text = Strings.fmt(p_text_key) if not p_text_key.is_empty() else ""
+	# Tabs toggle from the start, so a caller can mark one pressed before it enters the tree.
+	b.toggle_mode = p_variant == TAB
 	return b
 
 
