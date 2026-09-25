@@ -1108,3 +1108,65 @@ ui.pending.game,The game screen is still being built. Your new game has been cre
 ui.pending.current,"{scenario}, {date}, {difficulty}"
 ui.debrief.legacy_chosen,Chosen
 ui.debrief.checkpoint,Load checkpoint
+ui.codex.title,Codex
+ui.codex.search,Search the Codex
+ui.codex.no_results,Nothing in the Codex matches that.
+ui.codex.back_to_list,All entries
+ui.codex.pick,Choose an entry to read it.
+ui.codex.missing,This entry is not in the Codex yet.
+ui.codex.see_also,See also
+ui.codex.cost,Cost
+ui.codex.effects,Effects
+ui.codex.story_marker,Part of the story
+ui.codex.cat.mechanics,How it works
+ui.codex.cat.resources,Resources
+ui.codex.cat.districts,Districts
+ui.codex.cat.buildings,Buildings
+ui.codex.cat.techs,Technologies
+ui.codex.cat.ordinances,Ordinances
+ui.codex.cat.ships,Ships
+ui.codex.cat.worlds,Worlds
+ui.codex.cat.people,People
+ui.codex.cat.events,Events
+ui.codex.fact.unit,Unit
+ui.codex.fact.storage,Storage
+ui.codex.fact.tradable,Traded at the market
+ui.codex.fact.build_time,Build time
+ui.codex.fact.upkeep,Upkeep
+ui.codex.fact.housing,Housing
+ui.codex.fact.jobs,Jobs
+ui.codex.fact.limit,Limit
+ui.codex.fact.landmark,Landmark
+ui.codex.fact.unlocked_by,Unlocked by
+ui.codex.fact.branch,Branch
+ui.codex.fact.tier,Tier
+ui.codex.fact.research_cost,Research cost
+ui.codex.fact.story,Story
+ui.codex.fact.needs,Needs
+ui.codex.fact.unlocks,Unlocks
+ui.codex.fact.duration,Lasts
+ui.codex.fact.role,Role
+ui.codex.fact.habitability,Habitability
+ui.codex.fact.your_choice,Your choice
+ui.codex.fact.when,When
+ui.codex.yes,Yes
+ui.codex.no,No
+ui.codex.turns,{turns} turns
+ui.codex.homes,Homes for {count}k settlers
+ui.codex.job_line,"{count} × {job}, making {output} each"
+ui.codex.one_per_colony,One per colony
+ui.codex.one_in_empire,One across all your colonies
+ui.codex.landmark,A landmark of the Ark: it cannot be built anew
+ui.codex.research_cost,"{cost} points, more for each extra colony"
+ui.codex.story_tech,Always offered once you can study it
+ui.codex.tier_unlock,District tier {tier}
+ui.codex.per_turn,{amount} a turn
+ui.codex.amount,{value} {unit} of {resource}
+ui.codex.amount_plain,{value} {resource}
+ui.codex.habitability.open,An open world: a colony grows at {pct} of full speed
+ui.codex.habitability.domes,"A dome world: a colony grows at {pct} of full speed, with half the district slots"
+ui.codex.habitability.orbital,A gas giant: only an outpost can claim it
+ui.codex.habitability.outpost,An asteroid belt: only an outpost can claim it
+character.sola.bio,"The Ark's archivist and keeper of its records, and your advisor. Dry, warm and scholarly, and never without a footnote."
+character.varga.bio,"The Ark's elected Steward. Pragmatic and steady, and always worried about the next harvest."
+character.brandt.bio,"The Ark's first fleet captain. Loyal to the bone, and a little bored of peace."

@@ -262,3 +262,10 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     seed) from before the losing turn. Manual saves are numbered and never overwritten. Ironman
     mode (a single save) waits for the settings screen. Nothing is written while
     `Settings.persist` is off (tests and the screenshot tour).
+90. **The Codex quotes the game.** Mechanics pages are prose in `data/codex/*.md` whose numbers
+    are `{name}` placeholders filled from the rules' constants and the data (`CodexFacts`); a
+    test fails if one is left unfilled or a link has no entry. Entry ids are `<kind>:<id>`, the
+    form breakdowns already used for their Codex links. The M1 subset is what Scenario 1 can
+    show: no military technologies, buildings or hulls, and no locked ordinance. Seen events
+    appear only while a game is running. A breakdown's Codex link opens the entry over the
+    current screen, so reading it never loses the player's place.

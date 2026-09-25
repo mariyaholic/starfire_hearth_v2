@@ -24,6 +24,7 @@ func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	t.ok(app.screen.find_child("Campaign", true, false) != null, "the title offers the campaign")
 	t.ok(app.screen.find_child("Showcase", true, false) != null, "debug builds offer the showcase")
 	t.ok(app.screen.find_child("Load", true, false) == null, "no Load entry before the load screen exists")
+	t.ok(app.screen.find_child("Codex", true, false) != null, "the title offers the Codex")
 	await _press(app, "Campaign")
 	t.eq(app.route, AppRoot.CAMPAIGN)
 	t.ok(_has_play(app, S1), "First Light can be played")
@@ -110,6 +111,16 @@ func test_every_flow_screen_passes_the_audit(t: T) -> void:
 		st.outcome_reason = "outcome.capital_autonomy"
 		app.go(AppRoot.DEBRIEF)
 		await _audit(t, app, label + " debrief, lost")
+		app.go(AppRoot.CODEX)
+		await _audit(t, app, label + " codex")
+		await (app.screen as CodexScreen).demo("open:building:hydroponics_bay")
+		await _audit(t, app, label + " codex entry")
+		await (app.screen as CodexScreen).demo("open:mechanic:stability")
+		await _audit(t, app, label + " codex mechanics page")
+		await (app.screen as CodexScreen).demo("search:stability")
+		await _audit(t, app, label + " codex search")
+		CodexOverlay.open("mechanic:growth")
+		await _audit(t, app, label + " codex over a screen")
 		await _stop(app)
 
 

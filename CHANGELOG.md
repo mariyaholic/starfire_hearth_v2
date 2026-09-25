@@ -34,6 +34,20 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### Codex, Scenario 1 subset (DESIGN_LOG 90)
+
+- The Codex from the title (search; categories, list and entry side by side on PC, falling back
+  to two columns with large text; list then entry on phones) and over any screen: every "Codex"
+  link in a breakdown now opens its entry, with Back through the links followed. 22 mechanics
+  pages in `data/codex/*.md` quote their numbers from the rules and data (`CodexFacts`), so they
+  cannot disagree with the game; resources, districts, the buildings and technologies Scenario 1
+  can offer, its ordinances and civilian ships, Ember's worlds and traits, and its cast are built
+  from the data, with costs as explainable chips, effects and "See also" links; with a game
+  running, every event step seen so far. **Verified:** `--filter codex` (5 tests: coverage of
+  Scenario 1's scope, every link resolves, all 20 mechanic links that breakdowns make have an
+  entry, live numbers, search and seen events) and the id audit on the Codex, an entry, a
+  mechanics page, a search and the overlay as a PC and a phone at 100% and 200% text.
+
 ### Saves and campaign progress (DESIGN_LOG 89)
 
 - `SaveService`: an auto-save after every resolved turn in a ring of 10, a checkpoint every fifth

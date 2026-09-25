@@ -41,7 +41,7 @@ func _ready() -> void:
 
 ## The screens this build can open.
 func routes() -> Array[String]:
-	var out: Array[String] = [TITLE, CAMPAIGN, BRIEFING, GAME, DEBRIEF]
+	var out: Array[String] = [TITLE, CAMPAIGN, BRIEFING, GAME, DEBRIEF, CODEX]
 	if OS.is_debug_build():
 		out.append(SHOWCASE)
 	return out
@@ -66,10 +66,10 @@ func go(to: String, args: Dictionary = {}) -> void:
 			Game.new_game(scenario_id, game_seed, progress.difficulty_id)
 			_open(GAME)
 		_:
-			_open(to)
+			_open(to, args)
 
 
-func _open(to: String) -> void:
+func _open(to: String, args: Dictionary = {}) -> void:
 	if not routes().has(to):
 		push_warning("AppRoot: no screen for route %s" % to)
 		to = TITLE
@@ -80,7 +80,7 @@ func _open(to: String) -> void:
 	if to == DEBRIEF and Game.has_game() and Game.state.outcome == GameState.OUTCOME_WON:
 		progress.record_win(Game.state.scenario_id)
 	route = to
-	screen = _make(to)
+	screen = _make(to, args)
 	add_child(screen)
 	Audio.play_music(_music_for(to))
 	screen_changed.emit(to)
@@ -102,7 +102,7 @@ func _music_for(to: String) -> String:
 	return "mus_title"
 
 
-func _make(to: String) -> Control:
+func _make(to: String, args: Dictionary = {}) -> Control:
 	var s: Control
 	match to:
 		CAMPAIGN:
@@ -114,6 +114,8 @@ func _make(to: String) -> Control:
 			s = PendingScreen.make()
 		DEBRIEF:
 			s = DebriefScreen.make(progress, Game.state)
+		CODEX:
+			s = CodexScreen.make(str(args.get("entry", "")))
 		SHOWCASE:
 			s = (load(SHOWCASE_SCENE) as PackedScene).instantiate()
 			s.set("show_back", true)

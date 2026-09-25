@@ -99,6 +99,7 @@ func _build() -> void:
 		for id: String in breakdown.links:
 			var b: SfButton = SfButton.make("ui.breakdown.codex_link", "ui_codex", SfButton.LINK)
 			b.set_meta("codex_id", id)
+			b.pressed.connect(CodexOverlay.open.bind(id))
 			links.add_child(b)
 		col.add_child(links)
 	if level == 1 and _has_children():
