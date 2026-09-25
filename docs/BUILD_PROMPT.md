@@ -46,29 +46,33 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
 | After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
 | Outsourced assets | **On hold** (Owner, before M1). The briefs of §15 are ready. The game uses its code placeholders until the Owner resumes (DESIGN_LOG 50) |
-| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. The simulation, data, story, bots and telemetry are built, tested and pushed; CI is green (run 36006538014). The screens are next |
-| Main scene | Still the UI kit showcase. M1's screens replace it with the title screen |
-| Next | **M1 screens** (§12 M1 task 5; the plan is in "M1 progress and where to resume"), then audio, saves, the Codex, the tour, balance tuning and the M1 report |
+| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, and a balance pass. Next: the game screen and its views and overlays |
+| Main scene | The title (`ui/screens/app_root.tscn`); the UI kit showcase is a debug-build entry on it. Until the game screen lands, Begin opens a stand-in |
+| Next | **The game screen shell**, then the game views and the overlays ("M1 progress and where to resume"); three balance questions wait for the Owner; then the M1 report |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
 
 ---
 
 ## M1 progress and where to resume (rewrite 4)
 
-### What is built (all pushed; CI run 36006538014 green on commit 2afc990)
+### What is built (all pushed; each claim's verification is in the CHANGELOG)
 
 | Area | As built | Verified by |
 | --- | --- | --- |
 | Data | 15 buildings, 37 techs, 5 ordinances, 6 hulls, 12 modules, district tiers, 3 difficulty presets, 3 legacies, origin effects, 25 story-scene and 6 portrait placeholder records, `data/asset_manifest.json` (169 ids) | `tools/validate_data.gd`: 0 errors, 0 skipped checks |
 | Scenario 1 | Playable data: start state (Ark Hull landmark, Spaceport, both ships, seeded research hands), 4 required + 3 optional objectives, 14 tutorial steps, loss rules, `tech_pool`, `locked_ordinances`, `balance_scope`, `expected_turns` 70, `director_start` 8. Cinder is now small (DESIGN_LOG 66) | the validator's scenario checks and reachability walk |
 | State | Schema 2 with migration `v1_to_v2`; fixtures `tiny_v1.json` and `s1_v2.json` | `tests/unit/test_saves.gd` |
-| Rules | `sim/rules/`: `economy`, `production`, `population`, `stability`, `research`, `construction`, `governor`, `ordinances`, `ships`, `market`, `objectives`, `tutorial`, `events`, `effects`, `modifiers`, `colony_rules`, `hex_grid`; `sim/ai/advisor.gd` | 138 tests, 1,417 checks (`tests/run_tests.gd`), incl. Aster's start numbers against §5 |
+| Rules | `sim/rules/`: `economy`, `production`, `population`, `stability`, `research`, `construction`, `governor`, `ordinances`, `ships`, `market`, `objectives`, `tutorial`, `events`, `effects`, `modifiers`, `colony_rules`, `hex_grid`; `sim/ai/advisor.gd` | 157 tests, 2,327 checks (`tests/run_tests.gd`), incl. Aster's start numbers against §5 |
 | Commands | 22 player commands (§9.12) | every type round-trips (`--filter commands`) |
 | Story | 16 chains, 36 steps (§10.6 list below) | the validator checks every body is 60–140 words |
 | Bots | balanced, economy, turtle, random-legal (`tools/bot/bot_policy.gd`); per-turn telemetry; all five gates in `tools/telemetry_report.gd` | CI balance job (20 seeds × 4 policies + Story) |
 | Golden | `tests/golden/tiny_hashes.json` and `s1_hashes.json` (24 scripted S1 turns), re-baselined with a CHANGELOG reason | `--filter golden` |
 | UI groundwork | `sim/explain/effect_text.gd` (effects as keys and args), `ui/components/effect_list.gd`, `cost_chips.gd`, `story_scene.gd` and `portrait.gd` (data-driven placeholders), `app/asset_ids.gd` (§15 id → delivered file or null) | `tests/unit/test_effect_text.gd` |
-| App shell and flow screens | `ui/screens/app_root.tscn` (routes; only built screens are offered), `ui/screens/flow/`: title (sky or key art; Continue), campaign (difficulty, scenario cards), briefing, debrief (legacy pick, Try again), and a stand-in for the game route; `app/campaign_progress.gd` (in memory until the save task); `Game.new_game(..., difficulty)` and `Game.resume(state)` | `tests/integration/test_flow_screens.gd` (the flow, and the id audit on 8 states × 4 layouts), `tests/unit/test_campaign_progress.gd` |
+| App shell and flow screens | `ui/screens/app_root.tscn` (the main scene; routes; only built screens are offered), `ui/screens/flow/`: title (sky or key art; Continue), campaign (difficulty, scenario cards), briefing, debrief (legacy pick, Try again, the checkpoint after a loss), and a stand-in for the game route; `app/campaign_progress.gd`; `Game.new_game(..., difficulty)` and `Game.resume(state)` | `tests/integration/test_flow_screens.gd` (the flow, and the id audit on 13 states × 4 layouts), `tests/unit/test_campaign_progress.gd` |
+| Audio | `app/audio.gd` (UI, Effects and Music buses; volumes and mute in `Settings`), `app/sound_synth.gd` (a synthesised fallback for every §15.4 id), music cues per screen, silent until delivered; `tools/audio_preview.gd` (CI artifact `audio-preview`) | `tests/unit/test_audio.gd` |
+| Saves | `app/save_service.gd`: auto-save after every turn (ring of 10), a checkpoint every 5 turns (ring of 6), numbered manual saves, thumbnails, a listing from the envelopes; `user://campaign.json` | `tests/unit/test_save_service.gd` |
+| Codex | `ui/codex/` (index, live facts, entry view, overlay) and `ui/screens/codex_screen.gd`; 22 mechanics pages in `data/codex/*.md`; every breakdown's Codex link opens its entry | `tests/unit/test_codex.gd`; the Codex states in the flow audit |
+| Planets and tooling | `ui/map/planet_sphere.gdshader` (lit spheres); the screenshot tour visits the app (108 shots, the debrief of a bot-won game); the web smoke test plays a turn and matches the desktop's state hash (`tools/smoke_hash.gd`) | the tour; `node tools/web_smoke.mjs --expect-hash` |
 
 The story chains: scripted Labor Strike (T5), The Founders' Vote (T10), Cold Sleepers (T18), The
 Sealed Order steps 1–2 (T40, then when decoded), The Ark's Last Engine (T45+); status Unrest,
@@ -76,58 +80,62 @@ Empty Granaries (famine), Envoys of the Autonomy; emergent Solar Flare, Crop Bli
 Collapse, Founding Day, The Frontier Doctor, Refugee Slowboat, Ice Comet Capture, Orbital Debris
 Cascade.
 
-### Balance status (CI run 36006538014: 20 seeds per policy on Normal, plus balanced on Story)
+### Balance status (after the balance pass of DESIGN_LOG 92; the CI balance job's settings: 20 seeds per policy on Normal, plus balanced on Story)
 
 | Gate | Result | Band |
 | --- | --- | --- |
-| Invariants | PASS: 0 problems in 100 runs, 9,101 turns | 0 |
-| Performance | PASS: end-turn p95 36 ms | < 300 ms |
+| Invariants | PASS: 0 problems in 100 runs, 8,987 turns | 0 |
+| Performance | PASS: end-turn p95 42 ms | < 300 ms |
 | Winnable, balanced on Normal | **FAIL**: 20 of 20 won | 60–90% |
 | Winnable, random-legal | PASS: 0 of 20 | < 20% |
 | Winnable, balanced on Story | PASS: 20 of 20 | 85–100% |
-| Pacing | PASS: median win turn 78 | 56–84 |
-| No dead turns | PASS: median 0% | < 25% |
-| No hoarding | **FAIL**: 80 of 80 runs (streaks: food 115, metals 81, influence 51, energy 41) | ≤ 20% of runs |
-| Everything matters | **FAIL**: Foundry 0%, Research Institute 1%, Fusion Plant 3%, Hydroponics Bay 11% | buildings ≥ 25%, techs ≥ 15% |
+| Pacing | PASS: median win turn 74 (was 78) | 56–84 |
+| No dead turns | PASS: median 1% | < 25% |
+| No hoarding | **FAIL**: 80 of 80 runs (streaks: food 84, metals 80, influence 51, energy 33; was 115, 81, 51, 41) | ≤ 20% of runs |
+| Everything matters | **FAIL**: Foundry 0%, Research Institute 3% (Hydroponics Bay and Fusion Plant now pass; were 11% and 3%) | buildings ≥ 25%, techs ≥ 15% |
 
 Balance gates are advisory in CI (`--balance advisory`) until the M1 gate (DESIGN_LOG 82).
-What is known about each failure, to try next:
-- **Food** hoards by turn 17 in every run: the start is food-rich (+13 a turn on 150) and the
-  balanced bot founds Brume around turn 27, while the tutorial expects turn 15. A Colony Ship by
-  turn ~15 (Industry first, then Mining, Rush) spends 100 food in time. Or lower the starting
-  food. Reserving minerals for the ship made things worse (Aster stalled); do not retry that
-  without also raising mineral income first.
-- **Metals** hoard after the two Colony Ships (nothing else uses them in S1): the bot should
-  build the Market Exchange earlier (Colonial Administration) and sell, or stop Industry.
-- **Influence and energy**: the bot spends influence on ordinances and rerolls and energy on
-  rushing; turtle and economy still hoard influence.
-- **Everything matters**: the advisor undervalues the Foundry, Research Institute, Fusion Plant
-  and Hydroponics Bay (their value should come from the colony's gross output of the resource,
-  and Hydroponics from "food without workers").
-- **Balanced wins 100% on Normal**: Normal needs a real chance of failure without pushing the
-  median past turn 84, for example harsher emergent events. This is a candidate question for the
-  Owner.
+Three questions wait for the Owner (they are design calls, not tuning):
+- **Normal is too easy**: the balanced bot wins every run. Proposal: harsher emergent events on
+  Normal (event severity 125%), keeping the median under turn 84.
+- **Hoarding**: the gate counts the lopsided economy and turtle bots too, and it reads a stock
+  saved for a lump purchase (a 150-food Colony Ship, a 40-metal building) as hoarding. Options:
+  (a) more sinks, for example a food surplus that speeds growth; (b) apply the gate to the
+  balanced bot only; (c) keep it and redesign the early economy around the market.
+- **The Foundry and the Research Institute** do not earn their place in Scenario 1: metals have
+  few uses there, and +20% research cannot beat a research district. Options: move Foundry
+  Automation out of Scenario 1's technology pool (metals matter from M2's fleets); give the
+  Institute a flat research bonus as well.
+
+What the balance pass learned, so it is not repeated:
+- Minerals are the bottleneck and the market is the valve (surplus sold for energy, energy buys
+  minerals), but its building competes for the same minerals. A market with no technology
+  (available from turn 1) broke pacing (median turn 94). Halving metallurgist output starved the
+  market's metals and delayed it to turns 60–100. A research priority for the market's technology
+  changed nothing, because the building waited for minerals, not the technology.
+- Food sits near 280 against a line of about 250 (ten turns of gross) until the market opens
+  around turn 45; metals pile up between the two Colony Ships.
+- Local loop: `tools/balance_loop.sh <dir> 1-20` runs the four policies and Story in parallel
+  (about 90 s), then the gates.
 
 ### Remaining M1 work, in order
 
-1. **Screens** (plan below), PC and phone, 100% and 200% text. Built: the `AppRoot` and the flow
-   screens (title, campaign, briefing, debrief). Next: the game screen shell (replacing the
-   stand-in on the game route), then the game views and overlays.
-2. **Audio**: an `Audio` autoload with UI, Effects and Music buses; volume and mute settings;
-   synthesised blips for every §15.4 id; music cues with crossfades, silent until delivered.
-3. **Saves**: auto-save ring of 10, checkpoint ring of 6 (every 5 turns), manual slots, thumbnails;
-   campaign progress (`user://campaign.json`: completed scenarios, chosen legacies).
-4. **Codex**: the S1 subset generated from data plus prose in `data/codex/*.md`.
-5. **Planet renderer** upgraded to lit spheres (§8.3).
-6. **Main scene**: the title screen; the showcase becomes a debug entry (and stays in the tour).
-7. **Tooling**: the screenshot tour visits every screen from fixture saves; the id audit covers
-   them; `tools/web_smoke.mjs` also starts a new game.
-8. **Balance tuning** against the gates above, or an honest report of where they fail.
-9. **M1 report** (`docs/milestones/M1_REPORT.md`), merge, deploy, stop for the Owner's playtest.
+Done since rewrite 4: the app shell and flow screens, audio, saves and campaign progress, the
+Codex, lit-sphere planets, the title as the main scene, the tour and web smoke over the app, and a
+balance pass (CHANGELOG, DESIGN_LOG 85–92). What is left:
+
+1. **The game screen shell** (the plan below): the top bar, navigation, the context panel, the
+   advisor tutorial, End Turn with its checklist, and the end-of-turn flow (auto-save, report,
+   events, debrief). It replaces the stand-in on the game route.
+2. **The game views**: galaxy, system, colony planner, research, ordinances, market, objectives.
+3. **The overlays**: the event scene, the turn report, Why?, settings (with the volume sliders),
+   save and load (with the thumbnails), credits.
+4. **The balance questions** above, then a last tuning pass.
+5. **M1 report** (`docs/milestones/M1_REPORT.md`), merge, deploy, stop for the Owner's playtest.
 
 ### The screen plan (designed, not yet built)
 
-- **`AppRoot`** (built; becomes the main scene with task 6 below, `ui/screens/app_root.gd`): hosts
+- **`AppRoot`** (built; the main scene, `ui/screens/app_root.gd`): hosts
   one screen at a time and routes title → campaign → briefing → game → debrief, plus Codex,
   settings, load and the showcase. A route joins `AppRoot.routes()` when its screen exists.
 - **Title** (built): Continue (newest save), Campaign, Load, Codex, Settings, Showcase (debug),
@@ -178,6 +186,14 @@ What is known about each failure, to try next:
   signed centi, points and basis points.
 - Local balance loop: run the four policies in parallel with `tools/bot_run.gd --seeds 1-6
   --turns 105 --out <dir>`, then `tools/telemetry_report.gd -- --in <dir> --balance advisory`.
+- `set_anchors_preset()` on a control already in the tree keeps its (zero) rect; code-built
+  full-rect controls use `set_anchors_and_offsets_preset()`.
+- An autowrapping label inside a `CenterContainer` gets no width and wraps every word: give its
+  column a minimum width.
+- A node that is built but never added to the tree leaks (the test run warns at exit).
+- Headless runs must not start audio playback: a stream still playing at exit leaks.
+- A `-s` script that names UI classes (which use autoloads) can hang: load them with
+  `load(path)` and call them with `.call()`.
 
 ---
 
@@ -1896,9 +1912,11 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
 
 ### M1: First Light
 
-**Status (rewrite 4):** tasks 1–4 and 7–8 below are built (rules, commands, data, events, asset
-ids, bots and telemetry); the balance gates are computed but three still fail. Tasks 5–6 and 9
-(screens, audio, main scene) remain. See "M1 progress and where to resume".
+**Status:** tasks 1–4 and 6–8 below are built (rules, commands, data, events, audio, asset ids,
+bots and telemetry), and task 5 in part (the app shell, the campaign flow screens, the Codex,
+saves, planets and the main scene); the balance gates are computed after a balance pass, and
+three still fail. The game screen, its views and overlays, and task 9 remain. See "M1 progress
+and where to resume".
 
 **Tasks:**
 1. **Rules** (`sim/rules/`), each with unit tests and breakdowns:

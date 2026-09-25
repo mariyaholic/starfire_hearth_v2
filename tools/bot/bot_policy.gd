@@ -324,6 +324,8 @@ static func _builds(policy: String, queue: CommandQueue, empire_id: String) -> v
 		var er: Economy.EmpireReport = Economy.empire(state, empire_id)
 		var reserve: int = _reserve(state, e)
 		var opts: Array[Advisor.Option] = Advisor.options(state, col, er, focus)
+		if _save_for(opts, e, er, reserve):
+			continue
 		for o: Advisor.Option in opts:
 			if o.value <= 0:
 				break
@@ -332,6 +334,24 @@ static func _builds(policy: String, queue: CommandQueue, empire_id: String) -> v
 			var cmd: Command = _option_command(empire_id, col.id, o)
 			if cmd != null and queue.submit(cmd).ok:
 				break
+
+
+## True when the best option cannot be paid for yet but clearly beats everything affordable and
+## a few turns of minerals income will cover it: then the bot saves up, as a player would.
+static func _save_for(opts: Array[Advisor.Option], e: Empire, er: Economy.EmpireReport, reserve: int) -> bool:
+	if opts.is_empty() or opts[0].value <= 0:
+		return false
+	var best: Advisor.Option = opts[0]
+	var short: int = best.cost.get("minerals", 0) + reserve - e.stock_of("minerals")
+	if short <= 0:
+		return false
+	var income: int = er.net_of("minerals")
+	if income <= 0 or short > income * 6:
+		return false
+	for o: Advisor.Option in opts:
+		if o.value > 0 and e.stock_of("minerals") - o.cost.get("minerals", 0) >= reserve:
+			return best.value * 10 >= o.value * 14
+	return true
 
 
 ## Minerals kept back for a Colony Ship when its metals are nearly there and a target waits.

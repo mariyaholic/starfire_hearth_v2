@@ -236,11 +236,11 @@
         "origin": "generation_ark",
         "is_player": true,
         "stock": {
-          "food": 15000,
+          "food": 10000,
           "energy": 12000,
           "minerals": 25000,
           "alloys": 0,
-          "influence": 6000
+          "influence": 3000
         },
         "techs": [],
         "known_systems": [

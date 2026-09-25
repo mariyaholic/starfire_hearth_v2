@@ -18,6 +18,7 @@ func test_survey_takes_two_turns(t: T) -> void:
 
 func test_outpost_costs_influence_and_builds_in_four_turns(t: T) -> void:
 	var s: GameState = S1.build()
+	s.player().stock["influence"] = 6000
 	var cship: Ship = S1.ship(s, "construction_ship")
 	t.eq(BuildOutpostCommand.create(P, cship.id, "pl_tithe", "minerals").validate(s).reason_key, "error.planet.not_surveyed")
 	s.player().surveyed_planets.append("pl_tithe")
@@ -63,6 +64,7 @@ func test_colony_ship_founds_a_colony_with_its_first_shelter(t: T) -> void:
 
 func test_ordinances_slots_duration_and_lock(t: T) -> void:
 	var s: GameState = S1.build()
+	s.player().stock["influence"] = 6000
 	var q: CommandQueue = CommandQueue.new(s)
 	t.eq(q.submit(ActivateOrdinanceCommand.create(P, "radio_silence")).reason_key, "error.ordinance.locked")
 	t.ok(q.submit(ActivateOrdinanceCommand.create(P, "festival")).ok)
@@ -83,6 +85,7 @@ func test_ordinances_slots_duration_and_lock(t: T) -> void:
 
 func test_market_needs_an_exchange_and_uses_fixed_rates(t: T) -> void:
 	var s: GameState = S1.build()
+	s.player().stock["food"] = 15000
 	t.eq(TradeCommand.create(P, "food", 1, false).validate(s).reason_key, "error.market.closed")
 	var pb: Colony.PlacedBuilding = Colony.PlacedBuilding.new()
 	pb.slot = 8

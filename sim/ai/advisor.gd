@@ -63,7 +63,8 @@ static func needs(state: GameState, e: Empire, er: Economy.EmpireReport) -> Need
 				elif net < (200 if res == "food" else 300):
 					w = 12
 					reason = ["governor.reason.low", {"resource_key": "res.%s.name" % res}]
-				elif full:
+				elif full or stock > _gross(er, res) * 7:
+					# Plenty in store: more of it would only pile up.
 					w = 1
 			"minerals":
 				if net < 0:
@@ -289,7 +290,11 @@ static func _building_option(state: GameState, c: Colony, cr: Economy.ColonyRepo
 		var v: int = DictIO.int_of(d, "value")
 		if key.begins_with("output_add:"):
 			var res: String = key.trim_prefix("output_add:")
-			parts[res] = parts.get(res, 0) + Fx.div_floor(v * n.weights.get(res, 4) * _focus(fw, res), Fx.ONE * 10000)
+			var flat: int = Fx.div_floor(v * n.weights.get(res, 4) * _focus(fw, res), Fx.ONE * 10000)
+			# Output that needs no workers is worth more while every settler already has a job.
+			if cr.unemployed == 0:
+				flat = Fx.div_floor(flat * 3, 2)
+			parts[res] = parts.get(res, 0) + flat
 		elif key.begins_with("resource_output_bp:"):
 			var res2: String = key.trim_prefix("resource_output_bp:")
 			var gross: int = cr.research_total() if res2 == "research" else cr.alloys_made if res2 == "alloys" else maxi(0, cr.net_of(res2))
@@ -576,6 +581,19 @@ static func effects_value(state: GameState, e: Empire, er: Economy.EmpireReport,
 		elif key == "rejoin_colony":
 			v += 600
 	return v
+
+
+## What the colonies make of a resource before upkeep, consumption and inputs (the flat lines).
+static func _gross(er: Economy.EmpireReport, res: String) -> int:
+	var g: int = 0
+	for cid: String in er.colonies.keys():
+		var cr: Economy.ColonyReport = er.colonies[cid]
+		if not cr.net.has(res):
+			continue
+		for l: Breakdown.Line in cr.net[res].lines:
+			if l.kind != Breakdown.KIND_FLAT and l.kind != Breakdown.KIND_CAP:
+				g += l.value
+	return maxi(0, g)
 
 
 static func _stock_weight(res: String, n: Needs) -> int:

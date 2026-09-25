@@ -34,6 +34,20 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### Balance pass (DESIGN_LOG 92)
+
+- Cheaper tier 1 and 2 technologies, a leaner Scenario 1 start (food, influence), dearer Colony
+  Ships in food, a Market Exchange paid partly in metals, metal costs on the advanced buildings,
+  and advisor and bot changes (full stocks, workerless output, saving up for a clear best
+  option). Tests that pinned the old numbers now read them from the rules; the golden hashes are
+  re-baselined with this reason. **Verified:** `tools/balance_loop.sh <dir> 1-20` (the CI balance
+  job's runs): invariants 0 problems in 100 runs; pacing median turn 74 (was 78); everything
+  matters fails only on the Foundry (0%) and the Research Institute (3%), where it failed on
+  four buildings; hoarding still 80 of 80 runs (food 84, metals 80, influence 51, energy 33,
+  was 115, 81, 51, 41); balanced on Normal still wins 20 of 20. The remaining failures are
+  design questions for the Owner. `godot --headless --path . -s tests/run_tests.gd`: 157 passed,
+  0 failed.
+
 ### The title is the main scene; lit-sphere planets; the tour and web smoke cover the app (DESIGN_LOG 91)
 
 - The game now starts on the title (`ui/screens/app_root.tscn`); the UI showcase is a debug-build

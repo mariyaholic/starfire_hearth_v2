@@ -8,10 +8,10 @@ const P: String = "emp_player"
 func test_costs_by_tier_and_colonies(t: T) -> void:
 	var s: GameState = S1.build()
 	var e: Empire = s.player()
-	t.eq(Research.cost(s, e, "hydroponics").total, 8000)
-	t.eq(Research.cost(s, e, "habitat_domes").total, 20000)
-	t.eq(Research.cost(s, e, "jump_field_mathematics").total, 45000)
-	t.eq(Research.cost(s, e, "jump_drive").total, 100000)
+	t.eq(Research.cost(s, e, "hydroponics").total, Research.TIER_COST[1])
+	t.eq(Research.cost(s, e, "habitat_domes").total, Research.TIER_COST[2])
+	t.eq(Research.cost(s, e, "jump_field_mathematics").total, Research.TIER_COST[3])
+	t.eq(Research.cost(s, e, "jump_drive").total, Research.TIER_COST[4])
 	var c: Colony = Colony.new()
 	c.id = "col_9001"
 	c.planet_id = "pl_brume"
@@ -19,7 +19,7 @@ func test_costs_by_tier_and_colonies(t: T) -> void:
 	c.pops = 2
 	s.colonies[c.id] = c
 	s.planets["pl_brume"].colony_id = c.id
-	t.eq(Research.cost(s, e, "hydroponics").total, 8400, "+5% for the second colony")
+	t.eq(Research.cost(s, e, "hydroponics").total, Research.TIER_COST[1] * 105 / 100, "+5% for the second colony")
 
 
 func test_start_hands_are_preseeded_without_warships(t: T) -> void:
@@ -36,11 +36,12 @@ func test_start_hands_are_preseeded_without_warships(t: T) -> void:
 func test_progress_carries_over_and_the_hand_refills(t: T) -> void:
 	var s: GameState = S1.build()
 	var e: Empire = s.player()
-	e.branch("society").progress = 7950
+	var need: int = Research.TIER_COST[1]
+	e.branch("society").progress = need - 50
 	var r: TurnResult = S1.turn(s, [PickResearchCommand.create(P, "society", "hydroponics")])
 	var e2: Empire = r.state.player()
 	t.ok(e2.has_tech("hydroponics"))
-	t.eq(e2.branch("society").progress, 7950 + 180 - 8000, "what is left carries over")
+	t.eq(e2.branch("society").progress, need - 50 + 180 - need, "what is left carries over")
 	t.eq(e2.branch("society").card, "")
 	t.eq(e2.branch("society").hand.size(), 3)
 	t.ok(e2.branch("society").hand.has("frontier_medicine"), "unpicked cards stay")
@@ -72,7 +73,7 @@ func test_draws_are_deterministic_and_rerolls_cost_influence(t: T) -> void:
 	var q: CommandQueue = CommandQueue.new(s2)
 	t.ok(q.submit(PickResearchCommand.create(P, "society", "civic_charters")).ok)
 	t.ok(q.submit(RerollResearchCommand.create(P, "society")).ok)
-	t.eq(q.preview().player().stock_of("influence"), 6000 - 2500)
+	t.eq(q.preview().player().stock_of("influence"), s2.player().stock_of("influence") - Research.REROLL_COST)
 	t.ok(q.preview().player().branch("society").hand.has("civic_charters"), "the picked card survives a reroll")
 	t.eq(PickResearchCommand.create(P, "society", "jump_drive").validate(q.preview()).reason_key, "error.research.not_offered")
 

@@ -7,7 +7,7 @@ extends RefCounted
 ## that build on ones already owned.
 
 const HAND_SIZE: int = 3
-const TIER_COST: Dictionary[int, int] = {1: 8000, 2: 20000, 3: 45000, 4: 100000}
+const TIER_COST: Dictionary[int, int] = {1: 5500, 2: 15000, 3: 45000, 4: 100000}
 const COST_PER_COLONY_BP: int = 500
 const CATCH_UP_BP: int = -1500
 const REROLL_COST: int = 2500

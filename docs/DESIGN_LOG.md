@@ -275,3 +275,17 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     well with flat shapes; the shader uses only GLES3 features the web build has. The web smoke
     test proves the browser and the desktop agree: one turn of Scenario 1 from seed 1 must give
     the same state hash in both.
+92. **The M1 balance pass** (measured with `tools/balance_loop.sh`, 20 seeds per policy):
+    tier 1 and tier 2 technologies cost 55 and 150 (were 80 and 200), so Scenario 1's buildings
+    arrive while they still matter; Scenario 1 starts with 100 food and 30 influence (were 150
+    and 60, already 6.5 and 15 turns of income); a Colony Ship takes 150 food (was 100), food's
+    main use before the market; the Market Exchange costs 60 minerals and 40 metals (was 150
+    minerals), since minerals are the bottleneck and surplus metals can pay for the building
+    that sells surplus; the Fusion Plant, Research Institute, Foundry, Civic Hall and Habitat
+    Dome also cost metals (30, 30, 20, 20, 25), so metals have a use besides Colony Ships. The
+    advisor stops favouring food or energy once the stock holds seven turns of gross output,
+    and values output that needs no workers at 1.5 times while every settler has a job; the
+    bots save up for an option that clearly beats everything affordable (at least 1.4 times)
+    when six turns of minerals income will cover it. Results: pacing 78 to 74, Hydroponics Bay
+    and Fusion Plant now built often enough; hoarding, the Foundry, the Research Institute and
+    the Normal win rate wait for the Owner (BUILD_PROMPT, "Balance status").

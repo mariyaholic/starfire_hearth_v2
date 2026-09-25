@@ -14,7 +14,7 @@
     "66d9413364686d402684e6016a944ea41b1af59c3995c8fb8fcb4373c3d89ff8",
     "0ec5a7c577c0fc18a5de9864da945d62c66b7f594b3d59b75d25f73785a7b172"
   ],
-  "reason": "M1: the economy, events and orders run in every phase; schema 2",
+  "reason": "M1 balance pass: cheaper tier 1 and 2 techs, Scenario 1 starts with less food and influence, colony ships cost more food, the market costs metals, advanced buildings cost metals, and the advisor weighs full stocks and workerless output (DESIGN_LOG 92)",
   "schema_version": 2,
   "seed": 20970401,
   "turns": 12,
