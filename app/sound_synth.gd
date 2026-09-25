@@ -76,20 +76,16 @@ const RECIPES: Dictionary[String, Array] = {
 	],
 }
 
-static var _cache: Dictionary[String, AudioStreamWAV] = {}
-
-
 static func has_recipe(id: String) -> bool:
 	return RECIPES.has(id)
 
 
-## The fallback sound for an id (cached), or null for beds and unknown ids.
+## The fallback sound for an id, rendered afresh (the Audio node caches it), or null for beds
+## and unknown ids.
 static func stream(id: String) -> AudioStreamWAV:
 	if not RECIPES.has(id):
 		return null
-	if not _cache.has(id):
-		_cache[id] = render(RECIPES[id], Rng.salt_of(id))
-	return _cache[id]
+	return render(RECIPES[id], Rng.salt_of(id))
 
 
 ## Renders a recipe to 16-bit mono PCM.

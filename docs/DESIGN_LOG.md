@@ -256,3 +256,9 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     until delivered, like music. Music cues are tracked per screen even while silent, so a
     delivered track starts in the right place with no code change. Hover sounds play only with a
     pointer. Mute silences Master, so every sound respects it.
+89. **Save rings are keyed by turn:** the auto-save for turn T goes to slot `auto_(T mod 10)` and
+    the checkpoint to `checkpoint_((T / 5) mod 6)`, so the rings need no index file and always
+    hold the newest turns. A loss offers the newest checkpoint of the same game (scenario and
+    seed) from before the losing turn. Manual saves are numbered and never overwritten. Ironman
+    mode (a single save) waits for the settings screen. Nothing is written while
+    `Settings.persist` is off (tests and the screenshot tour).

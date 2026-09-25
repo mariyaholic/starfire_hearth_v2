@@ -2,12 +2,15 @@ class_name CampaignProgress
 extends RefCounted
 ## The campaign's progress (§10.1): which scenarios are won, the legacy picked at each debrief, and
 ## the difficulty preset. Scenarios run in order and each win unlocks the next. The flow screens
-## read it; the debrief records wins and legacies. Writing it to user://campaign.json comes with the
-## save rings (task list: saves and campaign progress); until then it lasts for the session.
+## read it; the debrief records wins and legacies. Loaded from a file (user://campaign.json in
+## the game), it writes itself back after every change.
 
 const ORDER: Array[String] = ["s1_first_light", "s2_the_crossing", "s3_neighbours"]
+const PATH: String = "user://campaign.json"
 
 var difficulty_id: String = "normal"
+## The file this progress was loaded from and saves to; "" keeps it in memory (tests).
+var file_path: String = ""
 ## Scenario id -> the legacy id picked at its debrief ("" until one is picked).
 var won: Dictionary[String, String] = {}
 
@@ -49,11 +52,19 @@ func carried_legacies(scenario_id: String) -> Array[String]:
 func record_win(scenario_id: String) -> void:
 	if not won.has(scenario_id):
 		won[scenario_id] = ""
+		_changed()
 
 
 ## Replaying a won scenario lets the player pick again; the new pick replaces the old one.
 func pick_legacy(scenario_id: String, legacy_id: String) -> void:
 	won[scenario_id] = legacy_id
+	_changed()
+
+
+func set_difficulty(id: String) -> void:
+	if id != difficulty_id:
+		difficulty_id = id
+		_changed()
 
 
 func to_dict() -> Dictionary:
@@ -71,3 +82,30 @@ static func from_dict(d: Dictionary) -> CampaignProgress:
 		if ORDER.has(str(id)):
 			p.won[str(id)] = str(w[id])
 	return p
+
+
+## The progress saved at `path`, or a fresh one (a missing or unreadable file starts over);
+## either way it saves back to `path`.
+static func load_file(path: String = PATH) -> CampaignProgress:
+	var p: CampaignProgress = CampaignProgress.new()
+	if FileAccess.file_exists(path):
+		var v: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if typeof(v) == TYPE_DICTIONARY:
+			p = from_dict(v)
+	p.file_path = path
+	return p
+
+
+func save_file() -> Error:
+	if file_path.is_empty():
+		return OK
+	var f: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
+	if f == null:
+		return FileAccess.get_open_error()
+	f.store_string(JSON.stringify(to_dict(), "  ") + "\n")
+	f.close()
+	return OK
+
+
+func _changed() -> void:
+	save_file()

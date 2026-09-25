@@ -33,6 +33,9 @@ var scenario_id: String = CampaignProgress.ORDER[0]
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# Tests and the screenshot tour turn persistence off: then progress stays in memory.
+	if Settings.persist:
+		progress = CampaignProgress.load_file()
 	go(TITLE)
 
 

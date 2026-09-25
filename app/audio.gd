@@ -28,6 +28,7 @@ var _next_fx: int = 0
 var _music: Array[AudioStreamPlayer] = []
 var _music_on: int = 0
 var _delivered: Dictionary[String, Array] = {}
+var _synth: Dictionary[String, AudioStream] = {}
 var _last_at: Dictionary[String, int] = {}
 var _fade: Tween = null
 
@@ -64,11 +65,14 @@ func play(id: String) -> void:
 	else:
 		p = _ui[_next_ui]
 		_next_ui = (_next_ui + 1) % _ui.size()
+	last_sound = id
+	sounds_played += 1
+	# Headless runs (tests, tools) have no audio output; the choice above is all they check.
+	if DisplayServer.get_name() == "headless":
+		return
 	p.stream = st
 	p.pitch_scale = 1.0 + (randf() - 0.5) * 0.06 if SoundSynth.VARIED.has(id) and not AssetIds.is_delivered(id) else 1.0
 	p.play()
-	last_sound = id
-	sounds_played += 1
 
 
 ## Crossfades to a music cue (§15.5; "" fades to silence). A cue that is not delivered yet fades
@@ -101,6 +105,13 @@ func play_music(id: String) -> void:
 	_fade.chain().tween_callback(_stop_faded)
 
 
+## Stops everything on the way out, so no playback is left alive in the audio server at exit.
+func _exit_tree() -> void:
+	for p: AudioStreamPlayer in _ui + _fx + _music:
+		p.stop()
+		p.stream = null
+
+
 func is_music_playing() -> bool:
 	for m: AudioStreamPlayer in _music:
 		if m.playing:
@@ -120,7 +131,9 @@ func _stream_for(id: String) -> AudioStream:
 	var delivered: Array = _delivered_streams(id)
 	if not delivered.is_empty():
 		return delivered[randi() % delivered.size()]
-	return SoundSynth.stream(id)
+	if not _synth.has(id):
+		_synth[id] = SoundSynth.stream(id)
+	return _synth[id]
 
 
 func _delivered_streams(id: String) -> Array:

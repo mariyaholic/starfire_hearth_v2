@@ -11,6 +11,8 @@ var state: GameState
 var picked: String = ""
 var _continue: SfButton
 var _pick_hint: Label
+## The checkpoint a lost game can go back to (§5.12), or "".
+var _checkpoint: String = ""
 var _legacy_cards: Dictionary[String, Card] = {}
 var _legacy_buttons: Dictionary[String, SfButton] = {}
 
@@ -22,6 +24,8 @@ static func make(p_progress: CampaignProgress, p_state: GameState) -> DebriefScr
 	s.state = p_state
 	if p_state != null:
 		s.picked = p_progress.legacy_of(p_state.scenario_id)
+		if p_state.outcome == GameState.OUTCOME_LOST:
+			s._checkpoint = SaveService.latest_checkpoint(p_state.scenario_id, p_state.game_seed, p_state.outcome_turn)
 	return s
 
 
@@ -50,7 +54,8 @@ func build_screen() -> void:
 	var actions: Array[Control] = _actions()
 	# Phones put the buttons in the heading row, leaving the rest of the short screen to the text.
 	var in_header: Array[Control] = []
-	if Layout.compact:
+	var in_footer: bool = not Layout.compact or actions.size() > 1
+	if not in_footer:
 		in_header = actions
 	col.add_child(header(Strings.fmt("ui.debrief.won" if won() else "ui.debrief.lost"), Strings.fmt(DictIO.str_of(rec, "name_key", "ui.title.unknown_scenario")), in_header))
 	var body: VBoxContainer = VBoxContainer.new()
@@ -70,12 +75,12 @@ func build_screen() -> void:
 	if won() and not legacies().is_empty():
 		body.add_child(_legacy_section())
 	col.add_child(FlowScreen.scroll_of(body))
-	if not Layout.compact:
+	if in_footer:
 		var footer: HFlowContainer = HFlowContainer.new()
 		footer.name = "Footer"
 		footer.alignment = FlowContainer.ALIGNMENT_END
 		footer.add_theme_constant_override("h_separation", Tokens.SPACE_M)
-		if won():
+		if won() and not Layout.compact:
 			_pick_hint = FlowScreen.label(Strings.fmt("ui.debrief.pick_first"), &"CaptionLabel")
 			_pick_hint.name = "PickHint"
 			_pick_hint.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -194,6 +199,11 @@ func _actions() -> Array[Control]:
 	camp.name = "ToCampaign"
 	camp.pressed.connect(go.bind(AppRoot.CAMPAIGN))
 	out.append(camp)
+	if not _checkpoint.is_empty():
+		var cp: SfButton = SfButton.make("ui.debrief.checkpoint", "ui_checkpoint", SfButton.SECONDARY)
+		cp.name = "Checkpoint"
+		cp.pressed.connect(_load_checkpoint)
+		out.append(cp)
 	var retry: SfButton = SfButton.make("ui.debrief.retry", "ui_reroll", SfButton.PRIMARY)
 	retry.name = "Retry"
 	retry.pressed.connect(go.bind(AppRoot.BRIEFING, {"scenario": state.scenario_id if state != null else ""}))
@@ -224,6 +234,14 @@ func _refresh_legacies() -> void:
 		_continue.tooltip_text = Strings.fmt("ui.debrief.pick_first") if needs_pick() else ""
 	if _pick_hint != null:
 		_pick_hint.visible = needs_pick()
+
+
+func _load_checkpoint() -> void:
+	var lr: SaveSerializer.LoadResult = SaveService.load_slot(_checkpoint)
+	if not lr.ok:
+		Overlay.toast(Strings.fmt(lr.error_key), ReportItem.SEVERITY_WARNING)
+		return
+	go(AppRoot.CONTINUE, {"state": lr.state})
 
 
 func _finish() -> void:

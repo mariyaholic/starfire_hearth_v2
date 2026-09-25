@@ -62,7 +62,7 @@ func _difficulty_text() -> String:
 func _pick_difficulty(id: String) -> void:
 	if progress.difficulty_id == id:
 		return
-	progress.difficulty_id = id
+	progress.set_difficulty(id)
 	# In place, so a phone keeps its scroll position.
 	if _difficulty_desc != null:
 		_difficulty_desc.text = _difficulty_text()

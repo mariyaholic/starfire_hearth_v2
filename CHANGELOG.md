@@ -34,6 +34,18 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### Saves and campaign progress (DESIGN_LOG 89)
+
+- `SaveService`: an auto-save after every resolved turn in a ring of 10, a checkpoint every fifth
+  turn in a ring of 6, numbered manual saves, deletion, a listing read from the save envelopes
+  (kind, scenario, turn, seed, thumbnail), and a 320-pixel-wide PNG thumbnail beside each save
+  when a renderer is running. A lost debrief offers the newest checkpoint of that game from before
+  the loss. Campaign progress (difficulty, wins, legacies) is kept in `user://campaign.json` and
+  written after every change. Continue on the title picks up the newest auto-save.
+  **Verified:** `--filter save_service` (4 tests: both rings over 40 turns, the checkpoint a loss
+  goes back to, manual saves, deletion, auto-saving only while persistence is on, the campaign
+  file across a restart).
+
 ### Audio (DESIGN_LOG 88)
 
 - `Audio` autoload: UI, Effects and Music buses under Master; UI, effects and music volumes and

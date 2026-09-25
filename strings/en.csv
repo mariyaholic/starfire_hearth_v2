@@ -1107,3 +1107,4 @@ ui.pending.title,Under construction
 ui.pending.game,The game screen is still being built. Your new game has been created and will open here once it is.
 ui.pending.current,"{scenario}, {date}, {difficulty}"
 ui.debrief.legacy_chosen,Chosen
+ui.debrief.checkpoint,Load checkpoint
