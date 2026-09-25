@@ -152,6 +152,7 @@ func _legacy_section() -> VBoxContainer:
 		desc.set_meta("audit_numeric_ok", "a legacy's promised effect, stated in words")
 		var b: SfButton = SfButton.make("ui.debrief.legacy_pick", "ui_legacy", SfButton.TAB)
 		b.name = "Pick"
+		b.sound = "ui_choice_made"
 		b.button_group = group
 		b.button_pressed = id == picked
 		b.pressed.connect(pick.bind(id))

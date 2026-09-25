@@ -35,3 +35,22 @@ static func texture(asset_id: String) -> Texture2D:
 
 static func is_delivered(asset_id: String) -> bool:
 	return not path(asset_id).is_empty()
+
+
+## The delivered sound or music for an id: one stream, or one per variant when the intake tool
+## recorded "files" (§15.4 ×3 sounds). Empty while the id is a placeholder.
+static func streams(asset_id: String) -> Array[AudioStream]:
+	var out: Array[AudioStream] = []
+	var rec: Dictionary = Content.db().record("assets", asset_id)
+	if DictIO.str_of(rec, "status") != "delivered":
+		return out
+	var files: Array = DictIO.arr_of(rec, "files")
+	if files.is_empty() and not DictIO.str_of(rec, "file").is_empty():
+		files = [DictIO.str_of(rec, "file")]
+	for f: Variant in files:
+		var p: String = ROOT.path_join(str(f))
+		if ResourceLoader.exists(p):
+			var st: AudioStream = load(p) as AudioStream
+			if st != null:
+				out.append(st)
+	return out

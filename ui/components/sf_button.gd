@@ -21,6 +21,9 @@ var icon_id: String = ""
 ## Key of the visible label, or of the accessible name for icon-only buttons.
 var text_key: String = ""
 var icon_only: bool = false
+## The §15.4 sound a press makes; empty means the variant's default (confirm for primary
+## buttons, a toggle for tabs, a click otherwise).
+var sound: String = ""
 
 
 static func make(p_text_key: String, p_icon: String = "", p_variant: String = SECONDARY) -> SfButton:
@@ -49,6 +52,8 @@ static func make_icon(p_icon: String, p_name_key: String, p_variant: String = IC
 func _init() -> void:
 	focus_mode = Control.FOCUS_ALL
 	add_to_group("sf_button")
+	pressed.connect(_play_press)
+	mouse_entered.connect(_play_hover)
 
 
 func _ready() -> void:
@@ -76,3 +81,19 @@ func _refresh() -> void:
 		return
 	var logical: float = (Tokens.ICON_L if not Layout.compact else Tokens.ICON_M + 2) * Settings.text_scale
 	icon = IconCache.texture(icon_id, ceili(logical * Layout.scale))
+
+
+func _play_press() -> void:
+	if not sound.is_empty():
+		Audio.play(sound)
+	elif variant == PRIMARY or variant == DANGER:
+		Audio.play("ui_confirm")
+	elif variant == TAB:
+		Audio.play("ui_toggle_on")
+	else:
+		Audio.play("ui_click")
+
+
+func _play_hover() -> void:
+	if not disabled and not Layout.touch_ui:
+		Audio.play("ui_hover")

@@ -19,6 +19,8 @@ var _root: Window
 func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	var app: AppRoot = await _start(PROFILES[0])
 	t.eq(app.route, AppRoot.TITLE, "the app opens on the title")
+	var audio: Node = _root.get_node("Audio")
+	t.eq(audio.get("current_music"), "mus_title", "the title cues the main theme")
 	t.ok(app.screen.find_child("Campaign", true, false) != null, "the title offers the campaign")
 	t.ok(app.screen.find_child("Showcase", true, false) != null, "debug builds offer the showcase")
 	t.ok(app.screen.find_child("Load", true, false) == null, "no Load entry before the load screen exists")
@@ -36,6 +38,7 @@ func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	app.go(AppRoot.BEGIN, {"seed": 7})
 	await _frames(3)
 	t.eq(app.route, AppRoot.GAME, "Begin opens the game")
+	t.eq(audio.get("current_music"), "mus_slowboat_1", "the game cues the scenario's main track")
 	var game: Node = _root.get_node("Game")
 	var st: GameState = game.get("state")
 	t.ok(st != null, "Begin started a game")
@@ -53,6 +56,7 @@ func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	await _frames(3)
 	t.eq(app.route, AppRoot.DEBRIEF)
 	t.ok(app.progress.is_won(S1), "the win counts as soon as the debrief opens")
+	t.eq(audio.get("current_music"), "sting_victory", "a win cues the victory sting")
 	var cont: SfButton = app.screen.find_child("Continue", true, false) as SfButton
 	t.ok(cont != null and cont.disabled, "Continue waits for a legacy")
 	await (app.screen as DebriefScreen).demo("pick:steady_hands")

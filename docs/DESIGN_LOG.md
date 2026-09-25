@@ -250,3 +250,9 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 87. **Difficulty is picked on the campaign screen** (the three presets of §5.13, each with its
     description), shown again on the briefing, and passed to the scenario loader when Begin
     starts the game. The per-value sliders of §5.13 wait for the settings screen.
+88. **Audio before assets:** the buses are made at start-up, so no bus layout file is needed.
+    Until a sound is delivered it plays a blip synthesised from a recipe (22,050 Hz mono,
+    rendered once and cached); the ambient ship hum is a bed, not a blip, so it stays silent
+    until delivered, like music. Music cues are tracked per screen even while silent, so a
+    delivered track starts in the right place with no code change. Hover sounds play only with a
+    pointer. Mute silences Master, so every sound respects it.

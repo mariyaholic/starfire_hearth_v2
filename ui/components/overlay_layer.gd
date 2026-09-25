@@ -27,6 +27,7 @@ func _init() -> void:
 ## Adds this overlay to the Overlay host and animates it in.
 func open() -> OverlayLayer:
 	Overlay.push(self)
+	Audio.play("ui_panel_open")
 	_animate_in()
 	return self
 
@@ -42,6 +43,7 @@ func close() -> void:
 	if _closing:
 		return
 	_closing = true
+	Audio.play("ui_panel_close")
 	dismissed.emit()
 	if Settings.reduce_motion or not is_inside_tree():
 		queue_free()

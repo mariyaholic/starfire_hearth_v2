@@ -79,7 +79,24 @@ func _open(to: String) -> void:
 	route = to
 	screen = _make(to)
 	add_child(screen)
+	Audio.play_music(_music_for(to))
 	screen_changed.emit(to)
+
+
+## The music cue for a screen (§15.5): the main theme on the title and campaign screens, the
+## scenario's briefing and main tracks, and a sting at the debrief.
+func _music_for(to: String) -> String:
+	var music: Dictionary = DictIO.dict_of(Content.db().scenarios.get(scenario_id, {}), "music")
+	match to:
+		BRIEFING:
+			return DictIO.str_of(music, "briefing", "mus_title")
+		GAME:
+			return DictIO.str_of(music, "main", "mus_slowboat_1")
+		DEBRIEF:
+			return "sting_victory" if Game.has_game() and Game.state.outcome == GameState.OUTCOME_WON else "sting_defeat"
+		SHOWCASE:
+			return ""
+	return "mus_title"
 
 
 func _make(to: String) -> Control:

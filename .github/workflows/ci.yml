@@ -45,6 +45,16 @@ jobs:
       - name: Palette report
         run: godot --headless --path . -s tools/palette_report.gd
 
+      - name: Audio preview (every synthesised fallback sound, for a listening check)
+        run: godot --headless --path . -s tools/audio_preview.gd -- --out build/audio_preview
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio-preview
+          path: build/audio_preview/
+          retention-days: 14
+          if-no-files-found: error
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

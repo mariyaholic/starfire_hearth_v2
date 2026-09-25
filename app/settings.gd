@@ -17,7 +17,10 @@ var ui_scale: float = 1.0
 var reduce_motion: bool = false
 var high_contrast: bool = false
 var hints_enabled: bool = true
+## Volumes of the UI, Effects and Music buses, 0 to 1 (§8.6).
 var ui_volume: float = 0.8
+var effects_volume: float = 0.8
+var music_volume: float = 0.7
 var muted: bool = false
 ## When false (tests, the screenshot tour) nothing is written to disk.
 var persist: bool = true
@@ -47,6 +50,22 @@ func set_hints_enabled(v: bool) -> void:
 	_apply("hints_enabled", v)
 
 
+func set_ui_volume(v: float) -> void:
+	_apply("ui_volume", clampf(snappedf(v, 0.05), 0.0, 1.0))
+
+
+func set_effects_volume(v: float) -> void:
+	_apply("effects_volume", clampf(snappedf(v, 0.05), 0.0, 1.0))
+
+
+func set_music_volume(v: float) -> void:
+	_apply("music_volume", clampf(snappedf(v, 0.05), 0.0, 1.0))
+
+
+func set_muted(v: bool) -> void:
+	_apply("muted", v)
+
+
 func _apply(key: String, value: Variant) -> void:
 	if get(key) == value:
 		return
@@ -66,6 +85,8 @@ func _load() -> void:
 	reduce_motion = bool(cfg.get_value("accessibility", "reduce_motion", false))
 	hints_enabled = bool(cfg.get_value("game", "hints_enabled", true))
 	ui_volume = clampf(float(cfg.get_value("audio", "ui_volume", 0.8)), 0.0, 1.0)
+	effects_volume = clampf(float(cfg.get_value("audio", "effects_volume", 0.8)), 0.0, 1.0)
+	music_volume = clampf(float(cfg.get_value("audio", "music_volume", 0.7)), 0.0, 1.0)
 	muted = bool(cfg.get_value("audio", "muted", false))
 
 
@@ -77,5 +98,7 @@ func _save() -> void:
 	cfg.set_value("accessibility", "reduce_motion", reduce_motion)
 	cfg.set_value("game", "hints_enabled", hints_enabled)
 	cfg.set_value("audio", "ui_volume", ui_volume)
+	cfg.set_value("audio", "effects_volume", effects_volume)
+	cfg.set_value("audio", "music_volume", music_volume)
 	cfg.set_value("audio", "muted", muted)
 	cfg.save(PATH)

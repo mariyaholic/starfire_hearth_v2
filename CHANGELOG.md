@@ -34,6 +34,20 @@ repository root after `godot --headless --path . --import`. Everything else is *
   2". New golden: 24 scripted turns of Scenario 1 (`tests/golden/s1_hashes.json`). **Verified:**
   `--filter golden` (4 tests, including a save and load at every turn).
 
+### Audio (DESIGN_LOG 88)
+
+- `Audio` autoload: UI, Effects and Music buses under Master; UI, effects and music volumes and
+  mute in `Settings` (saved); every §15.4 sound by id, from its delivered file or, until then, a
+  blip synthesised from a recipe in `app/sound_synth.gd` (soft, D major pentatonic, the same
+  samples every time); music cues per screen (the main theme on the title and campaign, the
+  scenario's briefing and main tracks, a sting at the debrief) that crossfade and stay silent
+  until the tracks are delivered. Buttons, overlays, pinned breakdowns, warning toasts and End
+  Turn make their sounds. `tools/audio_preview.gd` writes every fallback to WAV with a length and
+  peak report; CI uploads them as the `audio-preview` artifact. **Verified:** `--filter audio`
+  (5 tests: buses follow the settings, all 40 ids have a fallback or are a bed, lengths 0.05 to
+  2.22 s, peaks at most 0.85, deterministic renders, silent music cues, UI sounds) and
+  `godot --headless --path . -s tools/audio_preview.gd` (39 sounds written).
+
 ### Screens: the app shell and the campaign flow (DESIGN_LOG 85–87)
 
 - `AppRoot` (`ui/screens/app_root.tscn`) hosts one screen at a time and routes title → campaign →

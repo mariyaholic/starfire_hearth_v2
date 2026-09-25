@@ -22,6 +22,7 @@ Layout="*res://app/layout.gd"
 Overlay="*res://app/overlay.gd"
 Game="*res://app/game.gd"
 SaveService="*res://app/save_service.gd"
+Audio="*res://app/audio.gd"
 
 [debug]
 

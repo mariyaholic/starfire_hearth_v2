@@ -65,6 +65,7 @@ func header(title_text: String, kicker_text: String = "", actions: Array[Control
 	if not back_route.is_empty():
 		var back: SfButton = SfButton.make_icon("ui_back", "ui.flow.back", SfButton.GHOST) if Layout.compact else SfButton.make("ui.flow.back", "ui_back", SfButton.GHOST)
 		back.name = "Back"
+		back.sound = "ui_cancel"
 		back.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		back.pressed.connect(go.bind(back_route))
 		row.add_child(back)
