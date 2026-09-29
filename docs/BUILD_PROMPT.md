@@ -98,10 +98,14 @@ Cascade.
 
 Balance gates are advisory in CI (`--balance advisory`) until the M1 gate (DESIGN_LOG 82).
 Three questions wait for the Owner (they are design calls, not tuning):
-- **Normal is too easy**: the balanced bot wins every run. Proposal: harsher emergent events on
-  Normal (event severity 125%), keeping the median under turn 84.
+- **Normal is too easy**: the balanced bot wins every run. Measured: Normal event severity of
+  125% or 150% changes nothing (20 of 20, median turn 74). The lever is the win deadline of
+  DESIGN_LOG 63 (1.5 times the expected 70 turns; the slowest of 20 runs is turn 96): 1.25 times
+  gives 18 of 20, and with events at 125% as well, 16 of 20.
 - **Hoarding**: the gate counts the lopsided economy and turtle bots too, and it reads a stock
-  saved for a lump purchase (a 150-food Colony Ship, a 40-metal building) as hoarding. Options:
+  saved for a lump purchase (a 150-food Colony Ship, a 40-metal building) as hoarding. Measured
+  per policy: even the balanced bot on Normal hoards in 20 of 20 runs, mostly metals (median
+  longest streak 38 turns), so limiting the gate to it would not pass; metals need sinks. Options:
   (a) more sinks, for example a food surplus that speeds growth; (b) apply the gate to the
   balanced bot only; (c) keep it and redesign the early economy around the market.
 - **The Foundry and the Research Institute** do not earn their place in Scenario 1: metals have

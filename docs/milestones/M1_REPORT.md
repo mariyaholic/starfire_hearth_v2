@@ -149,9 +149,17 @@ The reasons are in `docs/DESIGN_LOG.md` (51–94). The ones that shape play most
 
 ## Questions for you
 
-1. **Normal is too easy:** the balanced bot wins 20 of 20. Proposal: events at 125% severity on
-   Normal (Story stays gentler, Hard harsher), keeping the median win under turn 84. It is one
-   number in `data/difficulty.json`.
+1. **Normal is too easy:** the balanced bot wins 20 of 20. I measured my own proposal: **events
+   at 125% or even 150% severity on Normal change nothing** (still 20 of 20, median win turn 74),
+   so severity is not the lever. What makes it "trivial" is the deadline in my definition of
+   winnable (DESIGN_LOG 63): a win counts within 1.5 times the expected 70 turns, and the balanced
+   bot's slowest of 20 runs is turn 96. Its win turns are 69 to 80 for 17 runs, then 85, 95 and
+   96. Counting a win within 1.25 times the expected duration (turn 87) gives 18 of 20 (90%, the
+   edge of the band); with events at 125% as well it gives 16 of 20 (80%, mid-band). I recommend
+   both: a tighter deadline (a competent player finishes in about 70 turns, not 100) and Normal
+   events at 125%. The scenario itself has no way to lose for a competent player except autonomy,
+   which is a design fact you may want to change instead (a real deadline or a harsher status
+   chain).
 2. **Hoarding.** The gate counts the lopsided bots too, and reads a stock saved for a lump
    purchase (a Colony Ship, a 40-metal building) as hoarding. I measured it per policy over the
    same 20 seeds: **even the balanced bot on Normal hoards in 20 of 20 runs**, nearly always
