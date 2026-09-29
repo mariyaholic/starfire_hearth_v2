@@ -58,9 +58,9 @@ Things to try:
 | Explanation and layout audit | `xvfb-run -a -s "-screen 0 2560x1600x24" godot --rendering-driver opengl3 --path . -s tools/screenshot_tour.gd -- --out screens/` | **Verified:** 176 screenshots, 0 audit issues. 325 numbers carry an exemption with its reason (see "Known issues") |
 | Balance telemetry | `tools/balance_loop.sh <dir> 1-20` (CI's balance job) | Below. Advisory in CI until you decide |
 | Performance | the same runs | **Verified:** end-turn p95 42 ms on desktop (budget 300 ms). Phone: **Unverified** (no device) |
-| Exports | `godot --headless --path . --export-release "Web" build/web/index.html` (also Windows and Linux) | **Verified** in CI |
-| Web size | CI's "Web build size" step | See the CI run |
-| Web smoke | `node tools/web_smoke.mjs --build build/web --out screens/web --expect-hash <hash>` | See the CI run |
+| Exports | `godot --headless --path . --export-release "Web" build/web/index.html` (also Windows and Linux) | **Verified:** [CI run 36599451008](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/36599451008) on commit `5ea653c`: all five jobs passed (the deploy job is skipped off `main`) |
+| Web size | CI's "Web build size" step; `gzip -9` of each file | **Verified:** 48.2 MB as a compressed download when measured locally with the delivered assets in (48,201,796 bytes); the CI `web-build` artifact is 47.5 MB. Budget 150 MB. Music is 27.8 MB of it |
+| Web smoke | `node tools/web_smoke.mjs --build build/web --out screens/web --expect-hash <hash>` | **Verified in CI:** the export job's smoke step passed on the three devices, and the browser's state hash after one turn matches the desktop's |
 | Look and feel | Owner playtest on PC and a phone browser | Waiting for you |
 
 ### Balance gates (20 seeds per policy on Normal, plus balanced on Story)
@@ -153,10 +153,15 @@ The reasons are in `docs/DESIGN_LOG.md` (51–94). The ones that shape play most
    Normal (Story stays gentler, Hard harsher), keeping the median win under turn 84. It is one
    number in `data/difficulty.json`.
 2. **Hoarding.** The gate counts the lopsided bots too, and reads a stock saved for a lump
-   purchase (a Colony Ship, a 40-metal building) as hoarding. Options: (a) more sinks, for example
-   a food surplus that speeds growth; (b) apply the gate to the balanced bot only; (c) keep it and
-   redesign the early economy around the market. I recommend (b) now and (a) if the balanced bot
-   still hoards.
+   purchase (a Colony Ship, a 40-metal building) as hoarding. I measured it per policy over the
+   same 20 seeds: **even the balanced bot on Normal hoards in 20 of 20 runs**, nearly always
+   metals (the longest streak above ten turns of income has a median of 38 turns), because metals
+   have almost no sink in Scenario 1: two Colony Ships and a handful of buildings. So applying the
+   gate to the balanced bot only would not make it pass. Options: (a) real sinks for metals, for
+   example district tier upgrades paid partly in metals; (b) apply the gate to the balanced bot
+   only, which changes the gate and not the game; (c) keep the gate and let the market (which buys
+   metals) open much earlier. I recommend (a), and (b) as well for the gate's definition, since
+   the economy and turtle bots are lopsided on purpose.
 3. **The Foundry and the Research Institute.** Metals have few uses in Scenario 1 and +20%
    research cannot beat a research district. Options: move Foundry Automation out of Scenario 1's
    technology pool (metals matter from M2's fleets); give the Institute a flat research bonus as
