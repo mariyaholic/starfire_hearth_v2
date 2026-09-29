@@ -26,6 +26,10 @@
   "locked_ordinances": [
     "radio_silence"
   ],
+  "locked_buildings": [
+    "foundry",
+    "market_exchange"
+  ],
   "music": {
     "briefing": "mus_title",
     "main": "mus_slowboat_1"
@@ -535,7 +539,6 @@
       "storehouse",
       "hydroponics_bay",
       "fusion_plant",
-      "foundry",
       "research_institute",
       "civic_hall",
       "park_commons",

@@ -505,6 +505,10 @@ static func _research(state: GameState, c: Colony, r: ColonyReport) -> void:
 		if is_capital:
 			b.add("source.capital_research", CAPITAL_RESEARCH, {}, null, "mechanic:research")
 			any = true
+		# A flat research effect (the Research Institute) adds to every branch this colony studies.
+		if Modifiers.total(r.entries, "output_add:research") != 0:
+			Modifiers.add_lines(b, r.entries, "output_add:research")
+			any = true
 		if not any:
 			continue
 		_research_mults(b, r.entries, branch)

@@ -333,6 +333,9 @@ func _check_playable(_sid: String, sc: Dictionary, w: String) -> void:
 	for o: Variant in DictIO.arr_of(sc, "locked_ordinances"):
 		if not db.has("edicts", str(o)):
 			error(w, "unknown ordinance \"%s\" in locked_ordinances" % str(o))
+	for lb: Variant in DictIO.arr_of(sc, "locked_buildings"):
+		if not db.has("buildings", str(lb)):
+			error(w, "unknown building \"%s\" in locked_buildings" % str(lb))
 	var scope: Dictionary = DictIO.dict_of(sc, "balance_scope")
 	for pair: Array in [["districts", "districts"], ["buildings", "buildings"], ["techs", "techs"]]:
 		for id: Variant in DictIO.arr_of(scope, pair[0]):
@@ -598,7 +601,7 @@ func _check_scenario_reach(sid: String, sc: Dictionary) -> void:
 				grew = true
 	for bid: String in db.ids("buildings"):
 		var b: Dictionary = db.record("buildings", bid)
-		if DictIO.bool_of(b, "story"):
+		if DictIO.bool_of(b, "story") or DictIO.arr_of(sc, "locked_buildings").has(bid):
 			continue
 		var tech: String = DictIO.str_of(b, "unlock_tech")
 		if tech.is_empty() or techs.has(tech):

@@ -109,6 +109,8 @@ func test_building_limits(t: T) -> void:
 	t.eq(BuildBuildingCommand.create(P, cid, 8, "hydroponics_bay").validate(s).reason_key, "error.build.needs_tech")
 	t.eq(BuildBuildingCommand.create(P, cid, 8, "spaceport").validate(s).reason_key, "error.build.unique_colony")
 	t.eq(BuildBuildingCommand.create(P, cid, 8, "ark_hull").validate(s).reason_key, "error.build.story_only")
+	t.eq(BuildBuildingCommand.create(P, cid, 8, "foundry").validate(s).reason_key, "error.build.locked", "Scenario 1 does not offer the Foundry")
+	t.eq(BuildBuildingCommand.create(P, cid, 8, "market_exchange").validate(s).reason_key, "error.build.locked", "the Ark Hull already opens the market")
 	t.eq(BuildBuildingCommand.create(P, cid, 8, "habitat_dome").validate(s).reason_key, "error.build.needs_tech")
 	s.player().techs.append("habitat_domes")
 	t.eq(BuildBuildingCommand.create(P, cid, 8, "habitat_dome").validate(s).reason_key, "error.build.needs_dome_world")

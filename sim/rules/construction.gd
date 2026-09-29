@@ -140,6 +140,8 @@ static func can_build_building(state: GameState, empire_id: String, colony_id: S
 	var bdef: Dictionary = db.record("buildings", building_id)
 	if DictIO.bool_of(bdef, "story") or DictIO.bool_of(bdef, "landmark"):
 		return Result.fail("error.build.story_only")
+	if DictIO.str_arr(db.scenarios.get(state.scenario_id, {}), "locked_buildings").has(building_id):
+		return Result.fail("error.build.locked")
 	var e: Empire = state.empires[empire_id]
 	var tech: String = DictIO.str_of(bdef, "unlock_tech")
 	if not tech.is_empty() and not e.has_tech(tech):

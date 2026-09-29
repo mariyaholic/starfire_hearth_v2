@@ -451,7 +451,7 @@ icon.ui_display,Display
 icon.ui_accessibility,Accessibility
 ui.icons.sheet_title,Starfire Hearth icons
 building.ark_hull.name,Ark Hull
-building.ark_hull.desc,"The generation ship that carried the colony here, landed for good. Its holds still store grain and power cells, and people still gather in its shadow."
+building.ark_hull.desc,"The generation ship that carried the colony here, landed for good. Its holds still store grain and power cells, and people still gather in its shadow. Its quartermasters still trade: it opens the market."
 building.storehouse.name,Storehouse
 building.storehouse.desc,"Cold rooms, bunkers and silos. Raises how much food, energy, minerals and metals the colony can keep before the surplus is lost."
 building.hydroponics_bay.name,Hydroponics Bay
@@ -1355,3 +1355,5 @@ ui.title.credits,Credits
 ui.why.from_to,{from} to {to}
 ui.why.nothing,Nothing has changed here lately.
 ui.why.title,Why?
+error.build.locked,Not available in this scenario.
+effect.research_add,{value} research in each branch per turn

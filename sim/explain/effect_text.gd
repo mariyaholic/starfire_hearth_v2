@@ -60,7 +60,10 @@ static func describe(state: GameState, d: Dictionary, colony_id: String = "") ->
 		"influence_per_turn_add":
 			_fill(l, "effect.influence_per_turn", {"value_sc": v})
 		"output_add":
-			_fill(l, "effect.output_add", {"value_sc": v, "resource_key": _res(param)})
+			if param == "research":
+				_fill(l, "effect.research_add", {"value_sc": v})
+			else:
+				_fill(l, "effect.output_add", {"value_sc": v, "resource_key": _res(param)})
 		"add_stock":
 			_fill(l, "effect.stock", {"value_sc": v, "resource_key": _res(param)})
 		"cap_add":

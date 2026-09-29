@@ -10,8 +10,9 @@ const HOARD_TURNS: int = 10
 const HOARD_STREAK: int = 10
 const HOARD_MAX_RUN_SHARE: float = 0.2
 const STOCKED: Array[String] = ["food", "energy", "minerals", "alloys", "influence"]
-## "Winnable" counts a win within this multiple of the expected duration (DESIGN_LOG 63).
-const WIN_CAP_BP: int = 15000
+## "Winnable" counts a win within this multiple of the expected duration: the pacing band's upper
+## edge (DESIGN_LOG 63, 95).
+const WIN_CAP_BP: int = 12000
 const BUILT_MIN_SHARE: float = 0.25
 const TECH_MIN_SHARE: float = 0.15
 
@@ -99,14 +100,15 @@ func _gate(lines: Array[String], name: String, ok: bool, detail: String) -> int:
 
 
 ## No resource stays above HOARD_TURNS turns of its gross income for more than HOARD_STREAK
-## consecutive turns in more than HOARD_MAX_RUN_SHARE of runs. Random-legal runs are left out:
-## that bot never manages its stocks, by design (DESIGN_LOG 82).
+## consecutive turns in more than HOARD_MAX_RUN_SHARE of runs. Only the balanced bot is measured:
+## random-legal never manages its stocks, and the economy and turtle bots are lopsided, by design
+## (DESIGN_LOG 82, 96).
 func _no_hoarding(lines: Array[String], runs: Array[Dictionary]) -> int:
 	var hoarding_runs: int = 0
 	var measured: int = 0
 	var by_res: Dictionary[String, int] = {}
 	for r: Dictionary in runs:
-		if r["meta"]["policy"] == "random-legal":
+		if r["meta"]["policy"] != "balanced":
 			continue
 		var streak: Dictionary[String, int] = {}
 		var hoarded: bool = false
@@ -135,7 +137,7 @@ func _no_hoarding(lines: Array[String], runs: Array[Dictionary]) -> int:
 		lines.append("SKIP  no_hoarding: no run reported any income")
 		return 0
 	var share: float = hoarding_runs / float(measured)
-	return _gate(lines, "no_hoarding", share <= HOARD_MAX_RUN_SHARE, "%d of %d run(s) hoarded (limit %d%%); streaks by resource %s" % [hoarding_runs, measured, int(HOARD_MAX_RUN_SHARE * 100), str(by_res)])
+	return _gate(lines, "no_hoarding", share <= HOARD_MAX_RUN_SHARE, "%d of %d run(s) hoarded (limit %d%%); streaks of over %d turns, counted by resource %s" % [hoarding_runs, measured, int(HOARD_MAX_RUN_SHARE * 100), HOARD_STREAK, str(by_res)])
 
 
 ## Every district and building in the scenario's balance scope is built in at least 25% of runs,
@@ -176,7 +178,7 @@ func _everything_matters(lines: Array[String], runs: Array[Dictionary]) -> int:
 
 
 ## Balanced wins 60-90% on Normal, random-legal under 20%, balanced 85-100% on Story (when those
-## runs exist). A win counts within 1.5x the expected duration.
+## runs exist). A win counts within 1.2x the expected duration (WIN_CAP_BP).
 func _winnable(lines: Array[String], runs: Array[Dictionary]) -> int:
 	var fails: int = 0
 	var bands: Array = [["balanced", "normal", 0.60, 0.90], ["random-legal", "normal", 0.0, 0.1999], ["balanced", "story", 0.85, 1.0]]

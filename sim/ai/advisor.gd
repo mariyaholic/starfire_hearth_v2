@@ -291,6 +291,8 @@ static func _building_option(state: GameState, c: Colony, cr: Economy.ColonyRepo
 		if key.begins_with("output_add:"):
 			var res: String = key.trim_prefix("output_add:")
 			var flat: int = Fx.div_floor(v * n.weights.get(res, 4) * _focus(fw, res), Fx.ONE * 10000)
+			if res == "research":
+				flat *= Empire.BRANCHES.size()
 			# Output that needs no workers is worth more while every settler already has a job.
 			if cr.unemployed == 0:
 				flat = Fx.div_floor(flat * 3, 2)

@@ -408,9 +408,9 @@ static func _ordinances(policy: String, queue: CommandQueue, empire_id: String) 
 				break
 
 
-## Stock management: a stock above about seven turns of its gross income is surplus. Surplus
-## food and metals are sold, surplus energy rushes the builds in progress and then buys what is
-## short, all without touching what the next Colony Ship needs.
+## Stock management: a stock above about seven turns of its gross income, or above what the next
+## Colony Ship needs when that is more, is surplus. Surplus food and metals are sold, surplus
+## energy rushes the builds in progress and then buys what is short.
 static func _market(policy: String, queue: CommandQueue, empire_id: String) -> void:
 	var state: GameState = queue.preview()
 	var e: Empire = state.empires[empire_id]
@@ -419,7 +419,7 @@ static func _market(policy: String, queue: CommandQueue, empire_id: String) -> v
 	var ship: bool = Advisor.needs_colony_ship(state, e)
 	if open:
 		for res: String in ["food", "alloys", "minerals"]:
-			var keep: int = _target(er, res) + (_colony_ship_need(res) if ship else 0)
+			var keep: int = maxi(_target(er, res), _colony_ship_need(res) if ship else 0)
 			var surplus: int = e.stock_of(res) - keep
 			if surplus >= Market.LOT:
 				queue.submit(TradeCommand.create(empire_id, res, mini(Market.MAX_LOTS, Fx.div_floor(surplus, Market.LOT)), false))

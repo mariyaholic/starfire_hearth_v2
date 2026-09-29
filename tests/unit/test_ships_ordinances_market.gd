@@ -83,9 +83,14 @@ func test_ordinances_slots_duration_and_lock(t: T) -> void:
 	t.eq(q2.submit(ActivateOrdinanceCommand.create(P, "work_drive")).reason_key, "error.ordinance.no_slot")
 
 
-func test_market_needs_an_exchange_and_uses_fixed_rates(t: T) -> void:
+func test_market_opens_with_the_ark_hull_or_an_exchange_and_uses_fixed_rates(t: T) -> void:
 	var s: GameState = S1.build()
 	s.player().stock["food"] = 15000
+	t.ok(TradeCommand.create(P, "food", 1, false).validate(s).ok, "the Ark Hull opens the market in Scenario 1")
+	var placed: Array[Colony.PlacedBuilding] = S1.aster(s).buildings
+	for i: int in range(placed.size() - 1, -1, -1):
+		if placed[i].building_id == "ark_hull":
+			placed.remove_at(i)
 	t.eq(TradeCommand.create(P, "food", 1, false).validate(s).reason_key, "error.market.closed")
 	var pb: Colony.PlacedBuilding = Colony.PlacedBuilding.new()
 	pb.slot = 8

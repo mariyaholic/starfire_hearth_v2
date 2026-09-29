@@ -2,8 +2,8 @@ class_name Market
 extends RefCounted
 ## The market (§5.3), fixed rates in the POC. Energy is the currency: food and minerals buy at
 ## 1.50 and sell at 1.00 energy each, metals at 6.00 and 4.00. Influence and research cannot be
-## traded. The market opens with a Market Exchange (DESIGN_LOG 78). Trades happen at once, in
-## lots of 10.00, and every trade shows its exact rate.
+## traded. The market opens with a Market Exchange (DESIGN_LOG 78), or with the Ark Hull in
+## Scenario 1 (95). Trades happen at once, in lots of 10.00, and every trade shows its exact rate.
 
 const LOT: int = 1000
 ## Resource -> [buy, sell] price of 1.00, in centi-energy.
