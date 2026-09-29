@@ -5,6 +5,38 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
+### The game screen: views, overlays, settings, load and credits (DESIGN_LOG 94)
+
+- `GameScreen` replaces the stand-in on the game route: the top bar over the current view, a
+  navigation rail (PC) or tab bar (phone), the advisor's tutorial (a card, or a strip on phones)
+  with a highlight ring, Undo and End Turn. End Turn opens a waiting event, else lists what has no
+  orders and lets the player go on; then the turn's report, each event, and the debrief at the end.
+- Seven views: **colony planner** (numbers with breakdowns, the hex grid, a slot menu with a
+  what-would-change preview, queue with rush and cancel, job priority, governor with its plan and
+  veto, shipyard), **system** (planets, ships, survey, colonise, outposts with costs and reasons),
+  **galaxy** (locked lanes, with the reason), **research**, **ordinances**, **market** and
+  **objectives** (with the Sealed Order's decoding).
+- Overlays: the event scene (painted scene, speaker, choices with cost, effects and the chances of
+  an uncertain outcome, story music), the turn report and End Turn checklist (each line jumps to
+  what it is about), Why? (the turn's causes for a colony), the game menu (save, load, Codex,
+  settings, quit).
+- New screens and routes: **Settings** (each volume, mute, text size, interface size, high
+  contrast, reduced motion, hints), **Load** (thumbnails, kind, delete) and **Credits** (the
+  CREDITS.md file itself, shipped in the game). The title offers Load, Settings and Credits.
+- The audit and tour: hex cells are compared by their tile; the tour visits 17 more states (the
+  game's views on a game 24 turns in, the market on a finished one, an event, a report, the
+  checklist, the menu, Why?, Settings, Load, Credits).
+- **Verified:** `godot --headless --path . -s tests/run_tests.gd`: 165 passed, 0 failed, 3,126
+  checks (new `tests/integration/test_game_screen.gd`: a game opens with its report and the
+  advisor's first steps complete, End Turn and the checklist play a turn, orders are given from the
+  views, events block End Turn, and every view and overlay passes the explanation and layout audit
+  as a PC and a phone at 100% and 200% text, on a new game and on one 24 turns in);
+  `tools/validate_data.gd`: 0 errors, 1,356 strings; the screenshot tour
+  (`xvfb-run -a -s "-screen 0 2560x1600x24" godot --rendering-driver opengl3 --path . -s tools/screenshot_tour.gd -- --out <dir>`):
+  176 screenshots, 0 audit issues, 325 numeric exemptions, each with its reason (the largest game
+  classes: settlers and jobs counted from the colony, objective targets, turns left, build
+  times). **Unverified:** the web smoke test on this build (CI runs it) and real phones.
+
 ### Outsourced assets: the intake tool and the first delivery (DESIGN_LOG 93)
 
 - `tools/import_assets.py` (§15.2): checks each batch zip against the manifest, the licence

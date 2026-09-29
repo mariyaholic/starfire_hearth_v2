@@ -23,7 +23,8 @@ func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	t.eq(audio.get("current_music"), "mus_title", "the title cues the main theme")
 	t.ok(app.screen.find_child("Campaign", true, false) != null, "the title offers the campaign")
 	t.ok(app.screen.find_child("Showcase", true, false) != null, "debug builds offer the showcase")
-	t.ok(app.screen.find_child("Load", true, false) == null, "no Load entry before the load screen exists")
+	t.ok(app.screen.find_child("Load", true, false) != null, "the title offers Load")
+	t.ok(app.screen.find_child("Settings", true, false) != null, "the title offers Settings")
 	t.ok(app.screen.find_child("Codex", true, false) != null, "the title offers the Codex")
 	await _press(app, "Campaign")
 	t.eq(app.route, AppRoot.CAMPAIGN)
@@ -49,7 +50,7 @@ func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	t.eq(st.scenario_id, S1)
 	t.eq(st.difficulty_id, "hard", "the game uses the picked difficulty")
 	t.eq(st.game_seed, 7)
-	# The game screen is not built yet: end the scenario as the rules would, then debrief.
+	# End the scenario as the rules would, then debrief.
 	st.outcome = GameState.OUTCOME_WON
 	st.outcome_turn = 61
 	st.outcome_reason = "outcome.all_objectives"

@@ -48,6 +48,23 @@ const APP_STATES: Array[Array] = [
 	["27_codex", "codex"],
 	["28_codex_entry", "codex_entry"],
 	["29_codex_overlay", "codex_overlay"],
+	["30_game_colony", "game:colony"],
+	["31_game_slot", "game:slot"],
+	["32_game_system", "game:system"],
+	["33_game_planet", "game:planet"],
+	["34_game_research", "game:research"],
+	["35_game_ordinances", "game:ordinances"],
+	["36_game_market", "market"],
+	["37_game_objectives", "game:objectives"],
+	["38_game_galaxy", "game:galaxy"],
+	["39_game_event", "game_event"],
+	["40_game_report", "game_report"],
+	["41_game_checklist", "game:checklist"],
+	["42_game_menu", "game:menu"],
+	["43_game_why", "game:why"],
+	["44_settings", "settings"],
+	["45_load", "load"],
+	["46_credits", "credits"],
 ]
 const APP_SCENE: String = "res://ui/screens/app_root.tscn"
 
@@ -56,6 +73,9 @@ var _failed: bool = false
 var _shots: int = 0
 var _won: GameState = null
 var _lost: GameState = null
+var _mid: GameState = null
+var _event: GameState = null
+var _event_result: TurnResult = null
 
 
 func _initialize() -> void:
@@ -177,6 +197,13 @@ func _capture(prof: Dictionary, prof_dir: String, state_name: String, prof_repor
 ## Puts the AppRoot in a named state.
 func _app_state(app: Control, what: String) -> void:
 	var game: Node = root.get_node("Game")
+	if what.begins_with("game:"):
+		game.call("resume", _mid_state())
+		app.call("go", "game")
+		await _frames(3)
+		root.get_node("Overlay").call("close_all")
+		await app.get("screen").call("demo", what.trim_prefix("game:"))
+		return
 	match what:
 		"title":
 			app.call("go", "title")
@@ -186,6 +213,32 @@ func _app_state(app: Control, what: String) -> void:
 			app.call("go", "briefing", {"scenario": "s1_first_light"})
 		"game":
 			app.call("go", "begin", {"scenario": "s1_first_light", "seed": 3})
+		"settings":
+			app.call("go", "settings")
+		"load":
+			app.call("go", "load")
+		"credits":
+			app.call("go", "credits")
+		"market":
+			game.call("resume", _won_state())
+			app.call("go", "game")
+			await _frames(3)
+			root.get_node("Overlay").call("close_all")
+			await app.get("screen").call("demo", "market")
+		"game_event":
+			var st_event: GameState = _event_state()
+			game.call("resume", st_event)
+			app.call("go", "game")
+			await _frames(3)
+			root.get_node("Overlay").call("close_all")
+			await app.get("screen").call("demo", "event")
+		"game_report":
+			game.call("resume", _event_state())
+			game.set("last_result", _event_result)
+			app.call("go", "game")
+			await _frames(3)
+			root.get_node("Overlay").call("close_all")
+			await app.get("screen").call("demo", "report")
 		"debrief_won":
 			game.call("resume", _won_state())
 			app.call("go", "debrief")
@@ -214,6 +267,26 @@ func _won_state() -> GameState:
 		_won = run.final_state
 		print("screenshot_tour: the balanced bot finished Scenario 1 on turn %d (%s)" % [_won.outcome_turn, _won.outcome])
 	return _won
+
+
+## A game 24 turns in: colonies, queues, cards and orders, for the game screen's views.
+func _mid_state() -> GameState:
+	if _mid == null:
+		_mid = BotRunner.run(Content.db(), "s1_first_light", "balanced", 3, 24).final_state
+	return _mid
+
+
+## A game with an event waiting, and the turn that brought it (for the report).
+func _event_state() -> GameState:
+	if _event == null:
+		var st: GameState = ScenarioLoader.build(Content.db(), "s1_first_light", 3, "normal")
+		for i in 15:
+			_event_result = TurnProcessor.run(st, [])
+			st = _event_result.state
+			if not Events.pending_for(st, st.player_id).is_empty():
+				break
+		_event = st
+	return _event
 
 
 ## The same game, lost to autonomy, for the lost debrief.

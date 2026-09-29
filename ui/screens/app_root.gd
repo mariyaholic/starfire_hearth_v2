@@ -14,10 +14,10 @@ const BRIEFING: String = "briefing"
 const GAME: String = "game"
 const DEBRIEF: String = "debrief"
 const SHOWCASE: String = "showcase"
-## Screens of later M1 tasks; offered by the title once they are routed here.
 const LOAD: String = "load"
 const CODEX: String = "codex"
 const SETTINGS: String = "settings"
+const CREDITS: String = "credits"
 ## Actions rather than screens: each does its work, then opens a screen.
 const CONTINUE: String = "continue"
 const BEGIN: String = "begin"
@@ -54,14 +54,14 @@ func _web_smoke() -> void:
 
 ## The screens this build can open.
 func routes() -> Array[String]:
-	var out: Array[String] = [TITLE, CAMPAIGN, BRIEFING, GAME, DEBRIEF, CODEX]
+	var out: Array[String] = [TITLE, CAMPAIGN, BRIEFING, GAME, DEBRIEF, CODEX, LOAD, SETTINGS, CREDITS]
 	if OS.is_debug_build():
 		out.append(SHOWCASE)
 	return out
 
 
-## Opens a screen, or runs an action. args: "scenario" (briefing, begin), "state" (continue) and
-## "seed" (begin; a random one otherwise).
+## Opens a screen, or runs an action. args: "scenario" (briefing, begin), "state" (continue),
+## "seed" (begin; a random one otherwise) and "back" (load, settings, credits: where Back leads).
 func go(to: String, args: Dictionary = {}) -> void:
 	if args.has("scenario"):
 		scenario_id = str(args["scenario"])
@@ -123,18 +123,24 @@ func _make(to: String, args: Dictionary = {}) -> Control:
 		BRIEFING:
 			s = BriefingScreen.make(progress, scenario_id)
 		GAME:
-			# The game screen is the next M1 screen task; until then a stand-in keeps the flow whole.
-			s = PendingScreen.make()
+			s = GameScreen.new()
 		DEBRIEF:
 			s = DebriefScreen.make(progress, Game.state)
 		CODEX:
 			s = CodexScreen.make(str(args.get("entry", "")))
+		LOAD:
+			s = LoadScreen.make(str(args.get("back", TITLE)))
+		SETTINGS:
+			s = SettingsScreen.make(str(args.get("back", TITLE)))
+		CREDITS:
+			s = CreditsScreen.make(str(args.get("back", TITLE)))
 		SHOWCASE:
 			s = (load(SHOWCASE_SCENE) as PackedScene).instantiate()
 			s.set("show_back", true)
 			s.connect("back_requested", go.bind(TITLE))
 		_:
 			s = TitleScreen.make(routes())
-	if s is FlowScreen:
-		(s as FlowScreen).navigate.connect(go)
+	# Flow screens and the game screen ask to move by emitting `navigate`.
+	if s.has_signal("navigate"):
+		s.connect("navigate", go)
 	return s

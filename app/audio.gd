@@ -18,8 +18,6 @@ const SILENT_DB: float = -60.0
 
 ## The music cue last asked for ("" for none), delivered or not.
 var current_music: String = ""
-## The delivered track of that cue, or null while it waits in silence.
-var current_stream: AudioStream = null
 ## The last sound asked for and how many have played: for tests and the preview tool.
 var last_sound: String = ""
 var sounds_played: int = 0
@@ -85,7 +83,6 @@ func play_music(id: String) -> void:
 	current_music = id
 	music_changed.emit(id)
 	var streams: Array = _delivered_streams(id) if not id.is_empty() else []
-	current_stream = streams[0] if not streams.is_empty() else null
 	var old: AudioStreamPlayer = _music[_music_on]
 	if _fade != null and _fade.is_valid():
 		_fade.kill()
@@ -112,9 +109,20 @@ func play_music(id: String) -> void:
 
 ## Stops everything on the way out, so no playback is left alive in the audio server at exit.
 func _exit_tree() -> void:
+	if _fade != null and _fade.is_valid():
+		_fade.kill()
 	for p: AudioStreamPlayer in _ui + _fx + _music:
 		p.stop()
 		p.stream = null
+	# Let go of the tracks too: a stream still referenced at exit is reported as a leak.
+	_delivered.clear()
+	_synth.clear()
+
+
+## The delivered track of the current cue, or null while it waits in silence.
+func current_track() -> AudioStream:
+	var streams: Array = _delivered_streams(current_music) if not current_music.is_empty() else []
+	return streams[0] if not streams.is_empty() else null
 
 
 func is_music_playing() -> bool:

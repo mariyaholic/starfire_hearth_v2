@@ -142,7 +142,7 @@ func _menu() -> VBoxContainer:
 		v.add_child(detail)
 	var camp: SfButton = _item(v, "ui.title.campaign", "ui_star", SfButton.SECONDARY if has_continue() else SfButton.PRIMARY, AppRoot.CAMPAIGN)
 	camp.name = "Campaign"
-	for entry: Array in [[AppRoot.LOAD, "ui.title.load", "ui_load"], [AppRoot.CODEX, "ui.title.codex", "ui_codex"], [AppRoot.SETTINGS, "ui.title.settings", "ui_settings"], [AppRoot.SHOWCASE, "ui.title.showcase", "ui_display"]]:
+	for entry: Array in [[AppRoot.LOAD, "ui.title.load", "ui_load"], [AppRoot.CODEX, "ui.title.codex", "ui_codex"], [AppRoot.SETTINGS, "ui.title.settings", "ui_settings"], [AppRoot.CREDITS, "ui.title.credits", "ui_star"], [AppRoot.SHOWCASE, "ui.title.showcase", "ui_display"]]:
 		var route: String = entry[0]
 		if routes.has(route):
 			var b: SfButton = _item(v, entry[1], entry[2], SfButton.GHOST, route)

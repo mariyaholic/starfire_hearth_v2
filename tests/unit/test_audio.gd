@@ -60,19 +60,19 @@ func test_music_cues_are_tracked_and_silent_until_delivered(t: T) -> void:
 	var audio: Node = _root().get_node("Audio")
 	audio.call("play_music", "mus_not_delivered")
 	t.eq(audio.get("current_music"), "mus_not_delivered")
-	t.eq(audio.get("current_stream"), null, "a cue with no delivered track waits in silence")
+	t.eq(audio.call("current_track"), null, "a cue with no delivered track waits in silence")
 	t.not_ok(audio.call("is_music_playing"), "headless runs start nothing")
 	audio.call("play_music", "mus_title")
 	t.eq(audio.get("current_music"), "mus_title", "a new cue replaces the old one")
-	var st: AudioStream = audio.get("current_stream")
+	var st: AudioStream = audio.call("current_track")
 	t.ok(st != null and st == AssetIds.streams("mus_title")[0], "a delivered cue picks its track")
 	t.ok(st != null and st.get("loop"), "a track loops")
 	audio.call("play_music", "sting_victory")
-	var sting: AudioStream = audio.get("current_stream")
+	var sting: AudioStream = audio.call("current_track")
 	t.ok(sting != null and not sting.get("loop"), "a sting plays once")
 	audio.call("play_music", "")
 	t.eq(audio.get("current_music"), "")
-	t.eq(audio.get("current_stream"), null)
+	t.eq(audio.call("current_track"), null)
 
 
 func test_the_ui_kit_makes_its_sounds(t: T) -> void:

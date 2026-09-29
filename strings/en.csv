@@ -1103,9 +1103,6 @@ ui.debrief.pick_first,Choose a legacy to continue.
 ui.debrief.continue,Continue
 ui.debrief.to_campaign,Campaign
 ui.debrief.retry,Try again
-ui.pending.title,Under construction
-ui.pending.game,The game screen is still being built. Your new game has been created and will open here once it is.
-ui.pending.current,"{scenario}, {date}, {difficulty}"
 ui.debrief.legacy_chosen,Chosen
 ui.debrief.checkpoint,Load checkpoint
 ui.codex.title,Codex
@@ -1170,3 +1167,191 @@ ui.codex.habitability.outpost,An asteroid belt: only an outpost can claim it
 character.sola.bio,"The Ark's archivist and keeper of its records, and your advisor. Dry, warm and scholarly, and never without a footnote."
 character.varga.bio,"The Ark's elected Steward. Pragmatic and steady, and always worried about the next harvest."
 character.brandt.bio,"The Ark's first fleet captain. Loyal to the bone, and a little bored of peace."
+breakdown.reroll_cost,Cost of drawing new cards
+source.reroll_price,Price of a fresh hand
+source.research_branch,{branch} research
+ui.advisor.got_it,Got it
+ui.advisor.role,Your advisor
+ui.advisor.show,Show me
+ui.colony.build,Build
+ui.colony.cancel,Cancel
+ui.colony.demolish,Demolish
+ui.colony.growth,Growth
+ui.colony.homeless,{count}k settlers have no home.
+ui.colony.housing,Housing
+ui.colony.jobs,Jobs
+ui.colony.jobs_hint,Settlers fill jobs from the top of this list.
+ui.colony.jobs_title,Job priority
+ui.colony.kind_building,Buildings
+ui.colony.kind_district,Districts
+ui.colony.move_up,Move up
+ui.colony.no_change,No change to output.
+ui.colony.outpost_note,"An outpost on {planet} holds machines, not settlers. It yields resources and costs a little energy every turn."
+ui.colony.pick_slot,Choose a slot on the grid to build there.
+ui.colony.planner,Planner
+ui.colony.planner_hint,Choose a slot. A preview shows what a district would change before you commit.
+ui.colony.queue,Build queue
+ui.colony.queue_empty,Nothing is being built.
+ui.colony.raise,Raise priority
+ui.colony.rush,Rush
+ui.colony.settlers,Settlers
+ui.colony.shipyard,Shipyard
+ui.colony.shipyard_hint,The Spaceport builds civilian ships.
+ui.colony.slot_title,Slot
+ui.colony.stability,Stability
+ui.colony.takes_turns,Turns to build: {turns}
+ui.colony.tier,Tier {tier}
+ui.colony.turns_left,Turns left: {turns}
+ui.colony.unemployed,{count}k settlers have no work.
+ui.colony.upgrade,Upgrade
+ui.colony.upgrade_of,{name} upgrade
+ui.colony.why,Why did it change?
+ui.colony.would_change,Once built it would change:
+ui.credits.title,Credits
+ui.endturn.anyway,End turn anyway
+ui.endturn.back,Go back
+ui.endturn.event,{title} is waiting for your answer.
+ui.endturn.overflow,{resource} is nearly full. Turns until it is: {turns}. The extra is lost.
+ui.endturn.research_empty,No card is being researched in {branch}.
+ui.endturn.ship_idle,The {ship} at {system} has no orders.
+ui.endturn.title,Before you end the turn
+ui.event.outcome,{pct}% chance: {text}
+ui.event.uncertain,Uncertain. One of these will happen:
+ui.galaxy.locked,Ember is the whole world for now: the slowboats need refitting before anyone can travel the lanes. The next scenario opens them.
+ui.galaxy.locked_toast,The lanes are closed until the slowboats are refitted.
+ui.galaxy.subtitle,"Ember and the systems beyond it, most of them still dark."
+ui.galaxy.title,Galaxy
+ui.galaxy.unknown,Unknown
+ui.game.codex,Codex
+ui.game.end_turn,End turn
+ui.game.load,Load game
+ui.game.menu,Menu
+ui.game.quit,Quit to title
+ui.game.resume,Resume
+ui.game.save,Save game
+ui.game.save_failed,The game could not be saved.
+ui.game.save_note,A save holds the game as the last turn left it. Orders you have not yet ended the turn on are not part of it.
+ui.game.saved,Game saved.
+ui.game.settings,Settings
+ui.game.undo,Undo
+ui.governor.budget,Budget: {pct}% of the minerals set aside each turn
+ui.governor.focus,Focus
+ui.governor.focus_balanced,Balanced
+ui.governor.focus_food,Food
+ui.governor.focus_growth,Growth
+ui.governor.focus_industry,Industry
+ui.governor.focus_research,Research
+ui.governor.focus_stability,Stability
+ui.governor.no_plan,Nothing worth building right now.
+ui.governor.off,Turn governor off
+ui.governor.off_note,"A governor builds within a budget you set, always shows its next plan and the reason for it, and obeys your veto."
+ui.governor.on,Turn governor on
+ui.governor.plan,Next plan
+ui.governor.plan_line,{what}: {reason}
+ui.governor.subtitle,Builds for you within a budget.
+ui.governor.title,Governor
+ui.governor.veto,Veto this plan
+ui.load.delete,Delete
+ui.load.kind_auto,Auto-save
+ui.load.kind_checkpoint,Checkpoint
+ui.load.kind_manual,Manual save
+ui.load.load,Load
+ui.load.none,No saved games yet.
+ui.load.title,Load game
+ui.load.when,"{date}, saved {saved}"
+ui.market.buy,Buy one lot
+ui.market.note,"Trades happen at once, in lots of {lot}, up to {max} lots a turn. Energy is the currency."
+ui.market.price,{price} energy
+ui.market.sell,Sell one lot
+ui.market.subtitle,Trade with the frontier at fixed rates.
+ui.market.title,Market
+ui.nav.colony,Colony
+ui.nav.galaxy,Galaxy
+ui.nav.market,Market
+ui.nav.more,More
+ui.nav.more_title,More
+ui.nav.objectives,Objectives
+ui.nav.ordinances,Ordinances
+ui.nav.research,Research
+ui.nav.system,System
+ui.objectives.decode,Sealed Order decoding
+ui.objectives.decode_note,The Archive works on the cipher every turn. More research decodes it faster.
+ui.objectives.optional,Optional
+ui.objectives.required,Required
+ui.objectives.subtitle,Complete every required objective to win.
+ui.ordinances.lasts,Duration: {turns} turns
+ui.ordinances.lasts_until_repealed,Lasts until repealed
+ui.ordinances.pass,Pass this ordinance
+ui.ordinances.price,Price
+ui.ordinances.repeal,Repeal
+ui.ordinances.slots,Ordinance slots in use
+ui.ordinances.subtitle,"Laws with a price: influence to pass, and energy every turn."
+ui.ordinances.title,Ordinances
+ui.ordinances.turns_left,Turns left: {turns}
+ui.ordinances.upkeep,Every turn
+ui.report.continue,Continue
+ui.report.nothing,Nothing to report.
+ui.report.opening,{scenario}: your first orders are below.
+ui.report.opening_title,First orders
+ui.report.turn_title,Turn report
+ui.research.cards,Cards
+ui.research.cost,Cost: {cost}
+ui.research.eta,Turns to finish: about {turns}
+ui.research.known,Researched
+ui.research.none_yet,Nothing researched yet.
+ui.research.nothing_new,There are no other cards to draw.
+ui.research.pick,Research this
+ui.research.progress,{have} of {need}
+ui.research.reroll,Draw new cards
+ui.research.reroll_cost,Costs {cost} influence
+ui.research.studying,Studying
+ui.research.tier,Tier {tier}
+ui.settings.about,About
+ui.settings.credits,Credits
+ui.settings.display,Display
+ui.settings.effects_volume,Effects
+ui.settings.high_contrast,High contrast
+ui.settings.hints,Advisor hints
+ui.settings.hints_note,The advisor's tutorial steps and their highlights.
+ui.settings.music_volume,Music
+ui.settings.mute,Mute everything
+ui.settings.off,Off
+ui.settings.on,On
+ui.settings.play,Play
+ui.settings.reduce_motion,Reduce motion
+ui.settings.sound,Sound
+ui.settings.text_size,Text size
+ui.settings.title,Settings
+ui.settings.ui_scale,Interface size
+ui.settings.ui_volume,Interface
+ui.system.beacon_active,An active beacon.
+ui.system.beacon_dormant,A dormant beacon.
+ui.system.colonise_with,Colonise with the {ship}
+ui.system.kind_size,{size} · {type}
+ui.system.need_colony_ship,Send a Colony Ship here to settle it.
+ui.system.need_construction_ship,Send a Construction Ship here to build an outpost.
+ui.system.need_survey_ship,Send a Survey Probe here to study it first.
+ui.system.no_ships,None of your ships are here.
+ui.system.open_colony,Open colony
+ui.system.orders,Orders
+ui.system.outpost_with,Build a {resource} outpost with the {ship}
+ui.system.pick_hint,Choose a planet to see what is known about it and what you can order.
+ui.system.pick_title,Planet
+ui.system.planets,Planets
+ui.system.ship_idle,Idle
+ui.system.ships,Ships
+ui.system.slots,"Slots: {count}, {blocked} blocked"
+ui.system.state_colony,Colony
+ui.system.state_free,Unsurveyed
+ui.system.state_outpost,Outpost
+ui.system.state_surveyed,Surveyed
+ui.system.survey_with,Survey with the {ship}
+ui.system.takes_turns,Turns to build: {turns}
+ui.system.task_colonise,Founding a colony on {planet}. Turns left: {turns}
+ui.system.task_outpost,Building an outpost on {planet}. Turns left: {turns}
+ui.system.task_survey,Surveying {planet}. Turns left: {turns}
+ui.system.unsurveyed,Not surveyed yet: its traits and slots are unknown.
+ui.title.credits,Credits
+ui.why.from_to,{from} to {to}
+ui.why.nothing,Nothing has changed here lately.
+ui.why.title,Why?

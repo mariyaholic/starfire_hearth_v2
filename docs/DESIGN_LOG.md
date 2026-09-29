@@ -307,3 +307,23 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     cropped around their centre instead of stretched, the title's menu moves into the key art's
     calm left 40%, and the flat vector logo stands in for the optional painted one. Headless runs
     choose a music track but do not start it, like sounds.
+94. **The game screen** (`ui/screens/game/`) rebuilds its view from `Game.view()`, the state as this
+    turn's orders leave it, whenever the orders change. The state is small, so a rebuild is cheaper
+    to reason about than diffing; the scroll position is kept. Views are static builders
+    (`ColonyView.build(screen)`), give orders through `GameScreen.order()` and disable a refused
+    order with its reason underneath (`GameUI.action`), reading the reason from the command's own
+    `validate()` so the button and the rules can never disagree. The planner previews a district
+    by adding it to a copy of the state and comparing the colony's report. The advisor's tutorial
+    acknowledgements are commands like any other, so they save with the game; Undo takes an order
+    back together with the acknowledgements made after it, and they return by themselves while
+    their condition still holds. End Turn opens a pending event first (events block it), then
+    lists what still has no orders (idle ships, an empty research branch, a store about to
+    overflow), and the player may end the turn anyway. A new game opens with a first report of
+    what wants orders; every later turn opens its report, then each event, then the debrief when
+    the game is over. On phones the navigation is a tab bar that names only the open tab and the
+    advisor is a one-line strip, because at 200% text nothing else fits; Settings, Load and
+    Credits are routes with a `back` argument, so the game menu and the title share them. Numbers
+    that need no breakdown carry an exemption that says why (a report line states what happened, a
+    refusal quotes what refused it, story prose is the story's own); the tour lists them. The id
+    audit compares hex cells by the tile they occupy, since neighbouring hexes tile the plane and
+    their bounding boxes overlap by design.

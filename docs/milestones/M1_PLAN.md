@@ -7,17 +7,16 @@ browser. The player builds up the Ember colonies, researches, handles stability,
 ordinances, founds colonies and an outpost, and plays the Scenario 1 story. Every number explains
 itself. Bots play the scenario and the balance gates of §12 are real.
 
-Outsourced assets are on hold: every scene, portrait, sound and music cue uses its code
+Outsourced assets: the first delivery is in (DESIGN_LOG 93); what is still missing keeps its code
 placeholder, addressed by its §15 id.
 
 Gate: the M1–M3 gate of `docs/BUILD_PROMPT.md` §12.
 
-**Status:** tasks 1–8 are built, except the tuning half of task 8: three balance gates still
-fail after a balance pass, on three questions for the Owner. Built since: the app shell and
-campaign flow screens, audio, saves, the Codex, lit-sphere planets, the title as the main scene,
-and the tour and web smoke over the app. Remaining: the game screen with its views and overlays,
-and the report. The details and the order to resume in are in `docs/BUILD_PROMPT.md`, "M1
-progress and where to resume". Decisions made while building are DESIGN_LOG 66–92.
+**Status:** the simulation, data, story, bots, the app shell and flow screens, audio, saves, the
+Codex, planets, the asset intake and the game screen with every view and overlay are built. Three
+balance gates still fail after a balance pass, on three questions for the Owner. Remaining: those
+answers, a last tuning pass, and the report. The details are in `docs/BUILD_PROMPT.md`, "M1
+progress and where to resume". Decisions made while building are DESIGN_LOG 66–94.
 
 ## Decisions taken to start (each goes into DESIGN_LOG; the Owner may overrule)
 

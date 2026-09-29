@@ -46,9 +46,9 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
 | After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
 | Outsourced assets | **First delivery ingested** (DESIGN_LOG 93): sounds batches 1–2, music batch 1 (all 28 tracks), VFX, the seven Scenario 1 story scenes, the six neutral portraits, ships, the title key art and logo, and store art. Still on their code fallbacks: story scenes batch 2 (18), the portrait expressions (18), `title_cast` and `logo_title` |
-| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, a balance pass, and the asset intake with the first delivery. Next: the game screen and its views and overlays |
-| Main scene | The title (`ui/screens/app_root.tscn`); the UI kit showcase is a debug-build entry on it. Until the game screen lands, Begin opens a stand-in |
-| Next | **The game screen shell**, then the game views and the overlays ("M1 progress and where to resume"); three balance questions wait for the Owner; then the M1 report |
+| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, a balance pass, the asset intake with the first delivery, and the game screen with its views, overlays, settings, load and credits. Next: the Owner's three balance answers, then the M1 report and the playtest |
+| Main scene | The title (`ui/screens/app_root.tscn`); the UI kit showcase is a debug-build entry on it. Begin opens the game screen |
+| Next | Three balance questions wait for the Owner ("Balance status"); then a last tuning pass, the M1 report, merge, deploy and the Owner's playtest |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
 
 ---
@@ -73,6 +73,7 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Saves | `app/save_service.gd`: auto-save after every turn (ring of 10), a checkpoint every 5 turns (ring of 6), numbered manual saves, thumbnails, a listing from the envelopes; `user://campaign.json` | `tests/unit/test_save_service.gd` |
 | Codex | `ui/codex/` (index, live facts, entry view, overlay) and `ui/screens/codex_screen.gd`; 22 mechanics pages in `data/codex/*.md`; every breakdown's Codex link opens its entry | `tests/unit/test_codex.gd`; the Codex states in the flow audit |
 | Planets and tooling | `ui/map/planet_sphere.gdshader` (lit spheres); the screenshot tour visits the app (108 shots, the debrief of a bot-won game); the web smoke test plays a turn and matches the desktop's state hash (`tools/smoke_hash.gd`) | the tour; `node tools/web_smoke.mjs --expect-hash` |
+| Game screen | `ui/screens/game/`: `GameScreen` (top bar, rail or tab bar, advisor with highlight, Undo, End Turn with its checklist, the end-of-turn flow), seven views (`colony_view` planner with preview, queue, jobs, governor and shipyard; `system_view`; `galaxy_view`; `research_view`; `ordinances_view`; `market_view`; `objectives_view`), overlays (`event_overlay`, `turn_report_overlay` with the checklist, `why_overlay`), `game_model` (top bar and checklist from a state) and `game_ui` (shared builders); `ui/screens/flow/settings_screen`, `load_screen` and `credits_screen` | `tests/integration/test_game_screen.gd` (a game played from the first report, orders from every view, events, and the audit on every view and overlay at four sizes); the tour's 17 game states |
 | Asset intake | `tools/import_assets.py` (§15.2; checks, converts, imports, credits); `assets/delivered/<kind>/`; 131 ids delivered in 9 batches; painted portraits cut to their disc, scenes cropped not stretched, the title's key art and vector logo; the project icon is the delivered emblem | `tests/unit/test_assets.gd` (every delivered id loads); the tour |
 
 The story chains: scripted Labor Strike (T5), The Founders' Vote (T10), Cold Sleepers (T18), The
@@ -123,31 +124,28 @@ What the balance pass learned, so it is not repeated:
 
 Done since rewrite 4: the app shell and flow screens, audio, saves and campaign progress, the
 Codex, lit-sphere planets, the title as the main scene, the tour and web smoke over the app, a
-balance pass, and the asset intake with the first delivery (CHANGELOG, DESIGN_LOG 85–93). What is
-left:
+balance pass, the asset intake with the first delivery, and the game screen with every view and
+overlay of the plan below (CHANGELOG, DESIGN_LOG 85–94). What is left:
 
-1. **The game screen shell** (the plan below): the top bar, navigation, the context panel, the
-   advisor tutorial, End Turn with its checklist, and the end-of-turn flow (auto-save, report,
-   events, debrief). It replaces the stand-in on the game route.
-2. **The game views**: galaxy, system, colony planner, research, ordinances, market, objectives.
-3. **The overlays**: the event scene, the turn report, Why?, settings (with the volume sliders),
-   save and load (with the thumbnails), credits.
-4. **The balance questions** above, then a last tuning pass.
-5. **M1 report** (`docs/milestones/M1_REPORT.md`), merge, deploy, stop for the Owner's playtest.
+1. **The balance questions** above (the Owner's calls), then a last tuning pass.
+2. **M1 report** (`docs/milestones/M1_REPORT.md`), merge, deploy, stop for the Owner's playtest.
+3. Known gaps, small: a colony cannot be renamed yet (the command exists), the game screen has
+   no keyboard shortcuts beyond Esc for the menu, and the phone layouts have been audited in the
+   simulator but not on a real phone.
 
-### The screen plan (designed, not yet built)
+### The screen plan (as built; DESIGN_LOG 94 says how it differs)
 
 - **`AppRoot`** (built; the main scene, `ui/screens/app_root.gd`): hosts
   one screen at a time and routes title → campaign → briefing → game → debrief, plus Codex,
   settings, load and the showcase. A route joins `AppRoot.routes()` when its screen exists.
-- **Title** (built): Continue (newest save), Campaign, Load, Codex, Settings, Showcase (debug),
-  Quit (desktop).
+- **Title** (built): Continue (newest save), Campaign, Load, Codex, Settings, Credits, Showcase
+  (debug), Quit (desktop).
 - **Campaign** (built): the three scenario cards (S2 and S3 locked until the one before is won) and the
   difficulty preset with its description.
 - **Briefing** (built): `scenario.s1.briefing`, the objectives, Begin. **Debrief** (built):
   outcome, objectives, the legacy pick (1 of 3), then back to the campaign; after a loss, Try
   again (the checkpoint reload joins it with the save rings).
-- **Game screen**: the top bar (every resource, net and breakdown; date; menu); navigation (a rail
+- **Game screen** (built): the top bar (every resource, net and breakdown; date; menu); navigation (a rail
   on PC, a bottom tab bar on phones); the current view in the centre; a context panel (right side
   on PC, a bottom sheet on phones); the advisor card (tutorial: current step, goal, highlight,
   completes on the player's action through `Tutorial.condition_met` or a UI event, then
