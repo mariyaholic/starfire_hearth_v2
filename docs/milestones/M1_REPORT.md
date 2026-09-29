@@ -11,9 +11,14 @@ repository root after `godot --headless --path . --import`.
 
 ## How to look at it
 
-- **Checkpoint build (Windows, Linux, web):** zip files of this commit, handed over in the session;
-  each holds a `PLAY_ME.txt`. To rebuild one: `godot --headless --path . --export-release
+- **Checkpoint build (Windows, Linux, web):** the artifacts `windows-build`, `linux-build` and
+  `web-build` of the manual CI run [36646843599](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/36646843599)
+  (commit `c0874e5`; the code is the same as the newest commit's, which only adds a `.uid` file and
+  this report). They are kept until 2026-10-06; for a fresh set, run the CI workflow by hand on the
+  branch ("Run workflow"), or export one yourself: `godot --headless --path . --export-release
   "Windows" build/windows/StarfireHearth.exe` (also `"Linux"` and `"Web"`, see `export_presets.cfg`).
+  Windows: unzip and run `StarfireHearth.exe` (unsigned, so SmartScreen asks once). Web: serve the
+  folder (`python3 -m http.server`) and open `http://localhost:8000`.
 - **Web build (PC and phone):** every CI run on the pull request uploads a `web-build` artifact.
   Unzip it and serve the folder (`python3 -m http.server`), then open `http://localhost:8000`; a
   browser cannot run it from disk. Once this branch is merged, CI deploys it to
@@ -63,7 +68,7 @@ Things to try:
 | Explanation and layout audit | `xvfb-run -a -s "-screen 0 2560x1600x24" godot --rendering-driver opengl3 --path . -s tools/screenshot_tour.gd -- --out screens/` | **Verified:** 176 screenshots, 0 audit issues. 325 numbers carry an exemption with its reason (see "Known issues") |
 | Balance telemetry | `tools/balance_loop.sh <dir> 1-20` (CI's balance job) | **Verified:** all five gates pass (below). Advisory in CI until you decide |
 | Performance | the same runs | **Verified:** end-turn p95 44 ms on desktop (budget 300 ms). Phone: **Unverified** (no device) |
-| Exports | `godot --headless --path . --export-release "Web" build/web/index.html` (also Windows and Linux) | **Verified:** [CI run 36599451008](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/36599451008) on commit `5ea653c`: all five jobs passed (the deploy job is skipped off `main`) |
+| Exports | `godot --headless --path . --export-release "Web" build/web/index.html` (also Windows and Linux) | **Verified:** [CI run 36646886707](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/36646886707) on commit `406076f`: all five jobs passed (the deploy job is skipped off `main`) |
 | Web size | CI's "Web build size" step; `gzip -9` of each file | **Verified:** 48.2 MB as a compressed download when measured locally with the delivered assets in (48,201,796 bytes); the CI `web-build` artifact is 47.5 MB. Budget 150 MB. Music is 27.8 MB of it |
 | Web smoke | `node tools/web_smoke.mjs --build build/web --out screens/web --expect-hash <hash>` | **Verified in CI:** the export job's smoke step passed on the three devices, and the browser's state hash after one turn matches the desktop's |
 | Look and feel | Owner playtest on PC and a phone browser | Waiting for you |
