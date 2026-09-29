@@ -4,8 +4,8 @@ A turn-based space 4X for PC and mobile, built in Godot 4 with GDScript in a cle
 style. You lead a slowboat colony a hundred years into the Long Silence, the century since the Sol
 relay stopped transmitting.
 
-**Status:** milestone M0 (foundation and UI kit). There is no playable game yet. The current build
-opens the UI kit showcase. See `docs/milestones/` for plans and reports.
+**Status:** milestone M1 (First Light): Scenario 1 plays from the title to the debrief on PC and in
+a phone browser. See `docs/milestones/` for plans and reports.
 
 ## Requirements
 

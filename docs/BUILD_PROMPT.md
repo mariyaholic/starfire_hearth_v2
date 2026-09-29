@@ -46,9 +46,9 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
 | After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
 | Outsourced assets | **First delivery ingested** (DESIGN_LOG 93): sounds batches 1–2, music batch 1 (all 28 tracks), VFX, the seven Scenario 1 story scenes, the six neutral portraits, ships, the title key art and logo, and store art. Still on their code fallbacks: story scenes batch 2 (18), the portrait expressions (18), `title_cast` and `logo_title` |
-| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, a balance pass, the asset intake with the first delivery, and the game screen with its views, overlays, settings, load and credits. Next: the Owner's three balance answers, then the M1 report and the playtest |
+| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, a balance pass, the asset intake with the first delivery, and the game screen with its views, overlays, settings, load and credits. The five balance gates pass after the review of DESIGN_LOG 95 and 96, and the M1 report is written. Next: the Owner plays the checkpoint build |
 | Main scene | The title (`ui/screens/app_root.tscn`); the UI kit showcase is a debug-build entry on it. Begin opens the game screen |
-| Next | Three balance questions wait for the Owner ("Balance status"); then a last tuning pass, the M1 report, merge, deploy and the Owner's playtest |
+| Next | The Owner plays the checkpoint build and answers the report's questions ("Balance status"); then merge and deploy (which publishes the build) and the playtest on Pages |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
 
 ---
@@ -60,7 +60,7 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Area | As built | Verified by |
 | --- | --- | --- |
 | Data | 15 buildings, 37 techs, 5 ordinances, 6 hulls, 12 modules, district tiers, 3 difficulty presets, 3 legacies, origin effects, 25 story-scene and 6 portrait placeholder records, `data/asset_manifest.json` (169 ids) | `tools/validate_data.gd`: 0 errors, 0 skipped checks |
-| Scenario 1 | Playable data: start state (Ark Hull landmark, Spaceport, both ships, seeded research hands), 4 required + 3 optional objectives, 14 tutorial steps, loss rules, `tech_pool`, `locked_ordinances`, `balance_scope`, `expected_turns` 70, `director_start` 8. Cinder is now small (DESIGN_LOG 66) | the validator's scenario checks and reachability walk |
+| Scenario 1 | Playable data: start state (Ark Hull landmark, Spaceport, both ships, seeded research hands), 4 required + 3 optional objectives, 14 tutorial steps, loss rules, `tech_pool`, `locked_ordinances`, `locked_buildings`, `balance_scope`, `expected_turns` 70, `director_start` 8. Cinder is now small (DESIGN_LOG 66) | the validator's scenario checks and reachability walk |
 | State | Schema 2 with migration `v1_to_v2`; fixtures `tiny_v1.json` and `s1_v2.json` | `tests/unit/test_saves.gd` |
 | Rules | `sim/rules/`: `economy`, `production`, `population`, `stability`, `research`, `construction`, `governor`, `ordinances`, `ships`, `market`, `objectives`, `tutorial`, `events`, `effects`, `modifiers`, `colony_rules`, `hex_grid`; `sim/ai/advisor.gd` | 157 tests, 2,327 checks (`tests/run_tests.gd`), incl. Aster's start numbers against §5 |
 | Commands | 22 player commands (§9.12) | every type round-trips (`--filter commands`) |
@@ -82,36 +82,33 @@ Empty Granaries (famine), Envoys of the Autonomy; emergent Solar Flare, Crop Bli
 Collapse, Founding Day, The Frontier Doctor, Refugee Slowboat, Ice Comet Capture, Orbital Debris
 Cascade.
 
-### Balance status (after the balance pass of DESIGN_LOG 92; the CI balance job's settings: 20 seeds per policy on Normal, plus balanced on Story)
+### Balance status (after the review of DESIGN_LOG 95 and 96; the CI balance job's settings: 20 seeds per policy on Normal, plus balanced on Story)
 
 | Gate | Result | Band |
 | --- | --- | --- |
-| Invariants | PASS: 0 problems in 100 runs, 8,987 turns | 0 |
-| Performance | PASS: end-turn p95 42 ms | < 300 ms |
-| Winnable, balanced on Normal | **FAIL**: 20 of 20 won | 60–90% |
+| Invariants | PASS: 0 problems in 100 runs, 8,789 turns | 0 |
+| Performance | PASS: end-turn p95 44 ms | < 300 ms |
+| Winnable, balanced on Normal | PASS: 15 of 20 within 1.2 times the expected duration (19 of 20 win at all; was 20 of 20 within 1.5 times) | 60–90% |
 | Winnable, random-legal | PASS: 0 of 20 | < 20% |
 | Winnable, balanced on Story | PASS: 20 of 20 | 85–100% |
-| Pacing | PASS: median win turn 74 (was 78) | 56–84 |
-| No dead turns | PASS: median 1% | < 25% |
-| No hoarding | **FAIL**: 80 of 80 runs (streaks: food 84, metals 80, influence 51, energy 33; was 115, 81, 51, 41) | ≤ 20% of runs |
-| Everything matters | **FAIL**: Foundry 0%, Research Institute 3% (Hydroponics Bay and Fusion Plant now pass; were 11% and 3%) | buildings ≥ 25%, techs ≥ 15% |
+| Pacing | PASS: median win turn 78 (was 74) | 56–84 |
+| No dead turns | PASS: median 5% | < 25% |
+| No hoarding | PASS: 0 of 40 balanced runs (was 80 of 80 runs of every bot but random-legal) | ≤ 20% of runs |
+| Everything matters | PASS: Storehouse 37%, Fusion Plant 39%, Research Institute 47%, Civic Hall 48%, Hydroponics Bay 49%, Park Commons 61%, Clinic 83%, Habitat Dome 83% (was Foundry 0%, Research Institute 3%) | buildings ≥ 25%, techs ≥ 15% |
 
 Balance gates are advisory in CI (`--balance advisory`) until the M1 gate (DESIGN_LOG 82).
-Three questions wait for the Owner (they are design calls, not tuning):
-- **Normal is too easy**: the balanced bot wins every run. Measured: Normal event severity of
-  125% or 150% changes nothing (20 of 20, median turn 74). The lever is the win deadline of
-  DESIGN_LOG 63 (1.5 times the expected 70 turns; the slowest of 20 runs is turn 96): 1.25 times
-  gives 18 of 20, and with events at 125% as well, 16 of 20.
-- **Hoarding**: the gate counts the lopsided economy and turtle bots too, and it reads a stock
-  saved for a lump purchase (a 150-food Colony Ship, a 40-metal building) as hoarding. Measured
-  per policy: even the balanced bot on Normal hoards in 20 of 20 runs, mostly metals (median
-  longest streak 38 turns), so limiting the gate to it would not pass; metals need sinks. Options:
-  (a) more sinks, for example a food surplus that speeds growth; (b) apply the gate to the
-  balanced bot only; (c) keep it and redesign the early economy around the market.
-- **The Foundry and the Research Institute** do not earn their place in Scenario 1: metals have
-  few uses there, and +20% research cannot beat a research district. Options: move Foundry
-  Automation out of Scenario 1's technology pool (metals matter from M2's fleets); give the
-  Institute a flat research bonus as well.
+What the review changed, and which of it is a change of play and which only of a count (95, 96):
+- **Play, Scenario 1:** the Ark Hull opens the market from turn 1; the Market Exchange and the
+  Foundry are locked; the Research Institute is one per empire with +2.00 research in each branch
+  and costs 120 minerals; the Storehouse, Fusion Plant and Civic Hall are cheaper (the Civic Hall
+  gives 1.50 influence); the balanced bot keeps the larger of seven turns of income and the next
+  Colony Ship's price.
+- **A count only:** "winnable" is a win within 1.2 times the expected duration (was 1.5), which
+  does not make Normal harder for a person: the scenario has no deadline, so a competent player
+  loses only if the capital declares autonomy. Events at 125% or 150% severity change nothing.
+  The hoarding gate measures the balanced bot only; the Foundry left the balance scope.
+- **Open for the Owner:** whether a 60–90% band suits an onboarding scenario at all, and whether
+  Normal needs a real turn limit or a harsher status chain.
 
 What the balance pass learned, so it is not repeated:
 - Minerals are the bottleneck and the market is the valve (surplus sold for energy, energy buys
@@ -122,7 +119,10 @@ What the balance pass learned, so it is not repeated:
 - Food sits near 280 against a line of about 250 (ten turns of gross) until the market opens
   around turn 45; metals pile up between the two Colony Ships.
 - Local loop: `tools/balance_loop.sh <dir> 1-20` runs the four policies and Story in parallel
-  (about 90 s), then the gates.
+  (about 5 minutes on 4 cores), then the gates.
+- The market from turn 1 (the Ark Hull) settled hoarding; a technology-free market had broken pacing
+  in the earlier pass because its building still had to be paid for. The Institute needed a limit of
+  one per empire, or every colony built its own and three other buildings lost their slots.
 
 ### Remaining M1 work, in order
 
@@ -2169,7 +2169,7 @@ Effects with `"target": "colony"` land on the event's colony; `turns` makes them
 
 **As built in M1** (see `data/scenarios/s1_first_light.json`): also `briefing_key`, `debrief_key`,
 `status` (`playable`), `expected_turns`, `director_start`, `teaches`, `tech_pool`
-{`exclude_military`, `always_offer`}, `locked_ordinances`, `music`, and `balance_scope`
+{`exclude_military`, `always_offer`}, `locked_ordinances`, `locked_buildings`, `music`, and `balance_scope`
 {`districts`, `buildings`, `techs`} (what the "everything matters" gate checks). A start empire
 has `surveyed`, `research_hands` per branch, `ships` [{`hull`, `system`}], and colonies with
 `capital`, `buildings` (landmarks use slot −1) and district `branch`. Objective types:

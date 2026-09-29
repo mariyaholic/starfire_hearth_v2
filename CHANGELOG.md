@@ -5,6 +5,28 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
+### The balance gates pass (DESIGN_LOG 95, 96)
+
+- **What changed in Scenario 1:** the Ark Hull opens the market from the first turn, and the Market
+  Exchange and the Foundry are locked there (a scenario can now list `locked_buildings`, like
+  `locked_ordinances`); the Research Institute is one per empire, costs 120 minerals and adds 2.00
+  research to each branch (`output_add:research` now counts in the research report, the effect text
+  and the advisor); the Storehouse, the Fusion Plant and the Civic Hall are cheaper and the Civic
+  Hall gives 1.50 influence. The balanced bot keeps the larger of seven turns of income and the
+  next Colony Ship's price, not both.
+- **What changed only in what a gate counts:** "winnable" is a win within 1.2 times the expected
+  duration (was 1.5), and the hoarding gate measures the balanced bot only. The Foundry also
+  leaves the balance scope.
+- **Verified:** `tools/balance_loop.sh <dir> 1-20`: all five balance gates pass. Winnable on Normal
+  15 of 20 (was 20 of 20), no hoarding 0 of 40 balanced runs (was 80 of 80 runs of every bot but
+  random-legal), everything matters passes (the Storehouse 37%, Fusion Plant 39%, Research
+  Institute 47%, Civic Hall 48%; was Foundry 0%, Research Institute 3%), median win turn 78 (was
+  74), end-turn p95 44 ms.
+- **Verified:** `godot --headless --path . -s tools/validate_data.gd`: 0 errors, 0 skipped checks.
+  `godot --headless --path . -s tests/run_tests.gd`: 165 passed, 0 failed, 3,129 checks; the golden
+  hashes did not change (the scripted turns never trade or build the changed buildings).
+- **Unverified:** how the market from turn 1 plays for a person; the pacing moved four turns.
+
 ### The game screen: views, overlays, settings, load and credits (DESIGN_LOG 94)
 
 - `GameScreen` replaces the stand-in on the game route: the top bar over the current view, a

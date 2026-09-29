@@ -172,7 +172,7 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 62. **Tutorial progress lives in state flags,** set by a no-effect `acknowledge` command: saved,
     deterministic, and ignored by the rules.
 63. **"Winnable" in telemetry means every required objective is done within 1.5× the expected
-    duration;** without a deadline a competent bot always wins eventually.
+    duration;** without a deadline a competent bot always wins eventually. Revised in 95: 1.2 times.
 64. **"Everything matters" covers what the scenario teaches** (its `teaches` list), not the whole
     tech tree; military techs and war buildings have no use in Scenario 1.
 65. **The Research Institute unlocks with Research Network,** a new tier II Society tech (37
@@ -214,7 +214,8 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     objective at once.
 78. **The market is in M1** (brought forward from M3): a Market Exchange (Colonial Administration)
     opens it at §5.3's fixed rates, in lots of 10.00, and every trade shows its rate. Scenario 1
-    has few sinks for energy and food otherwise. Dynamic prices and trade deals stay in M3.
+    has few sinks for energy and food otherwise. Dynamic prices and trade deals stay in M3. In Scenario 1 the Ark Hull opens it from the first
+    turn (95).
 79. **A scenario's tech pool** can exclude military techs and name techs that are always offered
     once their prerequisites are met, like story techs. Scenario 1 always offers Habitat Domes,
     because its objectives need a dome world and a seeded draw could hide the card for many
@@ -232,7 +233,8 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 82. **Telemetry measures gross income** as production before the flat lines (upkeep,
     consumption, inputs). The hoarding gate leaves out random-legal runs, which never manage
     their stocks by design. While M1 is tuned, CI prints every balance gate but only
-    invariants, determinism and performance fail the build.
+    invariants, determinism and performance fail the build. Revised in 96: the hoarding gate
+    measures the balanced bot only.
 83. **The stability objective counts turns with two or more colonies:** "every colony at 40 or
     more for 10 turns in a row" would otherwise complete in the first ten turns, before the
     player has learned anything.
@@ -327,3 +329,30 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     refusal quotes what refused it, story prose is the story's own); the tour lists them. The id
     audit compares hex cells by the tile they occupy, since neighbouring hexes tile the plane and
     their bounding boxes overlap by design.
+95. **The balance gates after the M1 review** (measured with `tools/balance_loop.sh`, 20 seeds):
+    - *Winnable* counts a win within 1.2 times the expected duration (turn 84, the pacing band's
+      upper edge), not 1.5 (63). The balanced bot's slowest wins were turns 85 to 96 and the
+      scenario has no deadline, so this changes what the gate counts, not how Normal plays. Events
+      at 125% or 150% severity change nothing (severity only scales the negative effects of
+      emergent chains). A harder Normal needs a real turn limit or a harsher status chain.
+    - *The market opens with the Ark Hull* in Scenario 1 (`provides: market`); the Market Exchange
+      is locked there (`locked_buildings`, like `locked_ordinances`) because it would only repeat
+      it. Metals had almost no sink (two Colony Ships and a handful of buildings): the balanced
+      bot's metals sat above the gate's line for a median of 38 turns in 20 of 20 runs. Surplus now
+      sells for energy at 4.00 a unit from turn 1, and the bot keeps the larger of seven turns of
+      income and the next Colony Ship's price, not both. Median win turn 74 to 78; an earlier
+      experiment with a technology-free market (92) had broken pacing, this one did not.
+    - *The Foundry is locked* in Scenario 1 and leaves the balance scope: it raises the output of
+      the resource already in surplus. Foundry Automation stays, since tier III districts need it.
+    - *The Research Institute* costs 120 minerals and 30 metals, is one per empire, and adds 2.00
+      research to each branch (`output_add:research`: new in the research report, the effect text
+      and the advisor's scoring) on top of its +20%. Without the limit every colony built one and
+      the Fusion Plant, the Civic Hall and the Storehouse lost their slots.
+    - *The Storehouse* (60 minerals), the *Fusion Plant* (120 minerals, 20 metals) and the *Civic
+      Hall* (90 minerals, 20 metals; 1.50 influence) are cheaper, so the advisor's value per cost
+      ranks them when a slot is free. With no hoards to hold, the Storehouse earns its slot as a
+      cheap filler; the tutorial's storage step still asks for one.
+96. **The hoarding gate measures the balanced bot only** (82): the economy and turtle bots are
+    lopsided on purpose and random-legal never manages its stocks. The gate prints how many
+    streaks of over ten turns each resource had, not how long they were (the first draft of the M1
+    report called them lengths).
