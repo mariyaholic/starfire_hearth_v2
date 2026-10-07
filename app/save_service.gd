@@ -25,14 +25,25 @@ func _ready() -> void:
 
 func save(slot: String, state: GameState) -> Error:
 	DirAccess.make_dir_recursive_absolute(dir)
-	var text: String = SaveSerializer.to_text(state, Game.game_version())
+	var graphics: Dictionary = Worlds.save_fields(state)
+	var text: String = SaveSerializer.to_text(state, Game.game_version(), graphics["presentation"], graphics["presentation_overlay"])
 	if text.is_empty():
 		return ERR_INVALID_DATA
-	var f: FileAccess = FileAccess.open(_path(slot), FileAccess.WRITE)
+	# Replace only after a complete, checked write. Interrupted writes leave the
+	# previous slot intact; .pending files are never offered by Continue.
+	var pending: String = _path(slot) + ".pending"
+	var f: FileAccess = FileAccess.open(pending, FileAccess.WRITE)
 	if f == null:
 		return FileAccess.get_open_error()
 	f.store_string(text)
+	f.flush()
+	var write_error: Error = f.get_error()
 	f.close()
+	if write_error != OK:
+		DirAccess.remove_absolute(pending)
+		return write_error
+	var replace_error: Error = DirAccess.rename_absolute(pending, _path(slot))
+	if replace_error != OK: return replace_error
 	_write_thumbnail(slot)
 	return OK
 

@@ -15,6 +15,8 @@ const STAR_KEYS: Dictionary[String, String] = {
 
 
 static func build(s: GameScreen) -> Control:
+	if s.spatial_slice_enabled: return M11StageASystemSlice.make(s)
+	if Settings.appearance == "3d": return SystemSpatialView.build(s)
 	var sys: StarSystem = s.state.systems[s.system_id]
 	var col: VBoxContainer = GameUI.column(Tokens.SPACE_M)
 	var head: Card = Card.make(Strings.fmt(sys.name_key), Strings.fmt(STAR_KEYS.get(sys.spectral, "ui.worlds.star.g")), "emblem_hearth", "hearth.gold")
@@ -28,6 +30,10 @@ static func build(s: GameScreen) -> Control:
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
 	head.add_body(row)
+	var inspect: SfButton = SfButton.make("ui.world.spatial", "emblem_compass", SfButton.GHOST)
+	inspect.name = "Appearance3D"
+	inspect.pressed.connect(Settings.set_appearance.bind("3d"))
+	head.add_action(GameUI.exempt(inspect,"3D names a presentation mode, not a game quantity"))
 	col.add_child(head)
 	var left: VBoxContainer = GameUI.column(Tokens.SPACE_M)
 	left.add_child(_planets(s, sys))
@@ -80,7 +86,7 @@ static func _tile(s: GameScreen, p: Planet) -> Control:
 	n.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_child(n)
 	var state_key: String = "ui.system.state_free"
-	if not p.colony_id.is_empty():
+	if not p.colony_id.is_empty() and s.state.colonies[p.colony_id].owner_id == s.state.player_id:
 		state_key = "ui.system.state_outpost" if s.state.colonies[p.colony_id].is_outpost() else "ui.system.state_colony"
 	elif e.surveyed_planets.has(p.id):
 		state_key = "ui.system.state_surveyed"

@@ -59,3 +59,18 @@ static func streams(asset_id: String) -> Array[AudioStream]:
 			if st != null:
 				out.append(st)
 	return out
+
+
+## Optional character speech is a separate manifest kind. It deliberately does not share the
+## SoundSynth fallback used by ordinary effects: a missing, unsupported or malformed clip is
+## simply unavailable, never a synthetic speech substitute.
+static func voice_streams(asset_id: String) -> Array[AudioStream]:
+	var rec: Dictionary = Content.db().record("assets", asset_id)
+	if DictIO.str_of(rec, "kind") != "voice":
+		return []
+	return streams(asset_id)
+
+
+static func voice_stream(asset_id: String) -> AudioStream:
+	var available: Array[AudioStream] = voice_streams(asset_id)
+	return available[0] if not available.is_empty() else null

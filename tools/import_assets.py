@@ -14,8 +14,9 @@ asset is never replaced without --replace. Reports and contact sheets go to repo
 (git-ignored).
 
 Conversions: music to Ogg Vorbis (quality 6); sounds to 16-bit WAV (a looping bed to Ogg);
-scenes, portraits and key art to lossy WebP at display size; ships and VFX stay PNG; store art is
-kept as delivered in a folder Godot ignores, so it never ships inside the game.
+optional character voice to non-looping Ogg Vorbis; scenes, portraits and key art to lossy WebP
+at display size; ships and VFX stay PNG; store art is kept as delivered in a folder Godot ignores,
+so it never ships inside the game.
 
 It is Python rather than a Godot tool because Godot can neither encode Ogg Vorbis nor measure
 loudness fast enough (DESIGN_LOG 93). It needs: pip install -r tools/requirements-assets.txt
@@ -65,6 +66,13 @@ SFX = {
 # tick and the room bed about -30. Loudness is "about" in the brief, so it only warns.
 SFX_LOUDNESS = {"ui_hover": -30.0, "ambient_ui_room": -30.0}
 SFX_LOUDNESS_TOLERANCE = 6.0
+
+# Optional speech is intentionally a separate manifest kind. It has no generated fallback and is
+# validated as a real recording before becoming an AudioStreamOggVorbis resource.
+VOICE_PREFIX = "voice_"
+VOICE_MIN_MS, VOICE_MAX_MS = 200, 15000
+VOICE_LOUDNESS, VOICE_LOUDNESS_TOLERANCE = -18.0, 4.0
+VOICE_QUALITY = 0.5
 
 # §15.5: id prefix or id -> (shortest s, longest s). Everything but the stings loops.
 MUSIC_LENGTH = {
@@ -415,6 +423,39 @@ def handle_sfx(item, files, z, notes):
         item.record["loop"] = True
 
 
+def handle_voice(item, files, z, notes):
+    """Validate one optional speech clip; unlike SFX, no procedural substitute exists."""
+    if not item.id.startswith(VOICE_PREFIX):
+        item.fail("voice ids must start with %s" % VOICE_PREFIX)
+    names = _variant_names(item.id, files, 1, item)
+    if item.fails:
+        return
+    name = names[0]
+    if not name.lower().endswith((".wav", ".flac", ".ogg")):
+        item.fail("%s: WAV, FLAC or Ogg expected" % name)
+        return
+    x, sr, info = _read_audio(z.read(files[0]))
+    ms = 1000.0 * len(x) / sr
+    if sr not in (48000, 44100):
+        item.fail("%s: %d Hz, voice asks for 44.1 or 48 kHz" % (name, sr))
+    if x.shape[1] > 2:
+        item.fail("%s: %d channels" % (name, x.shape[1]))
+    if ms < VOICE_MIN_MS or ms > VOICE_MAX_MS:
+        item.fail("%s: %.0f ms, voice asks for %d-%d ms" % (name, ms, VOICE_MIN_MS, VOICE_MAX_MS))
+    peak = true_peak_db(x)
+    if peak > PEAK_MAX_DBTP:
+        item.fail("%s: peak %.1f dBTP, max is %.1f" % (name, peak, PEAK_MAX_DBTP))
+    lufs = clip_lufs(x, sr)
+    if abs(lufs - VOICE_LOUDNESS) > VOICE_LOUDNESS_TOLERANCE:
+        item.warn("%s: %.1f LUFS, voice asks for about %.0f" % (name, lufs, VOICE_LOUDNESS))
+    data = _encode(x, sr, "OGG", "VORBIS", VOICE_QUALITY)
+    out = "voice/%s.ogg" % item.id
+    item.outputs = [(out, data, ("oggvorbisstr", "AudioStreamOggVorbis", {"loop": False, "loop_offset": 0}))]
+    item.record["file"] = out
+    item.facts.append("%.0f ms %s, %.1f LUFS %.1f dBTP; non-looping Ogg" % (
+        ms, "stereo" if x.shape[1] == 2 else "mono", lufs, peak))
+
+
 def _music_length(asset_id):
     for key in (asset_id, *[k for k in MUSIC_LENGTH if k.endswith("_")]):
         if key in MUSIC_LENGTH and (key == asset_id or asset_id.startswith(key)):
@@ -667,7 +708,7 @@ def handle_store(item, files, z, notes):
 
 
 HANDLERS = {
-    "sfx": handle_sfx, "music": handle_music, "vfx": handle_vfx, "vignette": handle_vignette,
+	"sfx": handle_sfx, "voice": handle_voice, "music": handle_music, "vfx": handle_vfx, "vignette": handle_vignette,
     "portrait": handle_portrait, "ship": handle_ship, "art": handle_art, "store": handle_store,
 }
 

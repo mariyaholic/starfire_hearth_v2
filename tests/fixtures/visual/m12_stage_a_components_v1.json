@@ -1,0 +1,9 @@
+{
+	"baseline_commit": "a160d9d334c59a2796b8c88e8eaca7f49b42c029",
+	"writer": "M1.1 archived appearance writer fixture",
+	"writer_boundary": "The pinned original M1 executable reads optional graphics but drops metadata on its own resave.",
+	"components": {
+		"orbit": "{\"checksum\":\"b0f51f46abe76dac80570b337ade6897da9d445640160b8fd2c3a64cece02dd7\",\"component\":\"orbit\",\"format\":\"starfire-hearth-presentation-component\",\"payload\":\"{\\\"bodies\\\":{\\\"pl_aster\\\":{\\\"epoch_turn\\\":1,\\\"phase_mdeg\\\":0,\\\"period_turns\\\":12,\\\"semi_major_mau\\\":1000},\\\"pl_brume\\\":{\\\"epoch_turn\\\":1,\\\"phase_mdeg\\\":90000,\\\"period_turns\\\":34,\\\"semi_major_mau\\\":2000}},\\\"identity\\\":{\\\"scenario\\\":\\\"s1_first_light\\\",\\\"seed\\\":11,\\\"viewer\\\":\\\"emp_player\\\"},\\\"recipe_version\\\":1,\\\"system_id\\\":\\\"sys_ember\\\"}\",\"version\":1}",
+		"road": "{\"checksum\":\"0c6cd34b910a9078d7fbd1d7c451cb8933b410f40b013f39c6cbaa4dbeb699f5\",\"component\":\"road\",\"format\":\"starfire-hearth-presentation-component\",\"payload\":\"{\\\"colonies\\\":{\\\"col_0001\\\":{\\\"edges\\\":[[0,1],[1,2]],\\\"entrances\\\":[\\\"slot:0\\\",\\\"slot:1\\\"],\\\"unreachable\\\":[]}},\\\"identity\\\":{\\\"scenario\\\":\\\"s1_first_light\\\",\\\"seed\\\":11,\\\"viewer\\\":\\\"emp_player\\\"},\\\"recipe_version\\\":1}\",\"version\":1}"
+	}
+}

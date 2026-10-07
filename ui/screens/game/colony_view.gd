@@ -92,7 +92,9 @@ static func _stats(s: GameScreen, c: Colony, cr: Economy.ColonyReport) -> Contro
 	]
 	items[4].name = "Stat_stability"
 	for it: Control in items:
-		it.custom_minimum_size.x = 210.0 * Settings.text_scale
+		var width: float=210.0*Settings.text_scale
+		if Layout.compact: width=minf(width,maxf(0.0,Layout.logical_size.x-96.0-Layout.safe_margins.x-Layout.safe_margins.z))
+		it.custom_minimum_size.x = width
 		flow.add_child(it)
 	card.add_body(flow)
 	var m: Meter = Meter.make(float(c.growth), float(Population.GROWTH_NEEDED), "accent.teal")
@@ -164,6 +166,11 @@ static func _planner(s: GameScreen, c: Colony, cr: Economy.ColonyReport) -> Cont
 	var planet: Planet = s.state.planets[c.planet_id]
 	var card: Card = Card.make(Strings.fmt("ui.colony.planner"), Strings.fmt("ui.colony.planner_hint"), "district_habitation", "accent.teal")
 	card.name = "Planner"
+	if Settings.appearance == "3d": return ColonySpatialView.planner(s,c,card)
+	var spatial: SfButton = SfButton.make("ui.world.spatial","ui_colony",SfButton.GHOST)
+	spatial.name = "Appearance3D"
+	spatial.pressed.connect(Settings.set_appearance.bind("3d"))
+	card.add_action(GameUI.exempt(spatial,"3D names a presentation mode, not a game quantity"))
 	var count: int = cr.slots
 	var grid: PlannerGrid = PlannerGrid.new()
 	grid.name = "PlannerGrid"

@@ -356,3 +356,87 @@ overruled by the Owner; overruled entries are struck through, not deleted.
     lopsided on purpose and random-legal never manages its stocks. The gate prints how many
     streaks of over ten turns each resource had, not how long they were (the first draft of the M1
     report called them lengths).
+97. **Study 3D incorporation against the existing M1 branch** (Owner): no new branch.
+    The incorporation study uses M1's actual command-preview state, canonical hex numbering,
+    district tiers, buildings, construction queues and survey flags. The renderer receives
+    detached permitted descriptions; the inspector keeps M1's existing commands and
+    explanations. Optional overlays provide a concrete comparison before making these views
+    the default. See `milestones/M1_3D_INCORPORATION.md`. The study changes no balance rules.
+98. **M1.1 production foundation** (approved staged plan): the viewport host stays a
+    direct GameScreen child and follows disposable mount/scroll rectangles. Inspector
+    refreshes do not reparent or free its scene. Detached permitted revisions, session
+    epochs, bounded cameras, shared worker/cooperative scheduling, asynchronous
+    retirement and pinned byte-estimated LRU ownership enforce the presentation
+    boundary. Stage B revalidation is in `milestones/M1_1_STAGE_B_REPORT.md`.
+99. **Integrated space before city incorporation** (M1.1 Stage C): 3D is the ordinary
+    Galaxy/System appearance; Strategic shares the existing action model. Actual
+    owned hulls/outposts/colonies patch by ID, unknown systems remain neutral and
+    selectors reveal the focused scene after scrolling on compact screens. Existing
+    Survey/Colonise/Outpost commands stay authoritative. Shared saved geography,
+    integrated city, the final art/accessibility pass and device profiling remain
+    Stages D–G. Native/browser evidence and performance debt are documented separately;
+    no simulation content or golden hashes are changed.
+100. **Save appearance independently and preserve unknown future graphics** (M1.1 Stage D,
+     Owner persistence priority): gameplay stays schema 2 with the same checksum/RNG.
+     Opaque, independently checked graphics strings carry frozen profiles, catalog versions
+     and commit-only quantized colony anchors. Supported views dispatch from saved versions;
+     unsupported future data survives exactly with an explained fallback. A compatible-view
+     overlay adds identities without replacing newer authoritative geography. Regional terrain
+     and globe maps share sphere_fbm/1; markers use the verified sphere UV conversion. Original
+     M1 loads the gameplay envelope but its old writer drops graphics metadata on resave.
+     The Stage D report and graphics save contract record evidence and that boundary.
+101. **The city is the normal planner, with saved catalog dispatch** (M1.1 Stage E):
+     the persistent viewport hosts actual canonical parcels and detached owned-only
+     descriptions. Roof/scaffold hits, ground polygons, keyboard and touch select the
+     same existing inspector; commands remain M1's authority. Stable completed and
+     queued identities patch independently from placement previews and sixteen regional
+     terrain tiles. Decorative access avoids blocked plots without changing adjacency.
+     Optional groundworks/1 records committed clearings; transient masks reverse on
+     Cancel/Undo. New games pin city catalog/kit 2, while saved kit 1 keeps its unchanged
+     implementation. When a newer build understands an original compatible view again,
+     it takes priority over an older fallback overlay; valid additions merge without
+     replacing saved geography. The actual archived Stage D writer/Stage E restore
+     exercise proves catalog, anchor and clearing continuity. Final art and physical
+     device/campaign validation remain F/G. No gameplay schema, content or golden
+     simulation change is included.
+102. **Version visual finish independently from physical identity** (M1.1 Stage F):
+     new planet/stellar/civilian finish 2 and city kit 3 reuse the frozen field/maps,
+     anchors and clearing history. Old catalogs retain their rendering until an
+     explicit supported upgrade. Graphics wrapper 2 carries a checked v1 E view;
+     E preserves the original and writes valid additions, including completed then
+     demolished sites, to its overlay. F merges those additions even when it knows
+     the original catalog. Runtime PBR/GLB source, real geometry LODs and normal/AO
+     bakes replace the study finish. Lossless mipmapped review maps prioritize quality;
+     target compression/profiling stays G. Whole resource chips and portrait drawer
+     navigation keep controls/readouts accessible at large text. Artistic acceptance
+     remains an Owner decision, separate from correctness checks and measured costs.
+
+103. **Keep view composition separate from world identity and quality** (M1.1 F.1):
+     Command is the default information-first screen. Immersive mounts the same
+     persistent city/space renderer behind a compact HUD, sharing M1 inspectors
+     and commands through dismissible side/bottom contexts. Switching retains
+     camera, selection, pending orders and saved graphics; it introduces no new
+     simulation or graphics schema/catalog. Device layout lives in settings.cfg,
+     with immediate origin-local browser storage to survive page closure before
+     asynchronous file sync. Unsupported/Strategic views retain readable Command
+     while preserving the preference. Contexts scroll; compact icon controls keep
+     48dp touch targets and readable text at 200%. Contexts refit to the visible
+     map after container sorting, so phone controls stay above the toolbar.
+     Orbit/pan/zoom and Escape/F10
+     route through the actual viewport input path. Close-camera quality recreation
+     tolerates asynchronous terrain before applying finish LOD. Physical devices,
+     complete campaign/export validation and Owner art acceptance remain Stage G.
+
+104. **Keep the approved compact Immersive finish independent of saved world identity**
+     (M1.2 owner review): a small summary is the only default window; context opens
+     on selection, an empty queue becomes a pill, and management/research use tabs.
+     Device-local workspace v2 migrates untouched old defaults and keeps custom
+     geometry. Matte/Frosted/Glossy use opaque text over a tinted surface that
+     samples only the scene SubViewport. Nine scene taps per visible panel are the
+     current blur approach; shared blur and hardware profiling remain optimization
+     work. Disclosed-only planet/ring spacing is a render copy, preserving saved
+     orbital clock, physical recipe and identity. Overview framing waits for layout
+     and includes near-side perspective; saved cameras stay intact. Turn motion
+     follows arcs, attached markers follow through ambient pause, and asteroid belts
+     share the orbital transition/focused-camera path. Final evidence and platform
+     limits are in `milestones/M1_2_D_G_REVALIDATION_REPORT.md`.

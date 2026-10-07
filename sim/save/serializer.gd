@@ -4,6 +4,9 @@ extends RefCounted
 ##   {format, version, game_version, seed, turn, scenario_id, state, rng_meta, checksum}
 ## where checksum is the SHA-256 of the canonical JSON of `state`. Loading verifies the checksum,
 ## then runs the migration chain up to the current version.
+## Optional presentation/presentation_overlay STRINGS carry independently versioned
+## and checked graphics JSON. They never enter GameState or its checksum. Unknown
+## graphics are transported unchanged; application code chooses rendering support.
 ##
 ## Migrations live in sim/save/migrations/v<N>_to_v<N+1>.gd, each with a single
 ## `static func migrate(state: Dictionary) -> Dictionary`. Every schema bump also adds a fixture
@@ -23,6 +26,9 @@ class LoadResult:
 	var game_version: String = ""
 	var error_key: String = ""
 	var error_detail: String = ""
+	var presentation: String = ""
+	var presentation_overlay: String = ""
+	var presentation_status: String = "missing"
 
 
 static func current_version() -> int:
@@ -38,7 +44,7 @@ static func rng_meta() -> Dictionary:
 
 
 ## The full save text for a state. Returns "" if the state cannot be serialised (a float leaked in).
-static func to_text(state: GameState, game_version: String) -> String:
+static func to_text(state: GameState, game_version: String, presentation: String = "", presentation_overlay: String = "") -> String:
 	var state_dict: Dictionary = state.to_dict()
 	var errors: Array[String] = []
 	var state_text: String = CanonicalJson.stringify(state_dict, errors)
@@ -56,13 +62,29 @@ static func to_text(state: GameState, game_version: String) -> String:
 		"rng_meta": rng_meta(),
 		"checksum": CanonicalJson.sha256_hex(state_text),
 	}
+	if not presentation.is_empty(): envelope["presentation"] = presentation
+	if not presentation_overlay.is_empty(): envelope["presentation_overlay"] = presentation_overlay
 	return CanonicalJson.stringify(envelope)
 
 
 static func from_text(text: String) -> LoadResult:
 	var lr: LoadResult = LoadResult.new()
 	var errors: Array[String] = []
-	var parsed: Variant = CanonicalJson.parse(text, errors)
+	# Inspect optional graphics separately. A bad graphics field never invalidates
+	# valid gameplay, while simulation floats and checksums remain strictly checked.
+	var json: JSON = JSON.new()
+	var parse_error: Error = json.parse(text)
+	var parsed: Variant = json.data
+	if parse_error != OK: errors.append("invalid JSON")
+	if parsed is Dictionary:
+		var raw: Variant = parsed.get("presentation", "")
+		lr.presentation = raw if raw is String else JSON.stringify(raw)
+		var overlay: Variant = parsed.get("presentation_overlay", "")
+		lr.presentation_overlay = overlay if overlay is String else JSON.stringify(overlay)
+		lr.presentation_status = PresentationEnvelope.inspect(lr.presentation)["status"]
+		parsed.erase("presentation")
+		parsed.erase("presentation_overlay")
+		parsed = CanonicalJson.ints(parsed, "$", errors)
 	if not errors.is_empty() or typeof(parsed) != TYPE_DICTIONARY:
 		lr.error_key = "save.error.corrupt"
 		lr.error_detail = ", ".join(errors) if not errors.is_empty() else "not a JSON object"

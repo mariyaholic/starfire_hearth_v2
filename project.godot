@@ -17,12 +17,15 @@ config/icon="res://icon.svg"
 [autoload]
 
 Settings="*res://app/settings.gd"
+DisplaySettings="*res://app/display_settings.gd"
 Strings="*res://app/strings.gd"
 Layout="*res://app/layout.gd"
 Overlay="*res://app/overlay.gd"
 Game="*res://app/game.gd"
+Worlds="*res://app/worlds.gd"
 SaveService="*res://app/save_service.gd"
 Audio="*res://app/audio.gd"
+VoiceService="*res://app/voice_service.gd"
 
 [debug]
 

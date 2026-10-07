@@ -5,6 +5,78 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
+- M1.2 owner UI review incorporates compact Immersive summary/context windows,
+  tabbed Manage/Research and device-local Matte/Frosted/Glossy finishes. Workspace
+  v2 migrates untouched oversized defaults while retaining custom arrangements.
+  System overview adds ring-aware display spacing without changing saved clocks,
+  fits the actual viewport, and follows circular turn motion. Paused attachments
+  and focused asteroid belts retain their parent/target positions. **Verified:**
+  `tests/run_tests.gd`: 255 tests / 12,392 checks; `tools/validate_data.gd`: zero
+  errors/skips; `tools/m12_review_web_smoke.py`: 58 desktop/touch checks, zero
+  failures/browser errors. Windows/Web exports refreshed. Physical-device review
+  remains open. See `docs/milestones/M1_2_D_G_REVALIDATION_REPORT.md`.
+
+- M1.1 F.1 adds independent Command / Immersive view layouts: existing city and
+  space renderers become the main screen with contextual M1 inspectors/management.
+  The view button/F10 retains camera, selection and orders; Escape dismisses context.
+  Device preferences survive native reload and Web page closure, without changing
+  gameplay/graphics save schemas. Compact controls and side/bottom docks support
+  100–200% text. Close-camera quality changes tolerate asynchronous terrain.
+  **Verified:** `godot --headless --path . -s tests/run_tests.gd`: 219 tests /
+  12,015 checks; `tools/m11_immersive_smoke.gd`: 319 native checks;
+  `python3 tools/m11_immersive_web_smoke.py`: 127 desktop/touch Web checks.
+  42 fresh review captures. Owner art review and Stage G remain open.
+  See `docs/milestones/M1_1_IMMERSIVE_VIEW_REPORT.md`.
+
+- M1.1 Stage F adds authored PBR material detail, three mesh LODs for civilian hulls,
+  finished Ember buildings/district equipment, civilization exemplars, foliage and
+  versioned planet/star finish. Supported old looks stay pinned; explicit upgrade
+  retains geography. Graphics wrapper 2 includes an independently checked E view;
+  the actual E writer preserves F and adds a demolished clearing that F restores.
+  Resource overflow and portrait navigation/stat widths are finished at 100–200%.
+  **Verified:** `tests/run_tests.gd`: 216 tests / 11,918 checks;
+  `tools/m11_stage_f_smoke.gd`: 290 checks;
+  `tools/m11_stage_f_details.gd`: 119 checks;
+  `tools/m11_stage_f_web_smoke.py`: 343 desktop/touch checks;
+  `tools/art/audit_finish_v1.py`: 367 asset checks; 27 archived-E roundtrip checks.
+  Owner art acceptance and Stage G platform/campaign profiling remain open. Temporary
+  performance debt is recorded in `docs/milestones/M1_1_STAGE_F_REPORT.md`.
+
+- M1.1 Stage E integrates the anchored 3D city into the normal Colony planner with
+  canonical parcel picking, actual tiers/buildings and existing construction controls.
+  Persistent completed, queue, preview and terrain layers patch independently; decorative
+  routes follow the terrain around blocked plots. Optional committed clearing history
+  survives demolition/resaving, new games pin city kit 2 and existing kit 1 stays
+  supported. An actual archived Stage D writer preserves both catalogs through supported
+  or fallback views. Gameplay schema, content and golden hashes are unchanged. **Verified:**
+  `godot --headless --path . -s tests/run_tests.gd`: 209 tests / 11,676 checks;
+  `tools/m11_stage_e_smoke.gd`: 187 native checks; `tools/m11_stage_e_web_smoke.py`:
+  275 desktop/touch browser checks. Final art/device validation remains
+  Stages F/G; performance debt is measured in `docs/milestones/M1_1_STAGE_E_REPORT.md`.
+
+- M1.1 Stage D persists versioned graphics profiles and geographic anchors through
+  manual, automatic and checkpoint saves. Globe and regional terrain share the pinned
+  appearance field. Old M1 saves reconstruct their seeded look; unsupported future
+  graphics survive resaving with a compatible-view or Strategic fallback. Gameplay
+  schema/checksums remain unchanged. The original M1 writer still drops new metadata
+  on resave; the compatibility contract documents that older-executable boundary. **Verified:** 204 tests / 10,067 checks,
+  20 native checks and 38 browser checks; see `docs/milestones/M1_1_STAGE_D_REPORT.md`.
+
+- M1.1 Stages B/C add a persistent viewport/controller, filtered snapshots, shared
+  native/cooperative generation and pinned texture cache. Normal Galaxy/System now
+  default to 3D with actual permitted stars/planets/ships/outposts, existing command
+  inspectors and a persisted Strategic alternative. The Colony planner and finished art remain later stages. **Verified:**
+  `godot --headless --path . -s tests/run_tests.gd`: 185 tests / 3,576 checks;
+  `tools/m11_stage_c_smoke.gd`: 117 rendered checks and four clean layout profiles.
+  Browser command evidence and measured performance debt are in
+  `docs/milestones/M1_1_STAGE_C_REPORT.md`. No balance/golden/save-schema changes.
+- Optional 3D incorporation study against this M1 build: actual planets and owned ships,
+  canonical planner coordinates, actual district tiers/buildings, construction previews,
+  and the existing Build/Cancel/Survey controls. See
+  `docs/milestones/M1_3D_INCORPORATION.md` for scope, launch points and production work.
+  **Verified:** 170 tests / 3,236 checks; 78 rendered interaction/layout checks.
+  The material finish and browser/mobile hardware performance remain provisional.
+
 ### The balance gates pass (DESIGN_LOG 95, 96)
 
 - **What changed in Scenario 1:** the Ark Hull opens the market from the first turn, and the Market

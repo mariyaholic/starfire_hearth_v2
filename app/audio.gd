@@ -1,14 +1,15 @@
 extends Node
-## Sound (§8.6, §15.4, §15.5): the UI, Effects and Music buses under Master, their volumes and
-## mute from Settings, sounds by §15.4 id, and music cues that crossfade. A delivered file plays
-## when data/asset_manifest.json has one; until then every sound is a synthesised blip
-## (SoundSynth) and every music cue is silence, though the cue is still tracked so the right
-## track starts the moment it is delivered.
+## Sound (§8.6, §15.4, §15.5): the UI, Effects, Voice and Music buses under Master, their volumes
+## and mute from Settings, sounds by §15.4 id, and music cues that crossfade. A delivered file
+## plays when data/asset_manifest.json has one; ordinary effects may use SoundSynth placeholders,
+## while optional character voice is always silent until a real voice clip is delivered.
 
 signal music_changed(id: String)
+signal voice_finished(utterance_id: String)
 
 const BUS_UI: String = "UI"
 const BUS_EFFECTS: String = "Effects"
+const BUS_VOICE: String = "Voice"
 const BUS_MUSIC: String = "Music"
 const VOICES: int = 6
 const CROSSFADE: float = 1.2
@@ -27,6 +28,9 @@ var _next_ui: int = 0
 var _next_fx: int = 0
 var _music: Array[AudioStreamPlayer] = []
 var _music_on: int = 0
+var _voice: AudioStreamPlayer = null
+## The presentation utterance currently assigned to the Voice player, or empty.
+var voice_utterance: String = ""
 var _delivered: Dictionary[String, Array] = {}
 var _synth: Dictionary[String, AudioStream] = {}
 var _last_at: Dictionary[String, int] = {}
@@ -43,6 +47,8 @@ func _ready() -> void:
 		var m: AudioStreamPlayer = _player(BUS_MUSIC)
 		m.volume_db = SILENT_DB
 		_music.append(m)
+	_voice = _player(BUS_VOICE)
+	_voice.finished.connect(_on_voice_finished)
 	Settings.changed.connect(_on_setting)
 	Game.turn_resolved.connect(func(_r: TurnResult) -> void: play("ui_end_turn"))
 	apply_volumes()
@@ -73,6 +79,32 @@ func play(id: String) -> void:
 	p.stream = st
 	p.pitch_scale = 1.0 + (randf() - 0.5) * 0.06 if SoundSynth.VARIED.has(id) and not AssetIds.is_delivered(id) else 1.0
 	p.play()
+
+
+## Plays an already validated optional speech stream. Voice never falls back to SoundSynth:
+## absent or malformed speech is silent while the written dialogue remains available.
+func play_voice(utterance_id: String, stream: AudioStream) -> bool:
+	stop_voice()
+	if utterance_id.is_empty() or stream == null or _voice == null:
+		return false
+	voice_utterance = utterance_id
+	_voice.stream = stream
+	# Headless runs retain the selected utterance for lifecycle tests but never start audio.
+	if DisplayServer.get_name() != "headless":
+		_voice.play()
+	return true
+
+
+## Stops optional speech without affecting music, UI effects or simulation state.
+func stop_voice() -> void:
+	if _voice != null:
+		_voice.stop()
+		_voice.stream = null
+	voice_utterance = ""
+
+
+func is_voice_playing() -> bool:
+	return not voice_utterance.is_empty() and (DisplayServer.get_name() == "headless" or (_voice != null and _voice.playing))
 
 
 ## Crossfades to a music cue (§15.5; "" fades to silence). A cue that is not delivered yet fades
@@ -114,6 +146,10 @@ func _exit_tree() -> void:
 	for p: AudioStreamPlayer in _ui + _fx + _music:
 		p.stop()
 		p.stream = null
+	if _voice != null:
+		_voice.stop()
+		_voice.stream = null
+	voice_utterance = ""
 	# Let go of the tracks too: a stream still referenced at exit is reported as a leak.
 	_delivered.clear()
 	_synth.clear()
@@ -136,6 +172,7 @@ func is_music_playing() -> bool:
 func apply_volumes() -> void:
 	_set_bus(BUS_UI, Settings.ui_volume)
 	_set_bus(BUS_EFFECTS, Settings.effects_volume)
+	_set_bus(BUS_VOICE, Settings.voice_volume)
 	_set_bus(BUS_MUSIC, Settings.music_volume)
 	AudioServer.set_bus_mute(0, Settings.muted)
 
@@ -169,7 +206,7 @@ func _player(bus: String) -> AudioStreamPlayer:
 
 
 func _ensure_buses() -> void:
-	for bus_name: String in [BUS_UI, BUS_EFFECTS, BUS_MUSIC]:
+	for bus_name: String in [BUS_UI, BUS_EFFECTS, BUS_VOICE, BUS_MUSIC]:
 		if AudioServer.get_bus_index(bus_name) != -1:
 			continue
 		AudioServer.add_bus()
@@ -185,5 +222,14 @@ func _set_bus(bus_name: String, v: float) -> void:
 
 
 func _on_setting(key: String) -> void:
-	if key in ["ui_volume", "effects_volume", "music_volume", "muted"]:
+	if key in ["ui_volume", "effects_volume", "voice_volume", "music_volume", "muted"]:
 		apply_volumes()
+
+
+func _on_voice_finished() -> void:
+	var finished_id: String = voice_utterance
+	voice_utterance = ""
+	if _voice != null:
+		_voice.stream = null
+	if not finished_id.is_empty():
+		voice_finished.emit(finished_id)

@@ -1,4 +1,21 @@
 key,en
+ui.world.roads_update,Update city roads
+ui.world.roads_update_help,Use shared streets and building entrances while keeping this campaign's terrain and buildings.
+ui.world.roads_gap,Some buildings have no supported road access.
+ui.3d.system_title,{name} · 3D system incorporation study
+ui.3d.city_title,{name} · 3D city incorporation study
+ui.3d.overview,Overview
+ui.3d.pause,Pause visual motion
+ui.3d.planning,Planning overlay
+ui.3d.dusk,Dusk
+ui.3d.preparing,Preparing the current colony terrain…
+ui.3d.compact_controls,Tap to inspect · Drag to orbit
+ui.3d.title_compact,{name} · Spatial study
+ui.3d.pause_short,Pause
+ui.3d.plan_short,Plan
+ui.3d.hover,{name} · Click or tap to inspect
+ui.3d.controls,"Click to inspect · Drag to orbit · Wheel to zoom · Escape to return to the game. Appearance study: materials and detail remain provisional."
+ui.3d.construction_note,Blue structures are queued construction. Green is a valid placement preview; red is refused. Completed structures follow the current game state.
 res.food.name,Food
 res.food.desc,"Feeds your people, measured in kilotonnes. Every thousand settlers eat each month, and only a surplus lets a colony grow."
 res.energy.name,Energy
@@ -1309,7 +1326,50 @@ ui.research.tier,Tier {tier}
 ui.settings.about,About
 ui.settings.credits,Credits
 ui.settings.display,Display
+ui.settings.display_mode,Window mode
+ui.settings.windowed,Windowed
+ui.settings.borderless,Borderless window
+ui.settings.fullscreen,Fullscreen
+ui.settings.exclusive_fullscreen,Exclusive fullscreen
+ui.settings.display_size,Window size
+ui.settings.display_monitor,Monitor
+ui.settings.display_custom_size,Custom window size
+ui.settings.monitor_label,Monitor {number}
+ui.settings.size_small,Small
+ui.settings.size_standard,Standard
+ui.settings.size_large,Large
+ui.settings.display_render_scale,Render resolution
+ui.settings.display_render_scale_note,Render resolution is independent of window and interface size.
+ui.settings.display_render_scale_unavailable,Render resolution control is unavailable with this renderer.
+ui.settings.display_vsync,Vertical sync
+ui.settings.vsync_disabled,Off
+ui.settings.vsync_enabled,On
+ui.settings.vsync_adaptive,Adaptive
+ui.settings.vsync_mailbox,Mailbox
+ui.settings.display_frame_cap,Frame cap
+ui.settings.frame_unlimited,Unlimited
+ui.settings.frame_30,30 fps
+ui.settings.frame_60,60 fps
+ui.settings.frame_90,90 fps
+ui.settings.frame_120,120 fps
+ui.settings.frame_144,144 fps
+ui.settings.frame_240,240 fps
+ui.settings.display_anti_aliasing,Anti-aliasing
+ui.settings.aa_disabled,Off
+ui.settings.aa_2x,2×
+ui.settings.aa_4x,4×
+ui.settings.aa_8x,8×
+ui.settings.display_reset,Reset scales
+ui.settings.display_apply,Apply
+ui.settings.display_keep,Keep changes
+ui.settings.display_revert,Revert
+ui.settings.display_maximize,Maximize
+ui.settings.display_restore,Restore
+ui.settings.display_preview,Keep this display configuration within {seconds} seconds.
+ui.settings.display_native_unavailable,Native window controls are unavailable in this browser.
+ui.settings.display_browser_fullscreen,Enter browser fullscreen
 ui.settings.effects_volume,Effects
+ui.settings.voice_volume,Character voices
 ui.settings.high_contrast,High contrast
 ui.settings.hints,Advisor hints
 ui.settings.hints_note,The advisor's tutorial steps and their highlights.
@@ -1324,6 +1384,11 @@ ui.settings.text_size,Text size
 ui.settings.title,Settings
 ui.settings.ui_scale,Interface size
 ui.settings.ui_volume,Interface
+ui.voice.finished,Voice line finished.
+ui.voice.missing,Voice clip unavailable; dialogue remains readable.
+ui.voice.muted,Character voices are muted.
+ui.voice.playing,Playing character voice.
+ui.voice.unavailable,Voice playback unavailable; dialogue remains readable.
 ui.system.beacon_active,An active beacon.
 ui.system.beacon_dormant,A dormant beacon.
 ui.system.colonise_with,Colonise with the {ship}
@@ -1357,3 +1422,66 @@ ui.why.nothing,Nothing has changed here lately.
 ui.why.title,Why?
 error.build.locked,Not available in this scenario.
 effect.research_add,{value} research in each branch per turn
+
+ui.world.fallback,"The 3D view could not open. You can continue in Strategic view."
+ui.world.controls,"Drag to orbit · Wheel or pinch to zoom · Arrow keys select objects · Home shows the overview"
+ui.world.appearance,Appearance
+ui.world.spatial,3D view
+ui.world.strategic,Strategic view
+ui.world.reset,Reset camera
+ui.world.dusk,Dusk
+ui.world.parcels,Parcel outlines
+ui.world.new_finish,Use new visual finish
+ui.world.new_finish_help,"Update materials and models while keeping this world's geography and city placement. Save to retain the choice."
+ui.world.quality,Visual quality
+ui.world.auto,Auto
+ui.world.low,Low
+ui.world.standard,Standard
+ui.world.colony_link,Open {planet} colony
+ui.world.outpost_link,{planet} outpost
+ui.world.appearance_incompatible,"This save uses graphics this build cannot display. Its original appearance data is preserved. Use Strategic view or a compatible build."
+ui.world.appearance_recovered,"The graphics metadata is damaged. Gameplay loaded successfully; a deterministic fallback appearance is shown and the original metadata is retained."
+ui.world.appearance_compatible,"This build displays a compatible graphics version. The original newer appearance data remains in your save."
+ui.world.city_controls,"Select a parcel to plan construction. Drag to orbit; wheel or pinch to zoom. Arrow keys select parcels; Home shows the region."
+ui.world.parcel,"Parcel {number}"
+ui.world.view_mode,View layout
+ui.world.command,Command
+ui.world.immersive,Immersive
+ui.world.enter_immersive,Immersive view
+ui.world.enter_command,Command view
+ui.world.immersive_help,"Immersive gives the world the screen. Select an object to inspect it; open management when needed. Graphics quality is adjustable separately."
+ui.world.inspect,Inspect
+ui.world.manage,Manage
+ui.world.objects,Objects
+ui.world.camera_tools,Scene controls
+ui.world.close_panel,Close panel
+ui.world.workspace_drag,Drag this window by its title.
+ui.world.workspace_resize,Drag this corner to resize the window.
+ui.world.workspace_minimize,Minimize window
+ui.world.workspace_dock,Pin or unpin this window in its default dock.
+ui.world.workspace_reset,Reset windows and docks
+ui.world.orbits_update,Enable orbital motion for this save
+ui.world.orbits_update_help,Add saved deterministic planetary orbits without changing the campaign rules.
+ui.world.orbits_visible,Show orbital paths
+ui.world.orbit_opacity,Orbit path brightness
+ui.world.context_hint,Select a parcel or object in the world to see its information and available actions.
+ui.world.overview_hint,Orbit and zoom in the world. Open Objects to select by name or parcel number.
+ui.world.advisor,Advisor
+ui.world.pan_hint,"Drag to orbit; Shift-drag or middle-drag to pan. Pinch to zoom. Home resets the camera."
+ui.world.build,Build
+ui.world.tab_overview,Overview
+ui.world.tab_jobs,Jobs
+ui.world.tab_governor,Governor
+ui.world.tab_shipyard,Shipyard
+ui.world.summary_population,Settlers · {value}
+ui.world.summary_stability,Stability · {value}
+ui.world.queue_status,Build queue · {count} queued
+ui.world.queue_idle,Build queue · Empty
+ui.world.interface_finish,Interface appearance
+ui.world.finish_matte,Matte
+ui.world.finish_frosted,Frosted
+ui.world.finish_glossy,Glossy
+ui.world.interface_opacity,Panel opacity
+ui.world.interface_blur,Blur
+ui.world.interface_gloss,Gloss
+ui.world.interface_edge,Edge light

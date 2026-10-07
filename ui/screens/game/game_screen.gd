@@ -54,6 +54,9 @@ var slot: int = -1
 var pick_kind: String = "district"
 var pick: String = ""
 var branch_pick: String = "physics"
+## Opt-in feasibility slice; production view selection/settings follow in Stage B/C.
+var spatial_slice_enabled: bool = false
+var world_controller: WorldViewController
 ## The state as this turn's orders leave it, and its economy.
 var state: GameState = null
 var report: Economy.EmpireReport = null
@@ -63,7 +66,7 @@ static var _opened_seed: int = -1
 var _bg: ColorRect
 var _root: VBoxContainer
 var _top: TopBar
-var _nav_inner: BoxContainer
+var _nav_inner: Container
 var _scroll: ScrollContainer
 var _advisor_box: VBoxContainer
 var _view_box: VBoxContainer
@@ -71,6 +74,9 @@ var _ring: HighlightRing
 var _refresh_queued: bool = false
 var _relayout_queued: bool = false
 var _step: Dictionary = {}
+var _immersive_layout: bool = false
+var immersive_panel: String = "inspect"
+var immersive_panel_open: bool = false
 
 
 func _ready() -> void:
@@ -87,12 +93,18 @@ func _ready() -> void:
 	add_child(_bg)
 	_ring = HighlightRing.new()
 	add_child(_ring)
+	world_controller = WorldViewController.new()
+	add_child(world_controller)
+	world_controller.setup(self)
+	world_controller.selection_requested.connect(_world_selected)
+	Settings.changed.connect(_world_setting_changed)
 	state = Game.view()
 	var cap: Colony = GameModel.capital(state)
 	if cap != null:
 		colony_id = cap.id
 		system_id = state.planets[cap.planet_id].system_id
 	Game.orders_changed.connect(_queue_refresh)
+	Game.session_started.connect(_world_new_session)
 	Layout.changed.connect(_queue_relayout)
 	_build_layout()
 	_refresh()
@@ -117,8 +129,15 @@ func _build_layout() -> void:
 	add_child(_root)
 	move_child(_root, 1)
 	_top = TopBar.new()
+	_immersive_layout = immersive_active()
+	_top.compact_summary = _immersive_layout and Layout.compact
 	_top.menu_pressed.connect(open_menu)
 	_root.add_child(_top)
+	if _immersive_layout:
+		_build_immersive_layout()
+		return
+	# Command mounts occupy only their own card; the host sits above that placeholder.
+	move_child(world_controller.host, get_child_count()-1)
 	var mid: BoxContainer
 	if Layout.compact:
 		mid = VBoxContainer.new()
@@ -171,6 +190,93 @@ func _build_layout() -> void:
 	else:
 		mid.add_child(bar)
 		mid.add_child(host)
+
+
+func immersive_active() -> bool:
+	if Settings.view_mode != "immersive" or Settings.appearance != "3d" or spatial_slice_enabled:
+		return false
+	if view in [SYSTEM, GALAXY]: return true
+	if view != COLONY or state == null: return false
+	var colony: Colony = state.colonies.get(colony_id,null)
+	return colony != null and not colony.is_outpost()
+
+
+func _build_immersive_layout() -> void:
+	# Transparent layout containers let the persistent viewport receive input beneath
+	# the HUD. Context panels are above it and stop pointer/touch input locally.
+	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	move_child(world_controller.host, 1)
+	move_child(_root, 2)
+	var col: VBoxContainer = VBoxContainer.new()
+	col.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	col.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_advisor_box = GameUI.column()
+	_advisor_box.name = "Advisor"
+	_advisor_box.visible = false
+	col.add_child(_advisor_box)
+	_view_box = GameUI.column(0)
+	_view_box.name = "View"
+	_view_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_view_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	col.add_child(_view_box)
+	_scroll = FlowScreen.scroll_of(col)
+	_scroll.name = "ImmersiveCanvas"
+	_scroll.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_root.add_child(_scroll)
+	var bar: PanelContainer = PanelContainer.new()
+	bar.name = "ImmersiveToolbar"
+	bar.theme_type_variation = &"BarPanel"
+	_root.add_child(bar)
+	if Layout.compact:
+		var stylebox: StyleBox = bar.get_theme_stylebox("panel").duplicate()
+		for side: int in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]: stylebox.set_content_margin(side,0)
+		bar.add_theme_stylebox_override("panel",stylebox)
+	var inset: MarginContainer = MarginContainer.new()
+	var m: Vector4 = Layout.safe_margins
+	inset.add_theme_constant_override("margin_left",int(m.x))
+	inset.add_theme_constant_override("margin_right",int(m.z))
+	inset.add_theme_constant_override("margin_bottom",int(m.w))
+	bar.add_child(inset)
+	_nav_inner = HFlowContainer.new()
+	_nav_inner.add_theme_constant_override("h_separation",0 if Layout.compact else Tokens.SPACE_XS)
+	_nav_inner.add_theme_constant_override("v_separation",Tokens.SPACE_XS)
+	inset.add_child(_nav_inner)
+
+
+func toggle_view_mode() -> void:
+	Settings.set_view_mode("command" if Settings.view_mode == "immersive" else "immersive")
+
+
+func toggle_immersive_panel(kind: String) -> void:
+	var layout: Dictionary=ImmersiveWorkspace.load_layout(view,Layout.compact)
+	ImmersiveWorkspace.toggle(layout,kind)
+	ImmersiveWorkspace.save_layout(view,Layout.compact,layout)
+	_refresh_view()
+	_refresh_nav()
+
+
+func close_immersive_panel() -> void:
+	var layout: Dictionary=ImmersiveWorkspace.load_layout(view,Layout.compact)
+	layout["open"].erase(layout["active"])
+	layout["active"]="" if layout["open"].is_empty() else layout["open"][-1]
+	ImmersiveWorkspace.save_layout(view,Layout.compact,layout)
+	_refresh_view()
+	_refresh_nav()
+
+func reset_immersive_workspace() -> void:
+	ImmersiveWorkspace.save_layout(view,Layout.compact,ImmersiveWorkspace.defaults(view))
+	_refresh_view(); _refresh_nav()
+
+func reveal_immersive_inspector() -> void:
+	if not _immersive_layout: return
+	var layout: Dictionary=ImmersiveWorkspace.load_layout(view,Layout.compact)
+	layout["open"].erase("inspect"); layout["open"].append("inspect")
+	layout["active"]="inspect"; layout["minimized"]["inspect"]=false
+	layout["selection_seen"]=true
+	ImmersiveWorkspace.save_layout(view,Layout.compact,layout)
 
 
 func _queue_relayout() -> void:
@@ -229,28 +335,74 @@ func _fix_selection() -> void:
 
 
 func _refresh_view() -> void:
+	if immersive_active() != _immersive_layout:
+		_build_layout()
+		_top.set_model(GameModel.top_bar(state, report))
+		_refresh_nav()
+		_refresh_advisor()
 	var keep: int = _scroll.scroll_vertical
+	if view not in [SYSTEM, GALAXY, COLONY] or (view == COLONY and (not state.colonies.has(colony_id) or state.colonies[colony_id].is_outpost())) or Settings.appearance != "3d" or spatial_slice_enabled:
+		world_controller.deactivate()
 	for c: Node in _view_box.get_children():
 		_view_box.remove_child(c)
 		c.queue_free()
 	var v: Control
-	match view:
-		GALAXY:
-			v = GalaxyView.build(self)
-		SYSTEM:
-			v = SystemView.build(self)
-		RESEARCH:
-			v = ResearchView.build(self)
-		ORDINANCES:
-			v = OrdinancesView.build(self)
-		MARKET:
-			v = MarketView.build(self)
-		OBJECTIVES:
-			v = ObjectivesView.build(self)
-		_:
-			v = ColonyView.build(self)
+	if _immersive_layout:
+		v = ImmersiveWorldView.build(self)
+	else:
+		match view:
+			GALAXY:
+				v = GalaxyView.build(self)
+			SYSTEM:
+				v = SystemView.build(self)
+			RESEARCH:
+				v = ResearchView.build(self)
+			ORDINANCES:
+				v = OrdinancesView.build(self)
+			MARKET:
+				v = MarketView.build(self)
+			OBJECTIVES:
+				v = ObjectivesView.build(self)
+			_:
+				v = ColonyView.build(self)
 	_view_box.add_child(v)
 	_keep_scroll.call_deferred(keep)
+
+func _world_selected(id: String) -> void:
+	if _immersive_layout:
+		if not id.is_empty(): reveal_immersive_inspector()
+	if view == COLONY:
+		if id.is_empty(): slot=-1; pick=""; _refresh_view()
+		elif id.begins_with("slot:"): select_slot(int(id.trim_prefix("slot:")))
+		return
+	if view == GALAXY:
+		if state.player().known_systems.has(id):
+			system_id = id; planet_id = ""
+			show_view(SYSTEM)
+		else: Overlay.toast(Strings.fmt("ui.galaxy.locked_toast"), ReportItem.SEVERITY_INFO)
+		return
+	if state.colonies.has(id) and state.colonies[id].owner_id == state.player_id and not state.colonies[id].is_outpost():
+		open_colony(id)
+		return
+	planet_id = id if state.planets.has(id) else ""
+	_refresh_view()
+
+func _world_setting_changed(key: String) -> void:
+	if key == "view_mode":
+		_queue_relayout()
+	elif key=="interface_finish":
+		_queue_refresh()
+	elif key in ["appearance", "visual_quality"]:
+		world_controller.deactivate()
+		_queue_refresh()
+	elif key=="high_contrast" and world_controller.host.renderer is ColonyRenderer:
+		var city: ColonyRenderer=world_controller.host.renderer as ColonyRenderer
+		if city.selected_slot>=0: city._highlight_selection()
+
+func _world_new_session() -> void:
+	planet_id = ""
+	immersive_panel_open = false
+	world_controller.deactivate()
 
 
 func _keep_scroll(v: int) -> void:
@@ -280,6 +432,10 @@ func _nav_items() -> Array[Array]:
 			continue
 		if Layout.compact and not TABS_COMPACT.has(id):
 			continue
+		if Layout.compact and Layout.logical_size.x<600.0 and id!=view:
+			# Portrait keeps the current tab and all order controls in view.
+			# The navigation drawer still exposes every other view by name.
+			continue
 		out.append(item)
 	return out
 
@@ -288,6 +444,9 @@ func _refresh_nav() -> void:
 	for c: Node in _nav_inner.get_children():
 		_nav_inner.remove_child(c)
 		c.queue_free()
+	if _immersive_layout:
+		ImmersiveWorldView.toolbar(self,_nav_inner)
+		return
 	var group: ButtonGroup = ButtonGroup.new()
 	for item: Array in _nav_items():
 		var id: String = item[0]
@@ -299,7 +458,7 @@ func _refresh_nav() -> void:
 		b.button_pressed = id == view
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.pressed.connect(show_view.bind(id))
-		if Layout.compact and id != view:
+		if Layout.compact and (id != view or Layout.logical_size.x<600.0):
 			# The tab bar is short of room, most of all at large text: only the open tab has a name.
 			b.text = ""
 			b.icon_only = true
@@ -315,18 +474,26 @@ func _refresh_nav() -> void:
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_nav_inner.add_child(spacer)
+	var mode: SfButton = SfButton.make_icon("ui_display", "ui.world.enter_immersive", SfButton.GHOST) if Layout.compact else SfButton.make("ui.world.enter_immersive", "ui_display", SfButton.GHOST)
+	mode.name = "ModeToggle"
+	mode.pressed.connect(toggle_view_mode)
+	mode.disabled = Settings.appearance != "3d" or view not in [COLONY,SYSTEM,GALAXY]
+	_nav_inner.add_child(mode)
 	var undo: SfButton = SfButton.make_icon("ui_undo", "ui.game.undo", SfButton.GHOST) if Layout.compact else SfButton.make("ui.game.undo", "ui_undo", SfButton.GHOST)
 	undo.name = "Undo"
 	undo.disabled = order_count() == 0
 	undo.pressed.connect(undo_order)
 	_nav_inner.add_child(undo)
-	var end: SfButton = SfButton.make("ui.game.end_turn", "ui_end_turn", SfButton.PRIMARY)
+	var end: SfButton = SfButton.make_icon("ui_end_turn","ui.game.end_turn",SfButton.PRIMARY) if Layout.compact else SfButton.make("ui.game.end_turn", "ui_end_turn", SfButton.PRIMARY)
 	end.name = "EndTurn"
 	end.pressed.connect(end_turn)
 	_nav_inner.add_child(end)
 
 
 func show_view(v: String) -> void:
+	if _immersive_layout and v in [RESEARCH,ORDINANCES,MARKET,OBJECTIVES]:
+		if v!=MARKET or Market.is_open(state,state.player_id): toggle_immersive_panel(v)
+		return
 	if view == v:
 		return
 	view = v
@@ -369,6 +536,7 @@ func open_colony(cid: String) -> void:
 func select_slot(i: int) -> void:
 	slot = i
 	pick = ""
+	if _immersive_layout: reveal_immersive_inspector()
 	_refresh_view()
 
 
@@ -594,7 +762,8 @@ func open_more() -> void:
 	d.name = "MoreViews"
 	for item: Array in NAV:
 		var id: String = item[0]
-		if TABS_COMPACT.has(id) or (id == MARKET and not Market.is_open(state, state.player_id)):
+		var in_bar: bool=TABS_COMPACT.has(id) if Layout.logical_size.x>=600.0 else id==view
+		if (in_bar and not _immersive_layout) or (id == MARKET and not Market.is_open(state, state.player_id)):
 			continue
 		var key: String = item[1]
 		var icon: String = item[2]
@@ -625,9 +794,15 @@ func save_game() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F10 and Overlay.stack_size() == 0:
+		if Settings.appearance == "3d" and view in [COLONY,SYSTEM,GALAXY]:
+			toggle_view_mode()
+			get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("ui_cancel") and Overlay.stack_size() == 0 and Overlay.open_tooltips().is_empty():
 		get_viewport().set_input_as_handled()
-		open_menu()
+		if _immersive_layout and immersive_panel_open: close_immersive_panel()
+		else: open_menu()
 
 
 ## Puts the screen in a named state for tests and the screenshot tour.

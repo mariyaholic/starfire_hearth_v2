@@ -1,0 +1,104 @@
+name: M1.1 Stage G checkpoint
+
+# Manual validation only. This workflow never deploys or publishes a release.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-g:
+    name: Campaign, lifecycle, release exports and Web interaction
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-godot
+        with:
+          templates: "true"
+
+      - name: Install software display and rendering dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends \
+            xvfb libgl1 libglx-mesa0 libgl1-mesa-dri libegl1 \
+            libxcursor1 libxinerama1 libxrandr2 libxi6 libxkbcommon0
+
+      - name: Install browser test dependencies
+        run: |
+          python3 -m venv "$RUNNER_TEMP/m11-stage-g-venv"
+          echo "$RUNNER_TEMP/m11-stage-g-venv/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/m11-stage-g-venv/bin/python" -m pip install --upgrade pip
+          "$RUNNER_TEMP/m11-stage-g-venv/bin/python" -m pip install playwright==1.56.1 pillow psutil
+          "$RUNNER_TEMP/m11-stage-g-venv/bin/python" -m playwright install --with-deps chromium
+
+      - name: Import project and run full regression suite
+        run: |
+          mkdir -p build/stage_g/validation
+          godot --headless --path . --import > build/stage_g/validation/import.log 2>&1
+          godot --headless --audio-driver Dummy --path . -s tests/run_tests.gd > build/stage_g/validation/tests.log 2>&1
+          cat build/stage_g/validation/tests.log
+
+      - name: Validate content and art catalog
+        run: |
+          godot --headless --audio-driver Dummy --path . -s tools/validate_data.gd > build/stage_g/validation/data.log 2>&1
+          python3 tools/art/audit_finish_v1.py --out build/stage_g/asset_audit.json
+          cat build/stage_g/validation/data.log
+
+      - name: Run production-screen First Light campaign
+        timeout-minutes: 25
+        run: |
+          mkdir -p build/stage_g/campaign
+          xvfb-run -a -s "-screen 0 2560x1600x24" godot --audio-driver Dummy --rendering-driver opengl3 \
+            --path . -s tools/m11_stage_g_campaign.gd > build/stage_g/campaign/run.log 2>&1
+          cat build/stage_g/campaign/run.log
+
+      - name: Run and profile the 100-cycle lifecycle stress
+        timeout-minutes: 25
+        run: python3 tools/m11_stage_g_lifecycle_profile.py --timeout 1200
+
+      - name: Export Web, Windows and Linux release builds
+        run: |
+          mkdir -p build/stage_g/web build/stage_g/windows build/stage_g/linux
+          touch build/.gdignore
+          godot --headless --path . --export-release Web build/stage_g/web/index.html > build/stage_g/validation/export_web.log 2>&1
+          godot --headless --path . --export-release Windows build/stage_g/windows/StarfireHearth.exe > build/stage_g/validation/export_windows.log 2>&1
+          godot --headless --path . --export-release Linux build/stage_g/linux/StarfireHearth.x86_64 > build/stage_g/validation/export_linux.log 2>&1
+          test -f build/stage_g/web/index.wasm
+          test -f build/stage_g/windows/StarfireHearth.exe
+          test -f build/stage_g/linux/StarfireHearth.x86_64
+          python3 - <<'PY'
+          import gzip
+          from pathlib import Path
+          web = Path("build/stage_g/web")
+          raw = sum(p.stat().st_size for p in web.iterdir() if p.is_file())
+          compressed = sum(len(gzip.compress(p.read_bytes(), compresslevel=9)) for p in web.iterdir() if p.is_file())
+          print(f"Web export: {raw} raw bytes / {compressed} gzip bytes (150 MB cap)")
+          if compressed >= 150_000_000:
+              raise SystemExit("Web export exceeds the 150 MB gzip budget")
+          PY
+
+      - name: Run actual exported Web mouse and touch interactions
+        timeout-minutes: 40
+        env:
+          M11_BUILD_DIR: build/stage_g/web
+          M11_OUT_DIR: build/stage_g/web_interaction
+        run: python3 tools/m11_immersive_web_smoke.py
+
+      - name: Verify WebGL-loss fallback and sample process memory
+        timeout-minutes: 15
+        run: python3 tools/m11_stage_g_web_memory_profile.py
+
+      - name: Upload Stage G evidence and review builds
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: m11-stage-g-checkpoint
+          path: |
+            build/stage_g/
+            docs/milestones/M1_1_REPORT.md
+            docs/milestones/M1_1_STAGE_G_REPORT.md
+          retention-days: 14
+          if-no-files-found: warn

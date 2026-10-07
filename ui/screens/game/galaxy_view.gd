@@ -5,9 +5,14 @@ extends RefCounted
 
 
 static func build(s: GameScreen) -> Control:
+	if Settings.appearance == "3d": return GalaxySpatialView.build(s)
 	var col: VBoxContainer = GameUI.column(Tokens.SPACE_M)
 	var card: Card = Card.make(Strings.fmt("ui.galaxy.title"), Strings.fmt("ui.galaxy.subtitle"), "emblem_compass", "accent.teal")
 	card.name = "Galaxy"
+	var spatial: SfButton = SfButton.make("ui.world.spatial", "emblem_compass", SfButton.GHOST)
+	spatial.name = "Appearance3D"
+	spatial.pressed.connect(Settings.set_appearance.bind("3d"))
+	card.add_action(GameUI.exempt(spatial,"3D names the appearance mode"))
 	var map: Map = Map.new()
 	map.name = "GalaxyMap"
 	map.setup(s)
@@ -44,7 +49,7 @@ class Map:
 			v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			v.alignment = BoxContainer.ALIGNMENT_CENTER
 			v.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-			var disc: StarDisc = StarDisc.make(sys.spectral, sys.magnitude, 44.0)
+			var disc: StarDisc = StarDisc.make(sys.spectral if here else "G", sys.magnitude if here else 3, 44.0)
 			disc.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			var wrap: CenterContainer = CenterContainer.new()
 			wrap.mouse_filter = Control.MOUSE_FILTER_IGNORE

@@ -11,7 +11,7 @@ func _root() -> Window:
 func test_buses_follow_the_settings(t: T) -> void:
 	var settings: Node = _root().get_node("Settings")
 	settings.set("persist", false)
-	for bus: String in ["UI", "Effects", "Music"]:
+	for bus: String in ["UI", "Effects", "Voice", "Music"]:
 		var idx: int = AudioServer.get_bus_index(bus)
 		t.ok(idx > 0, "the %s bus exists" % bus)
 		t.eq(str(AudioServer.get_bus_send(idx)), "Master", "%s sends to Master" % bus)
@@ -19,10 +19,13 @@ func test_buses_follow_the_settings(t: T) -> void:
 	t.near(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")), linear_to_db(0.5), 0.01, "music volume")
 	settings.call("set_ui_volume", 0.0)
 	t.ok(AudioServer.is_bus_mute(AudioServer.get_bus_index("UI")), "zero volume mutes the bus")
+	settings.call("set_voice_volume", 0.35)
+	t.near(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Voice")), linear_to_db(0.35), 0.01, "voice volume")
 	settings.call("set_muted", true)
 	t.ok(AudioServer.is_bus_mute(0), "mute silences Master, so every sound respects it")
 	settings.call("set_muted", false)
 	settings.call("set_ui_volume", 0.8)
+	settings.call("set_voice_volume", 0.8)
 	settings.call("set_music_volume", 0.7)
 	t.not_ok(AudioServer.is_bus_mute(0))
 	t.not_ok(AudioServer.is_bus_mute(AudioServer.get_bus_index("UI")))

@@ -5,6 +5,8 @@ extends RefCounted
 ## chances). A story step cues its music while it is open. It must be answered: an event blocks End
 ## Turn until a choice is made, and the answer is an order like any other.
 
+const VoiceRegistry = preload("res://app/voice_registry.gd")
+
 
 ## Opens the scene for a pending event; `on_done` runs once it is answered.
 static func open(s: GameScreen, event_id: String, on_done: Callable) -> Modal:
@@ -17,6 +19,12 @@ static func open(s: GameScreen, event_id: String, on_done: Callable) -> Modal:
 	var chain: Dictionary = Events.chain(ev.chain)
 	var m: Modal = Modal.make(Strings.fmt(DictIO.str_of(step, "title_key")), false)
 	m.name = "EventOverlay"
+	var voice_result: Dictionary = VoiceService.request(VoiceRegistry.event_cue(ev.chain, ev.step, step))
+	# Keep optional voice status on the presentation overlay for accessibility/tooling without
+	# putting an unavailable-clip notice into the story copy or gating any choice.
+	m.set_meta("voice_utterance_id", str(voice_result.get("utterance_id", "")))
+	m.set_meta("voice_status", str(voice_result.get("status", "unavailable")))
+	m.set_meta("voice_status_text", VoiceService.status_text(str(voice_result.get("status", "unavailable"))))
 	var cue: String = DictIO.str_of(step, "music")
 	if not cue.is_empty():
 		Audio.play_music(cue)
@@ -47,6 +55,7 @@ static func open(s: GameScreen, event_id: String, on_done: Callable) -> Modal:
 	for i in choices.size():
 		m.body.add_child(_choice(s, m, state, e, ev, choices[i], i))
 	m.dismissed.connect(func() -> void:
+		VoiceService.stop_utterance()
 		# The story cue ends with the scene: back to the scenario's own track.
 		Audio.play_music(GameModel.main_music(Game.state))
 		if on_done.is_valid():

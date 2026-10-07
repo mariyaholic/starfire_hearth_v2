@@ -241,7 +241,7 @@ func _load_checkpoint() -> void:
 	if not lr.ok:
 		Overlay.toast(Strings.fmt(lr.error_key), ReportItem.SEVERITY_WARNING)
 		return
-	go(AppRoot.CONTINUE, {"state": lr.state})
+	go(AppRoot.CONTINUE, {"state": lr.state, "presentation":lr.presentation, "presentation_overlay":lr.presentation_overlay})
 
 
 func _finish() -> void:

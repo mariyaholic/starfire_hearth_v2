@@ -160,7 +160,7 @@ func _item(into: VBoxContainer, key: String, icon: String, variant: String, rout
 	var b: SfButton = SfButton.make(key, icon, variant)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	if route == "continue":
-		b.pressed.connect(func() -> void: go("continue", {"slot": _newest["slot"], "state": _newest["state"]}))
+		b.pressed.connect(func() -> void: go("continue", _newest.duplicate()))
 	else:
 		b.pressed.connect(go.bind(route))
 	into.add_child(b)
@@ -183,5 +183,5 @@ static func _find_newest() -> Dictionary:
 	for s: Dictionary in SaveService.list_slots():
 		var lr: SaveSerializer.LoadResult = SaveService.load_slot(str(s["slot"]))
 		if lr.ok and lr.state != null:
-			return {"slot": str(s["slot"]), "state": lr.state}
+			return {"slot": str(s["slot"]), "state": lr.state, "presentation":lr.presentation, "presentation_overlay":lr.presentation_overlay}
 	return {}

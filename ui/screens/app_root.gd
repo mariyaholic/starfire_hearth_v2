@@ -45,6 +45,32 @@ func _ready() -> void:
 ## play one turn (which auto-saves) and say so in the browser console.
 func _web_smoke() -> void:
 	var v: Variant = JavaScriptBridge.eval("new URLSearchParams(window.location.search).get('smoke') || ''", true)
+	if str(v) == "m11-immersive":
+		var probe: M11ImmersiveProbe=M11ImmersiveProbe.new()
+		probe.name="ImmersiveProbe"; add_child(probe); probe.start(self); return
+	if str(v) == "m11-stage-f":
+		var probe: M11StageFProbe=M11StageFProbe.new()
+		probe.name="StageFProbe"; add_child(probe); probe.start(self); return
+	if str(v) == "m11-stage-e":
+		var probe: M11StageEProbe = M11StageEProbe.new()
+		probe.name = "StageEProbe"; add_child(probe)
+		probe.start(self)
+		return
+	if str(v) == "m11-stage-d":
+		var probe: M11StageDProbe = M11StageDProbe.new()
+		probe.name = "StageDProbe"; add_child(probe)
+		probe.start(self)
+		return
+	if str(v) == "m11-stage-c":
+		var probe: M11StageCProbe = M11StageCProbe.new()
+		probe.name = "StageCProbe"; add_child(probe)
+		probe.start(self)
+		return
+	if str(v) == "m11-stage-a":
+		var probe: M11StageAProbe = M11StageAProbe.new()
+		probe.name = "StageAProbe"; add_child(probe)
+		probe.start(self)
+		return
 	if str(v) != "begin":
 		return
 	go(BEGIN, {"scenario": CampaignProgress.ORDER[0], "seed": 1})
@@ -71,9 +97,11 @@ func go(to: String, args: Dictionary = {}) -> void:
 			if st == null:
 				Overlay.toast(Strings.fmt("save.error.corrupt"), ReportItem.SEVERITY_WARNING)
 				return
-			Game.resume(st)
+			Game.resume(st, str(args.get("presentation", "")), str(args.get("presentation_overlay", "")))
 			scenario_id = st.scenario_id
 			_open(DEBRIEF if st.is_over() else GAME)
+			if not Worlds.appearances.notice.is_empty():
+				Overlay.toast(Strings.fmt(Worlds.appearances.notice), ReportItem.SEVERITY_WARNING)
 		BEGIN:
 			var game_seed: int = int(args["seed"]) if args.has("seed") else randi()
 			Game.new_game(scenario_id, game_seed, progress.difficulty_id)
@@ -87,6 +115,7 @@ func _open(to: String, args: Dictionary = {}) -> void:
 		push_warning("AppRoot: no screen for route %s" % to)
 		to = TITLE
 	Overlay.close_all()
+	if to == TITLE: Worlds.restart()
 	if screen != null:
 		remove_child(screen)
 		screen.queue_free()
