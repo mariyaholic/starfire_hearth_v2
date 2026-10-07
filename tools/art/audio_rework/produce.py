@@ -267,7 +267,9 @@ def render_music_r3(item):
   if not events or inst not in INSTRUMENTS:continue
   midi=folder/(name+'.mid');wav=folder/(name+'.wav');write_phrased_midi(events,midi,s['bpm'],item['seconds']+3,inst,s['bar_seconds'],s['music_end'],s['lead_in'])
   with (folder/(name+'.log')).open('w') as log:
-   subprocess.run([str(RENDERER),'--sfz',INSTRUMENTS[inst],'--midi',str(midi.resolve()),'--wav',str(wav.resolve()),'--samplerate',str(SR),'--quality','10'],stdout=log,stderr=log,check=True)
+   # --use-eot bounds the render at the MIDI end-of-track (cue length + 3 s); without it a
+   # voice that never releases makes sfizz render forever.
+   subprocess.run([str(RENDERER),'--sfz',INSTRUMENTS[inst],'--midi',str(midi.resolve()),'--wav',str(wav.resolve()),'--samplerate',str(SR),'--quality','10','--use-eot'],stdout=log,stderr=log,check=True)
   data=read_audio(wav)
   # Balance by musical role: the tune leads, harmony and colour sit underneath.
   data*=10**((s['role_level'][p['role']]-active_rms_db(data))/20)

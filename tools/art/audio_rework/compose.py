@@ -398,6 +398,15 @@ def score_r3(cue,preset,duration,motif,fit,rng):
   for e in p['events']:e['at']=round(e['at']+lead_in,4)
  for e in percussion:e['at']+=lead_in
  curve=[(0.0,curve[0][1])]+[(round(t+lead_in,3),g) for t,g in curve]
+ # A struck string sounds once at a time: a repeated pitch ends the previous note just before it,
+ # so the MIDI never holds two voices of one key (which could leave a voice ringing forever).
+ for p in parts.values():
+  if p['instrument'] in SUSTAINED:continue
+  last={}
+  for e in sorted(p['events'],key=lambda e:e['at']):
+   prior=last.get(e['note'])
+   if prior and prior['at']+prior['duration']>e['at']-.01:prior['duration']=round(max(.05,e['at']-.01-prior['at']),4)
+   last[e['note']]=e
  # Looping cues settle inside the file: nothing rings past the loop point.
  for p in parts.values():
   if not ending:
