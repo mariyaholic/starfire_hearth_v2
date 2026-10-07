@@ -1,0 +1,55 @@
+Starfire Hearth — before/after audio rendition review, 7 October 2026
+
+Original versions: bit-identical copies from assets/delivered/ in the existing
+Starfire Hearth project. All original project credits and rights remain applicable.
+No original game audio has been overwritten or published by this review process.
+
+New versions: full-length original arrangements/recompositions for the established
+cue roles, performed with recorded sample libraries and designed synthesis. They
+are not note-for-note transcriptions or EQ-only remasters. Human speech is absent;
+Vael cues are nonverbal tonal sound effects. Plucked-harp parts are used for the
+weathered/domestic roles; a recorded nylon-guitar library was not used.
+
+Salamander Grand Piano v3, by Alexander Holm
+Source: https://github.com/sfzinstruments/SalamanderGrandPiano
+Snapshot: 3382bf9496bba2486f5ab0de55a264d1dfc38404
+License: Creative Commons Attribution 3.0 Unported
+https://creativecommons.org/licenses/by/3.0/
+The complete upstream SFZ velocity-layered piano was rendered by sfizz. In this
+review its recordings were sequenced, transposed as mapped, stereo-positioned,
+mixed, reverberated and level-adjusted. SFX use trimmed/transposed piano excerpts
+with envelopes and additional designed layers. The original recordings and their
+license are unchanged. Credit is included here and in both listening players.
+
+VSCO 2 Community Edition, Versilian Studios / Sam Gossner and contributors
+https://versilian-studios.com/vsco-community/
+https://github.com/sgossner/VSCO-2-CE
+Snapshot: 440300901dfe9275fd84e0b7763af1f8443ae62e
+CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/
+Recorded strings, horns/trumpet, flute, clarinet, bassoon, harp, glockenspiel,
+marimba and percussion. Custom SFZ maps set concert pitch, velocity and
+round-robin regions; sustain sample copies received crossfade loops. Rendered
+parts were positioned, sequenced, mixed and given a shared hall treatment.
+Raw upstream sample files remain unchanged. Selected percussion recordings also
+provide short tactile, metallic and drum transients for individually designed SFX.
+
+sfizz 1.2.3 offline rendering engine
+https://sfz.tools/sfizz/  https://github.com/sfztools/sfizz
+BSD 2-Clause. Offline rendering, not a new runtime dependency of the game.
+Intermediate sampler stems are 16-bit PCM; final mixes/masters are 24-bit PCM.
+New delivered renditions follow existing OGG/WAV filenames and roles. Browser
+copies use AAC/M4A; the original before/ files are retained losslessly as supplied.
+
+Library provenance, sample hashes and modified sample maps remain under
+/workspace/.starfire-setup/audio-libraries/. Instrument libraries, executables and
+intermediate stems are not included in the listening ZIP. The scripts and musical
+scores document the arrangement and processing for subsequent refinement.
+
+Revision 2: note lengths/overlaps and same-pitch ties were revised, piano sustain
+pedal controls added, and struck/plucked releases lengthened. Velocity ranges are
+now mapped per pitch so sparse sample layers leave no unplayable volume ranges.
+Offline sampler maps use full-RAM loading; Salamander Offline.sfz is an additional
+wrapper, and the upstream Salamander instrument/sources remain unchanged.
+The high metallic music lead is replaced with lower clarinet and soft marimba;
+repeating high colour accents now use quieter, lower-register wooden mallets.
+The original game audio and first-rendition review remain intact.
