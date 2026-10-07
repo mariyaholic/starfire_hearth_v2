@@ -20,6 +20,7 @@ import math
 import numpy as np
 
 MAJOR=[0,2,4,5,7,9,11];MINOR=[0,2,3,5,7,8,10]
+LEAD_IN=.3
 TONIC={'D':2,'G':7,'B':11,'F':5}
 # Character themes need their own sound, not the title's key, chords and rhythm.
 STYLE_KEY={'scholar':'F'}
@@ -127,7 +128,10 @@ def plan_form(bars,ending,progressions):
 def score_r3(cue,preset,duration,motif,fit,rng):
  key,bars,meter,lead,style,description=preset;ending=cue.startswith('sting_');key=STYLE_KEY.get(style,key)
  family=FAMILY.get(style,'lyrical');harmony=Harmony(key);progressions=STYLE_PROGRESSIONS.get(style,PROGRESSIONS[harmony.mode])
- tail=min(4,duration*.16) if ending else 0;beat=(duration-tail)/(bars*meter);bar_s=beat*meter;bpm=60/beat
+ # A short breath before the first note: an attack on the file's first sample is clipped by
+ # MP3 decoders and players and sounds like a cut.
+ lead_in=LEAD_IN
+ tail=min(4,duration*.16) if ending else 0;beat=(duration-tail-lead_in)/(bars*meter);bar_s=beat*meter;bpm=60/beat
  sections=plan_form(bars,ending,progressions)
  chords=[];labels=[];levels=[];count={}
  # Section dynamics: quiet first statement, fuller returns, a lift in the contrast.
@@ -390,13 +394,17 @@ def score_r3(cue,preset,duration,motif,fit,rng):
  for t in times:
   b=min(bars-1,int(t/bar_s));lvl=levels[b];pos=(t%(4*bar_s))/(4*bar_s)
   curve.append((round(float(t),3),round(float((.55+.45*lvl)*(.9+.14*math.sin(math.pi*pos))),4)))
+ for p in parts.values():
+  for e in p['events']:e['at']=round(e['at']+lead_in,4)
+ for e in percussion:e['at']+=lead_in
+ curve=[(0.0,curve[0][1])]+[(round(t+lead_in,3),g) for t,g in curve]
  # Looping cues settle inside the file: nothing rings past the loop point.
  for p in parts.values():
   if not ending:
-   for e in p['events']:e['duration']=round(max(.06,min(e['duration'],bars*bar_s-.45-e['at'])),4)
+   for e in p['events']:e['duration']=round(max(.06,min(e['duration'],lead_in+bars*bar_s-.45-e['at'])),4)
   p['events'].sort(key=lambda e:(e['at'],e['note']))
   p['dynamics']=curve if p['instrument'] in SUSTAINED else None
  return {'id':cue,'style':style,'family':family,'key':{'D':'D major','G':'G major','B':'B minor','F':'F major'}[key],'bpm':bpm,'meter':meter,'bars':bars,'seconds':duration,
-  'music_end':bars*bar_s,'bar_seconds':bar_s,'description':description,'motif':motif,'form':[(l,len(c)) for l,c in sections],'chords':chords,
+  'music_end':lead_in+bars*bar_s,'lead_in':lead_in,'bar_seconds':bar_s,'description':description,'motif':motif,'form':[(l,len(c)) for l,c in sections],'chords':chords,
   'parts':parts,'percussion':percussion,'loop':not ending,'role_level':ROLE_LEVEL,
   'method':'Revision 3: harmony-led melody from the cue motif, cadential phrases in A A B A form, voice-led strings, phrase dynamics and per-role balance.'}

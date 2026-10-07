@@ -265,7 +265,7 @@ def render_music_r3(item):
  for name,p in s['parts'].items():
   inst=p['instrument'];events=p['events']
   if not events or inst not in INSTRUMENTS:continue
-  midi=folder/(name+'.mid');wav=folder/(name+'.wav');write_phrased_midi(events,midi,s['bpm'],item['seconds']+3,inst,s['bar_seconds'],s['music_end'])
+  midi=folder/(name+'.mid');wav=folder/(name+'.wav');write_phrased_midi(events,midi,s['bpm'],item['seconds']+3,inst,s['bar_seconds'],s['music_end'],s['lead_in'])
   with (folder/(name+'.log')).open('w') as log:
    subprocess.run([str(RENDERER),'--sfz',INSTRUMENTS[inst],'--midi',str(midi.resolve()),'--wav',str(wav.resolve()),'--samplerate',str(SR),'--quality','10'],stdout=log,stderr=log,check=True)
   data=read_audio(wav)

@@ -46,7 +46,7 @@ def phrase(stems,beat,meter,bars,ending=False):
   stems[inst]=sorted(updated,key=lambda e:(e['at'],e['note']))
  return {'revision':2,'method':'Held lines through harmonic boundaries, instrumental overlap, same-pitch ties, brief wind phrase breaths and controlled piano pedal. Struck instruments retain natural decay.','changed_note_lengths':len(changes),'examples':changes[:20],'piano_pedal':True}
 
-def write_midi(events,path,bpm,end,instrument,bar_seconds,music_end):
+def write_midi(events,path,bpm,end,instrument,bar_seconds,music_end,offset=0.0):
  """Reference-count simultaneous same-pitch notes before emitting a MIDI note-off.
 
  sfizz_render discards MIDI channels, so moving parts to separate MIDI channels
@@ -58,8 +58,8 @@ def write_midi(events,path,bpm,end,instrument,bar_seconds,music_end):
  if instrument=='piano':
   for cc,value in [(72,50),(22,8)]:scheduled.append((0,1,'cc',(cc,value)))
   scheduled.append((0,1,'cc',(64,100)))
-  for bar in range(1,round(music_end/bar_seconds)):
-   at=bar*bar_seconds;scheduled.extend([(ticks(at-.020),1,'cc',(64,0)),(ticks(at+.015),1,'cc',(64,100))])
+  for bar in range(1,round((music_end-offset)/bar_seconds)):
+   at=offset+bar*bar_seconds;scheduled.extend([(ticks(at-.020),1,'cc',(64,0)),(ticks(at+.015),1,'cc',(64,100))])
   scheduled.append((ticks(music_end),1,'cc',(64,0)))
  active=defaultdict(int);previous=0
  for tick,order,kind,value in sorted(scheduled,key=lambda x:(x[0],x[1])):
