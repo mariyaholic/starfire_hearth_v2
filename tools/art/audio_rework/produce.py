@@ -275,20 +275,21 @@ def render_music_r3(item):
   pan=PANS.get(inst,0);mid=data.mean(axis=1);side=(data[:,0]-data[:,-1])*.30
   part=np.column_stack((mid*math.sqrt((1-pan)/2)+side,mid*math.sqrt((1+pan)/2)-side)).astype(np.float32)
   count=min(n,len(part));dry[:count]+=part[:count];send[:count]+=part[:count]*(.35 if inst in ['piano','pizz','spiccato'] else .6)
-  if s['loop'] and len(part)>n:
-   tail=part[n:n+min(n,SR*3)];dry[:len(tail)]+=tail;send[:len(tail)]+=tail*.6
  for e in s['percussion']:
   sample=HITS[e['sample']];start=round(e['at']*SR);count=min(len(sample),n-start)
   if count>0:dry[start:start+count]+=sample[:count,None]*e['gain']*.15;send[start:start+count]+=sample[:count,None]*e['gain']*.06
  wet=np.zeros_like(dry)
  for channel in range(2):
   ir=hall_impulse(seed_of(cue)+channel);v=signal.fftconvolve(send[:,channel],ir).astype(np.float32);wet[:,channel]=v[:n]
-  if s['loop']:wet[:min(n,len(v)-n),channel]+=v[n:n+n]
  mix=dry+wet
  mix=signal.sosfilt(signal.butter(2,35,fs=SR,btype='highpass',output='sos'),mix,axis=0).astype(np.float32)
  fade=int(.012*SR);mix[:fade]*=np.linspace(0,1,fade)[:,None];mix[-fade:]*=np.linspace(1,0,fade)[:,None]
  if not s['loop']:
   end=int(min(4,item['seconds']*.15)*SR);mix[-end:]*=np.linspace(1,0,end)[:,None]**1.4
+ else:
+  # Revision 2 pasted each loop's ring-out over its opening, so a first play began on the
+  # dying final chord. The score now lets the last bar settle inside the file instead.
+  end=int(.35*SR);mix[-end:]*=np.linspace(1,0,end)[:,None]
  print('Mixed '+cue+' ('+str(len(s['parts']))+' sampled parts, revision 3)',flush=True)
  result=master_and_media(mix,item,s['description']);result['music_generation']=MUSIC_GENERATION;result['render_revision']=3
  (OUT/'logs'/(Path(item['file']).stem+'.json')).write_text(json.dumps(result,indent=2)+'\n');return result

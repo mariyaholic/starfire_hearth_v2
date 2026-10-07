@@ -52,6 +52,19 @@ Revision 2 still renders exactly as before with `--revision 2`.
 - **No mallet ticking.** A soft harp figure colours the B sections instead. Marimba remains
   only in the playful cue. Timpani mark section arrivals only.
 
+## Owner feedback on the first pilot render
+
+- **"Weird random cut at the start" of the title.** Real, not the player. Like revision 2,
+  the mixer pasted each looping cue's ring-out and reverb over its opening, so a first play
+  began on the dying final chord with no fade-in. Revision 3 no longer does this: notes in
+  a looping cue's last bar end inside the file, and the last 0.35 s fade out.
+- **Sola's theme "wonky" and "too similar to title".** Both were in D major over the same
+  progression and form. Sola is now in F major with its own chords (I IV ii V, vi ii V I),
+  a dotted, inquisitive rhythm, a bassoon counter-line and flute answers. Quick notes are
+  now lightly detached instead of overlapped: without recorded legato, overlapping quick
+  notes smeared into double attacks. Weak-beat notes may now pass by step instead of being
+  forced onto chord tones, which had flattened the motif into repeated Fs and Cs.
+
 ## Listen
 
 Generated audio is not committed (`reports/` is ignored). Reproduce with the commands below,

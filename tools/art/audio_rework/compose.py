@@ -20,7 +20,10 @@ import math
 import numpy as np
 
 MAJOR=[0,2,4,5,7,9,11];MINOR=[0,2,3,5,7,8,10]
-TONIC={'D':2,'G':7,'B':11}
+TONIC={'D':2,'G':7,'B':11,'F':5}
+# Character themes need their own sound, not the title's key, chords and rhythm.
+STYLE_KEY={'scholar':'F'}
+STYLE_PROGRESSIONS={'scholar':{'ant':[0,3,1,4],'con':[5,1,4,0],'b1':[3,4,2,5],'b2':[3,1,4,4],'turn':[0,3,1,4,0,3,1,4]}}
 # Eight-bar phrases as two four-bar halves of scale-degree roots (0 = tonic).
 PROGRESSIONS={
  'major':{'ant':[0,5,3,4],'con':[0,3,4,0],'b1':[5,3,0,4],'b2':[5,3,1,4],'turn':[0,5,3,1,0,3,1,4]},
@@ -68,6 +71,9 @@ CELLS={
           'cad':([(0,2),(2,1),(3,3)],[2,1,0]),
           'con':([(0,3),(3,2),(5,1)],[4,3,2]),
           'back':([(0,2),(2,1),(3,3)],[2,1,1])}}
+# Sola's scholar theme: a dotted, inquisitive lilt instead of the shared playful rhythm.
+STYLE_CELLS={'scholar':{'M':[(0,.75),(.75,.25),(1,1),(2,.75),(2.75,.25),(3,1),(4,1.5),(5.5,.5),(6,2)],
+ 'con':([(0,.5),(.5,.5),(1,1),(2,2),(4,.5),(4.5,.5),(5,1),(6,2)],[2,3,4,2,1,2,3,1])}}
 # Accompaniment texture by cue character.
 ACCOMPANIMENT={'lyrical':'piano_flow','sparse':'piano_sparse','still':'none','playful':'pizz','driving':'spiccato','waltz':'waltz'}
 HARP_STYLES={'wonder','trade','wry'}
@@ -119,8 +125,8 @@ def plan_form(bars,ending,progressions):
  return sections
 
 def score_r3(cue,preset,duration,motif,fit,rng):
- key,bars,meter,lead,style,description=preset;ending=cue.startswith('sting_')
- family=FAMILY.get(style,'lyrical');harmony=Harmony(key);progressions=PROGRESSIONS[harmony.mode]
+ key,bars,meter,lead,style,description=preset;ending=cue.startswith('sting_');key=STYLE_KEY.get(style,key)
+ family=FAMILY.get(style,'lyrical');harmony=Harmony(key);progressions=STYLE_PROGRESSIONS.get(style,PROGRESSIONS[harmony.mode])
  tail=min(4,duration*.16) if ending else 0;beat=(duration-tail)/(bars*meter);bar_s=beat*meter;bpm=60/beat
  sections=plan_form(bars,ending,progressions)
  chords=[];labels=[];levels=[];count={}
@@ -149,7 +155,7 @@ def score_r3(cue,preset,duration,motif,fit,rng):
   events.append({'at':round(float(at),4),'duration':round(max(.06,float(length)),4),'note':int(note),'velocity':int(velocity),'voice':voice})
 
  # ---- Melody -------------------------------------------------------------
- cells=CELLS[family];m_rhythm=cells['M'];offsets=motif_offsets(motif,harmony)
+ cells=dict(CELLS[family],**STYLE_CELLS.get(style,{}));m_rhythm=cells['M'];offsets=motif_offsets(motif,harmony)
  m_offsets=[offsets[i%len(offsets)] for i in range(len(m_rhythm))]
  lo,hi=LEAD_RANGE.get(lead,(60,84));center=(lo+hi)//2
  # Sorrowful and still cues sing lower in the instrument, where it is warmer.
@@ -168,7 +174,8 @@ def score_r3(cue,preset,duration,motif,fit,rng):
    d=chords[bar];ms=scale_notes(harmony.melody_scale(d),lo-7,hi+8);n=nearest(notes_scale[max(0,min(len(notes_scale)-1,ai+off))],ms)
    chord_tones=scale_notes(harmony.chord(d),lo-2,hi+3)
    on_strong=(onset%meter) in strong
-   if on_strong or length>=1:
+   # Strong beats and long notes are chord tones; weak-beat notes may pass by step.
+   if on_strong or length>=2:
     # Snap to a chord tone without flattening the contour: keep the motif's direction
     # and only repeat a pitch where the motif itself repeats one.
     wanted=0 if last_off is None else (off>last_off)-(off<last_off)
@@ -177,6 +184,10 @@ def score_r3(cue,preset,duration,motif,fit,rng):
     # Prefer the intended pitch, but avoid zig-zag leaps wider than a fourth.
     n=min(options,key=lambda c:(abs(c-n)+.6*max(0,abs(c-last)-5),c))
    out.append([bar*bar_s+(onset%meter)*beat,length*beat,n,d,on_strong]);last=n;last_off=off
+  # A pitch struck three times running sounds stuck: the middle weak note becomes an upper neighbour.
+  for i in range(1,len(out)-1):
+   if out[i-1][2]==out[i][2]==out[i+1][2] and not out[i][4]:
+    ms=scale_notes(harmony.melody_scale(out[i][3]),lo-7,hi+8);out[i][2]=next((x for x in ms if x>out[i][2]),out[i][2])
   # Short off-chord notes must be approached or left by step.
   for i,e in enumerate(out):
    ct={x%12 for x in harmony.chord(e[3])}
@@ -219,7 +230,10 @@ def score_r3(cue,preset,duration,motif,fit,rng):
   label,occurrence,_=labels[min(bars-1,int(at/bar_s))]
   nxt=melody[i+1][0] if i+1<len(melody) else at+length
   breath=i+1<len(melody) and int(nxt/bar_s)%4==0 and int(nxt/bar_s)!=int(at/bar_s)
-  if lead in SUSTAINED:dur=(nxt-at)-(.07 if breath else -.09)
+  short=length<beat*.99
+  # Without recorded legato, overlapping quick notes smear into double attacks, so quick
+  # notes are lightly detached and only notes of a beat or longer are joined.
+  if lead in SUSTAINED:dur=min(length*.85,nxt-at-.03) if short else (nxt-at)-(.07 if breath else -.09)
   elif lead=='piano':dur=max(length,nxt-at-.01)
   else:dur=max(length,min(2.0,nxt-at+.3))
   if i+1==len(melody):dur=length
@@ -228,7 +242,7 @@ def score_r3(cue,preset,duration,motif,fit,rng):
   target_inst=lead
   if label=='B' and family not in ('sparse','still') and style not in ('earnest','wry'):target_inst=alt
   if style=='relay':target_inst=['clarinet','flute','piano','horn'][(int(at/bar_s)//4)%4]
-  inst_dur=dur if target_inst==lead else ((nxt-at)-(.07 if breath else -.09) if target_inst in SUSTAINED else max(length,nxt-at-.01))
+  inst_dur=dur if target_inst==lead else ((min(length*.85,nxt-at-.03) if short else (nxt-at)-(.07 if breath else -.09)) if target_inst in SUSTAINED else max(length,nxt-at-.01))
   if i+1==len(melody):inst_dur=length
   events=lead_events if target_inst==lead else part('lead_'+target_inst,target_inst,'lead')
   note=fit(n,target_inst)
@@ -325,13 +339,13 @@ def score_r3(cue,preset,duration,motif,fit,rng):
   if style=='playful' and b%4==3:add(part('colour','marimba','colour'),human(at+2.5*beat),beat,v[2]+12,vel(lvl*.55,-14))
 
  # ---- Counter-melody and answers -----------------------------------------
- counter_inst='horn' if style in HORN_STYLES else 'cello'
+ counter_inst='horn' if style in HORN_STYLES else 'bassoon' if family=='playful' else 'cello'
  prev_c=None;mel_by_bar={}
  for at,length,n,d,_ in melody:mel_by_bar.setdefault(int(at/bar_s),[]).append(n)
  for b,d in enumerate(chords):
   label,occurrence,i=labels[b]
   if not ((label=='A' and occurrence>=2) or label=='B') or family in ('still','sparse') and label!='B':continue
-  rng_c=(50,69) if counter_inst=='horn' else (50,67);pcs=harmony.chord(d)
+  rng_c=(50,69) if counter_inst=='horn' else (43,62) if counter_inst=='bassoon' else (50,67);pcs=harmony.chord(d)
   cands=[n for n in range(rng_c[0],rng_c[1]+1) if n%12 in pcs]
   mel=mel_by_bar.get(b,[]);direction=(mel[-1]-mel[0]) if len(mel)>1 else 0
   if prev_c is None:c=nearest(60,cands)
@@ -341,7 +355,7 @@ def score_r3(cue,preset,duration,motif,fit,rng):
    c=(contrary or moves)[0]
   add(part('counter',counter_inst,'counter'),human(b*bar_s+.03),bar_s+.1,c,vel(levels[b]*.85,-6),voice='counter');prev_c=c
  # Woodwinds answer at phrase ends while the tune holds its long note.
- answer_inst='bassoon' if style=='scholar' else 'flute' if lead!='flute' else 'clarinet'
+ answer_inst='flute' if lead!='flute' else 'clarinet'
  if family not in ('still','driving'):
   for b,d in enumerate(chords):
    label,occurrence,i=labels[b]
@@ -376,10 +390,13 @@ def score_r3(cue,preset,duration,motif,fit,rng):
  for t in times:
   b=min(bars-1,int(t/bar_s));lvl=levels[b];pos=(t%(4*bar_s))/(4*bar_s)
   curve.append((round(float(t),3),round(float((.55+.45*lvl)*(.9+.14*math.sin(math.pi*pos))),4)))
+ # Looping cues settle inside the file: nothing rings past the loop point.
  for p in parts.values():
+  if not ending:
+   for e in p['events']:e['duration']=round(max(.06,min(e['duration'],bars*bar_s-.45-e['at'])),4)
   p['events'].sort(key=lambda e:(e['at'],e['note']))
   p['dynamics']=curve if p['instrument'] in SUSTAINED else None
- return {'id':cue,'style':style,'family':family,'key':{'D':'D major','G':'G major','B':'B minor'}[key],'bpm':bpm,'meter':meter,'bars':bars,'seconds':duration,
+ return {'id':cue,'style':style,'family':family,'key':{'D':'D major','G':'G major','B':'B minor','F':'F major'}[key],'bpm':bpm,'meter':meter,'bars':bars,'seconds':duration,
   'music_end':bars*bar_s,'bar_seconds':bar_s,'description':description,'motif':motif,'form':[(l,len(c)) for l,c in sections],'chords':chords,
   'parts':parts,'percussion':percussion,'loop':not ending,'role_level':ROLE_LEVEL,
   'method':'Revision 3: harmony-led melody from the cue motif, cadential phrases in A A B A form, voice-led strings, phrase dynamics and per-role balance.'}
