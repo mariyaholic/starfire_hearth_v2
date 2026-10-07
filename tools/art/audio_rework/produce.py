@@ -10,6 +10,7 @@ import soundfile as sf
 from scipy import signal
 from mido import MidiFile,MidiTrack,Message,MetaMessage,bpm2tempo
 from phrasing import phrase,write_midi as write_phrased_midi
+from compose import score_r3
 SR=48000
 RENDERER=Path('/workspace/.starfire-setup/audio-tools/bin/sfizz_render')
 PRESETS={
@@ -60,11 +61,11 @@ MOTIFS={
 'relay':[62,66,69,71,69,66,64,62],'answer':[83,86,90,88,85,86,81,83],
 'shield':[50,54,57,62,61,59,57,62],'homecoming':[62,66,69,71,74,71,69,62]}
 PANS={'piano':-.08,'violin':-.32,'viola':-.13,'cello':.18,'bass':.12,'pizz':-.27,'spiccato':-.30,'horn':.24,'flute':-.16,'clarinet':.10,'bassoon':.15,'harp':-.35,'glock':.30,'marimba':.10}
-parser=argparse.ArgumentParser();parser.add_argument('--libraries',default='/workspace/.starfire-setup/audio-libraries');parser.add_argument('--out',default='reports/audio_rework');parser.add_argument('--only',nargs='*');parser.add_argument('--workers',type=int,default=4);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--libraries',default='/workspace/.starfire-setup/audio-libraries');parser.add_argument('--out',default='reports/audio_rework');parser.add_argument('--only',nargs='*');parser.add_argument('--workers',type=int,default=4);parser.add_argument('--revision',type=int,default=2,choices=[2,3]);args=parser.parse_args()
 ROOT=Path.cwd();LIB=Path(args.libraries);OUT=Path(args.out);OUT.mkdir(parents=True,exist_ok=True)
 INSTRUMENTS=json.loads((LIB/'instruments.json').read_text())
 generation=hashlib.sha256()
-for path in [Path(__file__),Path(__file__).with_name('phrasing.py'),Path(__file__).with_name('prepare_libraries.py'),LIB/'provenance.json',LIB/'piano'/'Salamander Grand Piano V3.sfz',*map(Path,INSTRUMENTS.values())]:generation.update(path.read_bytes())
+for path in [Path(__file__),Path(__file__).with_name('phrasing.py'),*([Path(__file__).with_name('compose.py')] if args.revision==3 else []),Path(__file__).with_name('prepare_libraries.py'),LIB/'provenance.json',LIB/'piano'/'Salamander Grand Piano V3.sfz',*map(Path,INSTRUMENTS.values())]:generation.update(path.read_bytes())
 MUSIC_GENERATION=generation.hexdigest()
 MANIFEST=json.loads((ROOT/'data/asset_manifest.json').read_text())['assets']
 SOURCE_ROOT=ROOT/'assets/delivered'
@@ -243,11 +244,61 @@ def master_and_media(data,item,notes):
  target=min(bl,al);result=dict(item,slug=basename,title=basename.replace('_',' ').title(),description=notes,after_file=str(after.relative_to(OUT)),before_file=str(before.relative_to(OUT)),before_audio=f'media/before/{basename}.m4a',after_audio=f'media/after/{basename}.m4a',before_gain=10**((target-bl)/20),after_gain=10**((target-al)/20),before_level=bl,after_level=al,peak=float(np.max(np.abs(new))),source_sha256=hashlib.file_digest(before.open('rb'),'sha256').hexdigest(),after_sha256=hashlib.file_digest(after.open('rb'),'sha256').hexdigest())
  (OUT/'logs'/(basename+'.json')).write_text(json.dumps(result,indent=2)+'\n');return result
 
+def apply_dynamics(data,curve):
+ """Multiply a rendered part by a smooth gain curve of (seconds, gain) points."""
+ t=np.arange(len(data))/SR;times=[c[0] for c in curve];gains=[c[1] for c in curve]
+ return data*np.interp(t,times,gains,right=gains[-1]).astype(np.float32)[:,None]
+
+def active_rms_db(data):
+ """Level of a part while it plays, ignoring the bars where it rests."""
+ mono=data.mean(axis=1);block=SR//10;count=len(mono)//block
+ if count==0:return -120.0
+ rms=np.sqrt(np.mean(mono[:count*block].reshape(count,block)**2,axis=1));loud=rms[rms>np.max(rms)*.05]
+ return 20*math.log10(max(1e-9,float(np.sqrt(np.mean(loud**2)))))
+
+def render_music_r3(item):
+ cue=item['id'];key,bars,meter,lead,style,description=PRESETS[cue]
+ s=score_r3(cue,PRESETS[cue],item['seconds'],MOTIFS[style],fitted_note,np.random.default_rng(seed_of(cue)))
+ (OUT/'scores'/(cue+'.json')).write_text(json.dumps(s,indent=2)+'\n')
+ n=round(item['seconds']*SR);dry=np.zeros((n,2),np.float32);send=np.zeros((n,2),np.float32)
+ folder=OUT/'renders'/cue;folder.mkdir(exist_ok=True)
+ for name,p in s['parts'].items():
+  inst=p['instrument'];events=p['events']
+  if not events or inst not in INSTRUMENTS:continue
+  midi=folder/(name+'.mid');wav=folder/(name+'.wav');write_phrased_midi(events,midi,s['bpm'],item['seconds']+3,inst,s['bar_seconds'],s['music_end'])
+  with (folder/(name+'.log')).open('w') as log:
+   subprocess.run([str(RENDERER),'--sfz',INSTRUMENTS[inst],'--midi',str(midi.resolve()),'--wav',str(wav.resolve()),'--samplerate',str(SR),'--quality','10'],stdout=log,stderr=log,check=True)
+  data=read_audio(wav)
+  # Balance by musical role: the tune leads, harmony and colour sit underneath.
+  data*=10**((s['role_level'][p['role']]-active_rms_db(data))/20)
+  if p['dynamics']:data=apply_dynamics(data,p['dynamics'])
+  pan=PANS.get(inst,0);mid=data.mean(axis=1);side=(data[:,0]-data[:,-1])*.30
+  part=np.column_stack((mid*math.sqrt((1-pan)/2)+side,mid*math.sqrt((1+pan)/2)-side)).astype(np.float32)
+  count=min(n,len(part));dry[:count]+=part[:count];send[:count]+=part[:count]*(.35 if inst in ['piano','pizz','spiccato'] else .6)
+  if s['loop'] and len(part)>n:
+   tail=part[n:n+min(n,SR*3)];dry[:len(tail)]+=tail;send[:len(tail)]+=tail*.6
+ for e in s['percussion']:
+  sample=HITS[e['sample']];start=round(e['at']*SR);count=min(len(sample),n-start)
+  if count>0:dry[start:start+count]+=sample[:count,None]*e['gain']*.15;send[start:start+count]+=sample[:count,None]*e['gain']*.06
+ wet=np.zeros_like(dry)
+ for channel in range(2):
+  ir=hall_impulse(seed_of(cue)+channel);v=signal.fftconvolve(send[:,channel],ir).astype(np.float32);wet[:,channel]=v[:n]
+  if s['loop']:wet[:min(n,len(v)-n),channel]+=v[n:n+n]
+ mix=dry+wet
+ mix=signal.sosfilt(signal.butter(2,35,fs=SR,btype='highpass',output='sos'),mix,axis=0).astype(np.float32)
+ fade=int(.012*SR);mix[:fade]*=np.linspace(0,1,fade)[:,None];mix[-fade:]*=np.linspace(1,0,fade)[:,None]
+ if not s['loop']:
+  end=int(min(4,item['seconds']*.15)*SR);mix[-end:]*=np.linspace(1,0,end)[:,None]**1.4
+ print('Mixed '+cue+' ('+str(len(s['parts']))+' sampled parts, revision 3)',flush=True)
+ result=master_and_media(mix,item,s['description']);result['music_generation']=MUSIC_GENERATION;result['render_revision']=3
+ (OUT/'logs'/(Path(item['file']).stem+'.json')).write_text(json.dumps(result,indent=2)+'\n');return result
+
 def render_music(item):
  cue=item['id'];cached=OUT/'logs'/(Path(item['file']).stem+'.json')
  if cached.exists():
   previous=json.loads(cached.read_text())
   if previous.get('music_generation')==MUSIC_GENERATION:return previous
+ if args.revision==3:return render_music_r3(item)
  s=score(item);n=round(item['seconds']*SR);dry=np.zeros((n,2),np.float32);send=np.zeros((n,2),np.float32)
  folder=OUT/'renders'/cue;folder.mkdir(exist_ok=True)
  for inst,events in s['stems'].items():
