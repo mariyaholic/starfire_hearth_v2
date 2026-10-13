@@ -131,8 +131,10 @@ OGG_QUALITY_BED = 0.4
 BUDGET_MB = {"music": 70.0, "sfx": 5.0, "painted": 40.0}
 
 LICENCE_OK = re.compile(r"cc0|public domain|work[- ]for[- ]hire|all rights (assigned )?to the owner|"
-                        r"commercial use (is )?(permitted|allowed)", re.I)
-LICENCE_BANNED = re.compile(r"non-?commercial|\bnc\b|share-?alike|\bby-sa\b|\bby-nc\b|\bcc[- ]by\b", re.I)
+                        r"commercial use (is )?(permitted|allowed)|\bcc[- ]by\b", re.I)
+LICENCE_BANNED = re.compile(r"non-?commercial|\bnc\b|share-?alike|\bby[- ]sa\b|\bby[- ]nc\b|\bby[- ]nd\b", re.I)
+# CC BY (attribution only) is accepted when the batch states the credit to record (DESIGN_LOG 105).
+LICENCE_ATTRIBUTION = re.compile(r"\bcc[- ]by\b", re.I)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -758,8 +760,10 @@ def record_credits(kind, batch, meta, ids, today):
             "`tools/import_assets.py`.\nEach item replaces its code fallback; the files are under " \
             "`assets/delivered/`.\n" % head
     tag = "- **%s batch %s**" % (kind, batch)
-    entry = textwrap.fill("%s (%d ids, ingested %s). Licence: %s Source: %s" % (
-        tag, len(ids), today, _sentence(meta.get("licence", "")), _sentence(meta.get("source", ""))),
+    attribution = str(meta.get("attribution", "")).strip()
+    entry = textwrap.fill("%s (%d ids, ingested %s). Licence: %s Source: %s%s" % (
+        tag, len(ids), today, _sentence(meta.get("licence", "")), _sentence(meta.get("source", "")),
+        " Attribution: " + _sentence(attribution) if attribution else ""),
         width=100, subsequent_indent="  ", break_long_words=False, break_on_hyphens=False)
     # Drop this batch's old entry: its first line and the indented lines that continue it.
     lines, skipping = [], False
@@ -805,6 +809,8 @@ def check_licence(meta):
         fails.append("licence not accepted (§15.1 rule 3): %s" % lic)
     if not src.strip():
         fails.append("the manifest names no source")
+    if LICENCE_ATTRIBUTION.search(lic) and not str(meta.get("attribution", "")).strip():
+        fails.append("a CC BY licence needs the credit to record: add \"attribution\" to the manifest")
     generated = re.search(r"image_gen|generated (using|with|by)|midjourney|stable diffusion|dall-?e", lic + " " + src, re.I)
     if generated and not re.search(r"\bplus\b|\bpro\b|\bteam\b|\benterprise\b|\bplan\b", lic + " " + src, re.I):
         warns.append("generated art, but the plan whose terms allow commercial use is not named (§15.1 rule 3)")

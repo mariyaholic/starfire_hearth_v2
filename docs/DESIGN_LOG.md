@@ -440,3 +440,10 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      follows arcs, attached markers follow through ambient pause, and asteroid belts
      share the orbital transition/focused-camera path. Final evidence and platform
      limits are in `milestones/M1_2_D_G_REVALIDATION_REPORT.md`.
+
+105. **Accept CC BY assets when the credit is recorded** (Owner decision, audio revision 3): the
+     approved revision 3 soundtrack uses the Salamander Grand Piano V3 by Alexander Holm, which
+     is CC BY 3.0. The Owner chose to keep it rather than swap to a CC0 upright piano. §15.1
+     rule 3 and `tools/import_assets.py` now accept CC BY when the batch manifest gives the
+     credit as `"attribution"`, which the intake writes into `CREDITS.md`. Share-alike,
+     non-commercial and no-derivatives licences stay rejected.

@@ -2334,7 +2334,7 @@ batch.
    holds the files at its root, plus a `manifest.json`:
    ```json
    { "kind": "sfx", "batch": 1,
-     "licence": "CC0 | work-for-hire, all rights to the Owner | generated, commercial use allowed (tool + plan named)",
+     "licence": "CC0 | work-for-hire, all rights to the Owner | generated, commercial use allowed (tool + plan named) | CC BY (with \"attribution\")",
      "source": "who or what made it (person, studio, or tool and version)",
      "items": [ { "id": "ui_click", "file": "ui_click.wav", "notes": "optional" } ] }
    ```
@@ -2353,10 +2353,11 @@ batch.
    | `art` | §15.9 | 1 = title key art and logo (A8) |
    | `store` | §15.9 | 1 = store and platform art (A10) |
 3. **Licence:**
-   - Allowed: CC0; work-for-hire with all rights assigned to the Owner; or generated with
-     commercial-use rights that the tool's terms grant for this plan.
-   - Rejected: anything requiring attribution-only-in-credits-with-conditions, non-commercial
-     terms, or share-alike.
+   - Allowed: CC0; work-for-hire with all rights assigned to the Owner; generated with
+     commercial-use rights that the tool's terms grant for this plan; or CC BY (attribution
+     only) when the batch manifest gives the credit as `"attribution"` (DESIGN_LOG 105).
+   - Rejected: non-commercial terms, share-alike, no-derivatives, or any attribution
+     requirement beyond a credit line.
    - Every accepted batch is credited in `CREDITS.md`.
 4. **No text in images, and no logos or trademarks** other than the game's own. Do not imitate
    named artists or franchises.
