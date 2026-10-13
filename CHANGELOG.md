@@ -5,6 +5,17 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
+- Audio revision 3 is installed: all 28 music cues (music batch 2), rewritten
+  harmony-first by `tools/art/audio_rework/compose.py` and rendered from VSCO 2 CE
+  (CC0) and the Salamander Grand Piano V3 (CC BY 3.0, credited in `CREDITS.md`).
+  The intake now accepts CC BY with attribution. Music encodes at Vorbis quality 5
+  to fit the 70 MB budget (59.9 MB). Loops restart after the 0.3 s lead-in.
+  **Verified:** `python3 tools/import_assets.py --zip incoming/sfh_music_batch2.zip
+  --replace`: 28 pass, loudness -18 LUFS ±0.2, true peak ≤ -1.27 dBTP;
+  `tests/run_tests.gd`: 255 tests / 12,392 checks; `tools/validate_data.gd`: zero
+  errors. **Unverified:** the Owner has heard 3 of the 28 cues.
+  See `docs/milestones/AUDIO_REWORK_R3_PILOT_REPORT.md`.
+
 - M1.2 owner UI review incorporates compact Immersive summary/context windows,
   tabbed Manage/Research and device-local Matte/Frosted/Glossy finishes. Workspace
   v2 migrates untouched oversized defaults while retaining custom arrangements.

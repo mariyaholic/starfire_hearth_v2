@@ -13,7 +13,7 @@ item. A FAIL item is not ingested and keeps its fallback. --check writes nothing
 asset is never replaced without --replace. Reports and contact sheets go to reports/assets/
 (git-ignored).
 
-Conversions: music to Ogg Vorbis (quality 6); sounds to 16-bit WAV (a looping bed to Ogg);
+Conversions: music to Ogg Vorbis (quality 5); sounds to 16-bit WAV (a looping bed to Ogg);
 optional character voice to non-looping Ogg Vorbis; scenes, portraits and key art to lossy WebP
 at display size; ships and VFX stay PNG; store art is kept as delivered in a folder Godot ignores,
 so it never ships inside the game.
@@ -122,9 +122,10 @@ WEBP_QUALITY = 88
 # Godot re-encodes every texture on import; painted art is stored lossy in the game's pack
 # (lossless would be several times larger) and gets mipmaps, as it is drawn at many sizes.
 PAINTED_IMPORT = {"compress/mode": 1, "compress/lossy_quality": 0.85, "mipmaps/generate": True}
-# Vorbis quality 6. The budget (§9.11) allows about 112 kbps on average; this sparse, clean music
-# needs far less at any quality, so it gets a high one (batch 1 averages about 70 kbps).
-OGG_QUALITY_MUSIC = 0.6
+# Vorbis quality 5. The budget (§9.11) allows about 112 kbps on average at batch 1's 83 minutes.
+# Batch 1 was sparse (about 70 kbps at quality 6); revision 3 (batch 2) is fuller and needs about
+# 180 kbps at quality 6, which overran the budget, and 153 kbps at quality 5 (60 MB in all).
+OGG_QUALITY_MUSIC = 0.5
 OGG_QUALITY_BED = 0.4
 
 # §9.11: what the game may add to the web download.

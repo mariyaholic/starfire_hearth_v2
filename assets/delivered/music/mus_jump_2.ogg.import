@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/mus_jump_2.ogg-18ba375be227c7433a663684ff5634
 [params]
 
 loop=true
-loop_offset=0.0
+loop_offset=0.3
 bpm=0
 beat_count=0
 bar_beats=4

@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/mus_title.ogg-a7864d3a1c5156c8e315fc249de0f6d
 [params]
 
 loop=true
-loop_offset=0.0
+loop_offset=0.3
 bpm=0
 beat_count=0
 bar_beats=4

@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/mood_mystery.ogg-1806ce5d22a70558a1b89451c5b6
 [params]
 
 loop=true
-loop_offset=0.0
+loop_offset=0.3
 bpm=0
 beat_count=0
 bar_beats=4

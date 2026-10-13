@@ -3,7 +3,11 @@
 7 October 2026. Follows the [revision 2 handoff](AUDIO_REWORK_OPUS_5_5_HANDOFF.md), where the
 Owner was not convinced and asked for further soundtrack revisions. As that handoff
 recommends, this is a **small pilot for listening before anything else is rendered**: three
-cues (title, sorrow, Sola). It is not an approved soundtrack, and nothing in the game changed.
+cues (title, sorrow, Sola).
+
+**Update, 13 October 2026: installed.** After the fixes below, the Owner approved the pilot
+("Much better. Incorporate that.") and chose to keep the Salamander grand under CC BY. All 28
+cues were rendered and installed as music batch 2 (see "Installation" below).
 
 ## What was actually wrong
 
@@ -83,8 +87,21 @@ or use the files shared with this pilot:
   Owner still hears the instruments themselves as fake, the next step is better samples or
   a DAW workflow, not more score work.
 - **Same hall reverb.** The synthetic hall from revisions 1 and 2 is unchanged.
-- **Three cues only.** The composer covers all 28 cues; the other 25 are not rendered or reviewed.
+- **Three cues reviewed.** All 28 are rendered and installed; the Owner has heard only title,
+  sorrow and Sola.
 - SFX are unchanged from revision 1.
+
+## Installation
+
+- `package_batch.py` builds `incoming/sfh_music_batch2.zip` from the 28 masters, with the
+  licence, the pinned sources and the Salamander credit. Each loop starts at sample 14400,
+  just after the 0.3 s lead-in.
+- `import_assets.py --replace` ran every brief check: 28 pass, -17.99 to -18.19 LUFS, true peak
+  -1.27 dBTP or lower. The credit is in `CREDITS.md`.
+- **Encoding.** At Vorbis quality 6, the fuller score came to 70.1 MB, over the 70 MB budget.
+  Music now encodes at quality 5: 153 kbps on average, 59.9 MB in all.
+- **Import settings.** The Godot uids are kept, and each loop's `.import` has `loop_offset=0.3`.
+- **Checks.** `tests/run_tests.gd` (255 tests) and `tools/validate_data.gd` pass after the import.
 
 ## Reproduce
 
@@ -97,4 +114,8 @@ python3 tools/art/audio_rework/prepare_libraries.py
 python3 tools/art/audio_rework/produce.py --revision 3 --out reports/audio_rework_r3 --only mus_title mood_sorrow theme_sola
 python3 tools/art/audio_rework/produce.py --revision 2 --out reports/audio_rework_phrasing --only mus_title mood_sorrow theme_sola
 python3 tools/art/audio_rework/build_r3_comparison.py
+# Full soundtrack and install:
+python3 tools/art/audio_rework/produce.py --revision 3 --out reports/audio_rework_r3 --workers 3
+python3 tools/art/audio_rework/package_batch.py
+python3 tools/import_assets.py --zip incoming/sfh_music_batch2.zip --replace
 ```

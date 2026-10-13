@@ -26,7 +26,8 @@ Each item replaces its code fallback; the files are under `assets/delivered/`.
   synthesis by OpenAI Codex for Starfire Hearth; no sampled material.
 - **sfx batch 2** (18 ids, ingested 2026-09-25). Licence: CC0-1.0. Source: Original procedural
   synthesis by OpenAI Codex for Starfire Hearth.
-- **music batch 1** (28 ids, ingested 2026-09-25). Licence: CC0-1.0. Original compositions and
+- **music batch 1** (28 ids, ingested 2026-09-25; every id replaced by music batch 2 on 2026-10-13,
+  so none of it ships). Licence: CC0-1.0. Original compositions and
   synthesized recordings dedicated under CC0 1.0 Universal; no attribution required.
   https://creativecommons.org/publicdomain/zero/1.0/. Source: Original melodic visual-novel
   compositions and instrument synthesis authored by OpenAI Codex for Starfire Hearth; rendered with
@@ -59,3 +60,10 @@ Each item replaces its code fallback; the files are under `assets/delivered/`.
   third-party stock or fonts used. Source: OpenAI Codex: original SVG store compositions and raster
   rendering from Starfire Hearth brief 8 source art. Title art: OpenAI built-in image_gen on ChatGPT
   Plus; logo and emblem: original SVG geometry by OpenAI Codex.
+- **music batch 2** (28 ids, ingested 2026-10-13). Licence: CC0 compositions; recorded samples VSCO
+  2 Community Edition (CC0) and Salamander Grand Piano V3 (CC BY 3.0). Source: Audio revision 3,
+  composed by tools/art/audio_rework/compose.py and rendered with sfizz 1.2.3 from VSCO 2 CE (pin
+  440300901dfe9275fd84e0b7763af1f8443ae62e) and Salamander Grand Piano V3 (pin
+  3382bf9496bba2486f5ab0de55a264d1dfc38404). Attribution: Piano: Salamander Grand Piano V3 by
+  Alexander Holm, licensed under CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/); samples
+  mapped and rendered, not otherwise modified.
