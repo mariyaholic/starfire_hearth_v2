@@ -447,3 +447,10 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      rule 3 and `tools/import_assets.py` now accept CC BY when the batch manifest gives the
      credit as `"attribution"`, which the intake writes into `CREDITS.md`. Share-alike,
      non-commercial and no-derivatives licences stay rejected.
+
+106. **Horror and grimdark are no longer banned** (Owner decision, branching campaign): the darker
+     routes and endings (Only Ember, Fossil Light, and the failure endings) need them. §4.1 and
+     §8 drop the ban; §15.3 adds a dark variant that keeps the diorama forms and light direction
+     with a muted palette and one small warm light; §15.10 keeps "grimdark, horror" in the negative
+     prompt only for standard, hopeful scenes. "No grime or gore" (§15.3, Surfaces) still applies.
+     All 27 ending scenes are made at full size (3200×1200).
