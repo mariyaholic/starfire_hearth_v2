@@ -375,8 +375,28 @@
       "title": "gardener_ilyin__warm",
       "kind": "portrait",
       "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer's shirt with the insignia removed; a brass key on a cord at his collar. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
-      "status": "blocked_missing_reference",
-      "completed_in_prior_chat": false
+      "status": "generated",
+      "completed_in_prior_chat": false,
+      "file": "portraits/gardener_ilyin__warm.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "75c85aa79f548936895443646482e9792f2f4ac8d3e585c50418b9bce1602ef7",
+      "reference": "assets/branching_campaign/portraits/gardener_ilyin.png",
+      "reference_sha256": "559b385075741ce43778bf61f121ac2c9c70233102162688394fd240329d402e",
+      "completed_utc": "2026-10-14T22:12:55.078905+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer's shirt with the insignia removed; a brass key on a cord at his collar. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\n\nSame character, same pose, outfit, framing and light as the reference image; change only the expression.",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          3.03,
+          247.57,
+          5.72
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "Face, pose, clothing, brass key and lighting match the neutral. Small smile is subtle. No visible text or watermark; tight neutral headroom retained."
+      }
     },
     {
       "id": "gardener_ilyin__worried",
