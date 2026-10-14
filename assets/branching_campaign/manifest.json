@@ -346,8 +346,29 @@
       "title": "gardener_ilyin",
       "kind": "portrait",
       "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer's shirt with the insignia removed; a brass key on a cord at his collar. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
-      "status": "completed_in_prior_chat_file_unavailable",
-      "completed_in_prior_chat": true
+      "status": "regenerated_neutral",
+      "completed_in_prior_chat": true,
+      "file": "portraits/gardener_ilyin.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "559b385075741ce43778bf61f121ac2c9c70233102162688394fd240329d402e",
+      "reference": "",
+      "reference_sha256": null,
+      "completed_utc": "2026-10-14T22:11:54.041799+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer's shirt with the insignia removed; a brass key on a cord at his collar. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          3.36,
+          249.86,
+          2.19
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "No visible text or watermark. Older grey-bearded gardener, work apron and brass key present. Native framing is tighter than the requested 12 percent headroom; head top is about 6 percent below edge."
+      },
+      "regenerated_neutral": true
     },
     {
       "id": "gardener_ilyin__warm",
