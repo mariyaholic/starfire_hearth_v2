@@ -3,7 +3,7 @@
   "tool": "image_gen.imagegen",
   "source": "source_prompts.txt",
   "recovered_from_thread": "01a0f273-09b8-721b-be9f-20d50b5330b3",
-  "note": "47 renders were completed in the earlier chat but their files are unavailable in this workspace and are not included in this commit. Quiet Foreclosure completed without registration in that earlier manifest. Do not regenerate them automatically. Generate the remaining expression variants sequentially using the original neutral references.",
+  "note": "Sequential resume completed: five regenerated neutral references, 15 expression variants, and the explicitly requested Hale hollow redo are verified local source files and pushed one picture per commit. All 42 original story and ending renders remain unavailable. See REVIEW.md for visual issues and missing IDs. No game import.",
   "items": [
     {
       "id": "lead_gardener",

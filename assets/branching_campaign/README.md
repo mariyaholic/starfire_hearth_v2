@@ -9,3 +9,7 @@ The Owner authorized regeneration of five missing neutral portraits, their 15 ex
 Native dimensions, SHA-256, reference hashes and verification observations are recorded per item in the manifest. `regenerated_neutral` identifies newly recreated neutral references; `generated` identifies completed variants. `completed_in_prior_chat_file_unavailable` means the old render is still missing. File paths are relative to this directory and reference paths to the repository root.
 
 [Original prompts](source_prompts.txt) are preserved. These are green-background source assets for Owner and Ava review. Do not import into the game yet.
+
+## Completed sequential resume
+
+All 21 queued pictures are present: five regenerated neutrals, 15 expressions, and Hale hollow redo. Each has its own pushed picture commit. No generation calls failed. See [REVIEW.md](REVIEW.md) for the full ID/status/dimensions table, visual issues, 42 still-missing scene/ending IDs, and checkpoint history. Owner and Ava review is still required before game import.
