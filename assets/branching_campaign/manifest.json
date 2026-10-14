@@ -910,7 +910,7 @@
       "id": "director_hale__hollow",
       "title": "director_hale__hollow",
       "kind": "portrait",
-      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Director Kasimir Hale, the composite persona (Route B): exactly the existing Director Hale portrait (use it as the reference image), same pose, outfit and light, but his face lit by a faint cool screen glow and very slightly too symmetrical, an uncanny calm; no glitch effects, no text. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
+      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Director Kasimir Hale, the composite persona (Route B): exactly the existing Director Hale portrait (use it as the reference image), same pose, outfit and light, but his face lit from below by a distinct pale cyan screen glow that visibly cools the skin under the jaw and cheekbones, while the warm key light from the upper left stays; eyes very still and slightly unfocused, looking just past the viewer; the faint smile held too evenly, both halves of the face almost mirror-symmetrical. It must read at a glance as an unsettling copy of the reference, not the same picture; no glitch effects, no text. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
       "status": "generated",
       "completed_in_prior_chat": false,
       "reference": "assets/delivered/portrait/director_hale.webp",
@@ -920,13 +920,26 @@
         1254,
         1254
       ],
-      "sha256": "8715d2c763861790dccc47c351cc7ecf0b315ba2113d987ee5513a50da2df1ee",
-      "completed_utc": "2026-10-14T09:23:18.433933+00:00",
+      "sha256": "d359fb708c25f1fa92abc5c6c73f0bf0cd1dffae371f227c4b6aa6ad5295dd18",
+      "completed_utc": "2026-10-14T22:34:05.903415+00:00",
       "requested_dimensions": [
         1024,
         1024
       ],
-      "note": "Native generator returned 1254x1254; original retained without resizing."
+      "superseded_sha256": "8715d2c763861790dccc47c351cc7ecf0b315ba2113d987ee5513a50da2df1ee",
+      "superseded_note": "Earlier hollow variant replaced by the explicitly requested stronger cyan-screen-glow redo.",
+      "reference_sha256": "6e7a398f93c2fec196109cece0acdc445c847eb968be19cada2cecbb96fa701f",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Director Kasimir Hale, the composite persona (Route B): exactly the existing Director Hale portrait (use it as the reference image), same pose, outfit and light, but his face lit from below by a distinct pale cyan screen glow that visibly cools the skin under the jaw and cheekbones, while the warm key light from the upper left stays; eyes very still and slightly unfocused, looking just past the viewer; the faint smile held too evenly, both halves of the face almost mirror-symmetrical. It must read at a glance as an unsettling copy of the reference, not the same picture; no glitch effects, no text. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          3.55,
+          249.72,
+          9.6
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "Reference face, swept hair, uniform, compass pin, pose and warm key light retained. Distinct pale cyan underlighting on jaw, chin and neck visibly differentiates the redo. Still gaze and held smile present; uncanny facial symmetry is subtle. No text, watermark or glitch effects. Headroom about 10 percent."
+      }
     }
   ],
   "path_conventions": "file and source paths are relative to assets/branching_campaign; reference paths are relative to the repository root."
