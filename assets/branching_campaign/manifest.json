@@ -629,8 +629,28 @@
       "title": "lio_hale__worried",
       "kind": "portrait",
       "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Lio Hale, Meridian defector: the Director's daughter, who has spent her life passing for one of many. Young adult; sharp, composed face; swept-back dark hair like her father's; a steel-blue Meridian collar with the compass-rose pin torn off, leaving a small mark. Worried expression, brows drawn.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
-      "status": "blocked_missing_reference",
-      "completed_in_prior_chat": false
+      "status": "generated",
+      "completed_in_prior_chat": false,
+      "file": "portraits/lio_hale__worried.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "1eb3e80aef9c51b70529c1833d8fc54d897714b8a9a8dc430992bf8792b699ee",
+      "reference": "assets/branching_campaign/portraits/lio_hale.png",
+      "reference_sha256": "0b74f0f2ae67c8d54cdc16104f72ef1954b0b13a4038a82652081b7c92c71bf5",
+      "completed_utc": "2026-10-14T22:23:06.600074+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Lio Hale, Meridian defector: the Director's daughter, who has spent her life passing for one of many. Young adult; sharp, composed face; swept-back dark hair like her father's; a steel-blue Meridian collar with the compass-rose pin torn off, leaving a small mark. Worried expression, brows drawn.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\n\nSame character, same pose, outfit, framing and light as the reference image; change only the expression.",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          2.36,
+          250.2,
+          7.1
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "Identity, swept hair, uniform, collar mark, pose and light match reference. Worried furrowed brows visible; no text or watermark. Tight neutral headroom retained."
+      }
     },
     {
       "id": "lio_hale__stern",
