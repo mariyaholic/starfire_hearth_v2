@@ -714,8 +714,28 @@
       "title": "keeper_banda__warm",
       "kind": "portrait",
       "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Keeper Aurelio Banda, lantern keeper: the eldest of the Unlit beacon keepers, fourth generation. Very old, upright; deep-set eyes; a patched orange-red keeper's coat with many sewn repairs; a small working lantern pin at the chest. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
-      "status": "blocked_missing_reference",
-      "completed_in_prior_chat": false
+      "status": "generated",
+      "completed_in_prior_chat": false,
+      "file": "portraits/keeper_banda__warm.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "d60156e79bad4e77784ff0d3642e502e75d5110b5d5cf008fb0a04029c15bac4",
+      "reference": "assets/branching_campaign/portraits/keeper_banda.png",
+      "reference_sha256": "56bec0af9c90f9bc96fc931dafb87538ca7cb5413536833e43b18ddbff6f4508",
+      "completed_utc": "2026-10-14T22:26:10.909169+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Keeper Aurelio Banda, lantern keeper: the eldest of the Unlit beacon keepers, fourth generation. Very old, upright; deep-set eyes; a patched orange-red keeper's coat with many sewn repairs; a small working lantern pin at the chest. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\n\nSame character, same pose, outfit, framing and light as the reference image; change only the expression.",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          3.68,
+          245.22,
+          10.03
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "Keeper likeness, white hair, patched coat, lantern pin, pose and light match regenerated neutral. Small warm smile visible; no text or watermark. Tight headroom and prominent one-sided pin retained."
+      }
     },
     {
       "id": "keeper_banda__worried",
