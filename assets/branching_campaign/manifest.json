@@ -459,8 +459,29 @@
       "title": "pell_okonkwo_dane",
       "kind": "portrait",
       "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Young adult; headphones around the neck; braided hair tied back; a padded night-shift jacket with a teal array badge. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
-      "status": "completed_in_prior_chat_file_unavailable",
-      "completed_in_prior_chat": true
+      "status": "regenerated_neutral",
+      "completed_in_prior_chat": true,
+      "file": "portraits/pell_okonkwo_dane.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "db62bbab914b540943484f93f8d962724eba2646480326737bab53020a11ad69",
+      "reference": "",
+      "reference_sha256": null,
+      "completed_utc": "2026-10-14T22:15:38.693413+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Young adult; headphones around the neck; braided hair tied back; a padded night-shift jacket with a teal array badge. Neutral expression.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          4.18,
+          250.49,
+          2.75
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "No visible text or watermark. Young technician, braided tied-back hair, headphones and padded jacket with teal badge present. Headroom is about 5 percent rather than requested 12 percent; asymmetric badge and loose braids merit mirroring review."
+      },
+      "regenerated_neutral": true
     },
     {
       "id": "pell_okonkwo_dane__warm",
