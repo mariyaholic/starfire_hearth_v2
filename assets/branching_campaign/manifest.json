@@ -827,8 +827,28 @@
       "title": "inspector_castellane__warm",
       "kind": "portrait",
       "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Inspector Seo-yeon Castellane, the Concordance: a courteous imperial inspector from Sol: kind, precise and unbending. Middle-aged; neat silver-streaked hair in a low knot; a white high-collared coat with gold trim and a small sun emblem; calm, assessing gaze. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border",
-      "status": "blocked_missing_reference",
-      "completed_in_prior_chat": false
+      "status": "generated",
+      "completed_in_prior_chat": false,
+      "file": "portraits/inspector_castellane__warm.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "4afe5dbae34aeef668c075b3db6fe41ed5b3600cdaebe524ac763dc5608ae93e",
+      "reference": "assets/branching_campaign/portraits/inspector_castellane.png",
+      "reference_sha256": "d9106488516a200388f8114f26b57c2de6b45a501565073cadfd652862a3d687",
+      "completed_utc": "2026-10-14T22:30:30.183452+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Inspector Seo-yeon Castellane, the Concordance: a courteous imperial inspector from Sol: kind, precise and unbending. Middle-aged; neat silver-streaked hair in a low knot; a white high-collared coat with gold trim and a small sun emblem; calm, assessing gaze. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\n\nSame character, same pose, outfit, framing and light as the reference image; change only the expression.",
+      "verification": {
+        "opens": true,
+        "top_corner_mean_rgb": [
+          2.99,
+          248.88,
+          8.96
+        ],
+        "background_near_00FF00": true,
+        "visual_review": "Inspector face, silver-streaked knot, white-and-gold uniform, sun emblem, pose and light match neutral. Small smile visible; no text or watermark. Tight headroom and large one-sided emblem retained."
+      }
     },
     {
       "id": "inspector_castellane__worried",
