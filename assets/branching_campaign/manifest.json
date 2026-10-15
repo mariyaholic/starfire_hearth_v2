@@ -1551,9 +1551,42 @@
       "id": "end_ember_league",
       "title": "end_ember_league: The Ember League (route E)",
       "kind": "scene",
-      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Ember League): a busy trade station with ships of many colours docking, teal and orange-red banners side by side.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror",
-      "status": "completed_in_prior_chat_file_unavailable",
-      "completed_in_prior_chat": true
+      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Ember League): a busy trade station with ships of many colours docking, teal and orange-red banners side by side.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror\nMatch the painting style, brushwork and palette of the reference image; do not copy its content.",
+      "status": "generated",
+      "completed_in_prior_chat": true,
+      "generation_history": [
+        {
+          "status": "completed_in_prior_chat_file_unavailable",
+          "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Ember League): a busy trade station with ships of many colours docking, teal and orange-red banners side by side.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror"
+        }
+      ],
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Ember League): a busy trade station with ships of many colours docking, teal and orange-red banners side by side.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror\nMatch the painting style, brushwork and palette of the reference image; do not copy its content.",
+      "references": [
+        "assets/delivered/vignette/founders_hall.webp"
+      ],
+      "reference_sha256s": {
+        "assets/delivered/vignette/founders_hall.webp": "6c3ea86bac112bfb7335b4cd743d30c9d45e284ea50c4bcc83b5333ca926b18d"
+      },
+      "run_source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
+      "run_item": 38,
+      "completed_utc": "2026-10-15T10:36:34.240937+00:00",
+      "file": "endings/end_ember_league.png",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "sha256": "c055bce123ad9cc02a655fa7182b09904744721c8bff043488d1e8970244d1a4",
+      "verification": {
+        "opens": true,
+        "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
+        "ocr_flagged_text": [],
+        "watermark_check": "No OCR-detected watermark",
+        "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
+        "native_output_preserved": true,
+        "native_aspect_ratio": 2.66667,
+        "crop_to_8_3_pending": true,
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+      }
     },
     {
       "id": "end_coup",
@@ -2193,7 +2226,7 @@
     "date": "2026-10-15",
     "source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
     "total": 56,
-    "last_checkpoint_item": 37,
+    "last_checkpoint_item": 38,
     "rule": "One image call, native file saved and verified without display, one commit and push, then next item."
   }
 }
