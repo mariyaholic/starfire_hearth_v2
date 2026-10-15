@@ -3,7 +3,7 @@
   "tool": "image_gen.imagegen",
   "source": "source_prompts.txt",
   "recovered_from_thread": "01a0f273-09b8-721b-be9f-20d50b5330b3",
-  "note": "October 15 sequential scene generation and portrait style-redo run in progress. Per-item status and verification are authoritative. No game import.",
+  "note": "October 15 sequential run completed: all 42 scene/ending source images and 14 portrait style redos were generated and pushed one picture per commit without image display. All 63 manifest assets now have source files. See REVIEW.md for OCR flags, native dimensions and review limits. No game import.",
   "items": [
     {
       "id": "lead_gardener",
@@ -43,7 +43,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -78,18 +79,14 @@
       "verification": {
         "opens": true,
         "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
-        "ocr_flagged_text": [
-          {
-            "text": "2\t1\t42\t0\t0\t0\t1495\t449\t36\t30\t-1\t\n3\t1\t42\t1\t0\t0\t1495\t449\t36\t30\t-1\t\n4\t1\t42\t1\t1\t0\t1495\t449\t36\t30\t-1\t\n5\t1\t42\t1\t1\t1\t1495\t449\t36\t30\t32.267372\tvie\n2\t1\t43\t0\t0\t0\t91\t434\t84\t81\t-1\t\n3\t1\t43\t1\t0\t0\t91\t434\t84\t81\t-1\t\n4\t1\t43\t1\t1\t0\t91\t434\t84\t81\t-1\t\n5\t1\t43\t1\t1\t1\t91\t434\t15\t81\t90.453941\t|\n5\t1\t43\t1\t1\t2\t159\t444\t16\t22\t49.099861\ta\n2\t1\t44\t0\t0\t0\t710\t475\t29\t29\t-1\t\n3\t1\t44\t1\t0\t0\t710\t475\t29\t29\t-1\t\n4\t1\t44\t1\t1\t0\t710\t475\t29\t29\t-1\t\n5\t1\t44\t1\t1\t1\t710\t475\t29\t29\t30.761093\t1\n2\t1\t45\t0\t0\t0\t934\t464\t14\t35\t-1\t\n3\t1\t45\t1\t0\t0\t934\t464\t14\t35\t-1\t\n4\t1\t45\t1\t1\t0\t934\t464\t14\t35\t-1\t\n5\t1\t45\t1\t1\t1\t934\t464\t14\t35\t62.741219\t7\n2\t1\t46\t0\t0\t0\t1112\t462\t27\t54\t-1\t\n3\t1\t46\t1\t0\t0\t1112\t462\t27\t54\t-1\t\n4\t1\t46\t1\t1\t0\t1112\t462\t27\t54\t-1\t\n5\t1\t46\t1\t1\t1\t1112\t462\t27\t54\t34.926346\ti\n2\t1\t47\t0\t0\t0\t1496\t492\t91\t28\t-1\t\n3\t1\t47\t1\t0\t0\t1496\t492\t91\t28\t-1\t\n4\t1\t47\t1\t1\t0\t1496\t492\t91\t28\t-1\t\n5\t1\t47\t1\t1\t1\t1496\t492\t91\t28\t47.410999\tA\n2\t1\t48\t0\t0\t0\t1691\t503\t14\t16\t-1\t\n3\t1\t48\t1\t0\t0\t1691\t503\t14\t16\t-1\t\n4\t1\t48\t1\t1\t0\t1691\t503\t14\t16\t-1\t\n5\t1\t48\t1\t1\t1\t1691\t503\t14\t16\t62.949692\tis\n2\t1\t49\t0\t0\t0\t644\t507\t86\t36\t-1\t\n3\t1\t49\t1\t0\t0\t644\t507\t86\t36\t-1\t\n4\t1\t49\t1\t1\t0\t644\t507\t86\t36\t-1\t\n5\t1\t49\t1\t1\t1\t644\t507\t31\t34\t59.885899\ti\n5\t1\t49\t1\t1\t2\t709\t518\t21\t25\t3.627182\t|\n2\t1\t50\t0\t0\t0\t792\t522\t21\t21\t-1\t\n3\t1\t50\t1\t0\t0\t792\t522\t21\t21\t-1\t\n4\t1\t50\t1\t1\t0\t792\t522\t21\t21\t-1\t\n5\t1\t50\t1\t1\t1\t792\t522\t21\t21\t30.304291\tHie\n2\t1\t51\t0\t0\t0\t882\t495\t62\t61\t-1\t\n3\t1\t51\t1\t0\t0\t882\t495\t62\t61\t-1\t\n4\t1\t51\t1\t1\t0\t882\t495\t62\t61\t-1\t\n5\t1\t51\t1\t1\t1\t882\t495\t62\t61\t88.304169\ta\n2\t1\t52\t0\t0\t0\t1190\t531\t26\t23\t-1\t\n3\t1\t52\t1\t0\t0\t1190\t531\t26\t23\t-1\t\n4\t1\t52\t1\t1\t0\t1190\t531\t26\t23\t-1\t\n5\t1\t52\t1\t1\t1\t1190\t531\t26\t23\t19.287148\tig\n2\t1\t53\t0\t0\t0\t1480\t537\t23\t17\t-1\t\n3\t1\t53\t1\t0\t0\t1480\t537\t23\t17\t-1\t\n4\t1\t53\t1\t1\t0\t1480\t537\t23\t17\t-1\t\n5\t1\t53\t1\t1\t1\t1480\t541\t3\t9\t28.774918\ti\n5\t1\t53\t1\t1\t2\t1494\t533\t9\t31\t52.545811\t|]\n2\t1\t54\t0\t0\t0\t1648\t549\t34\t3\t-1\t\n3\t1\t54\t1\t0\t0\t1648\t549\t34\t3\t-1\t\n4\t1\t54\t1\t1\t0\t1648\t549\t34\t3\t-1\t\n5\t1\t54\t1\t1\t1\t1648\t549\t34\t3\t49.282150\t\u2014\u2014\n2\t1\t55\t0\t0\t0\t1757\t493\t110\t36\t-1\t\n3\t1\t55\t1\t0\t0\t1757\t493\t110\t36\t-1\t\n4\t1\t55\t1\t1\t0\t1757\t493\t110\t36\t-1\t\n5\t1\t55\t1\t1\t1\t1757\t493\t110\t36\t12.713852\tAl\n2\t1\t56\t0\t0\t0\t420\t552\t172\t9\t-1\t\n3\t1\t56\t1\t0\t0\t420\t552\t172\t9\t-1\t\n4\t1\t56\t1\t1\t0\t420\t552\t172\t9\t-1\t\n5\t1\t56\t1\t1\t1\t420\t552\t127\t9\t23.679741\tes\n2\t1\t57\t0\t0\t0\t796\t560\t16\t19\t-1\t\n3\t1\t57\t1\t0\t0\t796\t560\t16\t19\t-1\t\n4\t1\t57\t1\t1\t0\t796\t560\t16\t19\t-1\t\n5\t1\t57\t1\t1\t1\t796\t560\t16\t19\t71.207718\tv\n2\t1\t58\t0\t0\t0\t939\t557\t29\t20\t-1\t\n3\t1\t58\t1\t0\t0\t939\t557\t29\t20\t-1\t\n4\t1\t58\t1\t1\t0\t939\t557\t29\t20\t-1\t\n5\t1\t58\t1\t1\t1\t939\t557\t6\t20\t0.000000\t,\n5\t1\t58\t1\t1\t2\t963\t560\t5\t15\t36.699326\t)\n2\t1\t59\t0\t0\t0\t964\t574\t21\t13\t-1\t\n3\t1\t59\t1\t0\t0\t964\t574\t21\t13\t-1\t\n4\t1\t59\t1\t1\t0\t964\t574\t21\t13\t-1\t\n5\t1\t59\t1\t1\t1\t964\t574\t21\t13\t20.920029\tgs.\n2\t1\t60\t0\t0\t0\t1133\t542\t23\t19\t-1\t\n3\t1\t60\t1\t0\t0\t1133\t542\t23\t19\t-1\t\n4\t1\t60\t1\t1\t0\t1133\t542\t23\t19\t-1\t\n5\t1\t60\t1\t1\t1\t1133\t542\t23\t19\t42.891430\tie\n2\t1\t61\t0\t0\t0\t1276\t583\t43\t5\t-1\t\n3\t1\t61\t1\t0\t0\t1276\t583\t43\t5\t-1\t\n4\t1\t61\t1\t1\t0\t1276\t583\t43\t5\t-1\t\n5\t1\t61\t1\t1\t1\t1276\t586\t12\t2\t78.575157\t\u2014\n5\t1\t61\t1\t1\t2\t1311\t583\t8\t4\t17.080521\tae\n2\t1\t62\t0\t0\t0\t898\t538\t22\t52\t-1\t\n3\t1\t62\t1\t0\t0\t898\t538\t22\t52\t-1\t\n4\t1\t62\t1\t1\t0\t898\t538\t22\t52\t-1\t\n5\t1\t62\t1\t1\t1\t898\t538\t22\t52\t33.433556\ti\n2\t1\t63\t0\t0\t0\t1642\t580\t52\t15\t-1\t\n3\t1\t63\t1\t0\t0\t1642\t580\t52\t15\t-1\t\n4\t1\t63\t1\t1\t0\t1642\t580\t52\t15\t-1\t\n5\t1\t63\t1\t1\t1\t1642\t580\t52\t15\t31.918533\tue\n2\t1\t64\t0\t0\t0\t707\t653\t42\t4\t-1\t\n3\t1\t64\t1\t0\t0\t707\t653\t42\t4\t-1\t\n4\t1\t64\t1\t1\t0\t707\t653\t42\t4\t-1\t\n5\t1\t64\t1\t1\t1\t707\t653\t42\t4\t0.000000\t\u2014e-\n2\t1\t65\t0\t0\t0\t1541\t598\t7\t58\t-1\t\n3\t1\t65\t1\t0\t0\t1541\t598\t7\t58\t-1\t\n4\t1\t65\t1\t1\t0\t1541\t598\t7\t58\t-1\t\n5\t1\t65\t1\t1\t1\t1541\t598\t7\t58\t82.430328\t|\n2\t1\t66\t0\t0\t0\t1844\t628\t204\t32\t-1\t\n3\t1\t66\t1\t0\t0\t1844\t628\t204\t32\t-1\t\n4\t1\t66\t1\t1\t0\t1844\t628\t204\t32\t-1\t\n5\t1\t66\t1\t1\t1\t1844\t643\t8\t8\t50.566032\t,\n5\t1\t66\t1\t1\t2\t1903\t624\t58\t40\t0.000000\tSg\n5\t1\t66\t1\t1\t3\t1976\t624\t71\t40\t0.000000\t=-\n2\t1\t67\t0\t0\t0\t699\t751\t70\t11\t-1\t\n3\t1\t67\t1\t0\t0\t699\t751\t70\t11\t-1\t\n4\t1\t67\t1\t1\t0\t699\t751\t70\t11\t-1\t\n5\t1\t67\t1\t1\t1\t699\t751\t70\t11\t33.433998\ta",
-            "confidence": 73.89032
-          }
-        ],
-        "watermark_check": "OCR text candidates require review",
+        "ocr_flagged_text": [],
+        "watermark_check": "No OCR-detected watermark",
         "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -130,7 +127,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -165,18 +163,14 @@
       "verification": {
         "opens": true,
         "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
-        "ocr_flagged_text": [
-          {
-            "text": "2\t1\t16\t0\t0\t0\t1452\t374\t18\t7\t-1\t\n3\t1\t16\t1\t0\t0\t1452\t374\t18\t7\t-1\t\n4\t1\t16\t1\t1\t0\t1452\t374\t18\t7\t-1\t\n5\t1\t16\t1\t1\t1\t1452\t374\t18\t7\t3.655846\t~~\n2\t1\t17\t0\t0\t0\t1821\t377\t46\t5\t-1\t\n3\t1\t17\t1\t0\t0\t1821\t377\t46\t5\t-1\t\n4\t1\t17\t1\t1\t0\t1821\t377\t46\t5\t-1\t\n5\t1\t17\t1\t1\t1\t1821\t377\t46\t5\t40.144409\t\u2014\n2\t1\t18\t0\t0\t0\t290\t406\t62\t24\t-1\t\n3\t1\t18\t1\t0\t0\t290\t406\t62\t24\t-1\t\n4\t1\t18\t1\t1\t0\t290\t406\t62\t24\t-1\t\n5\t1\t18\t1\t1\t1\t286\t402\t9\t33\t1.931847\t\u00a9\n5\t1\t18\t1\t1\t2\t290\t406\t62\t24\t4.086418\tean\n2\t1\t19\t0\t0\t0\t470\t416\t47\t29\t-1\t\n3\t1\t19\t1\t0\t0\t470\t416\t47\t29\t-1\t\n4\t1\t19\t1\t1\t0\t470\t416\t47\t29\t-1\t\n5\t1\t19\t1\t1\t1\t470\t416\t47\t29\t52.305622\tah\n2\t1\t20\t0\t0\t0\t931\t350\t135\t87\t-1\t\n3\t1\t20\t1\t0\t0\t931\t350\t135\t87\t-1\t\n4\t1\t20\t1\t1\t0\t931\t350\t135\t87\t-1\t\n5\t1\t20\t1\t1\t1\t931\t380\t9\t11\t27.812340\tme\n5\t1\t20\t1\t1\t2\t1000\t350\t66\t87\t58.806057\t2\n2\t1\t21\t0\t0\t0\t1003\t432\t38\t29\t-1\t\n3\t1\t21\t1\t0\t0\t1003\t432\t38\t29\t-1\t\n4\t1\t21\t1\t1\t0\t1003\t432\t38\t29\t-1\t\n5\t1\t21\t1\t1\t1\t1003\t432\t38\t29\t27.790306\ta\u00bb\n2\t1\t22\t0\t0\t0\t1999\t433\t40\t31\t-1\t\n3\t1\t22\t1\t0\t0\t1999\t433\t40\t31\t-1\t\n4\t1\t22\t1\t1\t0\t1999\t433\t40\t31\t-1\t\n5\t1\t22\t1\t1\t1\t1999\t433\t40\t31\t41.804504\tial\n2\t1\t23\t0\t0\t0\t2010\t333\t25\t96\t-1\t\n3\t1\t23\t1\t0\t0\t2010\t333\t25\t96\t-1\t\n4\t1\t23\t1\t1\t0\t2010\t333\t25\t96\t-1\t\n5\t1\t23\t1\t1\t1\t2010\t333\t25\t96\t39.310600\t|\n2\t1\t24\t0\t0\t0\t896\t484\t22\t14\t-1\t\n3\t1\t24\t1\t0\t0\t896\t484\t22\t14\t-1\t\n4\t1\t24\t1\t1\t0\t896\t484\t22\t14\t-1\t\n5\t1\t24\t1\t1\t1\t896\t484\t22\t14\t10.873802\t|\n2\t1\t25\t0\t0\t0\t523\t529\t53\t4\t-1\t\n3\t1\t25\t1\t0\t0\t523\t529\t53\t4\t-1\t\n4\t1\t25\t1\t1\t0\t523\t529\t53\t4\t-1\t\n5\t1\t25\t1\t1\t1\t523\t529\t53\t4\t40.042767\t\u2014\u2014\n2\t1\t26\t0\t0\t0\t1594\t524\t34\t16\t-1\t\n3\t1\t26\t1\t0\t0\t1594\t524\t34\t16\t-1\t\n4\t1\t26\t1\t1\t0\t1594\t524\t34\t16\t-1\t\n5\t1\t26\t1\t1\t1\t1594\t524\t34\t16\t59.191814\tet\n2\t1\t27\t0\t0\t0\t1745\t460\t127\t64\t-1\t\n3\t1\t27\t1\t0\t0\t1745\t460\t127\t64\t-1\t\n4\t1\t27\t1\t1\t0\t1745\t460\t127\t64\t-1\t\n5\t1\t27\t1\t1\t1\t1745\t460\t127\t64\t31.528053\tLe\n2\t1\t28\t0\t0\t0\t2001\t512\t22\t19\t-1\t\n3\t1\t28\t1\t0\t0\t2001\t512\t22\t19\t-1\t\n4\t1\t28\t1\t1\t0\t2001\t512\t22\t19\t-1\t\n5\t1\t28\t1\t1\t1\t2001\t512\t22\t19\t21.991615\trig\n2\t1\t29\t0\t0\t0\t2010\t500\t13\t17\t-1\t\n3\t1\t29\t1\t0\t0\t2010\t500\t13\t17\t-1\t\n4\t1\t29\t1\t1\t0\t2010\t500\t13\t17\t-1\t\n5\t1\t29\t1\t1\t1\t2010\t500\t13\t17\t67.971741\ta\n2\t1\t30\t0\t0\t0\t148\t550\t38\t13\t-1\t\n3\t1\t30\t1\t0\t0\t148\t550\t38\t13\t-1\t\n4\t1\t30\t1\t1\t0\t148\t550\t38\t13\t-1\t\n5\t1\t30\t1\t1\t1\t148\t550\t38\t13\t0.000000\ta.\n2\t1\t31\t0\t0\t0\t1315\t501\t26\t47\t-1\t\n3\t1\t31\t1\t0\t0\t1315\t501\t26\t47\t-1\t\n4\t1\t31\t1\t1\t0\t1315\t501\t26\t47\t-1\t\n5\t1\t31\t1\t1\t1\t1315\t501\t26\t47\t0.000000\ti",
-            "confidence": 74.875519
-          }
-        ],
-        "watermark_check": "OCR text candidates require review",
+        "ocr_flagged_text": [],
+        "watermark_check": "No OCR-detected watermark",
         "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -217,7 +211,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -258,7 +253,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -299,7 +295,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -340,7 +337,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -381,7 +379,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -422,7 +421,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66406,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -463,7 +463,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -498,13 +499,19 @@
       "verification": {
         "opens": true,
         "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
-        "ocr_flagged_text": [],
-        "watermark_check": "No OCR-detected watermark",
+        "ocr_flagged_text": [
+          {
+            "text": "LMP",
+            "confidence": 72.928474
+          }
+        ],
+        "watermark_check": "OCR text candidates require review",
         "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -545,7 +552,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -586,7 +594,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -632,7 +641,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -678,7 +688,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -719,7 +730,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -760,7 +772,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -801,7 +814,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -842,7 +856,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -883,7 +898,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -924,7 +940,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -965,7 +982,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1006,7 +1024,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1047,7 +1066,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1088,7 +1108,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1129,7 +1150,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1170,7 +1192,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1211,7 +1234,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1252,7 +1276,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1293,7 +1318,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66406,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1334,7 +1360,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1375,7 +1402,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1416,7 +1444,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1457,7 +1486,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1498,7 +1528,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1533,18 +1564,14 @@
       "verification": {
         "opens": true,
         "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
-        "ocr_flagged_text": [
-          {
-            "text": "2\t1\t15\t0\t0\t0\t1810\t52\t81\t80\t-1\t\n3\t1\t15\t1\t0\t0\t1810\t52\t81\t80\t-1\t\n4\t1\t15\t1\t1\t0\t1810\t52\t81\t80\t-1\t\n5\t1\t15\t1\t1\t1\t1810\t63\t9\t69\t40.940056\t\\\\\n5\t1\t15\t1\t1\t2\t1875\t52\t16\t79\t79.900963\t|\n2\t1\t16\t0\t0\t0\t402\t110\t38\t44\t-1\t\n3\t1\t16\t1\t0\t0\t402\t110\t38\t44\t-1\t\n4\t1\t16\t1\t1\t0\t402\t110\t38\t44\t-1\t\n5\t1\t16\t1\t1\t1\t402\t110\t38\t44\t42.134674\ti\n2\t1\t17\t0\t0\t0\t1818\t143\t7\t16\t-1\t\n3\t1\t17\t1\t0\t0\t1818\t143\t7\t16\t-1\t\n4\t1\t17\t1\t1\t0\t1818\t143\t7\t16\t-1\t\n5\t1\t17\t1\t1\t1\t1818\t143\t7\t16\t53.003735\t\\\n2\t1\t18\t0\t0\t0\t1820\t155\t42\t20\t-1\t\n3\t1\t18\t1\t0\t0\t1820\t155\t42\t20\t-1\t\n4\t1\t18\t1\t1\t0\t1820\t155\t42\t20\t-1\t\n5\t1\t18\t1\t1\t1\t1820\t155\t42\t20\t24.947464\tVG\n2\t1\t19\t0\t0\t0\t88\t169\t13\t21\t-1\t\n3\t1\t19\t1\t0\t0\t88\t169\t13\t21\t-1\t\n4\t1\t19\t1\t1\t0\t88\t169\t13\t21\t-1\t\n5\t1\t19\t1\t1\t1\t88\t169\t13\t21\t64.993683\ta\n2\t1\t20\t0\t0\t0\t89\t145\t50\t43\t-1\t\n3\t1\t20\t1\t0\t0\t89\t145\t50\t43\t-1\t\n4\t1\t20\t1\t1\t0\t89\t145\t50\t43\t-1\t\n5\t1\t20\t1\t1\t1\t89\t145\t41\t43\t45.233383\tA\n5\t1\t20\t1\t1\t2\t137\t146\t2\t5\t32.826248\t\u2018\n2\t1\t21\t0\t0\t0\t332\t171\t36\t19\t-1\t\n3\t1\t21\t1\t0\t0\t332\t171\t36\t19\t-1\t\n4\t1\t21\t1\t1\t0\t332\t171\t36\t19\t-1\t\n5\t1\t21\t1\t1\t1\t332\t171\t36\t19\t40.092587\tWP\n2\t1\t22\t0\t0\t0\t599\t119\t57\t59\t-1\t\n3\t1\t22\t1\t0\t0\t599\t119\t57\t59\t-1\t\n4\t1\t22\t1\t1\t0\t599\t119\t57\t59\t-1\t\n5\t1\t22\t1\t1\t1\t599\t119\t57\t59\t1.920357\tLd\n2\t1\t23\t0\t0\t0\t743\t192\t20\t9\t-1\t\n3\t1\t23\t1\t0\t0\t743\t192\t20\t9\t-1\t\n4\t1\t23\t1\t1\t0\t743\t192\t20\t9\t-1\t\n5\t1\t23\t1\t1\t1\t743\t192\t20\t9\t45.542023\taA\n2\t1\t24\t0\t0\t0\t363\t223\t47\t14\t-1\t\n3\t1\t24\t1\t0\t0\t363\t223\t47\t14\t-1\t\n4\t1\t24\t1\t1\t0\t363\t223\t47\t14\t-1\t\n5\t1\t24\t1\t1\t1\t363\t223\t47\t14\t45.085304\t2s\n2\t1\t25\t0\t0\t0\t394\t197\t26\t18\t-1\t\n3\t1\t25\t1\t0\t0\t394\t197\t26\t18\t-1\t\n4\t1\t25\t1\t1\t0\t394\t197\t26\t18\t-1\t\n5\t1\t25\t1\t1\t1\t394\t197\t26\t18\t25.541222\tye\n2\t1\t26\t0\t0\t0\t640\t215\t12\t24\t-1\t\n3\t1\t26\t1\t0\t0\t640\t215\t12\t24\t-1\t\n4\t1\t26\t1\t1\t0\t640\t215\t12\t24\t-1\t\n5\t1\t26\t1\t1\t1\t640\t215\t12\t24\t64.706619\t|\n2\t1\t27\t0\t0\t0\t1838\t198\t22\t18\t-1\t\n3\t1\t27\t1\t0\t0\t1838\t198\t22\t18\t-1\t\n4\t1\t27\t1\t1\t0\t1838\t198\t22\t18\t-1\t\n5\t1\t27\t1\t1\t1\t1838\t198\t22\t18\t46.598907\ta\n2\t1\t28\t0\t0\t0\t568\t233\t73\t49\t-1\t\n3\t1\t28\t1\t0\t0\t568\t233\t73\t49\t-1\t\n4\t1\t28\t1\t1\t0\t568\t233\t73\t49\t-1\t\n5\t1\t28\t1\t1\t1\t568\t233\t73\t49\t54.273396\tal\n2\t1\t29\t0\t0\t0\t1325\t240\t6\t11\t-1\t\n3\t1\t29\t1\t0\t0\t1325\t240\t6\t11\t-1\t\n4\t1\t29\t1\t1\t0\t1325\t240\t6\t11\t-1\t\n5\t1\t29\t1\t1\t1\t1325\t240\t6\t11\t80.096786\t|\n2\t1\t30\t0\t0\t0\t1886\t254\t66\t20\t-1\t\n3\t1\t30\t1\t0\t0\t1886\t254\t66\t20\t-1\t\n4\t1\t30\t1\t1\t0\t1886\t254\t66\t20\t-1\t\n5\t1\t30\t1\t1\t1\t1886\t254\t66\t20\t44.131775\tS24\n2\t1\t31\t0\t0\t0\t0\t234\t76\t82\t-1\t\n3\t1\t31\t1\t0\t0\t0\t234\t76\t82\t-1\t\n4\t1\t31\t1\t1\t0\t0\t234\t76\t82\t-1\t\n5\t1\t31\t1\t1\t1\t0\t234\t21\t52\t17.160416\tJ\n5\t1\t31\t1\t1\t2\t56\t250\t19\t66\t70.325996\t|\n2\t1\t32\t0\t0\t0\t666\t206\t65\t107\t-1\t\n3\t1\t32\t1\t0\t0\t666\t206\t65\t107\t-1\t\n4\t1\t32\t1\t1\t0\t666\t206\t65\t107\t-1\t\n5\t1\t32\t1\t1\t1\t666\t206\t65\t107\t30.223480\t1\n2\t1\t33\t0\t0\t0\t1752\t243\t48\t72\t-1\t\n3\t1\t33\t1\t0\t0\t1752\t243\t48\t72\t-1\t\n4\t1\t33\t1\t1\t0\t1752\t243\t48\t72\t-1\t\n5\t1\t33\t1\t1\t1\t1752\t243\t48\t72\t43.941437\t'\n2\t1\t34\t0\t0\t0\t1979\t338\t51\t46\t-1\t\n3\t1\t34\t1\t0\t0\t1979\t338\t51\t46\t-1\t\n4\t1\t34\t1\t1\t0\t1979\t338\t51\t46\t-1\t\n5\t1\t34\t1\t1\t1\t1979\t338\t51\t46\t12.607437\tWu\n2\t1\t35\t0\t0\t0\t57\t403\t88\t30\t-1\t\n3\t1\t35\t1\t0\t0\t57\t403\t88\t30\t-1\t\n4\t1\t35\t1\t1\t0\t57\t403\t88\t30\t-1\t\n5\t1\t35\t1\t1\t1\t57\t408\t42\t25\t24.530167\tae\n5\t1\t35\t1\t1\t2\t124\t403\t21\t28\t38.073509\ti,\n2\t1\t36\t0\t0\t0\t1525\t338\t224\t86\t-1\t\n3\t1\t36\t1\t0\t0\t1525\t338\t224\t86\t-1\t\n4\t1\t36\t1\t1\t0\t1525\t338\t224\t86\t-1\t\n5\t1\t36\t1\t1\t1\t1525\t338\t224\t86\t42.111401\ta\n2\t1\t37\t0\t0\t0\t1879\t406\t40\t16\t-1\t\n3\t1\t37\t1\t0\t0\t1879\t406\t40\t16\t-1\t\n4\t1\t37\t1\t1\t0\t1879\t406\t40\t16\t-1\t\n5\t1\t37\t1\t1\t1\t1879\t406\t40\t16\t13.028725\tLif\n2\t1\t38\t0\t0\t0\t1985\t397\t28\t25\t-1\t\n3\t1\t38\t1\t0\t0\t1985\t397\t28\t25\t-1\t\n4\t1\t38\t1\t1\t0\t1985\t397\t28\t25\t-1\t\n5\t1\t38\t1\t1\t1\t1985\t397\t28\t25\t42.579823\tWy\n2\t1\t39\t0\t0\t0\t768\t421\t72\t34\t-1\t\n3\t1\t39\t1\t0\t0\t768\t421\t72\t34\t-1\t\n4\t1\t39\t1\t1\t0\t768\t421\t72\t34\t-1\t\n5\t1\t39\t1\t1\t1\t768\t421\t72\t34\t57.011971\tra\n2\t1\t40\t0\t0\t0\t1797\t449\t20\t21\t-1\t\n3\t1\t40\t1\t0\t0\t1797\t449\t20\t21\t-1\t\n4\t1\t40\t1\t1\t0\t1797\t449\t20\t21\t-1\t\n5\t1\t40\t1\t1\t1\t1797\t449\t20\t21\t7.584984\t4\n2\t1\t41\t0\t0\t0\t1927\t353\t48\t100\t-1\t\n3\t1\t41\t1\t0\t0\t1927\t353\t48\t100\t-1\t\n4\t1\t41\t1\t1\t0\t1927\t353\t48\t100\t-1\t\n5\t1\t41\t1\t1\t1\t1927\t353\t48\t100\t28.100372\t)\n2\t1\t42\t0\t0\t0\t1030\t397\t58\t94\t-1\t\n3\t1\t42\t1\t0\t0\t1030\t397\t58\t94\t-1\t\n4\t1\t42\t1\t1\t0\t1030\t397\t58\t94\t-1\t\n5\t1\t42\t1\t1\t1\t1030\t397\t58\t94\t39.936012\ti\n2\t1\t43\t0\t0\t0\t1434\t467\t107\t33\t-1\t\n3\t1\t43\t1\t0\t0\t1434\t467\t107\t33\t-1\t\n4\t1\t43\t1\t1\t0\t1434\t467\t107\t33\t-1\t\n5\t1\t43\t1\t1\t1\t1434\t467\t16\t33\t4.679672\ty\n5\t1\t43\t1\t1\t2\t1474\t475\t67\t25\t37.017136\toy\n2\t1\t44\t0\t0\t0\t1546\t470\t64\t23\t-1\t\n3\t1\t44\t1\t0\t0\t1546\t470\t64\t23\t-1\t\n4\t1\t44\t1\t1\t0\t1546\t470\t64\t23\t-1\t\n5\t1\t44\t1\t1\t1\t1546\t470\t64\t23\t44.121899\tbays\n2\t1\t45\t0\t0\t0\t1817\t483\t50\t19\t-1\t\n3\t1\t45\t1\t0\t0\t1817\t483\t50\t19\t-1\t\n4\t1\t45\t1\t1\t0\t1817\t483\t50\t19\t-1\t\n5\t1\t45\t1\t1\t1\t1817\t486\t4\t11\t33.928368\t1\n5\t1\t45\t1\t1\t2\t1845\t483\t22\t19\t31.897362\toe\n2\t1\t46\t0\t0\t0\t1908\t483\t29\t12\t-1\t\n3\t1\t46\t1\t0\t0\t1908\t483\t29\t12\t-1\t\n4\t1\t46\t1\t1\t0\t1908\t483\t29\t12\t-1\t\n5\t1\t46\t1\t1\t1\t1908\t483\t29\t12\t43.348610\t\u201cwe\n2\t1\t47\t0\t0\t0\t57\t478\t97\t50\t-1\t\n3\t1\t47\t1\t0\t0\t57\t478\t97\t50\t-1\t\n4\t1\t47\t1\t1\t0\t57\t478\t97\t50\t-1\t\n5\t1\t47\t1\t1\t1\t57\t514\t13\t6\t24.839462\t=)\n5\t1\t47\t1\t1\t2\t133\t478\t21\t50\t38.817005\t5\n2\t1\t48\t0\t0\t0\t503\t478\t46\t35\t-1\t\n3\t1\t48\t1\t0\t0\t503\t478\t46\t35\t-1\t\n4\t1\t48\t1\t1\t0\t503\t478\t46\t35\t-1\t\n5\t1\t48\t1\t1\t1\t503\t478\t46\t35\t43.664955\tPa\n2\t1\t49\t0\t0\t0\t705\t521\t38\t22\t-1\t\n3\t1\t49\t1\t0\t0\t705\t521\t38\t22\t-1\t\n4\t1\t49\t1\t1\t0\t705\t521\t38\t22\t-1\t\n5\t1\t49\t1\t1\t1\t705\t521\t38\t22\t55.671230\tyo\n2\t1\t50\t0\t0\t0\t802\t481\t84\t54\t-1\t\n3\t1\t50\t1\t0\t0\t802\t481\t84\t54\t-1\t\n4\t1\t50\t1\t1\t0\t802\t481\t84\t54\t-1\t\n5\t1\t50\t1\t1\t1\t802\t481\t35\t54\t22.499840\tit\n5\t1\t50\t1\t1\t2\t876\t514\t10\t10\t23.451141\t4\n2\t1\t51\t0\t0\t0\t1409\t489\t23\t23\t-1\t\n3\t1\t51\t1\t0\t0\t1409\t489\t23\t23\t-1\t\n4\t1\t51\t1\t1\t0\t1409\t489\t23\t23\t-1\t\n5\t1\t51\t1\t1\t1\t1409\t489\t23\t23\t39.385952\tfe.\n2\t1\t52\t0\t0\t0\t1728\t494\t12\t17\t-1\t\n3\t1\t52\t1\t0\t0\t1728\t494\t12\t17\t-1\t\n4\t1\t52\t1\t1\t0\t1728\t494\t12\t17\t-1\t\n5\t1\t52\t1\t1\t1\t1728\t494\t12\t17\t63.248875\t1\n2\t1\t53\t0\t0\t0\t1302\t566\t31\t16\t-1\t\n3\t1\t53\t1\t0\t0\t1302\t566\t31\t16\t-1\t\n4\t1\t53\t1\t1\t0\t1302\t566\t31\t16\t-1\t\n5\t1\t53\t1\t1\t1\t1302\t566\t31\t16\t9.142830\tPra\n2\t1\t54\t0\t0\t0\t1406\t509\t186\t41\t-1\t\n3\t1\t54\t1\t0\t0\t1406\t509\t186\t41\t-1\t\n4\t1\t54\t1\t1\t0\t1406\t509\t186\t41\t-1\t\n5\t1\t54\t1\t1\t1\t1406\t509\t23\t36\t24.896233\tY\n5\t1\t54\t1\t1\t2\t1459\t505\t45\t53\t69.249680\tef\n5\t1\t54\t1\t1\t3\t1500\t518\t92\t32\t19.518089\t|\n2\t1\t55\t0\t0\t0\t1761\t500\t192\t55\t-1\t\n3\t1\t55\t1\t0\t0\t1761\t500\t192\t55\t-1\t\n4\t1\t55\t1\t1\t0\t1761\t500\t192\t55\t-1\t\n5\t1\t55\t1\t1\t1\t1761\t503\t87\t52\t72.181053\taf\n5\t1\t55\t1\t1\t2\t1876\t500\t77\t50\t20.746315\tS92\n2\t1\t56\t0\t0\t0\t315\t525\t26\t65\t-1\t\n3\t1\t56\t1\t0\t0\t315\t525\t26\t65\t-1\t\n4\t1\t56\t1\t1\t0\t315\t525\t26\t65\t-1\t\n5\t1\t56\t1\t1\t1\t315\t525\t26\t65\t0.000000\t)\n2\t1\t57\t0\t0\t0\t583\t565\t144\t48\t-1\t\n3\t1\t57\t1\t0\t0\t583\t565\t144\t48\t-1\t\n4\t1\t57\t1\t1\t0\t583\t565\t144\t48\t-1\t\n5\t1\t57\t1\t1\t1\t579\t561\t38\t56\t14.459915\tx\n5\t1\t57\t1\t1\t2\t583\t565\t144\t48\t18.313789\tfe\n2\t1\t58\t0\t0\t0\t894\t589\t62\t11\t-1\t\n3\t1\t58\t1\t0\t0\t894\t589\t62\t11\t-1\t\n4\t1\t58\t1\t1\t0\t894\t589\t62\t11\t-1\t\n5\t1\t58\t1\t1\t1\t894\t589\t62\t11\t50.464329\t}\n2\t1\t59\t0\t0\t0\t1140\t592\t26\t24\t-1\t\n3\t1\t59\t1\t0\t0\t1140\t592\t26\t24\t-1\t\n4\t1\t59\t1\t1\t0\t1140\t592\t26\t24\t-1\t\n5\t1\t59\t1\t1\t1\t1140\t592\t26\t24\t50.804554\tiD\n2\t1\t60\t0\t0\t0\t81\t533\t77\t106\t-1\t\n3\t1\t60\t1\t0\t0\t81\t533\t77\t106\t-1\t\n4\t1\t60\t1\t1\t0\t81\t533\t77\t106\t-1\t\n5\t1\t60\t1\t1\t1\t81\t533\t77\t106\t57.169628\tll\n2\t1\t61\t0\t0\t0\t582\t613\t145\t22\t-1\t\n3\t1\t61\t1\t0\t0\t582\t613\t145\t22\t-1\t\n4\t1\t61\t1\t1\t0\t582\t613\t145\t22\t-1\t\n5\t1\t61\t1\t1\t1\t582\t613\t145\t22\t0.847122\t=\n5\t1\t61\t1\t1\t2\t695\t597\t36\t47\t42.385822\tEe\n2\t1\t62\t0\t0\t0\t1391\t578\t118\t45\t-1\t\n3\t1\t62\t1\t0\t0\t1391\t578\t118\t45\t-1\t\n4\t1\t62\t1\t1\t0\t1391\t578\t118\t45\t-1\t\n5\t1\t62\t1\t1\t1\t1391\t578\t118\t45\t41.281734\tae:\n2\t1\t63\t0\t0\t0\t1419\t623\t94\t24\t-1\t\n3\t1\t63\t1\t0\t0\t1419\t623\t94\t24\t-1\t\n4\t1\t63\t1\t1\t0\t1419\t623\t94\t24\t-1\t\n5\t1\t63\t1\t1\t1\t1419\t623\t94\t24\t26.098640\t=f\n2\t1\t64\t0\t0\t0\t39\t642\t186\t21\t-1\t\n3\t1\t64\t1\t0\t0\t39\t642\t186\t21\t-1\t\n4\t1\t64\t1\t1\t0\t39\t642\t186\t21\t-1\t\n5\t1\t64\t1\t1\t1\t39\t642\t186\t21\t0.000000\tFr\n2\t1\t65\t0\t0\t0\t240\t618\t93\t49\t-1\t\n3\t1\t65\t1\t0\t0\t240\t618\t93\t49\t-1\t\n4\t1\t65\t1\t1\t0\t240\t618\t93\t49\t-1\t\n5\t1\t65\t1\t1\t1\t240\t618\t33\t35\t14.057198\t\u2014\n2\t1\t66\t0\t0\t0\t594\t680\t142\t14\t-1\t\n3\t1\t66\t1\t0\t0\t594\t680\t142\t14\t-1\t\n4\t1\t66\t1\t1\t0\t594\t680\t142\t14\t-1\t\n5\t1\t66\t1\t1\t1\t594\t680\t142\t14\t14.873489\t\u2014\u2014\n2\t1\t67\t0\t0\t0\t666\t657\t54\t4\t-1\t\n3\t1\t67\t1\t0\t0\t666\t657\t54\t4\t-1\t\n4\t1\t67\t1\t1\t0\t666\t657\t54\t4\t-1\t\n5\t1\t67\t1\t1\t1\t666\t657\t54\t4\t18.632355\t=\n2\t1\t68\t0\t0\t0\t1994\t642\t24\t21\t-1\t\n3\t1\t68\t1\t0\t0\t1994\t642\t24\t21\t-1\t\n4\t1\t68\t1\t1\t0\t1994\t642\t24\t21\t-1\t\n5\t1\t68\t1\t1\t1\t1994\t642\t24\t21\t76.673683\t%\n2\t1\t69\t0\t0\t0\t1443\t694\t63\t13\t-1\t\n3\t1\t69\t1\t0\t0\t1443\t694\t63\t13\t-1\t\n4\t1\t69\t1\t1\t0\t1443\t694\t63\t13\t-1\t\n5\t1\t69\t1\t1\t1\t1443\t694\t63\t13\t40.590286\tPeed\n2\t1\t70\t0\t0\t0\t1772\t674\t199\t28\t-1\t\n3\t1\t70\t1\t0\t0\t1772\t674\t199\t28\t-1\t\n4\t1\t70\t1\t1\t0\t1772\t674\t199\t28\t-1\t\n5\t1\t70\t1\t1\t1\t1772\t674\t199\t28\t0.000000\t=\n2\t1\t71\t0\t0\t0\t961\t756\t96\t12\t-1\t\n3\t1\t71\t1\t0\t0\t961\t756\t96\t12\t-1\t\n4\t1\t71\t1\t1\t0\t961\t756\t96\t12\t-1\t\n5\t1\t71\t1\t1\t1\t961\t766\t13\t2\t0.000000\ta\n5\t1\t71\t1\t1\t2\t1006\t756\t51\t12\t36.139565\twi",
-            "confidence": 74.919449
-          }
-        ],
-        "watermark_check": "OCR text candidates require review",
+        "ocr_flagged_text": [],
+        "watermark_check": "No OCR-detected watermark",
         "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1585,7 +1612,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1626,7 +1654,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1667,7 +1696,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1708,7 +1738,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1749,7 +1780,8 @@
         "native_output_preserved": true,
         "native_aspect_ratio": 2.66667,
         "crop_to_8_3_pending": true,
-        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped",
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       }
     },
     {
@@ -1779,7 +1811,8 @@
           250.46,
           7.47
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "regenerated_neutral": true,
       "generation_history": [
@@ -1843,7 +1876,8 @@
           249.54,
           9.61
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -1908,7 +1942,8 @@
           248.95,
           12.82
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -1973,7 +2008,8 @@
           249.5,
           11.14
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2038,7 +2074,8 @@
           250.41,
           4.24
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "regenerated_neutral": true,
       "generation_history": [
@@ -2102,7 +2139,8 @@
           249.43,
           7.96
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2167,7 +2205,8 @@
           249.49,
           9.37
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2232,7 +2271,8 @@
           249.48,
           5.72
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2382,7 +2422,8 @@
           250.64,
           7.33
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2447,7 +2488,8 @@
           250.3,
           8.04
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "regenerated_neutral": true,
       "generation_history": [
@@ -2511,7 +2553,8 @@
           248.83,
           13.67
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2576,7 +2619,8 @@
           249.23,
           10.95
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2641,7 +2685,8 @@
           249.49,
           7.38
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2791,7 +2836,8 @@
           250.4,
           5.75
         ],
-        "background_near_00FF00": true
+        "background_near_00FF00": true,
+        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
       },
       "generation_history": [
         {
@@ -2871,6 +2917,9 @@
     "source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
     "total": 56,
     "last_checkpoint_item": 56,
-    "rule": "One image call, native file saved and verified without display, one commit and push, then next item."
+    "rule": "One image call, native file saved and verified without display, one commit and push, then next item.",
+    "status": "completed",
+    "completed_items": 56,
+    "failures": 0
   }
 }
