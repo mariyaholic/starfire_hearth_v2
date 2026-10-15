@@ -1633,9 +1633,42 @@
       "id": "end_hungry_year",
       "title": "end_hungry_year: The Hungry Year (route any, dark)",
       "kind": "scene",
-      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Hungry Year): empty grey terraced fields and a long quiet queue outside a lit storehouse in winter.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, dark variant: muted palette of deep blues and cold greys, one small warm light source as the only accent, long shadows, oppressive stillness and emptiness, creeping dread, horror atmosphere, grim and haunting, atmospheric haze, 1960s space-age illustration turned ominous, hard science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, gore, blood, visible wounds, monsters",
-      "status": "completed_in_prior_chat_file_unavailable",
-      "completed_in_prior_chat": true
+      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Hungry Year): empty grey terraced fields and a long quiet queue outside a lit storehouse in winter.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, dark variant: muted palette of deep blues and cold greys, one small warm light source as the only accent, long shadows, oppressive stillness and emptiness, creeping dread, horror atmosphere, grim and haunting, atmospheric haze, 1960s space-age illustration turned ominous, hard science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, gore, blood, visible wounds, monsters\nMatch the painting style, brushwork and palette of the reference image; do not copy its content.",
+      "status": "generated",
+      "completed_in_prior_chat": true,
+      "generation_history": [
+        {
+          "status": "completed_in_prior_chat_file_unavailable",
+          "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Hungry Year): empty grey terraced fields and a long quiet queue outside a lit storehouse in winter.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, dark variant: muted palette of deep blues and cold greys, one small warm light source as the only accent, long shadows, oppressive stillness and emptiness, creeping dread, horror atmosphere, grim and haunting, atmospheric haze, 1960s space-age illustration turned ominous, hard science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, gore, blood, visible wounds, monsters"
+        }
+      ],
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nWide 8:3 story scene for a visual novel, 3200x1200. Key subject in the centre 60% of the width; horizon at 55-70% of the height; people small and distant, faces simple or turned away.\nScene (Ending: The Hungry Year): empty grey terraced fields and a long quiet queue outside a lit storehouse in winter.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, dark variant: muted palette of deep blues and cold greys, one small warm light source as the only accent, long shadows, oppressive stillness and emptiness, creeping dread, horror atmosphere, grim and haunting, atmospheric haze, 1960s space-age illustration turned ominous, hard science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, gore, blood, visible wounds, monsters\nMatch the painting style, brushwork and palette of the reference image; do not copy its content.",
+      "references": [
+        "assets/delivered/vignette/founders_hall.webp"
+      ],
+      "reference_sha256s": {
+        "assets/delivered/vignette/founders_hall.webp": "6c3ea86bac112bfb7335b4cd743d30c9d45e284ea50c4bcc83b5333ca926b18d"
+      },
+      "run_source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
+      "run_item": 40,
+      "completed_utc": "2026-10-15T10:40:06.036868+00:00",
+      "file": "endings/end_hungry_year.png",
+      "dimensions": [
+        2048,
+        768
+      ],
+      "sha256": "d4787dd29b83ede3cc10c8b49f6cd55701c63cdce4f1379186f0e03ce1b90a56",
+      "verification": {
+        "opens": true,
+        "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
+        "ocr_flagged_text": [],
+        "watermark_check": "No OCR-detected watermark",
+        "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
+        "native_output_preserved": true,
+        "native_aspect_ratio": 2.66667,
+        "crop_to_8_3_pending": true,
+        "crop_safety": "Central-band composition requested verbatim; not visually inspected or cropped"
+      }
     },
     {
       "id": "end_mutiny",
@@ -2259,7 +2292,7 @@
     "date": "2026-10-15",
     "source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
     "total": 56,
-    "last_checkpoint_item": 39,
+    "last_checkpoint_item": 40,
     "rule": "One image call, native file saved and verified without display, one commit and push, then next item."
   }
 }
