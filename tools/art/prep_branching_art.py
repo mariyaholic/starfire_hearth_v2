@@ -3,19 +3,23 @@
 keyed, despilled, headroom set to 10.3% (the shipped set) per character (shared by its expressions), 1024x1024.
 
 Usage (DESIGN_LOG 108): git archive the art branch's assets/branching_campaign, then
-  python3 tools/art/prep_branching_art.py <that folder> <out folder>
-and copy the two sfh_*_batch2.zip files it writes into incoming/."""
+  python3 tools/art/prep_branching_art.py <that folder> <out folder> [<batch> <id,id,...>]
+and copy the sfh_*_batch<N>.zip files it writes into incoming/. With no batch and ids it builds
+batch 2 (everything but HOLD); with them, only those ids (batch 3 is the redo of HOLD). An
+expression always takes its character's headroom from the neutral, whether or not it is listed."""
 import json, sys, pathlib, zipfile
 import numpy as np
 from PIL import Image, ImageFilter
 SRC = pathlib.Path(sys.argv[1]); OUT = pathlib.Path(sys.argv[2]); OUT.mkdir(parents=True, exist_ok=True)
 man = json.load(open(SRC / "manifest.json"))["items"]
+BATCH = int(sys.argv[3]) if len(sys.argv) > 4 else 2
+ONLY = set(sys.argv[4].split(",")) if len(sys.argv) > 4 else None
 HOLD = {"end_annexed", "gardener_ilyin__warm", "gardener_ilyin__worried", "gardener_ilyin__stern",
         "pell_okonkwo_dane", "pell_okonkwo_dane__warm", "pell_okonkwo_dane__worried", "pell_okonkwo_dane__stern"}
 LIC = ("Generated using OpenAI built-in image generation in Codex on ChatGPT Plus (plan confirmed by commissioner). "
        "Commercial use permitted under OpenAI Terms of Use; as between the user and OpenAI, the user owns Output to the "
        "extent permitted by law. https://openai.com/policies/row-terms-of-use/")
-SOURCE = "OpenAI built-in image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run, October 15)."
+SOURCE = "OpenAI built-in image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run, October 15; redos October 24)."
 
 def key(im):
     rgb = np.asarray(im.convert("RGB")).astype(np.float64)
@@ -40,7 +44,7 @@ def top_row(im):
 scenes, portraits = [], []
 by_char = {}
 for it in man:
-    if it["id"] in HOLD:
+    if (it["id"] not in ONLY) if ONLY is not None else (it["id"] in HOLD):
         continue
     f = SRC / it["file"]
     if it["file"].startswith("portraits"):
@@ -49,7 +53,7 @@ for it in man:
         Image.open(f).convert("RGB").resize((3200, 1200), Image.LANCZOS).save(OUT / ("v_" + it["id"] + ".png"))
         scenes.append(it["id"])
 for char, items in by_char.items():
-    neutral = next((i for i in items if i["id"] == char), None)
+    neutral = next((i for i in man if i["id"] == char), None)
     ref = key(Image.open(SRC / (neutral or items[0])["file"]))
     shift = round(0.103 * ref.height) - top_row(ref)
     for it in items:
@@ -61,8 +65,10 @@ for char, items in by_char.items():
         portraits.append(it["id"])
         print(it["id"], "shift", shift, "top was %.1f%%" % (100 * top_row(im) / h))
 for kind, ids, pre in (("vignette", scenes, "v_"), ("portrait", portraits, "p_")):
-    with zipfile.ZipFile(OUT / ("sfh_%s_batch2.zip" % kind), "w") as z:
-        meta = {"kind": kind, "batch": 2, "licence": LIC, "source": SOURCE,
+    if not ids:
+        continue
+    with zipfile.ZipFile(OUT / ("sfh_%s_batch%d.zip" % (kind, BATCH)), "w") as z:
+        meta = {"kind": kind, "batch": BATCH, "licence": LIC, "source": SOURCE,
                 "items": [{"id": i, "file": i + ".png"} for i in ids]}
         z.writestr("manifest.json", json.dumps(meta, indent=1))
         for i in ids:

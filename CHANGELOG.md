@@ -5,18 +5,18 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
-- Branching-campaign art is in as vignette batch 2 (41 scenes and endings) and
-  portrait batch 2 (Lio Hale, Inspector Castellane and Keeper Banda with their
-  expressions, Ilyin's neutral, Director Hale's hollow look). The ids are in the
-  manifest ahead of the campaign itself, so nothing draws them yet. Scenes were
-  generated at 2048x768 and upscaled to the brief's 3200x1200 before intake (the
-  game shows 2400x900) by `tools/art/prep_branching_art.py`. Portraits were keyed and despilled from #00FF00 and moved
-  down so the head sits 10% below the top, like the shipped set. On hold for a
-  redo: `end_annexed` (its flag reads as NATO's), Ilyin's three expressions and all
-  of Pell (expressions too faint; Pell's badge drew Meridian's compass rose).
-  **Verified:** `python3 tools/import_assets.py --zip incoming/sfh_vignette_batch2.zip
-  --zip incoming/sfh_portrait_batch2.zip`: 55 pass; painted art 15.5 of 40 MB;
-  `tests/run_tests.gd`: 255 tests / 12,612 checks; `tools/validate_data.gd`: zero
+- Branching-campaign art is in: all 42 scenes and endings (vignette batches 2 and
+  3) and 22 portraits (portrait batches 2 and 3): Lio Hale, Inspector Castellane,
+  Keeper Banda, Tobiah Ilyin and Pell Okonkwo-Dane with their expressions, and
+  Director Hale's hollow look. The ids are in the manifest ahead of the campaign
+  itself, so nothing draws them yet. `tools/art/prep_branching_art.py` upscales the
+  scenes from their native 2048x768 to the brief's 3200x1200 (the game shows
+  2400x900), keys and despills the portraits from #00FF00, and moves each character
+  down so the head sits 10% below the top, like the shipped set. Batch 3 is the
+  October 24 redo: `end_annexed` (its first flag read as NATO's), Ilyin's
+  expressions and all of Pell. **Verified:** `python3 tools/import_assets.py` on
+  the four zips: 41 + 14 + 1 + 7 pass; painted art 16.4 of 40 MB;
+  `tests/run_tests.gd`: 255 tests / 12,644 checks; `tools/validate_data.gd`: zero
   errors.
 
 - Audio revision 3 is installed: all 28 music cues (music batch 2), rewritten

@@ -79,3 +79,15 @@ Each item replaces its code fallback; the files are under `assets/delivered/`.
   permitted by law. https://openai.com/policies/row-terms-of-use/. Source: OpenAI built-in
   image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run,
   October 15).
+- **vignette batch 3** (1 ids, ingested 2026-10-24). Licence: Generated using OpenAI built-in image
+  generation in Codex on ChatGPT Plus (plan confirmed by commissioner). Commercial use permitted
+  under OpenAI Terms of Use; as between the user and OpenAI, the user owns Output to the extent
+  permitted by law. https://openai.com/policies/row-terms-of-use/. Source: OpenAI built-in
+  image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run,
+  October 15; redos October 24).
+- **portrait batch 3** (7 ids, ingested 2026-10-24). Licence: Generated using OpenAI built-in image
+  generation in Codex on ChatGPT Plus (plan confirmed by commissioner). Commercial use permitted
+  under OpenAI Terms of Use; as between the user and OpenAI, the user owns Output to the extent
+  permitted by law. https://openai.com/policies/row-terms-of-use/. Source: OpenAI built-in
+  image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run,
+  October 15; redos October 24).
