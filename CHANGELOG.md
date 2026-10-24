@@ -5,6 +5,20 @@ repository root after `godot --headless --path . --import`. Everything else is *
 
 ## Unreleased: M1, First Light (in progress)
 
+- Branching-campaign art is in as vignette batch 2 (41 scenes and endings) and
+  portrait batch 2 (Lio Hale, Inspector Castellane and Keeper Banda with their
+  expressions, Ilyin's neutral, Director Hale's hollow look). The ids are in the
+  manifest ahead of the campaign itself, so nothing draws them yet. Scenes were
+  generated at 2048x768 and upscaled to the brief's 3200x1200 before intake (the
+  game shows 2400x900). Portraits were keyed and despilled from #00FF00 and moved
+  down so the head sits 10% below the top, like the shipped set. On hold for a
+  redo: `end_annexed` (its flag reads as NATO's), Ilyin's three expressions and all
+  of Pell (expressions too faint; Pell's badge drew Meridian's compass rose).
+  **Verified:** `python3 tools/import_assets.py --zip incoming/sfh_vignette_batch2.zip
+  --zip incoming/sfh_portrait_batch2.zip`: 55 pass; painted art 15.5 of 40 MB;
+  `tests/run_tests.gd`: 255 tests / 12,612 checks; `tools/validate_data.gd`: zero
+  errors.
+
 - Audio revision 3 is installed: all 28 music cues (music batch 2), rewritten
   harmony-first by `tools/art/audio_rework/compose.py` and rendered from VSCO 2 CE
   (CC0) and the Salamander Grand Piano V3 (CC BY 3.0, credited in `CREDITS.md`).

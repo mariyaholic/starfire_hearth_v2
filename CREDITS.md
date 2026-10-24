@@ -67,3 +67,15 @@ Each item replaces its code fallback; the files are under `assets/delivered/`.
   3382bf9496bba2486f5ab0de55a264d1dfc38404). Attribution: Piano: Salamander Grand Piano V3 by
   Alexander Holm, licensed under CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/); samples
   mapped and rendered, not otherwise modified.
+- **vignette batch 2** (41 ids, ingested 2026-10-24). Licence: Generated using OpenAI built-in image
+  generation in Codex on ChatGPT Plus (plan confirmed by commissioner). Commercial use permitted
+  under OpenAI Terms of Use; as between the user and OpenAI, the user owns Output to the extent
+  permitted by law. https://openai.com/policies/row-terms-of-use/. Source: OpenAI built-in
+  image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run,
+  October 15).
+- **portrait batch 2** (14 ids, ingested 2026-10-24). Licence: Generated using OpenAI built-in image
+  generation in Codex on ChatGPT Plus (plan confirmed by commissioner). Commercial use permitted
+  under OpenAI Terms of Use; as between the user and OpenAI, the user owns Output to the extent
+  permitted by law. https://openai.com/policies/row-terms-of-use/. Source: OpenAI built-in
+  image_gen, ChatGPT Plus; original generated artwork prompted by Codex (branching campaign art run,
+  October 15).

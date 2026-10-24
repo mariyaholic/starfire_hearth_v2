@@ -463,3 +463,18 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      first note. Not yet solved: the draft Chapter 2+ asset plan's 6 themes (about 14 MB) and 22
      ending stings (about 8 MB) would bring music to about 82 MB. That batch needs quality 4
      for all music (about 127 kbps; about 68 MB in all) or a larger budget.
+
+108. **Branching-campaign art enters the manifest before the campaign does** (Owner approval,
+     October 24). The 41 accepted scenes and 14 accepted portraits are delivered as vignette and
+     portrait batch 2 so the art is reviewed and budgeted once, while it is fresh; the event
+     chains that show them come later and only need to name the ids. The run made scenes at
+     2048x768, under the 2400 px the intake requires, so they are upscaled to 3200x1200 (Lanczos)
+     before intake: a net 1.17x enlargement to the 2400x900 the game ships, judged harmless for
+     painted art. Portraits are keyed from #00FF00 with the green unmixed from edge pixels and
+     despilled before intake (the intake's own key leaves an olive fringe on fine hair), and each
+     character is moved down so the head sits 10.3% below the top, matching the shipped
+     portraits rather than the brief's 12%; one offset per character keeps its expressions
+     aligned. Held back for a redo: `end_annexed`, whose blue flag with a white compass rose in a
+     circle reads as NATO's (Meridian's emblem must avoid that combination), Ilyin's expressions
+     and all of Pell, whose expressions barely differ and whose badge drew Meridian's compass rose.
+
