@@ -476,8 +476,8 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      portraits rather than the brief's 12%; one offset per character keeps its expressions
      aligned. Held back for a redo: `end_annexed`, whose blue flag with a white compass rose in a
      circle reads as NATO's (Meridian's emblem must avoid that combination), Ilyin's expressions
-     and all of Pell, whose expressions barely differ and whose badge drew Meridian's compass rose. The redo came back on October 24 and went in as vignette and portrait batch 3, through the same
-     script: `end_annexed` now flies a gold eight-pointed compass rose with no circle, which is
+     and all of Pell, whose expressions barely differ and whose badge drew Meridian's compass rose. The redo came back
+     on October 24 and went in as vignette and portrait batch 3, through the same script: `end_annexed` now flies a gold eight-pointed compass rose with no circle, which is
      how Meridian's emblem should be drawn from here on; Ilyin's expressions read clearly; Pell is
      now clearly younger than Ilyin, with a radio-dish badge.
 
