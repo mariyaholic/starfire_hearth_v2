@@ -10,7 +10,7 @@ repository root after `godot --headless --path . --import`. Everything else is *
   expressions, Ilyin's neutral, Director Hale's hollow look). The ids are in the
   manifest ahead of the campaign itself, so nothing draws them yet. Scenes were
   generated at 2048x768 and upscaled to the brief's 3200x1200 before intake (the
-  game shows 2400x900). Portraits were keyed and despilled from #00FF00 and moved
+  game shows 2400x900) by `tools/art/prep_branching_art.py`. Portraits were keyed and despilled from #00FF00 and moved
   down so the head sits 10% below the top, like the shipped set. On hold for a
   redo: `end_annexed` (its flag reads as NATO's), Ilyin's three expressions and all
   of Pell (expressions too faint; Pell's badge drew Meridian's compass rose).
