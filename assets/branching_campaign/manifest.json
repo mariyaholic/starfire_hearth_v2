@@ -1853,31 +1853,30 @@
       "id": "gardener_ilyin__warm",
       "title": "gardener_ilyin__warm",
       "kind": "portrait",
-      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer\u2019s shirt with the insignia removed; a brass key on a cord at his collar. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
-      "status": "regenerated_style",
+      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer's shirt with the insignia removed; a brass key on a cord at his collar. Warm expression: a broad, open smile showing teeth, cheeks raised, eyes crinkled at the corners, brows relaxed and lifted.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression. The expression must be strong and obvious even at thumbnail size.",
+      "status": "regenerated_expression",
       "completed_in_prior_chat": false,
       "file": "portraits/gardener_ilyin__warm.png",
       "dimensions": [
         1254,
         1254
       ],
-      "sha256": "46baf63a2b7f714f9f70257533fdc6bf1a21b1bd307540a18b4b6b59129bc970",
-      "completed_utc": "2026-10-15T10:44:30.470479+00:00",
-      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer\u2019s shirt with the insignia removed; a brass key on a cord at his collar. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+      "sha256": "c419e1ca7566bbcb10a7c6e3fb2f1d5e92d91637c18f81275c21980f72b3fa59",
+      "completed_utc": "2026-10-24T14:31:58.625473+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer's shirt with the insignia removed; a brass key on a cord at his collar. Warm expression: a broad, open smile showing teeth, cheeks raised, eyes crinkled at the corners, brows relaxed and lifted.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression. The expression must be strong and obvious even at thumbnail size.",
       "verification": {
         "opens": true,
-        "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
+        "native_png_unchanged": true,
+        "ocr_method": "Tesseract sparse-text scan, TSV parsed with literal quotation marks",
         "ocr_flagged_text": [],
         "watermark_check": "No OCR-detected watermark",
-        "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
-        "native_output_preserved": true,
+        "visual_preview": "Not performed; Owner prohibits image display and previews in chat.",
         "top_corner_mean_rgb": [
-          2.5,
-          249.54,
-          9.61
+          2.42,
+          249.5,
+          8.64
         ],
-        "background_near_00FF00": true,
-        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
+        "background_near_00FF00": true
       },
       "generation_history": [
         {
@@ -1902,6 +1901,41 @@
             "background_near_00FF00": true,
             "visual_review": "Face, pose, clothing, brass key and lighting match the neutral. Small smile is subtle. No visible text or watermark; tight neutral headroom retained."
           }
+        },
+        {
+          "status": "regenerated_style",
+          "file": "portraits/gardener_ilyin__warm.png",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "sha256": "46baf63a2b7f714f9f70257533fdc6bf1a21b1bd307540a18b4b6b59129bc970",
+          "completed_utc": "2026-10-15T10:44:30.470479+00:00",
+          "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer\u2019s shirt with the insignia removed; a brass key on a cord at his collar. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+          "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Tobiah Ilyin, the gardener: a quiet former Quiet Directive officer who has spent his waking months growing tomatoes. Older, weathered, kind eyes with something guarded behind them; close grey beard; a soil-stained work apron over an old, faded officer\u2019s shirt with the insignia removed; a brass key on a cord at his collar. Warm expression, a small smile.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+          "references": [
+            "assets/delivered/portrait/captain_brandt.webp",
+            "assets/branching_campaign/portraits/gardener_ilyin.png"
+          ],
+          "reference_sha256s": {
+            "assets/delivered/portrait/captain_brandt.webp": "a6f7f9640d013f08c4b8255a0ce9f33e993b17512656c0ea777c32dbde2b1533",
+            "assets/branching_campaign/portraits/gardener_ilyin.png": "74e585b502fb73c3db1d265170e04365ede6c064756d7de95b290009e1d677b5"
+          },
+          "verification": {
+            "opens": true,
+            "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
+            "ocr_flagged_text": [],
+            "watermark_check": "No OCR-detected watermark",
+            "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
+            "native_output_preserved": true,
+            "top_corner_mean_rgb": [
+              2.5,
+              249.54,
+              9.61
+            ],
+            "background_near_00FF00": true,
+            "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
+          }
         }
       ],
       "references": [
@@ -1913,7 +1947,9 @@
         "assets/branching_campaign/portraits/gardener_ilyin.png": "74e585b502fb73c3db1d265170e04365ede6c064756d7de95b290009e1d677b5"
       },
       "run_source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
-      "run_item": 44
+      "run_item": 44,
+      "redo_20261024_item": 1,
+      "redo_source_sha256": "4a57bf0445b2f5802a1cce13c0b0d45411f4b85378bc03a9e81959d5f567d1ae"
     },
     {
       "id": "gardener_ilyin__worried",
