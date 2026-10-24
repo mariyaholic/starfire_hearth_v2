@@ -148,3 +148,42 @@ No generation or push failures. No generation retries were required. The OCR par
 | 54 | `pell_okonkwo_dane__stern` | `1359389` |
 | 55 | `lio_hale__stern` | `c712f08` |
 | 56 | `inspector_castellane__stern` | `6f5a3b0` |
+
+## October 24: eight-image redo
+
+All eight requested pictures completed and were individually saved, verified, committed and pushed before the next image request. No images were displayed or previewed in chat. Only the eight designated PNGs, manifest.json and this review were changed. No game import.
+
+| ID | Status | Dimensions |
+| --- | --- | --- |
+| `gardener_ilyin__warm` | regenerated_expression | 1254x1254 |
+| `gardener_ilyin__worried` | regenerated_expression | 1254x1254 |
+| `gardener_ilyin__stern` | regenerated_expression | 1254x1254 |
+| `pell_okonkwo_dane` | regenerated_style | 1254x1254 |
+| `pell_okonkwo_dane__warm` | regenerated_style | 1254x1254 |
+| `pell_okonkwo_dane__worried` | regenerated_style | 1254x1254 |
+| `pell_okonkwo_dane__stern` | regenerated_style | 1254x1254 |
+| `end_annexed` | regenerated_emblem | 2048x768 |
+
+### Verification and review limits
+
+- All native PNGs open and match their recorded dimensions and SHA-256. Saved files are byte-identical to generated source PNGs, with no resizing, cropping or conversion.
+- Exact supplied prompt blocks and expression endings were retained. Captain Brandt was used solely as the prescribed style reference. Ilyin expressions use Ilyin neutral as their face reference; all Pell expressions use the newly redone Pell neutral. All reference hashes match.
+- Text and text-watermark checking used Tesseract sparse-text OCR without displaying images. OCR can miss lettering or return false positives.
+- Strong thumbnail-readable expressions, Pell age/identity/style, and the gold eight-pointed compass rose with no surrounding circle were explicitly requested. These visual properties were not previewed under the Owner instruction; review repository files before game import.
+- Portrait native outputs are 1254x1254 rather than requested 1024x1024. The ending is native 2048x768 rather than requested 3200x1200; all native sizes were preserved.
+- `end_annexed`: OCR text candidates: [{'text': 'oor', 'confidence': 70.630356}]
+
+### Failures
+
+None. No generation or push failures; no image retries were required.
+
+### Picture commits
+
+- `a1782ec`: `gardener_ilyin__warm`
+- `ce7058a`: `gardener_ilyin__worried`
+- `570ba1b`: `gardener_ilyin__stern`
+- `0bf553f`: `pell_okonkwo_dane`
+- `01dd617`: `pell_okonkwo_dane__warm`
+- `38a91a0`: `pell_okonkwo_dane__worried`
+- `84d3021`: `pell_okonkwo_dane__stern`
+- `dc01099`: `end_annexed`

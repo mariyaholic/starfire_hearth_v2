@@ -3,7 +3,7 @@
   "tool": "image_gen.imagegen",
   "source": "source_prompts.txt",
   "recovered_from_thread": "01a0f273-09b8-721b-be9f-20d50b5330b3",
-  "note": "October 15 sequential run completed: all 42 scene/ending source images and 14 portrait style redos were generated and pushed one picture per commit without image display. All 63 manifest assets now have source files. See REVIEW.md for OCR flags, native dimensions and review limits. No game import.",
+  "note": "All 63 manifest assets have source files. October 24 completed eight designated portrait/emblem redos with individual pushed picture commits; all other image files were preserved. See REVIEW.md for the latest verification limits. No game import.",
   "items": [
     {
       "id": "lead_gardener",
@@ -3204,5 +3204,15 @@
     "status": "completed",
     "completed_items": 56,
     "failures": 0
+  },
+  "redo_20261024": {
+    "status": "completed",
+    "total": 8,
+    "completed": 8,
+    "failures": 0,
+    "source_sha256": "4a57bf0445b2f5802a1cce13c0b0d45411f4b85378bc03a9e81959d5f567d1ae",
+    "base_commit": "5ffa3ef1045c9ccecb9ffa3544840eb69c2cb0a8",
+    "visual_preview": false,
+    "game_import": false
   }
 }
