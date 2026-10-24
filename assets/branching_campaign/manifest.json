@@ -2360,7 +2360,7 @@
       "id": "pell_okonkwo_dane__worried",
       "title": "pell_okonkwo_dane__worried",
       "kind": "portrait",
-      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Young adult; headphones around the neck; braided hair tied back; a padded night-shift jacket with a teal array badge. Worried expression, brows drawn.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+      "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Early twenties and clearly the youngest of the cast: slim build, narrow youthful face with soft features, no beard or stubble, slightly tired eyes; braided hair gathered up into a high knot; over-ear headphones resting around the neck; a padded charcoal night-shift jacket with a small round teal badge showing a simple radio dish (no star, no compass rose). Must look clearly different from an older bearded man. Worried expression: inner brows pulled up and together, forehead creased, eyes wide, mouth slightly open with the corners pulled down.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression. The expression must be strong and obvious even at thumbnail size.",
       "status": "regenerated_style",
       "completed_in_prior_chat": false,
       "file": "portraits/pell_okonkwo_dane__worried.png",
@@ -2368,23 +2368,22 @@
         1254,
         1254
       ],
-      "sha256": "ece8dc88ebe620422c0638dd099b5a1879e76ad8a3abb7863473338fb51f7745",
-      "completed_utc": "2026-10-15T10:54:12.338653+00:00",
-      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Young adult; headphones around the neck; braided hair tied back; a padded night-shift jacket with a teal array badge. Worried expression, brows drawn.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+      "sha256": "d07b36b3d0319e529f5740baa6705a1371279691af3bb00bccf24b3595c67e9d",
+      "completed_utc": "2026-10-24T14:36:34.646536+00:00",
+      "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Early twenties and clearly the youngest of the cast: slim build, narrow youthful face with soft features, no beard or stubble, slightly tired eyes; braided hair gathered up into a high knot; over-ear headphones resting around the neck; a padded charcoal night-shift jacket with a small round teal badge showing a simple radio dish (no star, no compass rose). Must look clearly different from an older bearded man. Worried expression: inner brows pulled up and together, forehead creased, eyes wide, mouth slightly open with the corners pulled down.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression. The expression must be strong and obvious even at thumbnail size.",
       "verification": {
         "opens": true,
-        "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
+        "native_png_unchanged": true,
+        "ocr_method": "Tesseract sparse-text scan, TSV parsed with literal quotation marks",
         "ocr_flagged_text": [],
         "watermark_check": "No OCR-detected watermark",
-        "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
-        "native_output_preserved": true,
+        "visual_preview": "Not performed; Owner prohibits image display and previews in chat.",
         "top_corner_mean_rgb": [
-          3.03,
-          249.49,
-          9.37
+          3.87,
+          248.77,
+          6.86
         ],
-        "background_near_00FF00": true,
-        "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
+        "background_near_00FF00": true
       },
       "generation_history": [
         {
@@ -2409,6 +2408,41 @@
             "background_near_00FF00": true,
             "visual_review": "Reference identity, braids, headphones, jacket, pose and light match. Worried raised inner brows clearly visible; no text or watermark. Tight neutral headroom and asymmetric details retained."
           }
+        },
+        {
+          "status": "regenerated_style",
+          "file": "portraits/pell_okonkwo_dane__worried.png",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "sha256": "ece8dc88ebe620422c0638dd099b5a1879e76ad8a3abb7863473338fb51f7745",
+          "completed_utc": "2026-10-15T10:54:12.338653+00:00",
+          "prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Young adult; headphones around the neck; braided hair tied back; a padded night-shift jacket with a teal array badge. Worried expression, brows drawn.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+          "generation_prompt": "Starfire Hearth is a turn-based space strategy game with a hopeful, hard-science-fiction tone, and its story unfolds in illustrated scenes in the manner of a visual novel. People are competent, communities are warm, and space is vast and slow. The player leads a slowboat colony a hundred years into \"the Long Silence\", the century since Earth stopped answering. Everything should feel calm, human and a little lonely, with warmth in the details.\n\nCharacter portrait, chest-up bust in three-quarter view, 1024x1024, flat #00FF00 background with no shadow; top of the head about 12% below the top edge; shoulders run off the bottom edge; no one-sided details (the game may mirror it).\nCharacter: Pell Okonkwo-Dane, array technician: a junior deep-array technician: earnest, sleepless, brave in a quiet way. Young adult; headphones around the neck; braided hair tied back; a padded night-shift jacket with a teal array badge. Worried expression, brows drawn.\nStyle: painted diorama, stylized chunky 3D forms like a miniature model, soft painterly brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction\nNegative: text, letters, logo, watermark, photorealistic, photograph, film grain, noise, lens flare, chrome, anime, cartoon, grimdark, horror, background scenery, frame, border\nMatch the style of the style reference exactly: flatter painted forms, visible brushwork, simplified shapes, less fine detail; not photorealistic, not glossy 3D.\nSame character, same pose, outfit, framing and light as the face reference; change only the expression.",
+          "references": [
+            "assets/delivered/portrait/captain_brandt.webp",
+            "assets/branching_campaign/portraits/pell_okonkwo_dane.png"
+          ],
+          "reference_sha256s": {
+            "assets/delivered/portrait/captain_brandt.webp": "a6f7f9640d013f08c4b8255a0ce9f33e993b17512656c0ea777c32dbde2b1533",
+            "assets/branching_campaign/portraits/pell_okonkwo_dane.png": "5e1cdc2d87c2f4de5420228deb138fcb43a81ef22864808fb3123d90abae1617"
+          },
+          "verification": {
+            "opens": true,
+            "ocr_method": "Tesseract sparse-text scan; no image was displayed or visually previewed",
+            "ocr_flagged_text": [],
+            "watermark_check": "No OCR-detected watermark",
+            "visual_style_and_composition": "Not visually previewed under Owner instruction; review from repository",
+            "native_output_preserved": true,
+            "top_corner_mean_rgb": [
+              3.03,
+              249.49,
+              9.37
+            ],
+            "background_near_00FF00": true,
+            "ocr_parsing": "TSV rows split directly on tabs, with literal quotation marks preserved; corrected during final audit"
+          }
         }
       ],
       "references": [
@@ -2417,10 +2451,12 @@
       ],
       "reference_sha256s": {
         "assets/delivered/portrait/captain_brandt.webp": "a6f7f9640d013f08c4b8255a0ce9f33e993b17512656c0ea777c32dbde2b1533",
-        "assets/branching_campaign/portraits/pell_okonkwo_dane.png": "5e1cdc2d87c2f4de5420228deb138fcb43a81ef22864808fb3123d90abae1617"
+        "assets/branching_campaign/portraits/pell_okonkwo_dane.png": "a2532c57a91b89e40c7b098f7eeae16c836bbd3f31e41cdddf788c2f0f12ee25"
       },
       "run_source_sha256": "09c726f305551251951635c5b22b9f37d8171181d08a6463a5ee0ba9da1d127a",
-      "run_item": 53
+      "run_item": 53,
+      "redo_20261024_item": 6,
+      "redo_source_sha256": "4a57bf0445b2f5802a1cce13c0b0d45411f4b85378bc03a9e81959d5f567d1ae"
     },
     {
       "id": "pell_okonkwo_dane__stern",
