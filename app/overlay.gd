@@ -56,6 +56,8 @@ func show_breakdown(anchor: Control, b: Breakdown, level: int, pinned: bool) -> 
 	var tip: BreakdownTooltip = BreakdownTooltip.new()
 	tip.setup(b, level)
 	tip.pinned = pinned
+	if pinned:
+		Audio.play("ui_tooltip_pin")
 	root.add_child(tip)
 	_tips.append({"level": level, "panel": tip, "anchor": anchor})
 	tip.mouse_entered.connect(_close_timer.stop)
@@ -203,6 +205,10 @@ func _forget(c: Control) -> void:
 func toast(text: String, severity: String = ReportItem.SEVERITY_INFO, seconds: float = 4.0) -> Toast:
 	var t: Toast = Toast.new()
 	t.setup(text, severity)
+	if severity == ReportItem.SEVERITY_WARNING:
+		Audio.play("ui_alert")
+	elif severity == ReportItem.SEVERITY_CRITICAL:
+		Audio.play("ui_alert_critical")
 	_toast_box.add_child(t)
 	while _toast_box.get_child_count() > MAX_TOASTS:
 		var oldest: Node = _toast_box.get_child(0)

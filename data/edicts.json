@@ -1,4 +1,10 @@
 {
   "version": 1,
-  "edicts": []
+  "edicts": [
+    {"id": "festival", "name_key": "edict.festival.name", "desc_key": "edict.festival.desc", "icon": "ui_edict", "activation": {"influence": 3000}, "upkeep": {"energy": 200}, "duration": 10, "effects": [{"key": "stability_add", "value": 10}]},
+    {"id": "work_drive", "name_key": "edict.work_drive.name", "desc_key": "edict.work_drive.desc", "icon": "ui_edict", "activation": {"influence": 3000}, "upkeep": {"energy": 200}, "duration": 10, "effects": [{"key": "resource_output_bp:minerals", "value": 1000}, {"key": "resource_output_bp:alloys", "value": 1000}, {"key": "stability_add", "value": -5}]},
+    {"id": "research_grants", "name_key": "edict.research_grants.name", "desc_key": "edict.research_grants.desc", "icon": "ui_edict", "activation": {"influence": 4000}, "upkeep": {"energy": 300}, "duration": 0, "effects": [{"key": "research_bp:all", "value": 1000}]},
+    {"id": "radio_silence", "name_key": "edict.radio_silence.name", "desc_key": "edict.radio_silence.desc", "icon": "ui_edict", "activation": {"influence": 2000}, "upkeep": {}, "duration": 0, "effects": [{"key": "noise_add", "value": -100}]},
+    {"id": "frontier_charter", "name_key": "edict.frontier_charter.name", "desc_key": "edict.frontier_charter.desc", "icon": "ui_edict", "activation": {"influence": 4000}, "upkeep": {}, "duration": 0, "effects": [{"key": "outpost_cost_bp", "value": -5000}]}
+  ]
 }

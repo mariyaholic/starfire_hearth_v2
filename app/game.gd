@@ -5,15 +5,19 @@ extends Node
 
 signal orders_changed
 signal turn_resolved(result: TurnResult)
+signal session_started
 
 var db: ContentDb
 var state: GameState = null
 var queue: CommandQueue = null
 var last_result: TurnResult = null
+var presentation: String = ""
+var presentation_overlay: String = ""
+var fresh_appearance: bool = false
 
 
 func _init() -> void:
-	db = ContentDb.load_from()
+	db = Content.db()
 	for e: String in db.errors:
 		push_error("Game data: " + e)
 
@@ -22,10 +26,19 @@ func game_version() -> String:
 	return str(ProjectSettings.get_setting("application/config/version", "0"))
 
 
-func new_game(scenario_id: String, game_seed: int) -> void:
-	state = ScenarioLoader.build(db, scenario_id, game_seed)
+func new_game(scenario_id: String, game_seed: int, difficulty_id: String = "normal") -> void:
+	resume(ScenarioLoader.build(db, scenario_id, game_seed, difficulty_id), "", "", true)
+
+
+## Takes over a state (a new game or a loaded save) with an empty order queue.
+func resume(s: GameState, graphics: String = "", graphics_overlay: String = "", fresh: bool = false) -> void:
+	state = s
+	presentation = graphics
+	presentation_overlay = graphics_overlay
+	fresh_appearance = fresh
 	queue = CommandQueue.new(state)
 	last_result = null
+	session_started.emit()
 	orders_changed.emit()
 
 

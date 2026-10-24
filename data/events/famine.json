@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "id": "famine",
+  "kind": "status",
+  "vignette": "crop_blight",
+  "cooldown": 12,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "stock_max": {
+          "food": 0
+        },
+        "net_max": {
+          "food": -1
+        }
+      },
+      "speaker": "steward_varga",
+      "expression": "worried",
+      "music": "mood_sorrow",
+      "title_key": "event.famine.1.title",
+      "body_key": "event.famine.1.body",
+      "hint_key": "event.famine.1.hint",
+      "choices": [
+        {
+          "label_key": "event.famine.1.c0",
+          "cost": {
+            "energy": 6000
+          },
+          "effects": [
+            {
+              "key": "add_stock:food",
+              "value": 4000
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 8
+          }
+        },
+        {
+          "label_key": "event.famine.1.c1",
+          "effects": [
+            {
+              "key": "add_stock:food",
+              "value": 6000
+            },
+            {
+              "key": "resource_output_bp:food",
+              "value": -2000,
+              "turns": 10
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 8
+          }
+        },
+        {
+          "label_key": "event.famine.1.c2",
+          "effects": [
+            {
+              "key": "remove_pops",
+              "value": 1
+            },
+            {
+              "key": "add_stock:food",
+              "value": 2000
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 8
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "neutral",
+      "music": "mood_hope",
+      "title_key": "event.famine.2.title",
+      "body_key": "event.famine.2.body",
+      "choices": [
+        {
+          "label_key": "event.famine.2.c0",
+          "cost": {
+            "minerals": 4000
+          },
+          "effects": [
+            {
+              "key": "cap_add:food",
+              "value": 15000
+            }
+          ]
+        },
+        {
+          "label_key": "event.famine.2.c1",
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": 1000,
+              "turns": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

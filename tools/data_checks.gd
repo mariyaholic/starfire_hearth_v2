@@ -5,6 +5,11 @@ extends RefCounted
 ## string key is orphaned (keys may be used by data or as literals in code).
 
 const CODE_ROOTS: Array[String] = ["res://sim", "res://ui", "res://app", "res://tools"]
+## Literal keys with these prefixes in sim/ are string keys the UI will show, so each must exist.
+const SIM_KEY_PREFIXES: Array[String] = [
+	"source.", "breakdown.", "report.", "error.", "governor.", "why.", "note.", "outcome.",
+	"stage.", "ship_role.", "branch.", "objective.", "tutorial.", "effect.", "damage.",
+]
 const ICON_DIR: String = "res://assets/icons"
 
 
@@ -42,6 +47,10 @@ static func run(data_root: String = ContentDb.DEFAULT_ROOT, strings_path: String
 			rep.errors.append("strings/en.csv: icon \"%s\" has no display name (key icon.%s)" % [id, id])
 	for k: String in v.orphaned_keys(used_in_code):
 		rep.errors.append("strings/en.csv: key \"%s\" is not used by any data file or code" % k)
+	for k: String in DictIO.sorted_keys(code_string_keys(["res://sim"])):
+		for prefix: String in SIM_KEY_PREFIXES:
+			if k.begins_with(prefix) and not st.entries.has(k):
+				rep.errors.append("sim/: string key \"%s\" is used in code but missing from strings/en.csv" % k)
 	rep.tables = DataSchema.TABLES.size()
 	for t: String in db.tables.keys():
 		rep.records += db.table(t).size()

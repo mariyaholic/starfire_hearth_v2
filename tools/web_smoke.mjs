@@ -1,6 +1,8 @@
 // Web build smoke test: serves an exported web build, opens it in headless Chromium as a PC,
 // an Android phone and an iPad, and checks that the engine starts without errors and picks the
-// right layout class (the Layout autoload prints it to the browser console on web).
+// right layout class (the Layout autoload prints it to the browser console on web). Then it opens
+// the game again with ?smoke=begin, which starts Scenario 1 and plays one turn (the AppRoot says
+// so in the console, with the state hash and the number of saves), and checks that too.
 //
 //   node tools/web_smoke.mjs --build build/web --out screens/web
 //
@@ -19,6 +21,8 @@ const args = Object.fromEntries(
   }, []),
 );
 const buildDir = args.build ?? 'build/web';
+// The state hash the new game must reach after one turn (tools/smoke_hash.gd on the desktop).
+const expectHash = args['expect-hash'] ?? null;
 const outDir = args.out ?? 'screens/web';
 const bootTimeoutMs = 90_000;
 
@@ -87,10 +91,27 @@ for (const device of DEVICES) {
   await page.waitForTimeout(3000);
   await page.screenshot({ path: join(outDir, `web_${device.id}.png`) });
   const problems = [];
+  // A new game, played for one turn.
+  const gamePage = await context.newPage();
+  let smokeLine = null;
+  gamePage.on('console', (msg) => {
+    const text = msg.text();
+    if (text.startsWith('Starfire Hearth smoke:')) smokeLine = text;
+    if (msg.type() === 'error') errors.push(`(new game) ${text}`);
+  });
+  gamePage.on('pageerror', (err) => errors.push(`(new game) ${err.message}`));
+  await gamePage.goto(`${url}?smoke=begin`);
+  const deadline = Date.now() + bootTimeoutMs;
+  while (!smokeLine && Date.now() < deadline) await gamePage.waitForTimeout(250);
+  await gamePage.waitForTimeout(1000);
+  await gamePage.screenshot({ path: join(outDir, `web_${device.id}_game.png`) });
+  if (!smokeLine) problems.push('a new game did not start and play a turn (no smoke line in the console)');
+  else if (!/turn 2, state [0-9a-f]{12}, [1-9]\d* save/.test(smokeLine)) problems.push(`unexpected smoke line: ${smokeLine}`);
+  else if (expectHash && !smokeLine.includes(`state ${expectHash}`)) problems.push(`the web build reached state ${smokeLine.match(/state ([0-9a-f]+)/)[1]}, the desktop ${expectHash}`);
   if (!booted) problems.push(`engine did not start within ${bootTimeoutMs / 1000} s`);
   if (layout !== device.expect) problems.push(`layout is "${layout}", expected "${device.expect}"`);
   for (const e of errors) problems.push(`console error: ${e.slice(0, 300)}`);
-  console.log(`${problems.length ? 'FAIL' : 'PASS'}  ${device.id}: started in ${bootSeconds} s, layout "${layout}"`);
+  console.log(`${problems.length ? 'FAIL' : 'PASS'}  ${device.id}: started in ${bootSeconds} s, layout "${layout}"; ${smokeLine ?? 'no new game'}`);
   for (const p of problems) console.log(`      ${p}`);
   failures += problems.length ? 1 : 0;
   await context.close();

@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "id": "ice_comet",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "ice_comet",
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 15
+      },
+      "speaker": "captain_brandt",
+      "expression": "neutral",
+      "music": "mood_light",
+      "title_key": "event.ice_comet.1.title",
+      "body_key": "event.ice_comet.1.body",
+      "choices": [
+        {
+          "label_key": "event.ice_comet.1.c0",
+          "cost": {
+            "energy": 5000,
+            "minerals": 3000
+          },
+          "uncertain": true,
+          "outcomes": [
+            {
+              "chance_bp": 7000,
+              "text_key": "event.ice_comet.1.c0.o0",
+              "effects": [
+                {
+                  "key": "add_stock:food",
+                  "value": 8000
+                },
+                {
+                  "key": "resource_output_bp:food",
+                  "value": 1000,
+                  "turns": 10
+                }
+              ],
+              "next": {
+                "step": 2,
+                "delay_turns": 8
+              }
+            },
+            {
+              "chance_bp": 3000,
+              "text_key": "event.ice_comet.1.c0.o1",
+              "effects": [
+                {
+                  "key": "add_stock:food",
+                  "value": 3000
+                },
+                {
+                  "key": "stability_add",
+                  "value": -4,
+                  "target": "colony",
+                  "turns": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label_key": "event.ice_comet.1.c1",
+          "effects": [
+            {
+              "key": "research_bp:physics",
+              "value": 500,
+              "turns": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "captain_brandt",
+      "expression": "warm",
+      "music": "mood_light",
+      "title_key": "event.ice_comet.2.title",
+      "body_key": "event.ice_comet.2.body",
+      "choices": [
+        {
+          "label_key": "event.ice_comet.2.c0",
+          "effects": [
+            {
+              "key": "resource_output_bp:food",
+              "value": 1000,
+              "turns": 20
+            }
+          ]
+        },
+        {
+          "label_key": "event.ice_comet.2.c1",
+          "effects": [
+            {
+              "key": "resource_output_bp:energy",
+              "value": 1500,
+              "turns": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

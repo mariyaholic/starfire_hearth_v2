@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "id": "ark_last_engine",
+  "kind": "scripted",
+  "vignette": "ark_engine",
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 45,
+        "flags_all": [
+          "sealed_order_active"
+        ]
+      },
+      "speaker": "captain_brandt",
+      "expression": "neutral",
+      "music": "theme_brandt",
+      "title_key": "event.ark_last_engine.1.title",
+      "body_key": "event.ark_last_engine.1.body",
+      "choices": [
+        {
+          "label_key": "event.ark_last_engine.1.c0",
+          "effects": [
+            {
+              "key": "add_stock:alloys",
+              "value": 15000
+            },
+            {
+              "key": "add_stock:minerals",
+              "value": 15000
+            }
+          ],
+          "set_flags": [
+            "engine_salvaged"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 4
+          }
+        },
+        {
+          "label_key": "event.ark_last_engine.1.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5
+            }
+          ],
+          "set_flags": [
+            "engine_monument"
+          ],
+          "next": {
+            "step": 3,
+            "delay_turns": 4
+          }
+        },
+        {
+          "label_key": "event.ark_last_engine.1.c2",
+          "effects": [
+            {
+              "key": "decode_progress_add",
+              "value": 1000
+            }
+          ],
+          "set_flags": [
+            "engine_studied"
+          ],
+          "next": {
+            "step": 4,
+            "delay_turns": 4
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "captain_brandt",
+      "expression": "worried",
+      "music": "mood_sorrow",
+      "title_key": "event.ark_last_engine.2.title",
+      "body_key": "event.ark_last_engine.2.body",
+      "choices": [
+        {
+          "label_key": "event.ark_last_engine.2.c0",
+          "cost": {
+            "alloys": 1000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3,
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.ark_last_engine.2.c1",
+          "effects": [
+            {
+              "key": "add_stock:alloys",
+              "value": 2000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "speaker": "captain_brandt",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.ark_last_engine.3.title",
+      "body_key": "event.ark_last_engine.3.body",
+      "choices": [
+        {
+          "label_key": "event.ark_last_engine.3.c0",
+          "effects": [
+            {
+              "key": "add_stock:influence",
+              "value": 2000
+            }
+          ]
+        },
+        {
+          "label_key": "event.ark_last_engine.3.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3,
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "speaker": "archivist_sola",
+      "expression": "worried",
+      "music": "mood_mystery",
+      "title_key": "event.ark_last_engine.4.title",
+      "body_key": "event.ark_last_engine.4.body",
+      "choices": [
+        {
+          "label_key": "event.ark_last_engine.4.c0",
+          "effects": [
+            {
+              "key": "research_bp:physics",
+              "value": 1000,
+              "turns": 20
+            }
+          ]
+        },
+        {
+          "label_key": "event.ark_last_engine.4.c1",
+          "effects": [
+            {
+              "key": "decode_progress_add",
+              "value": 300
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

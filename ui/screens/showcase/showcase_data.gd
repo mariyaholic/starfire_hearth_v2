@@ -14,7 +14,7 @@ static func food() -> Breakdown:
 	b.base("source.districts", farms.total, {"district_key": "district.agriculture.name", "count": 2}, farms)
 	b.add("source.building", 300, {"building_key": "sample.building.ark_hull"})
 	b.add("source.pop_upkeep", -1000, {"count": 10})
-	b.note("note.food_growth").link_to("mechanic_food")
+	b.note("note.food_growth").link_to("mechanic:food")
 	return b.finish()
 
 

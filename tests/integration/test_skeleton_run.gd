@@ -1,7 +1,7 @@
 extends RefCounted
-## 50 turns of scenario 1 with bots (§9.8 integration): no errors, no invariant violations,
-## deterministic, and stable across save and load. M0's scenario 1 is still a stub, so this
-## exercises the pipeline (load, orders, phases, hashing), not the economy.
+## 50 turns of Scenario 1 with bots (§9.8 integration): no errors, no invariant violations,
+## deterministic, and stable across save and load, with the whole M1 economy, event engine and
+## the bots' orders running.
 
 const SCENARIO: String = "s1_first_light"
 const TURNS: int = 50

@@ -1,0 +1,7 @@
+{
+	"source": "/workspace/starfire_3d_proposal/m1_1_stage_f/source/M1_working_delta.patch",
+	"source_sha256": "bd28a72d781b0294cfad5415e832af448adacc86a11c2d4c8b315472106c1872",
+	"base_commit": "a160d9d334c59a2796b8c88e8eaca7f49b42c029",
+	"writer": "M1.1 Stage F source reconstructed from the checksum-verified archived patch",
+	"scope": "sim/save/presentation_envelope.gd and ui/world/appearance_profile_store.gd"
+}

@@ -36,10 +36,14 @@ func test_rejected_player_order_is_reported(t: T) -> void:
 	var cmds: Array[Command] = [RenameColonyCommand.create("emp_player", "col_0404", "Nope")]
 	var r: TurnResult = TurnProcessor.run(TinyState.build(), cmds)
 	t.eq(r.rejected.size(), 1)
-	t.eq(r.report_items.size(), 1)
-	t.eq(r.report_items[0].text_key, "report.order_rejected")
-	t.eq(r.report_items[0].args["reason_key"], "error.colony.not_found")
-	t.eq(r.report_items[0].severity, ReportItem.SEVERITY_WARNING)
+	var rejections: Array[ReportItem] = []
+	for it: ReportItem in r.report_items:
+		if it.text_key == "report.order_rejected":
+			rejections.append(it)
+	t.eq(rejections.size(), 1)
+	if rejections.size() == 1:
+		t.eq(rejections[0].args["reason_key"], "error.colony.not_found")
+		t.eq(rejections[0].severity, ReportItem.SEVERITY_WARNING)
 
 
 func test_report_builder_top_three_is_deterministic(t: T) -> void:

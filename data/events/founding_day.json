@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "id": "founding_day",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "founding_day",
+  "cooldown": 24,
+  "weight": 80,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 12
+      },
+      "speaker": "steward_varga",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.founding_day.1.title",
+      "body_key": "event.founding_day.1.body",
+      "choices": [
+        {
+          "label_key": "event.founding_day.1.c0",
+          "cost": {
+            "food": 5000,
+            "energy": 3000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 10,
+              "turns": 6
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 2
+          }
+        },
+        {
+          "label_key": "event.founding_day.1.c1",
+          "cost": {
+            "food": 1500
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 4,
+              "turns": 6
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 2
+          }
+        },
+        {
+          "label_key": "event.founding_day.1.c2",
+          "effects": [
+            {
+              "key": "add_stock:minerals",
+              "value": 3000
+            },
+            {
+              "key": "stability_add",
+              "value": -2,
+              "turns": 4
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 2
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "archivist_sola",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.founding_day.2.title",
+      "body_key": "event.founding_day.2.body",
+      "choices": [
+        {
+          "label_key": "event.founding_day.2.c0",
+          "effects": [
+            {
+              "key": "decode_progress_add",
+              "value": 200
+            },
+            {
+              "key": "research_bp:society",
+              "value": 1000,
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.founding_day.2.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3,
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

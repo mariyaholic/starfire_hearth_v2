@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "id": "sealed_order",
+  "kind": "main_arc",
+  "vignette": "sealed_archive",
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 40
+      },
+      "speaker": "archivist_sola",
+      "expression": "neutral",
+      "music": "mood_mystery",
+      "title_key": "event.sealed_order.1.title",
+      "body_key": "event.sealed_order.1.body",
+      "hint_key": "event.sealed_order.1.hint",
+      "on_fire": {
+        "effects": [
+          {
+            "key": "add_building",
+            "value": 1,
+            "target": "archive_of_sol"
+          }
+        ],
+        "set_flags": [
+          "sealed_order_active"
+        ]
+      },
+      "choices": [
+        {
+          "label_key": "event.sealed_order.1.c0",
+          "effects": [
+            {
+              "key": "research_bp:all",
+              "value": 500
+            },
+            {
+              "key": "stability_add",
+              "value": -3
+            }
+          ],
+          "set_flags": [
+            "archive_open"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 1
+          }
+        },
+        {
+          "label_key": "event.sealed_order.1.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3
+            }
+          ],
+          "set_flags": [
+            "archive_restricted"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 1
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "trigger": {
+        "decode_min": 1000
+      },
+      "speaker": "archivist_sola",
+      "expression": "stern",
+      "music": "theme_sola",
+      "title_key": "event.sealed_order.2.title",
+      "body_key": "event.sealed_order.2.body",
+      "on_fire": {
+        "effects": [
+          {
+            "key": "decode_progress_add",
+            "value": -1000
+          }
+        ],
+        "set_flags": [
+          "sealed_order_fragment_1"
+        ]
+      },
+      "choices": [
+        {
+          "label_key": "event.sealed_order.2.c0",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": -5,
+              "turns": 5
+            },
+            {
+              "key": "research_bp:all",
+              "value": 500
+            }
+          ],
+          "set_flags": [
+            "fragment_public"
+          ]
+        },
+        {
+          "label_key": "event.sealed_order.2.c1",
+          "effects": [
+            {
+              "key": "add_stock:influence",
+              "value": 3000
+            }
+          ],
+          "set_flags": [
+            "fragment_secret"
+          ]
+        }
+      ]
+    }
+  ]
+}

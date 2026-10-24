@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "id": "labor_strike",
+  "kind": "scripted",
+  "vignette": "labor_strike",
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 5,
+        "colony_is_capital": true
+      },
+      "speaker": "steward_varga",
+      "expression": "worried",
+      "music": "mood_tension",
+      "title_key": "event.labor_strike.1.title",
+      "body_key": "event.labor_strike.1.body",
+      "hint_key": "event.labor_strike.1.hint",
+      "choices": [
+        {
+          "label_key": "event.labor_strike.1.c0",
+          "cost": {
+            "influence": 2000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5,
+              "target": "colony",
+              "turns": 10
+            }
+          ],
+          "set_flags": [
+            "strike_negotiated"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 8
+          }
+        },
+        {
+          "label_key": "event.labor_strike.1.c1",
+          "cost": {
+            "energy": 6000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 10,
+              "target": "colony",
+              "turns": 12
+            }
+          ],
+          "set_flags": [
+            "strike_conceded"
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 8
+          }
+        },
+        {
+          "label_key": "event.labor_strike.1.c2",
+          "effects": [
+            {
+              "key": "resource_output_bp:minerals",
+              "value": 1500,
+              "target": "colony",
+              "turns": 6
+            },
+            {
+              "key": "stability_add",
+              "value": -10,
+              "target": "colony",
+              "turns": 10
+            }
+          ],
+          "set_flags": [
+            "strike_suppressed"
+          ],
+          "next": {
+            "step": 3,
+            "delay_turns": 8
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.labor_strike.2.title",
+      "body_key": "event.labor_strike.2.body",
+      "choices": [
+        {
+          "label_key": "event.labor_strike.2.c0",
+          "cost": {
+            "influence": 1500
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3,
+              "target": "colony"
+            }
+          ]
+        },
+        {
+          "label_key": "event.labor_strike.2.c1",
+          "effects": [
+            {
+              "key": "add_stock:minerals",
+              "value": 3000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "speaker": "steward_varga",
+      "expression": "stern",
+      "music": "mood_tension",
+      "title_key": "event.labor_strike.3.title",
+      "body_key": "event.labor_strike.3.body",
+      "choices": [
+        {
+          "label_key": "event.labor_strike.3.c0",
+          "cost": {
+            "influence": 2500
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 8,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.labor_strike.3.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": -5,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

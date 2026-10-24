@@ -30,9 +30,20 @@ func _initialize() -> void:
 	}
 	_write(GoldenScript.TINY_PATH, JSON.stringify(doc, "  ", true) + "\n")
 	print("wrote %s (%d hashes)" % [GoldenScript.TINY_PATH, hashes.size()])
+	var s1: Array[String] = GoldenScript.s1_hashes()
+	var s1_doc: Dictionary = {
+		"version": 1,
+		"seed": GoldenScript.S1_SEED,
+		"turns": GoldenScript.S1_TURNS,
+		"schema_version": GameState.SCHEMA_VERSION,
+		"reason": reason,
+		"hashes": s1,
+	}
+	_write(GoldenScript.S1_PATH, JSON.stringify(s1_doc, "  ", true) + "\n")
+	print("wrote %s (%d hashes)" % [GoldenScript.S1_PATH, s1.size()])
 	if fixture:
-		var path: String = "res://tests/fixtures/saves/tiny_v%d.json" % GameState.SCHEMA_VERSION
-		_write(path, SaveSerializer.to_text(TinyState.build(GoldenScript.TINY_SEED), "fixture") + "\n")
+		var path: String = "res://tests/fixtures/saves/s1_v%d.json" % GameState.SCHEMA_VERSION
+		_write(path, SaveSerializer.to_text(GoldenScript.s1_state(), "fixture") + "\n")
 		print("wrote %s" % path)
 	quit(0)
 

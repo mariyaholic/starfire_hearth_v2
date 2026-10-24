@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "id": "debris_cascade",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "debris_cascade",
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 20,
+        "has_building": "spaceport"
+      },
+      "speaker": "captain_brandt",
+      "expression": "stern",
+      "music": "mood_tension",
+      "title_key": "event.debris_cascade.1.title",
+      "body_key": "event.debris_cascade.1.body",
+      "choices": [
+        {
+          "label_key": "event.debris_cascade.1.c0",
+          "cost": {
+            "energy": 4000,
+            "minerals": 3000
+          },
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        },
+        {
+          "label_key": "event.debris_cascade.1.c1",
+          "effects": [
+            {
+              "key": "research_bp:physics",
+              "value": -2500,
+              "turns": 10
+            },
+            {
+              "key": "stability_add",
+              "value": -3,
+              "target": "colony",
+              "turns": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "captain_brandt",
+      "expression": "neutral",
+      "music": "mood_light",
+      "title_key": "event.debris_cascade.2.title",
+      "body_key": "event.debris_cascade.2.body",
+      "choices": [
+        {
+          "label_key": "event.debris_cascade.2.c0",
+          "effects": [
+            {
+              "key": "add_stock:alloys",
+              "value": 4000
+            }
+          ]
+        },
+        {
+          "label_key": "event.debris_cascade.2.c1",
+          "effects": [
+            {
+              "key": "research_bp:all",
+              "value": 1000,
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

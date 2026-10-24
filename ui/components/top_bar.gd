@@ -23,6 +23,7 @@ class Model:
 
 
 var model: Model = null
+var compact_summary: bool = false
 var _row: HBoxContainer
 var _inset: MarginContainer
 
@@ -55,7 +56,7 @@ func _rebuild() -> void:
 	var m: Vector4 = Layout.safe_margins
 	_inset.add_theme_constant_override("margin_left", int(m.x))
 	_inset.add_theme_constant_override("margin_right", int(m.z))
-	var compact: bool = Layout.compact
+	var compact: bool = Layout.compact or compact_summary
 	# Resources sit in a strip that takes the width left over and can be swiped when it overflows
 	# (phones at large text sizes), so the bar never pushes the screen wider.
 	var strip: ScrollContainer = ScrollContainer.new()
@@ -63,6 +64,7 @@ func _rebuild() -> void:
 	strip.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	strip.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	strip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	strip.resized.connect(_fit_chips.bind(strip))
 	_row.add_child(strip)
 	var chips: HBoxContainer = HBoxContainer.new()
 	chips.add_theme_constant_override("separation", Tokens.SPACE_S)
@@ -70,19 +72,35 @@ func _rebuild() -> void:
 	var shown: Array[String] = COMPACT_RESOURCES if compact else model.resource_order
 	for rid: String in shown:
 		if model.resources.has(rid):
-			chips.add_child(_chip(rid))
-	if compact:
-		var more: SfButton = SfButton.make("ui.topbar.more", "ui_plus", SfButton.GHOST)
-		more.name = "More"
-		more.pressed.connect(open_more)
-		_row.add_child(more)
-	else:
-		chips.add_child(_noise_block())
+			var chip: ResourceChip=_chip(rid)
+			chips.add_child(chip)
+			chip.minimum_size_changed.connect(func() -> void: _fit_chips.call_deferred(strip))
+	var more: SfButton = SfButton.make("ui.topbar.more", "ui_plus", SfButton.GHOST)
+	more.name = "More"
+	more.pressed.connect(open_more)
+	_row.add_child(more)
+	if not compact:
+		var noise: Explainable=_noise_block()
+		chips.add_child(noise)
+		noise.minimum_size_changed.connect(func() -> void: _fit_chips.call_deferred(strip))
 		_row.add_child(_date_block())
 	var menu: SfButton = SfButton.make_icon("ui_menu", "ui.topbar.menu")
 	menu.name = "Menu"
 	menu.pressed.connect(func() -> void: menu_pressed.emit())
 	_row.add_child(menu)
+	_fit_chips.call_deferred(strip)
+
+func _fit_chips(strip: ScrollContainer) -> void:
+	if not is_instance_valid(strip) or strip.get_parent()!=_row or strip.get_child_count()==0: return
+	var chips: HBoxContainer=strip.get_child(0) as HBoxContainer
+	var used: float=0.0
+	for child: Node in chips.get_children():
+		var chip: Control=child as Control
+		var width: float=chip.get_combined_minimum_size().x
+		var need: float=width+(Tokens.SPACE_S if used>0 else 0)
+		chip.visible=used+need<=strip.size.x-1.0
+		if chip.visible: used+=need
+	strip.scroll_horizontal=0
 
 
 func _chip(rid: String) -> ResourceChip:

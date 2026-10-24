@@ -68,7 +68,7 @@ static func run(tree_root: Node, overlay_root: Control, view: Rect2, phone: bool
 				elif not _in_group(c, "explainable") and not _in_group(c, "breakdown_tooltip"):
 					_issue(res, "numeric", c, t, "number shown outside an Explainable")
 		if c.is_in_group("hex_cell"):
-			texts.append({"node": c, "rect": on_screen, "layer": _layer_of(c, overlay_root)})
+			texts.append({"node": c, "rect": _hex_tile(c, on_screen), "layer": _layer_of(c, overlay_root)})
 		if phone and _pressable(c):
 			res.checked_targets += 1
 			var r: Rect2 = c.get_global_rect()
@@ -76,6 +76,18 @@ static func run(tree_root: Node, overlay_root: Control, view: Rect2, phone: bool
 				_issue(res, "tap_target", c, t, "%.0fx%.0f dp, needs %dx%d" % [r.size.x, r.size.y, int(TAP_DP), int(TAP_DP)])
 	_check_overlaps(res, texts)
 	return res
+
+
+## The part of a grid a hex occupies: neighbouring hexes tile the plane, so their bounding boxes
+## overlap by design; the tile (the hex's width, 1.5 radii tall) is what must stay clear.
+static func _hex_tile(c: Control, visible: Rect2) -> Rect2:
+	# Duck-typed: a tool script cannot name the UI classes, which use the autoloads.
+	if not c.has_method("hex_center"):
+		return visible
+	var radius: float = float(c.get("radius"))
+	var mid: Vector2 = c.get_global_rect().position + (c.call("hex_center") as Vector2)
+	var w: float = sqrt(3.0) * radius
+	return Rect2(mid - Vector2(w / 2.0, radius * 0.75), Vector2(w, radius * 1.5)).intersection(visible)
 
 
 static func _collect(n: Node, out: Array[Control]) -> void:

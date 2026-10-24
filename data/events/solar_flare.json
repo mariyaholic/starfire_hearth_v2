@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "id": "solar_flare",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "solar_flare",
+  "cooldown": 30,
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 8
+      },
+      "speaker": "captain_brandt",
+      "expression": "stern",
+      "music": "mood_tension",
+      "title_key": "event.solar_flare.1.title",
+      "body_key": "event.solar_flare.1.body",
+      "choices": [
+        {
+          "label_key": "event.solar_flare.1.c0",
+          "cost": {
+            "energy": 4000
+          },
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        },
+        {
+          "label_key": "event.solar_flare.1.c1",
+          "effects": [
+            {
+              "key": "resource_output_bp:energy",
+              "value": -2500,
+              "turns": 4
+            },
+            {
+              "key": "stability_add",
+              "value": -3,
+              "turns": 4
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 6
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "captain_brandt",
+      "expression": "warm",
+      "music": "mood_light",
+      "title_key": "event.solar_flare.2.title",
+      "body_key": "event.solar_flare.2.body",
+      "choices": [
+        {
+          "label_key": "event.solar_flare.2.c0",
+          "effects": [
+            {
+              "key": "research_bp:physics",
+              "value": 2000,
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.solar_flare.2.c1",
+          "cost": {
+            "food": 2000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5,
+              "turns": 6
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "id": "frontier_doctor",
+  "kind": "emergent",
+  "scenarios": [
+    "s1_first_light",
+    "s2_the_crossing",
+    "s3_neighbours"
+  ],
+  "vignette": "frontier_doctor",
+  "weight": 100,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "min_turn": 15,
+        "colony_pops_min": 8
+      },
+      "speaker": "archivist_sola",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.frontier_doctor.1.title",
+      "body_key": "event.frontier_doctor.1.body",
+      "hint_key": "event.frontier_doctor.1.hint",
+      "choices": [
+        {
+          "label_key": "event.frontier_doctor.1.c0",
+          "cost": {
+            "minerals": 4000
+          },
+          "effects": [
+            {
+              "key": "growth_bp",
+              "value": 2500,
+              "target": "colony",
+              "turns": 20
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 15
+          }
+        },
+        {
+          "label_key": "event.frontier_doctor.1.c1",
+          "cost": {
+            "influence": 3000
+          },
+          "effects": [
+            {
+              "key": "growth_bp",
+              "value": 1000
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 15
+          }
+        },
+        {
+          "label_key": "event.frontier_doctor.1.c2",
+          "next": {
+            "step": 2,
+            "delay_turns": 12
+          }
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "archivist_sola",
+      "expression": "warm",
+      "music": "mood_hope",
+      "title_key": "event.frontier_doctor.2.title",
+      "body_key": "event.frontier_doctor.2.body",
+      "choices": [
+        {
+          "label_key": "event.frontier_doctor.2.c0",
+          "effects": [
+            {
+              "key": "add_pops",
+              "value": 1
+            },
+            {
+              "key": "growth_bp",
+              "value": 1000,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.frontier_doctor.2.c1",
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 3,
+              "turns": 10
+            },
+            {
+              "key": "growth_bp",
+              "value": 1500,
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

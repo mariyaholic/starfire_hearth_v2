@@ -1,4 +1,4 @@
-# STARFIRE HEARTH: Complete Build Prompt (rewrite 3, after the M0 review)
+# STARFIRE HEARTH: Complete Build Prompt (rewrite 4, M1 in progress)
 
 **To the builder** (the AI coding agent reading this): this document is your whole brief. You are
 building a complete game in the GitHub repository `mariyaholic/starfire_hearth_v2`, working alone
@@ -11,6 +11,10 @@ Owner's decisions from the M0 review:
 - a 150 MB web budget
 - a pipeline for outsourced art, sound and music, on hold for now, so the game is built against
   code placeholders
+
+Rewrite 4 adds the M1 simulation as built, its design decisions (DESIGN_LOG 51–84), the balance
+status, and exactly where to resume: see **M1 progress and where to resume**, right after the
+status table.
 
 Read the whole document before writing any code.
 
@@ -41,10 +45,159 @@ For example, **Metals** (`alloys`) and **Ordinances** (`edict`).
 | Repository | `mariyaholic/starfire_hearth_v2`, **public**. Licence: "All rights reserved" (§14) |
 | M0: Foundation and UI kit | **Built and merged** (PR #1). CI green. The web build is deployed to GitHub Pages at `https://mariyaholic.github.io/starfire_hearth_v2/`. The Owner approved the look |
 | After the M0 review | Display renames and units (§5.0); painted-diorama world art (§8); a visual-novel soundtrack and story scenes (§5.10, §8.6); the web budget raised to 150 MB (§9.11); this prompt rewritten (PR #2) |
-| Outsourced assets | **On hold** (Owner, before M1). The briefs of §15 are ready. The game uses its code placeholders until the Owner resumes (DESIGN_LOG 50) |
-| Main scene | The UI kit showcase (sample data). M1 replaces it with the title screen |
-| Next | **M1: First Light** (§12). Write `docs/milestones/M1_PLAN.md` first |
+| Outsourced assets | **First delivery ingested** (DESIGN_LOG 93): sounds batches 1–2, music batch 1 (all 28 tracks), VFX, the seven Scenario 1 story scenes, the six neutral portraits, ships, the title key art and logo, and store art. Still on their code fallbacks: story scenes batch 2 (18), the portrait expressions (18), `title_cast` and `logo_title` |
+| M1: First Light | **In progress** on branch `claude/starfire-hearth-build-cs2vb6`, draft PR #3. The plan is `docs/milestones/M1_PLAN.md`. Built and pushed: the simulation, data, story, bots, telemetry, the app shell and campaign flow screens, audio, saves, the Codex, lit-sphere planets, the tour and web smoke over the app, a balance pass, the asset intake with the first delivery, and the game screen with its views, overlays, settings, load and credits. The five balance gates pass after the review of DESIGN_LOG 95 and 96, and the M1 report is written. Next: the Owner plays the checkpoint build |
+| Main scene | The title (`ui/screens/app_root.tscn`); the UI kit showcase is a debug-build entry on it. Begin opens the game screen |
+| Next | The Owner plays the checkpoint build and answers the report's questions ("Balance status"); then merge and deploy (which publishes the build) and the playtest on Pages |
 | Toolchain | Godot 4.7.2-stable, Compatibility renderer, statically typed GDScript |
+
+---
+
+## M1 progress and where to resume (rewrite 4)
+
+### What is built (all pushed; each claim's verification is in the CHANGELOG)
+
+| Area | As built | Verified by |
+| --- | --- | --- |
+| Data | 15 buildings, 37 techs, 5 ordinances, 6 hulls, 12 modules, district tiers, 3 difficulty presets, 3 legacies, origin effects, 25 story-scene and 6 portrait placeholder records, `data/asset_manifest.json` (169 ids) | `tools/validate_data.gd`: 0 errors, 0 skipped checks |
+| Scenario 1 | Playable data: start state (Ark Hull landmark, Spaceport, both ships, seeded research hands), 4 required + 3 optional objectives, 14 tutorial steps, loss rules, `tech_pool`, `locked_ordinances`, `locked_buildings`, `balance_scope`, `expected_turns` 70, `director_start` 8. Cinder is now small (DESIGN_LOG 66) | the validator's scenario checks and reachability walk |
+| State | Schema 2 with migration `v1_to_v2`; fixtures `tiny_v1.json` and `s1_v2.json` | `tests/unit/test_saves.gd` |
+| Rules | `sim/rules/`: `economy`, `production`, `population`, `stability`, `research`, `construction`, `governor`, `ordinances`, `ships`, `market`, `objectives`, `tutorial`, `events`, `effects`, `modifiers`, `colony_rules`, `hex_grid`; `sim/ai/advisor.gd` | 157 tests, 2,327 checks (`tests/run_tests.gd`), incl. Aster's start numbers against §5 |
+| Commands | 22 player commands (§9.12) | every type round-trips (`--filter commands`) |
+| Story | 16 chains, 36 steps (§10.6 list below) | the validator checks every body is 60–140 words |
+| Bots | balanced, economy, turtle, random-legal (`tools/bot/bot_policy.gd`); per-turn telemetry; all five gates in `tools/telemetry_report.gd` | CI balance job (20 seeds × 4 policies + Story) |
+| Golden | `tests/golden/tiny_hashes.json` and `s1_hashes.json` (24 scripted S1 turns), re-baselined with a CHANGELOG reason | `--filter golden` |
+| UI groundwork | `sim/explain/effect_text.gd` (effects as keys and args), `ui/components/effect_list.gd`, `cost_chips.gd`, `story_scene.gd` and `portrait.gd` (data-driven placeholders), `app/asset_ids.gd` (§15 id → delivered file or null) | `tests/unit/test_effect_text.gd` |
+| App shell and flow screens | `ui/screens/app_root.tscn` (the main scene; routes; only built screens are offered), `ui/screens/flow/`: title (sky or key art; Continue), campaign (difficulty, scenario cards), briefing, debrief (legacy pick, Try again, the checkpoint after a loss), and a stand-in for the game route; `app/campaign_progress.gd`; `Game.new_game(..., difficulty)` and `Game.resume(state)` | `tests/integration/test_flow_screens.gd` (the flow, and the id audit on 13 states × 4 layouts), `tests/unit/test_campaign_progress.gd` |
+| Audio | `app/audio.gd` (UI, Effects and Music buses; volumes and mute in `Settings`), `app/sound_synth.gd` (a synthesised fallback for every §15.4 id), music cues per screen (the delivered tracks); `tools/audio_preview.gd` (CI artifact `audio-preview`) | `tests/unit/test_audio.gd` |
+| Saves | `app/save_service.gd`: auto-save after every turn (ring of 10), a checkpoint every 5 turns (ring of 6), numbered manual saves, thumbnails, a listing from the envelopes; `user://campaign.json` | `tests/unit/test_save_service.gd` |
+| Codex | `ui/codex/` (index, live facts, entry view, overlay) and `ui/screens/codex_screen.gd`; 22 mechanics pages in `data/codex/*.md`; every breakdown's Codex link opens its entry | `tests/unit/test_codex.gd`; the Codex states in the flow audit |
+| Planets and tooling | `ui/map/planet_sphere.gdshader` (lit spheres); the screenshot tour visits the app (108 shots, the debrief of a bot-won game); the web smoke test plays a turn and matches the desktop's state hash (`tools/smoke_hash.gd`) | the tour; `node tools/web_smoke.mjs --expect-hash` |
+| Game screen | `ui/screens/game/`: `GameScreen` (top bar, rail or tab bar, advisor with highlight, Undo, End Turn with its checklist, the end-of-turn flow), seven views (`colony_view` planner with preview, queue, jobs, governor and shipyard; `system_view`; `galaxy_view`; `research_view`; `ordinances_view`; `market_view`; `objectives_view`), overlays (`event_overlay`, `turn_report_overlay` with the checklist, `why_overlay`), `game_model` (top bar and checklist from a state) and `game_ui` (shared builders); `ui/screens/flow/settings_screen`, `load_screen` and `credits_screen` | `tests/integration/test_game_screen.gd` (a game played from the first report, orders from every view, events, and the audit on every view and overlay at four sizes); the tour's 17 game states |
+| Asset intake | `tools/import_assets.py` (§15.2; checks, converts, imports, credits); `assets/delivered/<kind>/`; 131 ids delivered in 9 batches; painted portraits cut to their disc, scenes cropped not stretched, the title's key art and vector logo; the project icon is the delivered emblem | `tests/unit/test_assets.gd` (every delivered id loads); the tour |
+
+The story chains: scripted Labor Strike (T5), The Founders' Vote (T10), Cold Sleepers (T18), The
+Sealed Order steps 1–2 (T40, then when decoded), The Ark's Last Engine (T45+); status Unrest,
+Empty Granaries (famine), Envoys of the Autonomy; emergent Solar Flare, Crop Blight, Mine
+Collapse, Founding Day, The Frontier Doctor, Refugee Slowboat, Ice Comet Capture, Orbital Debris
+Cascade.
+
+### Balance status (after the review of DESIGN_LOG 95 and 96; the CI balance job's settings: 20 seeds per policy on Normal, plus balanced on Story)
+
+| Gate | Result | Band |
+| --- | --- | --- |
+| Invariants | PASS: 0 problems in 100 runs, 8,789 turns | 0 |
+| Performance | PASS: end-turn p95 44 ms | < 300 ms |
+| Winnable, balanced on Normal | PASS: 15 of 20 within 1.2 times the expected duration (19 of 20 win at all; was 20 of 20 within 1.5 times) | 60–90% |
+| Winnable, random-legal | PASS: 0 of 20 | < 20% |
+| Winnable, balanced on Story | PASS: 20 of 20 | 85–100% |
+| Pacing | PASS: median win turn 78 (was 74) | 56–84 |
+| No dead turns | PASS: median 5% | < 25% |
+| No hoarding | PASS: 0 of 40 balanced runs (was 80 of 80 runs of every bot but random-legal) | ≤ 20% of runs |
+| Everything matters | PASS: Storehouse 37%, Fusion Plant 39%, Research Institute 47%, Civic Hall 48%, Hydroponics Bay 49%, Park Commons 61%, Clinic 83%, Habitat Dome 83% (was Foundry 0%, Research Institute 3%) | buildings ≥ 25%, techs ≥ 15% |
+
+Balance gates are advisory in CI (`--balance advisory`) until the M1 gate (DESIGN_LOG 82).
+What the review changed, and which of it is a change of play and which only of a count (95, 96):
+- **Play, Scenario 1:** the Ark Hull opens the market from turn 1; the Market Exchange and the
+  Foundry are locked; the Research Institute is one per empire with +2.00 research in each branch
+  and costs 120 minerals; the Storehouse, Fusion Plant and Civic Hall are cheaper (the Civic Hall
+  gives 1.50 influence); the balanced bot keeps the larger of seven turns of income and the next
+  Colony Ship's price.
+- **A count only:** "winnable" is a win within 1.2 times the expected duration (was 1.5), which
+  does not make Normal harder for a person: the scenario has no deadline, so a competent player
+  loses only if the capital declares autonomy. Events at 125% or 150% severity change nothing.
+  The hoarding gate measures the balanced bot only; the Foundry left the balance scope.
+- **Open for the Owner:** whether a 60–90% band suits an onboarding scenario at all, and whether
+  Normal needs a real turn limit or a harsher status chain.
+
+What the balance pass learned, so it is not repeated:
+- Minerals are the bottleneck and the market is the valve (surplus sold for energy, energy buys
+  minerals), but its building competes for the same minerals. A market with no technology
+  (available from turn 1) broke pacing (median turn 94). Halving metallurgist output starved the
+  market's metals and delayed it to turns 60–100. A research priority for the market's technology
+  changed nothing, because the building waited for minerals, not the technology.
+- Food sits near 280 against a line of about 250 (ten turns of gross) until the market opens
+  around turn 45; metals pile up between the two Colony Ships.
+- Local loop: `tools/balance_loop.sh <dir> 1-20` runs the four policies and Story in parallel
+  (about 5 minutes on 4 cores), then the gates.
+- The market from turn 1 (the Ark Hull) settled hoarding; a technology-free market had broken pacing
+  in the earlier pass because its building still had to be paid for. The Institute needed a limit of
+  one per empire, or every colony built its own and three other buildings lost their slots.
+
+### Remaining M1 work, in order
+
+Done since rewrite 4: the app shell and flow screens, audio, saves and campaign progress, the
+Codex, lit-sphere planets, the title as the main scene, the tour and web smoke over the app, a
+balance pass, the asset intake with the first delivery, and the game screen with every view and
+overlay of the plan below (CHANGELOG, DESIGN_LOG 85–94). What is left:
+
+1. **The balance questions** above (the Owner's calls), then a last tuning pass.
+2. **M1 report** (`docs/milestones/M1_REPORT.md`), merge, deploy, stop for the Owner's playtest.
+3. Known gaps, small: a colony cannot be renamed yet (the command exists), the game screen has
+   no keyboard shortcuts beyond Esc for the menu, and the phone layouts have been audited in the
+   simulator but not on a real phone.
+
+### The screen plan (as built; DESIGN_LOG 94 says how it differs)
+
+- **`AppRoot`** (built; the main scene, `ui/screens/app_root.gd`): hosts
+  one screen at a time and routes title → campaign → briefing → game → debrief, plus Codex,
+  settings, load and the showcase. A route joins `AppRoot.routes()` when its screen exists.
+- **Title** (built): Continue (newest save), Campaign, Load, Codex, Settings, Credits, Showcase
+  (debug), Quit (desktop).
+- **Campaign** (built): the three scenario cards (S2 and S3 locked until the one before is won) and the
+  difficulty preset with its description.
+- **Briefing** (built): `scenario.s1.briefing`, the objectives, Begin. **Debrief** (built):
+  outcome, objectives, the legacy pick (1 of 3), then back to the campaign; after a loss, Try
+  again (the checkpoint reload joins it with the save rings).
+- **Game screen** (built): the top bar (every resource, net and breakdown; date; menu); navigation (a rail
+  on PC, a bottom tab bar on phones); the current view in the centre; a context panel (right side
+  on PC, a bottom sheet on phones); the advisor card (tutorial: current step, goal, highlight,
+  completes on the player's action through `Tutorial.condition_met` or a UI event, then
+  `AcknowledgeCommand`); End Turn with the checklist (pending events block; idle Construction
+  Ship, empty research card and overflow warnings are listed; critical alerts must be
+  acknowledged).
+  - **Galaxy view**: Ember and the six fogged neighbours; the lanes are locked, with the reason.
+  - **System view**: the star, planets on orbits, ships; a planet's panel shows survey state,
+    traits, slots, and the actions Survey, Colonise and Build an Outpost (with costs and reasons).
+  - **Colony planner**: the hex grid from `HexGrid.coords` with `HexCell`s; header stats (settlers,
+    housing, jobs, stability, growth: each an Explainable); a slot's menu of districts and
+    buildings with cost chips, the adjacency ghost and the change it would make (compare
+    `Economy.colony` before and after on a cloned state); the queue (cancel, move up, rush); job
+    priority; the governor (on or off, focus, budget, plan with its reason, veto).
+  - **Research**: three branch columns of cards with progress and cost breakdowns; reroll; a
+    tech-tree list by branch and tier.
+  - **Ordinances**, **Market** (once open), **Objectives** (progress per objective).
+- **Overlays**: the event scene (StoryScene, speaker Portrait and name, title, body, choices with
+  CostChips and EffectList, uncertain outcomes with their chances, the hint); the turn report (top
+  3, then grouped, each with jump-to); Why? (the WhyLog entries for the selection); settings;
+  save and load.
+- **After End Turn**: `Game.end_turn()`, auto-save, the report, then each pending event in turn;
+  a won or lost outcome opens the debrief.
+
+### Builder notes (learned the hard way)
+
+- Check every new script with `godot --headless --path . --check-only -s <script>`: `--import`
+  does not report parse errors in a class script nothing uses yet.
+- Never name a method after an Object virtual (`_set`, `_get`, `_init` with arguments...).
+- Untyped declarations are errors, including `for` loop variables.
+- Never `pkill -f` a pattern that appears in your own command line: it kills the shell (exit
+  144). Kill by PID.
+- A probe script that fails before `quit()` hangs: run probes under `timeout`.
+- In test messages, `%` must be escaped as `%%` when the string is formatted.
+- String keys that code builds from ids go through `sim/explain/names.gd`, so the data checks can
+  see them; literal keys with the prefixes in `tools/data_checks.gd` must exist.
+- String arguments: `_key` resolves a key; `_c` is a centi amount; `_sc`, `_sp` and `_bp` are
+  signed centi, points and basis points.
+- Local balance loop: run the four policies in parallel with `tools/bot_run.gd --seeds 1-6
+  --turns 105 --out <dir>`, then `tools/telemetry_report.gd -- --in <dir> --balance advisory`.
+- `set_anchors_preset()` on a control already in the tree keeps its (zero) rect; code-built
+  full-rect controls use `set_anchors_and_offsets_preset()`.
+- An autowrapping label inside a `CenterContainer` gets no width and wraps every word: give its
+  column a minimum width.
+- A node that is built but never added to the tree leaks (the test run warns at exit).
+- Headless runs must not start audio playback: a stream still playing at exit leaks.
+- A `-s` script that names UI classes (which use autoloads) can hang: load them with
+  `load(path)` and call them with `.call()`.
 
 ---
 
@@ -242,8 +395,9 @@ vast and slow. Physics is respected:
 - there are no energy beings
 - aliens are strange but biologically plausible
 
-The writing is humane and specific, sometimes funny, and never grimdark for its own sake. Every
-event should give the player someone to care about.
+The writing is humane and specific, sometimes funny. Horror and grimdark are allowed where the
+story leads there (the darker routes of the branching campaign, DESIGN_LOG 106). Every event
+should give the player someone to care about.
 
 ### 4.2 Timeline (canon)
 
@@ -978,7 +1132,8 @@ listing every resource with its unit, the Noise meter and the date.
     stylized, chunky 3D forms like a hand-built miniature, rendered with soft painterly brushwork,
     glowing light and luminous skies, in the spirit of hopeful 1960s space-age illustration. The
     full direction is in §15.3.
-- It is not pixel art, not photoreal, and not grimdark.
+- It is not pixel art and not photoreal. Its default mood is hopeful; darker routes use the dark
+  variant of §15.3.
 - **Baseline:** every world asset keeps a code-drawn fallback, so the game is always complete.
   Outsourced art replaces the fallback through the intake contract of §15.
 - **Mood references for human artists:** the games *Before We Leave*, *Dorfromantik* and *Outer
@@ -1136,12 +1291,12 @@ Line height is 1.35. All sizes multiply by the text scale.
 │  │                         # TopBar, Fmt, IconCache, OverlayLayer                     [built]
 │  ├─ screens/               # one folder per screen of §7; showcase/ (M0 main scene)
 │  └─ map/                   # star_disc, planet_disc [built]; galaxy_map, system_map, planner [M1–M2]
-├─ assets/  icons/ (87×2 SVG)  fonts/ (IBM Plex + OFL)  audio/  art/  vfx/  (§15)
+├─ assets/  icons/ (87×2 SVG)  fonts/ (IBM Plex + OFL)  delivered/<kind>/ (§15 batches)
 ├─ app/                      # autoloads: Settings, Strings, Layout, Overlay, Game, SaveService
 ├─ tests/  run_tests.gd  t.gd  unit/  integration/  golden/  fixtures/
 ├─ tools/                    # validate_data, data_checks, bot_run (+bot/), telemetry_report,
 │                            # screenshot_tour, id_audit, icon_sheet, palette_report, colour_vision,
-│                            # regen_golden, web_smoke.mjs; import_assets.gd (§15.2, to build)
+│                            # regen_golden, web_smoke.mjs; import_assets.py (§15.2)
 └─ .github/  workflows/ci.yml  actions/setup-godot/
 ```
 
@@ -1291,8 +1446,9 @@ cancelled; runs on `main` always finish.
 | export | Web, Windows and Linux; web size check (gzip download under 150 MB, DESIGN_LOG 37 and 49); web smoke test; the web-build artifact; desktop builds on `main` and manual runs; the Pages artifact on `main` |
 | deploy | GitHub Pages (Source: GitHub Actions), on pushes to `main` |
 
-**To add:** the Android export at M3 (signing keys from the Owner as repository secrets), and an
-asset-intake validation step once `tools/import_assets.gd` exists (§15.2). Bump
+**To add:** the Android export at M3 (signing keys from the Owner as repository secrets). Asset
+intake runs on the builder's machine (§15.2); CI checks its result in the test job
+(`tests/unit/test_assets.gd`: every delivered id imports and loads). Bump
 `actions/checkout`, `cache` and `upload-artifact` to their Node 24 majors when convenient.
 
 ### 9.11 Performance budgets (checked in CI where possible; reported otherwise)
@@ -1303,11 +1459,33 @@ asset-intake validation step once `tools/import_assets.gd` exists (§15.2). Bump
 | End turn, sandbox (50 systems, 4 AIs) | < 3 s on a mid-range phone | M4 |
 | Map pan and zoom | 60 fps at 50 systems on desktop Compatibility | M2 |
 | Memory | < 400 MB | showcase peak 294 MiB with software GL |
-| Web build size | < 150 MB, as the compressed download (Owner, after M0; DESIGN_LOG 49) | 11.0 MB |
-| Audio added by §15 | music ≤ 70 MB in total as Ogg (about 112 kbps); effects ≤ 5 MB | — |
-| Painted art added by §15 | ≤ 40 MB, shipped as lossy WebP at display size | — |
+| Web build size | < 150 MB, as the compressed download (Owner, after M0; DESIGN_LOG 49) | 48.2 MB with the first delivery (was 11.0 MB) |
+| Audio added by §15 | music ≤ 70 MB in total as Ogg (about 112 kbps); effects ≤ 5 MB | music 27.8 MB (28 tracks); effects 3.6 MB |
+| Painted art added by §15 | ≤ 40 MB, shipped as lossy WebP at display size | 2.9 MB of sources (batch 1) |
 
 ---
+
+### 9.12 The M1 simulation (as built)
+
+- **Content access:** rules read `Content.db()` (`sim/data/content.gd`), loaded once; tests can swap
+  it with `Content.use()` (DESIGN_LOG 51).
+- **Breakdowns** gained a `flat` line kind, applied after the percentage lines: upkeep,
+  consumption and inputs are never scaled by bonuses (DESIGN_LOG 67).
+- **Turn phases** filled: 1 commands; 2 governors, then construction; 3 production (the
+  `EmpireReport` is kept in `TurnResult.reports`); 4 growth and famine; 5 research and decoding;
+  8 civilian ship tasks; 9 stability, autonomy, ordinance and modifier ticks; 12 events; 13
+  objectives, victory and loss; 14 report. Phases 6, 7, 10 and 11 wait for M2 and M3.
+- **Commands** (22): rename colony, set job priority, place district, upgrade district, demolish,
+  build building, build ship, cancel build, move build up, rush build, pick research, reroll
+  research, activate ordinance, cancel ordinance, set governor, veto plan, survey, build outpost,
+  colonise, choose event, acknowledge (tutorial), trade.
+- **Economy** (`Economy.colony`, `Economy.empire`): derived, never mutating; the UI, the bots and
+  the production phase all read the same reports and breakdowns.
+- **Events:** `Events.check` evaluates a closed set of trigger conditions and returns the colony
+  and readable reasons (written to the Why? log); `Effects.apply` turns lasting effects into
+  `Modifier`s named after the event, applies one-off effects, and schedules gradual ones.
+- **Advisor** (`sim/ai/advisor.gd`): scores every legal build for a colony from the empire's needs
+  and a focus, with a reason key; the governor and the bots share it, and M3's AI will too.
 
 ## 10. Content scope: the 3-scenario mini-campaign (the POC)
 
@@ -1337,7 +1515,7 @@ beyond Ember is locked, and the lock is explained in the story: "our slowboats n
 | --- | --- | --- | --- | --- |
 | Aster | continental, medium | 20 (2 blocked) | Fertile Soil | capital |
 | Brume | ocean, small | 16 | Geothermal | colony target |
-| Cinder | barren, tiny | 12 | Rich Veins | dome world once Habitat Domes is researched |
+| Cinder | barren, small | 16 (8 as a dome world) | Rich Veins | dome world once Habitat Domes is researched (small, not tiny: DESIGN_LOG 66) |
 | Dross | gas giant | — | — | energy or research outpost slot |
 | The Tithe Belt | asteroid belt | — | — | minerals outpost |
 
@@ -1741,6 +1919,12 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
 
 ### M1: First Light
 
+**Status:** tasks 1–4 and 6–8 below are built (rules, commands, data, events, audio, asset ids,
+bots and telemetry), and task 5 in part (the app shell, the campaign flow screens, the Codex,
+saves, planets and the main scene); the balance gates are computed after a balance pass, and
+three still fail. The game screen, its views and overlays, and task 9 remain. See "M1 progress
+and where to resume".
+
 **Tasks:**
 1. **Rules** (`sim/rules/`), each with unit tests and breakdowns:
    - economy: jobs, output, upkeep, caps and overflow warnings
@@ -1786,7 +1970,7 @@ The full list is in `docs/milestones/M0_REPORT.md` and `CHANGELOG.md`.
    delivered and synthesised blips otherwise.
 7. **Asset ids:** `data/asset_manifest.json` lists every §15 id with its kind and status, and the
    game resolves each id to a delivered file or its placeholder. The intake tool
-   (`tools/import_assets.gd`, §15.2) is built when the first batch arrives; outsourcing is on hold.
+   (`tools/import_assets.py`, §15.2) is built, and the first delivery is in (DESIGN_LOG 93).
 8. **Bot:** the balanced, economy, turtle and random-legal policies playing the full S1; the
    telemetry tools with real balance gates. Reachability in `validate_data` becomes real.
 9. **Main scene:** the title screen. The showcase moves to a debug menu item (and stays in the
@@ -1957,7 +2141,20 @@ The set lives in `sim/data/effect_keys.gd`.
   ] }
 ```
 
-### 13.5 Scenario format (outline; S1 stub as built)
+**As built in M1:** a chain file also has `version`, `kind` (`scripted`, `main_arc`, `status` or
+`emergent`), optional `scenarios`, `vignette`, `cooldown` and `weight`. A step has `speaker`,
+`expression` (`neutral`, `warm`, `worried`, `stern`), `music` (a §15.5 id), `hint_key`, and
+`on_fire` {`effects`, `set_flags`}; a later step's `trigger` is a requirement it waits for. A
+choice has `cost`, `effects`, `set_flags`, `clear_flags`, `next`, `requires` and `locked_key`; an
+"Uncertain" choice has `uncertain: true` and `outcomes` [{`chance_bp`, `text_key`, `effects`,
+`set_flags`, `next`}] summing to 10000. Trigger conditions: `min_turn`, `max_turn`, `flags_all`,
+`flags_none`, `colony_stability_max`, `colony_stability_min`, `colony_pops_min`, `colonies_min`,
+`has_building`, `has_district`, `techs_all`, `stock_min`, `stock_max`, `net_max`, `net_min`,
+`decode_min`, `outposts_min`, `colony_planet_type`, `colony_is_capital`, `autonomous_colony`.
+Effects with `"target": "colony"` land on the event's colony; `turns` makes them timed and
+`over_turns` gradual.
+
+### 13.5 Scenario format (outline; S1 as built)
 
 ```json
 { "id": "s1_first_light", "name_key": "scenario.s1.name", "origin": "generation_ark",
@@ -1971,6 +2168,16 @@ The set lives in `sim/data/effect_keys.gd`.
   "legacies": ["seasoned_farmers", "archive_scholars", "steady_hands"],
   "loss": [ { "type": "capital_pops_zero" }, { "type": "capital_autonomy" } ] }
 ```
+
+**As built in M1** (see `data/scenarios/s1_first_light.json`): also `briefing_key`, `debrief_key`,
+`status` (`playable`), `expected_turns`, `director_start`, `teaches`, `tech_pool`
+{`exclude_military`, `always_offer`}, `locked_ordinances`, `locked_buildings`, `music`, and `balance_scope`
+{`districts`, `buildings`, `techs`} (what the "everything matters" gate checks). A start empire
+has `surveyed`, `research_hands` per branch, `ships` [{`hull`, `system`}], and colonies with
+`capital`, `buildings` (landmarks use slot −1) and district `branch`. Objective types:
+`colonies_developed`, `outposts`, `stability_streak` (`min`, `turns`, `min_colonies`), `flag`,
+`total_pops`, `techs`, `never_flag`. Tutorial `complete_on` is `{ui: ...}` or `{state: ...}`
+with the conditions of `sim/rules/tutorial.gd`.
 
 ### 13.6 AI personality format
 
@@ -2088,6 +2295,15 @@ Each run writes per-turn JSON:
   Owner resumes (DESIGN_LOG 50).
 - **Technical decisions** DESIGN_LOG 1–41 (M0, listed in the M0 report) and 42–50 (after the M0
   review) stand unless overruled.
+- **M1 decisions** DESIGN_LOG 51–84 (M1 plan and build), all open to the Owner. The ones that change
+  how the game feels:
+  - the fixed-rate market arrives in M1 with the Market Exchange (78)
+  - rushing a build with energy (81)
+  - governors pay from a purse filled by their share of minerals income (80)
+  - a colony ship's hull becomes the colony's free first shelter (77)
+  - Scenario 1 always offers Habitat Domes once Frontier Medicine is known (79)
+  - the stability objective counts only turns with two or more colonies (83)
+  - Cinder is a small dome world (66)
 
 ### 14.2 Still open (continue with the default until the Owner answers)
 
@@ -2098,7 +2314,8 @@ Each run writes per-turn JSON:
 | Polity name | "The Ember Compact" |
 | Music source | outsourced per §15.5 |
 | Event scene layout | the card of §7 (scene on top, portrait beside the text); a full visual-novel layout (scene full-screen, portrait over it, text box below) is offered in the M1 plan |
-| Research Institute unlock and tier III | the §10.3 and §10.4 defaults, logged at M1 |
+| Research Institute unlock and tier III | settled at M1 with the §10.3 and §10.4 defaults (DESIGN_LOG 65) |
+| Balanced bot wins 100% on Normal (band 60–90%) | make Normal harsher (for example emergent events), keeping the median win within turns 56–84; to be proposed in the M1 report |
 
 ---
 
@@ -2119,7 +2336,7 @@ batch.
    holds the files at its root, plus a `manifest.json`:
    ```json
    { "kind": "sfx", "batch": 1,
-     "licence": "CC0 | work-for-hire, all rights to the Owner | generated, commercial use allowed (tool + plan named)",
+     "licence": "CC0 | work-for-hire, all rights to the Owner | generated, commercial use allowed (tool + plan named) | CC BY (with \"attribution\")",
      "source": "who or what made it (person, studio, or tool and version)",
      "items": [ { "id": "ui_click", "file": "ui_click.wav", "notes": "optional" } ] }
    ```
@@ -2138,10 +2355,11 @@ batch.
    | `art` | §15.9 | 1 = title key art and logo (A8) |
    | `store` | §15.9 | 1 = store and platform art (A10) |
 3. **Licence:**
-   - Allowed: CC0; work-for-hire with all rights assigned to the Owner; or generated with
-     commercial-use rights that the tool's terms grant for this plan.
-   - Rejected: anything requiring attribution-only-in-credits-with-conditions, non-commercial
-     terms, or share-alike.
+   - Allowed: CC0; work-for-hire with all rights assigned to the Owner; generated with
+     commercial-use rights that the tool's terms grant for this plan; or CC BY (attribution
+     only) when the batch manifest gives the credit as `"attribution"` (DESIGN_LOG 105).
+   - Rejected: non-commercial terms, share-alike, no-derivatives, or any attribution
+     requirement beyond a credit line.
    - Every accepted batch is credited in `CREDITS.md`.
 4. **No text in images, and no logos or trademarks** other than the game's own. Do not imitate
    named artists or franchises.
@@ -2155,14 +2373,19 @@ batch.
 7. **The logo's SVG files** have fills and opacity as attributes. They have no `<style>` blocks
    and no live text: lettering is converted to paths.
 
-### 15.2 How the builder ingests a batch (to build in M1: `tools/import_assets.gd`)
+### 15.2 How the builder ingests a batch (built in M1: `tools/import_assets.py`, DESIGN_LOG 93)
 
 1. Put the zip in `incoming/`. This folder is git-ignored and `.gdignore`d. The Owner gets it
-   there in one of two ways:
+   there in one of three ways:
    - upload it to the repository on a branch; GitHub's web upload takes files up to 25 MB, so big
      files such as music go one per upload
+   - attach it to a GitHub Release (files up to 2 GB; the first delivery came this way, as one
+     zip holding the batch zips), which the builder downloads
    - attach it in the chat
-2. Run: `godot --headless --path . -s tools/import_assets.gd -- --zip incoming/sfh_sfx_batch1.zip`
+2. Run: `python3 tools/import_assets.py --zip incoming/sfh_sfx_batch1.zip` (repeat `--zip` for
+   more batches; `--check` reports without writing), then
+   `godot --headless --path . --import`. The tool needs
+   `pip install -r tools/requirements-assets.txt`: Godot cannot encode Ogg Vorbis.
 3. The tool checks:
    - the manifest
    - that every id is in `data/asset_manifest.json` (the expected-id list for every kind, with the
@@ -2171,10 +2394,16 @@ batch.
    - for rendered art: the size, and an alpha channel or a flat #00FF00 background to key out.
      It also writes a contact sheet and a dominant-hue report for a visual check
    - for the logo's SVGs: paths only, palette colours, and no raster, filter, text or script
-4. It converts where needed: WAV or FLAC to Ogg for music; PNG to lossy WebP at display size for
-   scenes, portraits and key art; flipbook metadata.
-5. It copies the files to `assets/<kind>/`, and records the licence and source in `CREDITS.md`.
-6. It marks each id "delivered" in `data/asset_manifest.json`, so the game swaps from the fallback.
+4. It converts where needed: WAV or FLAC to Ogg Vorbis for music (and a looping sound); other
+   sounds to 16-bit WAV; PNG to lossy WebP at display size for scenes (2400×900), portraits
+   (768×768) and key art (2560×1440); flipbook metadata from the notes. It trims near-silence
+   before a sound and keys out a #00FF00 background, and says so.
+5. It copies the files to `assets/delivered/<kind>/` with the Godot import settings they need
+   (painted art lossy with mipmaps; music looping except the stings), keeps store art in
+   `assets/delivered/store/` (ignored by Godot, so it never ships in the game), and records the
+   licence and source in `CREDITS.md`.
+6. It marks each id "delivered" in `data/asset_manifest.json` with its file (or variant files),
+   so the game swaps from the fallback.
 7. It prints a PASS or FAIL report per item. It never overwrites a delivered asset without
    `--replace`.
 8. The builder then runs the screenshot tour (and, for audio, a listening check with the level
@@ -2214,8 +2443,13 @@ Its rules:
   of an optimistic 1960s science-fiction novel built as a miniature.
 - **Consistency:** the same light direction, brush treatment and level of detail in every image.
 - **Avoid:** photorealism, photographic textures, film grain, noise, lens flares, chrome, busy
-  mechanical clutter, grimdark or horror, anime or cartoon exaggeration, text, letters, logos,
-  watermarks, and imitation of any named artist, studio or franchise.
+  mechanical clutter, anime or cartoon exaggeration, text, letters, logos, watermarks, and
+  imitation of any named artist, studio or franchise.
+- **Dark variant** (DESIGN_LOG 106): horror and grimdark are allowed for scenes that call for them,
+  such as the darker routes and endings of the branching campaign. Keep the same diorama forms,
+  light direction and brushwork, and shift to a muted palette of deep blues and cold greys, dread,
+  emptiness and long shadows, with one small warm light as the accent. The "no grime or gore" rule
+  under Surfaces still applies.
 
 **Colour:** built around the key colours of §8.2, with any lighter and darker shades of them for
 light and shade, plus the skin and hair tones of §15.1 for people. Most of each image sits in the
@@ -2321,7 +2555,7 @@ tracks (P) are needed first, for Scenario 1.
 | `mus_beacon_2` | 2–3 min | mid game variation: trade and neighbours; a little more motion; light percussion allowed |
 | `mus_jump_1` | 2–3 min | late game: power with unease; the main motif in a minor key; low strings and piano |
 | `mus_jump_2` | 2–3 min | late game variation: grand but lonely |
-| `mus_attention` | 2–3 min | when the colony grows too loud and something vast notices: sparse, eerie, a slow low pulse, glassy high notes; never horror |
+| `mus_attention` | 2–3 min | when the colony grows too loud and something vast notices: sparse, eerie, a slow low pulse, glassy high notes |
 | `mus_battle` | 1.5–2 min | battle replays: urgent but restrained; string ostinato; timpani allowed |
 | `theme_sola` (P) | 1.5–2.5 min | Archivist Imre Sola: dry, warm, scholarly, a little playful; clarinet or bassoon, pizzicato strings, piano |
 | `theme_varga` (P) | 1.5–2.5 min | Steward Anneliese Varga: steady and earnest, carrying worry; warm cello and piano |
@@ -2548,7 +2782,8 @@ Also deliver the layered sources where they exist.
   brushwork, warm key light from the upper left, cool blue shadows, glowing windows, luminous
   painted sky, atmospheric haze, hopeful 1960s space-age illustration, calm science fiction".
   For negative prompts: "text, letters, logo, watermark, photorealistic, photograph, film grain,
-  noise, lens flare, chrome, grimdark, horror, anime, cartoon".
+  noise, lens flare, chrome, anime, cartoon". For standard, hopeful scenes, add "grimdark, horror"
+  to keep the tone; leave them out for the dark variant.
 - **Consistency:** keep one fixed style line and the same settings for a whole batch. For
   portraits, generate the neutral portrait first and use it as the character reference for the
   expressions.

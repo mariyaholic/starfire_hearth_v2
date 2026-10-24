@@ -18,11 +18,16 @@ const PLAIN: Array[String] = [
 	"clear_blocked_slot", "add_trait", "remove_trait",
 	# Added in M0 for planet traits (DESIGN_LOG): slot count and ship cost modifiers.
 	"slots_add", "ship_cost_bp",
+	# Added in M1: the Archive's decode rate, outpost build time, story buildings, and a colony
+	# that declared autonomy coming back.
+	"decode_rate_bp", "outpost_time_bp", "add_building", "rejoin_colony",
 ]
 
 const PARAMETRIC: Array[String] = [
 	"resource_output_bp:", "district_output_bp:", "cap_add:", "opinion_add:", "damage_bp:",
 	"research_bp:", "add_stock:",
+	# Added in M1: a flat amount of a resource every turn (the Ark Hull, Hydroponics Bay).
+	"output_add:",
 ]
 
 

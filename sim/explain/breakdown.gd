@@ -7,12 +7,15 @@ extends RefCounted
 ## Arithmetic contract (checked by verify()):
 ##   subtotal = sum of base and add lines
 ##   each mult line's value = Fx.mul_bp(subtotal, line.bp)   (mults are additive with each other)
+##   flat lines are fixed amounts applied after the mults (upkeep, consumption), so percentage
+##   bonuses never scale a cost
 ##   cap lines clamp last; a cap line's value is the amount removed or added by the clamp
 ##   total = sum of every line's value
 
 const KIND_BASE: String = "base"
 const KIND_ADD: String = "add"
 const KIND_MULT: String = "mult"
+const KIND_FLAT: String = "flat"
 const KIND_CAP: String = "cap"
 
 ## Units tell the UI how to format values.
@@ -96,6 +99,11 @@ func mult(source_key: String, bp: int, args: Dictionary = {}, child: Breakdown =
 	return _push(KIND_MULT, source_key, 0, bp, args, child, link)
 
 
+## A fixed amount applied after the mults, such as upkeep or what settlers eat.
+func flat(source_key: String, value: int, args: Dictionary = {}, child: Breakdown = null, link: String = "") -> Breakdown:
+	return _push(KIND_FLAT, source_key, value, 0, args, child, link)
+
+
 ## Clamp the total to at most `limit` (applied in finish(), after mults).
 func cap_max(limit: int, source_key: String, args: Dictionary = {}, link: String = "") -> Breakdown:
 	var l: Line = _make_line(KIND_CAP, source_key, 0, 0, args, null, link)
@@ -135,6 +143,9 @@ func finish() -> Breakdown:
 	for l: Line in lines:
 		if l.kind == KIND_MULT:
 			l.value = Fx.mul_bp(subtotal, l.bp)
+			running += l.value
+	for l: Line in lines:
+		if l.kind == KIND_FLAT:
 			running += l.value
 	for l: Line in lines:
 		if l.kind == KIND_CAP:

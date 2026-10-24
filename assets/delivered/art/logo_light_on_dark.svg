@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="320" viewBox="0 0 1040 320">
+<g transform="translate(20 32)">
+<path d="M128 20A108 108 0 1 1 128 236A108 108 0 1 1 128 20ZM128 28A100 100 0 1 0 128 228A100 100 0 1 0 128 28Z" fill="#FFD37A" fill-rule="evenodd"/>
+<path d="M128 49L148 108L207 128L148 148L128 207L108 148L49 128L108 108Z" fill="#FFD37A"/>
+<path d="M194 63A11 11 0 1 1 194 85A11 11 0 1 1 194 63Z" fill="#2EC4B6"/>
+</g>
+<path d="M68 0H24Q0 0 0 24V34Q0 55 23 55H45Q54 55 54 64V73Q54 82 45 82H0V96H46Q70 96 70 73V63Q70 41 46 41H24Q16 41 16 32V24Q16 14 26 14H68Z" transform="translate(326.000000 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H72V14H44V96H28V14H0Z" transform="translate(404.983571 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 96L29 0H45L74 96H57L50 72H24L17 96ZM28 58H46L37 25Z" transform="translate(489.817143 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 96V0H43Q70 0 70 26V32Q70 52 51 57L75 96H56L33 59H16V96ZM16 14V45H42Q54 45 54 32V27Q54 14 42 14Z" transform="translate(590.650714 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H65V14H16V41H58V55H16V96H0Z" transform="translate(694.194286 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H16V96H0Z" transform="translate(773.372857 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 96V0H43Q70 0 70 26V32Q70 52 51 57L75 96H56L33 59H16V96ZM16 14V45H42Q54 45 54 32V27Q54 14 42 14Z" transform="translate(823.456429 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H65V14H16V40H57V54H16V82H65V96H0Z" transform="translate(927.000000 49)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H16V40H54V0H70V96H54V55H16V96H0Z" transform="translate(326.000000 175)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H65V14H16V40H57V54H16V82H65V96H0Z" transform="translate(457.611000 175)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 96L29 0H45L74 96H57L50 72H24L17 96ZM28 58H46L37 25Z" transform="translate(556.957000 175)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 96V0H43Q70 0 70 26V32Q70 52 51 57L75 96H56L33 59H16V96ZM16 14V45H42Q54 45 54 32V27Q54 14 42 14Z" transform="translate(685.318000 175)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H72V14H44V96H28V14H0Z" transform="translate(802.389000 175)" fill="#EAF2F8" fill-rule="evenodd"/>
+<path d="M0 0H16V40H54V0H70V96H54V55H16V96H0Z" transform="translate(922.000000 175)" fill="#EAF2F8" fill-rule="evenodd"/>
+</svg>

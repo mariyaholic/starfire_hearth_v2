@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "blender": "4.3.2",
+  "units": "metres; GLB +Y up",
+  "seed": 64133,
+  "source": "tools/art/build_finish_v1.py",
+  "generated": [
+    {
+      "file": "assets/3d/finish_v1/parts.glb",
+      "triangles": 6140,
+      "mesh_count": 21
+    },
+    {
+      "file": "assets/3d/finish_v1/survey_probe_lod0.glb",
+      "triangles": 3104,
+      "mesh_count": 16
+    },
+    {
+      "file": "assets/3d/finish_v1/survey_probe_lod1.glb",
+      "triangles": 1808,
+      "mesh_count": 16
+    },
+    {
+      "file": "assets/3d/finish_v1/survey_probe_lod2.glb",
+      "triangles": 584,
+      "mesh_count": 8
+    },
+    {
+      "file": "assets/3d/finish_v1/construction_ship_lod0.glb",
+      "triangles": 3952,
+      "mesh_count": 20
+    },
+    {
+      "file": "assets/3d/finish_v1/construction_ship_lod1.glb",
+      "triangles": 2320,
+      "mesh_count": 20
+    },
+    {
+      "file": "assets/3d/finish_v1/construction_ship_lod2.glb",
+      "triangles": 992,
+      "mesh_count": 12
+    },
+    {
+      "file": "assets/3d/finish_v1/colony_ship_lod0.glb",
+      "triangles": 8700,
+      "mesh_count": 33
+    },
+    {
+      "file": "assets/3d/finish_v1/colony_ship_lod1.glb",
+      "triangles": 5644,
+      "mesh_count": 33
+    },
+    {
+      "file": "assets/3d/finish_v1/colony_ship_lod2.glb",
+      "triangles": 2516,
+      "mesh_count": 15
+    }
+  ],
+  "sha256": {
+    "assets/3d/finish_v1/colony_ship_lod0.glb": "0c9af9ff79c7fbfc855d111187aa20c1e7e65e7f0c7bdbce64c3696eece445af",
+    "assets/3d/finish_v1/colony_ship_lod1.glb": "9e41f601e3c32b3469decbd7b37a8f38bf2b54825206329ae5186a7d2dca636f",
+    "assets/3d/finish_v1/colony_ship_lod2.glb": "0f4bf803b90e664340563ce58798c4d76d35ba45381ca4f64a1e6bcd75b5ef6e",
+    "assets/3d/finish_v1/construction_ship_lod0.glb": "b8c4036d45b8383f8cf871041036ca9504c6b71e46c2e856866a4701690f825f",
+    "assets/3d/finish_v1/construction_ship_lod1.glb": "883a47b9dc130564be4e8a5d0214277fa9bfcc1efa0e6109c1165f1e22ecb6e4",
+    "assets/3d/finish_v1/construction_ship_lod2.glb": "3edcff56ed513f278550a5a20a0cc90c99851405eaa6bb5761fc58031506cd59",
+    "assets/3d/finish_v1/parts.glb": "4522cbb9ee9871881769c60fdda476831da72bbd17f832eca8aeefb38370dfc2",
+    "assets/3d/finish_v1/survey_probe_lod0.glb": "18032511204955e04f3ea3eff07f154caf4ff1420df19ba6cc89f7bcfad694e3",
+    "assets/3d/finish_v1/survey_probe_lod1.glb": "2234b12e81a259cdb0b109ab505a38be1003f493cb84cbcfaec84a419966da90",
+    "assets/3d/finish_v1/survey_probe_lod2.glb": "f54389d0f8d793e2847f37b8af84b28adec991b8d9b85d1a36ed3d2c2bed6a6a",
+    "assets/textures/finish_v1/ceramic_albedo.png": "875f50dcca5054d9f1bc401b0f5bbebf873965278d825a6bfd7c41e0f5669649",
+    "assets/textures/finish_v1/ceramic_normal.png": "b547fef2b25a1fccda2b43a4edc1377a029edff09f6192bb15a754ddb2914c1e",
+    "assets/textures/finish_v1/ceramic_roughness.png": "3b4e88b950c7add8cdeb26e22c5393685d0d0c759a382b1554d221dc11512f7f",
+    "assets/textures/finish_v1/concrete_albedo.png": "c5d6b529a5c11eef838ebce4831b216f749bf90059b574957dcf2a1ca2abad5b",
+    "assets/textures/finish_v1/concrete_normal.png": "2c75936ace304170e37da0ee9e0afc6ef19fec05481dfc3bd1c3b1fe824c9463",
+    "assets/textures/finish_v1/concrete_roughness.png": "5f90e4b71b9c9050ae9cf881bc9995f838fe7511e18f4dbe72fe2f1577918f40",
+    "assets/textures/finish_v1/leaf_albedo.png": "bc5085379b38819b0a30d572cad670b8952f699601d5e5a2e6be57b1e90f7349",
+    "assets/textures/finish_v1/leaf_normal.png": "b547fef2b25a1fccda2b43a4edc1377a029edff09f6192bb15a754ddb2914c1e",
+    "assets/textures/finish_v1/leaf_roughness.png": "8b773752848cdebc7fcb6dc9590241a3155c0f759d6c190e83b65efaece5ad8d",
+    "assets/textures/finish_v1/metal_albedo.png": "ea8e0c3407d1295b2034f5535a6b3ea2a9184e9467516f400d0318b00602f582",
+    "assets/textures/finish_v1/metal_normal.png": "b547fef2b25a1fccda2b43a4edc1377a029edff09f6192bb15a754ddb2914c1e",
+    "assets/textures/finish_v1/metal_roughness.png": "1cda86dac0525ef08d04d2798e14eecc55d21b7cf331a92f1f82663d08428d9c",
+    "assets/textures/finish_v1/rock_albedo.png": "5050febfcfc7f09c31a632fb83d292eb7f7522899076e8e0982e1fe9bfa19e66",
+    "assets/textures/finish_v1/rock_normal.png": "7f8cbaa09efa6b46e9afca7677837b89d8168630cebf1556ff5059310b7279c7",
+    "assets/textures/finish_v1/rock_roughness.png": "ac21ffb891bafc6ec3acd745c4f541951777af253311c0c1fbc37a194792f29b",
+    "assets/textures/finish_v1/soil_albedo.png": "f5bf51df56ea61b6c3f83de30af09aaea558593386856fa78693a18a0e2aedac",
+    "assets/textures/finish_v1/soil_normal.png": "7f8cbaa09efa6b46e9afca7677837b89d8168630cebf1556ff5059310b7279c7",
+    "assets/textures/finish_v1/soil_roughness.png": "99bc50ac4ce41a69e7d3a99f94a4d64491421de78d910facfee19be5e4795fde",
+    "assets/textures/finish_v1/trim_ao.png": "ccb6190e96965edfc3008422848a7a3aff5eecddc6205633822c23645e53f421",
+    "assets/textures/finish_v1/trim_normal.png": "d31ab5138145056249312c11e743440f5bfa933fbc304441f643e0a3b8bf3ca4",
+    "tools/art/sources/finish_v1.blend": "95b35d78c1313e83723125979a264b457e87d9373ac6cf20d44db6ee1b9d8401"
+  },
+  "maps": {
+    "albedo": "sRGB",
+    "normal": "linear OpenGL tangent",
+    "roughness": "linear",
+    "ao": "separate linear; shader-controlled"
+  },
+  "lods": 3,
+  "external_assets": []
+}

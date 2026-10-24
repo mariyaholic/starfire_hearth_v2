@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "id": "autonomy_return",
+  "kind": "status",
+  "vignette": "founders_hall",
+  "cooldown": 20,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "autonomous_colony": true
+      },
+      "speaker": "steward_varga",
+      "expression": "neutral",
+      "music": "mood_hope",
+      "title_key": "event.autonomy_return.1.title",
+      "body_key": "event.autonomy_return.1.body",
+      "choices": [
+        {
+          "label_key": "event.autonomy_return.1.c0",
+          "cost": {
+            "influence": 5000
+          },
+          "effects": [
+            {
+              "key": "rejoin_colony",
+              "value": 1
+            }
+          ],
+          "next": {
+            "step": 2,
+            "delay_turns": 3
+          }
+        },
+        {
+          "label_key": "event.autonomy_return.1.c1",
+          "set_flags": [
+            "autonomy_refused"
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "speaker": "steward_varga",
+      "expression": "warm",
+      "music": "mood_warm",
+      "title_key": "event.autonomy_return.2.title",
+      "body_key": "event.autonomy_return.2.body",
+      "choices": [
+        {
+          "label_key": "event.autonomy_return.2.c0",
+          "cost": {
+            "food": 3000
+          },
+          "effects": [
+            {
+              "key": "stability_add",
+              "value": 5,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        },
+        {
+          "label_key": "event.autonomy_return.2.c1",
+          "effects": [
+            {
+              "key": "output_bp",
+              "value": 500,
+              "target": "colony",
+              "turns": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

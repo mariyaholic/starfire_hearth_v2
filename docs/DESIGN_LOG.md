@@ -140,3 +140,344 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 50. **Outsourced assets are on hold** (Owner, before M1): M1 onward builds against the code
     placeholders, addressing every asset by its §15 id through `data/asset_manifest.json`, so
     delivered files drop in later. The intake tool waits for the first batch.
+
+## M1
+
+51. **Rules read content through `Content.db()`**, a static accessor loaded once from `data/`;
+    tests can swap it. Rule and command signatures stay unchanged, and content is constant during
+    a game, so determinism holds.
+52. **State schema 2**, with the migration `v1_to_v2` filling defaults for every new field, so the
+    M0 fixture save still loads.
+53. **Modifiers stack additively:** output = base × (1 + the sum of bonuses), so each bonus is one
+    readable breakdown line on the same base.
+54. **A resource never goes negative.** An energy shortfall clamps at 0 and costs −10 stability on
+    every colony while it lasts; Industry uses only the minerals available and slows
+    proportionally. Both show in breakdowns and are warned two turns ahead.
+55. **Every capital produces 2.00 research in each branch,** so research cards (tutorial T3) move
+    before the first Research district.
+56. **Buildings: 4 per colony, +1 at City.** The Ark Hull and the Archive of Sol are landmarks that
+    take no hex slot and do not count, which gives the City stage's "+1 building slot" a meaning
+    and story buildings a home.
+57. **Construction is one build at a time per colony, in a queue.** The cost is paid when an item
+    is queued, and cancelling refunds it in full; demolishing is instant and refunds nothing.
+58. **A Research district's branch is chosen when it is placed** (§5.4).
+59. **Planets start unsurveyed** apart from the capital's. A Survey Probe takes 2 turns to reveal
+    traits and slots; colonising and outposts need a survey. This makes tutorial beat T8 an
+    action.
+60. **Outposts:** an asteroid belt makes 6.00 minerals; a gas giant 6.00 energy or 3.00 research in
+    each branch (the player picks). Upkeep is 0.50 energy. Building one takes the Construction
+    Ship 4 turns (Orbital Construction halves it) and 50 influence.
+61. **Founding a dome world needs Habitat Domes;** the founding places its Habitat Dome and charges
+    the dome's cost. This avoids a chicken-and-egg problem.
+62. **Tutorial progress lives in state flags,** set by a no-effect `acknowledge` command: saved,
+    deterministic, and ignored by the rules.
+63. **"Winnable" in telemetry means every required objective is done within 1.5× the expected
+    duration;** without a deadline a competent bot always wins eventually. Revised in 95: 1.2 times.
+64. **"Everything matters" covers what the scenario teaches** (its `teaches` list), not the whole
+    tech tree; military techs and war buildings have no use in Scenario 1.
+65. **The Research Institute unlocks with Research Network,** a new tier II Society tech (37
+    techs). Tier III: Habitation with Arcology Design; the other districts with Foundry
+    Automation's "Industrial Megaplex" effect. These settle the two open questions of §10.3 and
+    §10.4 with the build prompt's defaults.
+66. **Cinder is small, not tiny.** A tiny dome world has 6 slots and its Habitat Dome takes one,
+    so it could never hold the 6 districts a developed colony needs. A small dome world has 8.
+    Brume gets one blocked slot, as §5.4 asks of every planet.
+67. **Where each bonus applies** (refines 53). Tier, adjacency and district traits raise that
+    district's own job output. Resource, output and research bonuses raise the colony's whole
+    output of that resource, flat building output included. Upkeep, what settlers eat and
+    industry's mineral input are flat lines applied after both (a new `flat` breakdown line
+    kind), so no bonus ever scales a cost. Within a level, percentages add up.
+68. **Inside a job group, the most productive district fills first,** then the lowest slot, so a
+    new Research district next to Energy districts is never left idle behind an older one.
+69. **Hex layout:** slot 0 is the centre, rings fill in order, and a partly used ring spreads its
+    slots evenly around the ring. Adjacency is the six axial neighbours. The planner draws the
+    same coordinates, so what looks adjacent is what counts.
+70. **Research progress belongs to the branch** and carries over. Switching cards loses nothing.
+    When a tech completes, the two unpicked cards stay and one new card is drawn; a reroll
+    keeps the picked card and story cards.
+71. **A governor's budget is a share of the minerals income** (default 50%), not of the stock.
+    Revised by 80.
+72. **Outpost discounts stop at −75%.** Colonial Administration and Frontier Charter together would
+    otherwise make outposts free; the breakdown notes the floor when it applies.
+73. **Stability is recomputed every turn from its sources,** with no drift, so its breakdown is the
+    whole story. A colony at 5 or below counts down five warned turns before declaring autonomy.
+74. **Homeless settlers keep growing at half speed** with no cap (§5.4), so a housing shortfall
+    shows up in stability rather than silently stopping growth.
+75. **Radio Silence is locked in Scenario 1** (the scenario's `locked_ordinances`): Noise arrives in
+    Scenario 2.
+76. **Civilian ship tasks:** a survey takes 2 turns, an outpost 4 (Orbital Construction halves
+    it), and a colony is founded at the end of the turn the landing is ordered. In M1 a ship
+    works only inside its own system.
+77. **A colony ship's hull becomes the first shelter,** free: a Habitation district on an open world,
+    the Habitat Dome on a dome world (revises 61, which charged for the dome). A new colony
+    otherwise starts with two homeless, jobless thousands and falls below the stability
+    objective at once.
+78. **The market is in M1** (brought forward from M3): a Market Exchange (Colonial Administration)
+    opens it at §5.3's fixed rates, in lots of 10.00, and every trade shows its rate. Scenario 1
+    has few sinks for energy and food otherwise. Dynamic prices and trade deals stay in M3. In Scenario 1 the Ark Hull opens it from the first
+    turn (95).
+79. **A scenario's tech pool** can exclude military techs and name techs that are always offered
+    once their prerequisites are met, like story techs. Scenario 1 always offers Habitat Domes,
+    because its objectives need a dome world and a seeded draw could hide the card for many
+    turns.
+80. **Governors pay from a purse.** The production phase sets aside each governor's share of the
+    minerals income into its colony's purse, shown as a line of the minerals breakdown; the
+    governor pays a build's minerals from it, and turning the governor off returns it. With a
+    shared stock the player's own orders (phase 1) always spent the minerals before the governor
+    (phase 2) could, so governors silently never built.
+81. **Rushing a build:** pay energy to take one turn off the build in progress, once a turn,
+    never finishing it before the end of the turn. The cost is the item's price per turn of
+    work, valued at the market's buying rates. Construction is one item at a time, so minerals
+    outrun build slots while energy has few uses in Scenario 1; rushing trades one for the
+    other.
+82. **Telemetry measures gross income** as production before the flat lines (upkeep,
+    consumption, inputs). The hoarding gate leaves out random-legal runs, which never manage
+    their stocks by design. While M1 is tuned, CI prints every balance gate but only
+    invariants, determinism and performance fail the build. Revised in 96: the hoarding gate
+    measures the balanced bot only.
+83. **The stability objective counts turns with two or more colonies:** "every colony at 40 or
+    more for 10 turns in a row" would otherwise complete in the first ten turns, before the
+    player has learned anything.
+84. **Event titles carry no placeholders** because they name modifiers in breakdowns; bodies are
+    checked by the validator for §10.6's 60–140 words. A string argument ending in `_c` is an
+    amount in centi-units that the string layer shows as a short decimal.
+85. **The app offers only screens that exist.** The title lists a menu entry once its screen is
+    routed by the `AppRoot` (Load, Codex and Settings arrive with their tasks), so no button
+    leads nowhere. Until the game screen is built, the game route shows a stand-in that names
+    the game Begin started. The showcase is a debug-build entry; release exports leave it out.
+86. **Campaign progress** (difficulty, wins, legacy picks) lives in `CampaignProgress`, owned by
+    the `AppRoot`; it is written to `user://campaign.json` when the save rings land. A win counts
+    as soon as the debrief opens, so leaving before picking a legacy keeps it; the legacy is
+    recorded on Continue, and winning a scenario again lets the player pick a different one.
+87. **Difficulty is picked on the campaign screen** (the three presets of §5.13, each with its
+    description), shown again on the briefing, and passed to the scenario loader when Begin
+    starts the game. The per-value sliders of §5.13 wait for the settings screen.
+88. **Audio before assets:** the buses are made at start-up, so no bus layout file is needed.
+    Until a sound is delivered it plays a blip synthesised from a recipe (22,050 Hz mono,
+    rendered once and cached); the ambient ship hum is a bed, not a blip, so it stays silent
+    until delivered, like music. Music cues are tracked per screen even while silent, so a
+    delivered track starts in the right place with no code change. Hover sounds play only with a
+    pointer. Mute silences Master, so every sound respects it.
+89. **Save rings are keyed by turn:** the auto-save for turn T goes to slot `auto_(T mod 10)` and
+    the checkpoint to `checkpoint_((T / 5) mod 6)`, so the rings need no index file and always
+    hold the newest turns. A loss offers the newest checkpoint of the same game (scenario and
+    seed) from before the losing turn. Manual saves are numbered and never overwritten. Ironman
+    mode (a single save) waits for the settings screen. Nothing is written while
+    `Settings.persist` is off (tests and the screenshot tour).
+90. **The Codex quotes the game.** Mechanics pages are prose in `data/codex/*.md` whose numbers
+    are `{name}` placeholders filled from the rules' constants and the data (`CodexFacts`); a
+    test fails if one is left unfilled or a link has no entry. Entry ids are `<kind>:<id>`, the
+    form breakdowns already used for their Codex links. The M1 subset is what Scenario 1 can
+    show: no military technologies, buildings or hulls, and no locked ordinance. Seen events
+    appear only while a game is running. A breakdown's Codex link opens the entry over the
+    current screen, so reading it never loses the player's place.
+91. **The title is the main scene** once the flow, saves and Codex exist, before the game screen:
+    until that lands, Begin opens its stand-in. Planets are shaded by a canvas shader rather than
+    polygons, because a lit sphere with a soft terminator and a painted surface cannot be drawn
+    well with flat shapes; the shader uses only GLES3 features the web build has. The web smoke
+    test proves the browser and the desktop agree: one turn of Scenario 1 from seed 1 must give
+    the same state hash in both.
+92. **The M1 balance pass** (measured with `tools/balance_loop.sh`, 20 seeds per policy):
+    tier 1 and tier 2 technologies cost 55 and 150 (were 80 and 200), so Scenario 1's buildings
+    arrive while they still matter; Scenario 1 starts with 100 food and 30 influence (were 150
+    and 60, already 6.5 and 15 turns of income); a Colony Ship takes 150 food (was 100), food's
+    main use before the market; the Market Exchange costs 60 minerals and 40 metals (was 150
+    minerals), since minerals are the bottleneck and surplus metals can pay for the building
+    that sells surplus; the Fusion Plant, Research Institute, Foundry, Civic Hall and Habitat
+    Dome also cost metals (30, 30, 20, 20, 25), so metals have a use besides Colony Ships. The
+    advisor stops favouring food or energy once the stock holds seven turns of gross output,
+    and values output that needs no workers at 1.5 times while every settler has a job; the
+    bots save up for an option that clearly beats everything affordable (at least 1.4 times)
+    when six turns of minerals income will cover it. Results: pacing 78 to 74, Hydroponics Bay
+    and Fusion Plant now built often enough; hoarding, the Foundry, the Research Institute and
+    the Normal win rate wait for the Owner (BUILD_PROMPT, "Balance status").
+93. **Asset intake is a Python tool** (`tools/import_assets.py`), not the `tools/import_assets.gd`
+    §15.2 first named: Godot cannot encode Ogg Vorbis, and measuring loudness and true peak
+    (ITU-R BS.1770) over 52 minutes of music is far too slow in GDScript. The builder runs it; the
+    Owner never has to. The briefs' specs live in the tool; the manifest keeps only what the game
+    reads (the file or variant files, looping, a flipbook's grid and frame rate, the batch).
+    Files go under `assets/delivered/<kind>/`. Godot re-encodes every texture on import, so
+    painted art is imported lossy with mipmaps (lossless is about five times larger) and drawn
+    with mipmap filtering, since it appears at many sizes; ships and VFX stay lossless PNG.
+    Short sounds stay 16-bit PCM so they start at once; the looping ambient bed and the music
+    are Ogg Vorbis, the music at quality 5 (quality 6 until entry 107; see there). Store art is kept in a `.gdignore` folder, so it is
+    in the repository for the store pages but never enters the game's pack. A fault the builder
+    can fix without changing the work is fixed and reported as a warning (near-silence before a
+    sound is trimmed; a #00FF00 background is keyed out); any other broken rule fails the item,
+    which keeps its fallback. In the game, portraits are cut to their disc, story scenes are
+    cropped around their centre instead of stretched, the title's menu moves into the key art's
+    calm left 40%, and the flat vector logo stands in for the optional painted one. Headless runs
+    choose a music track but do not start it, like sounds.
+94. **The game screen** (`ui/screens/game/`) rebuilds its view from `Game.view()`, the state as this
+    turn's orders leave it, whenever the orders change. The state is small, so a rebuild is cheaper
+    to reason about than diffing; the scroll position is kept. Views are static builders
+    (`ColonyView.build(screen)`), give orders through `GameScreen.order()` and disable a refused
+    order with its reason underneath (`GameUI.action`), reading the reason from the command's own
+    `validate()` so the button and the rules can never disagree. The planner previews a district
+    by adding it to a copy of the state and comparing the colony's report. The advisor's tutorial
+    acknowledgements are commands like any other, so they save with the game; Undo takes an order
+    back together with the acknowledgements made after it, and they return by themselves while
+    their condition still holds. End Turn opens a pending event first (events block it), then
+    lists what still has no orders (idle ships, an empty research branch, a store about to
+    overflow), and the player may end the turn anyway. A new game opens with a first report of
+    what wants orders; every later turn opens its report, then each event, then the debrief when
+    the game is over. On phones the navigation is a tab bar that names only the open tab and the
+    advisor is a one-line strip, because at 200% text nothing else fits; Settings, Load and
+    Credits are routes with a `back` argument, so the game menu and the title share them. Numbers
+    that need no breakdown carry an exemption that says why (a report line states what happened, a
+    refusal quotes what refused it, story prose is the story's own); the tour lists them. The id
+    audit compares hex cells by the tile they occupy, since neighbouring hexes tile the plane and
+    their bounding boxes overlap by design.
+95. **The balance gates after the M1 review** (measured with `tools/balance_loop.sh`, 20 seeds):
+    - *Winnable* counts a win within 1.2 times the expected duration (turn 84, the pacing band's
+      upper edge), not 1.5 (63). The balanced bot's slowest wins were turns 85 to 96 and the
+      scenario has no deadline, so this changes what the gate counts, not how Normal plays. Events
+      at 125% or 150% severity change nothing (severity only scales the negative effects of
+      emergent chains). A harder Normal needs a real turn limit or a harsher status chain.
+    - *The market opens with the Ark Hull* in Scenario 1 (`provides: market`); the Market Exchange
+      is locked there (`locked_buildings`, like `locked_ordinances`) because it would only repeat
+      it. Metals had almost no sink (two Colony Ships and a handful of buildings): the balanced
+      bot's metals sat above the gate's line for a median of 38 turns in 20 of 20 runs. Surplus now
+      sells for energy at 4.00 a unit from turn 1, and the bot keeps the larger of seven turns of
+      income and the next Colony Ship's price, not both. Median win turn 74 to 78; an earlier
+      experiment with a technology-free market (92) had broken pacing, this one did not.
+    - *The Foundry is locked* in Scenario 1 and leaves the balance scope: it raises the output of
+      the resource already in surplus. Foundry Automation stays, since tier III districts need it.
+    - *The Research Institute* costs 120 minerals and 30 metals, is one per empire, and adds 2.00
+      research to each branch (`output_add:research`: new in the research report, the effect text
+      and the advisor's scoring) on top of its +20%. Without the limit every colony built one and
+      the Fusion Plant, the Civic Hall and the Storehouse lost their slots.
+    - *The Storehouse* (60 minerals), the *Fusion Plant* (120 minerals, 20 metals) and the *Civic
+      Hall* (90 minerals, 20 metals; 1.50 influence) are cheaper, so the advisor's value per cost
+      ranks them when a slot is free. With no hoards to hold, the Storehouse earns its slot as a
+      cheap filler; the tutorial's storage step still asks for one.
+96. **The hoarding gate measures the balanced bot only** (82): the economy and turtle bots are
+    lopsided on purpose and random-legal never manages its stocks. The gate prints how many
+    streaks of over ten turns each resource had, not how long they were (the first draft of the M1
+    report called them lengths).
+97. **Study 3D incorporation against the existing M1 branch** (Owner): no new branch.
+    The incorporation study uses M1's actual command-preview state, canonical hex numbering,
+    district tiers, buildings, construction queues and survey flags. The renderer receives
+    detached permitted descriptions; the inspector keeps M1's existing commands and
+    explanations. Optional overlays provide a concrete comparison before making these views
+    the default. See `milestones/M1_3D_INCORPORATION.md`. The study changes no balance rules.
+98. **M1.1 production foundation** (approved staged plan): the viewport host stays a
+    direct GameScreen child and follows disposable mount/scroll rectangles. Inspector
+    refreshes do not reparent or free its scene. Detached permitted revisions, session
+    epochs, bounded cameras, shared worker/cooperative scheduling, asynchronous
+    retirement and pinned byte-estimated LRU ownership enforce the presentation
+    boundary. Stage B revalidation is in `milestones/M1_1_STAGE_B_REPORT.md`.
+99. **Integrated space before city incorporation** (M1.1 Stage C): 3D is the ordinary
+    Galaxy/System appearance; Strategic shares the existing action model. Actual
+    owned hulls/outposts/colonies patch by ID, unknown systems remain neutral and
+    selectors reveal the focused scene after scrolling on compact screens. Existing
+    Survey/Colonise/Outpost commands stay authoritative. Shared saved geography,
+    integrated city, the final art/accessibility pass and device profiling remain
+    Stages D–G. Native/browser evidence and performance debt are documented separately;
+    no simulation content or golden hashes are changed.
+100. **Save appearance independently and preserve unknown future graphics** (M1.1 Stage D,
+     Owner persistence priority): gameplay stays schema 2 with the same checksum/RNG.
+     Opaque, independently checked graphics strings carry frozen profiles, catalog versions
+     and commit-only quantized colony anchors. Supported views dispatch from saved versions;
+     unsupported future data survives exactly with an explained fallback. A compatible-view
+     overlay adds identities without replacing newer authoritative geography. Regional terrain
+     and globe maps share sphere_fbm/1; markers use the verified sphere UV conversion. Original
+     M1 loads the gameplay envelope but its old writer drops graphics metadata on resave.
+     The Stage D report and graphics save contract record evidence and that boundary.
+101. **The city is the normal planner, with saved catalog dispatch** (M1.1 Stage E):
+     the persistent viewport hosts actual canonical parcels and detached owned-only
+     descriptions. Roof/scaffold hits, ground polygons, keyboard and touch select the
+     same existing inspector; commands remain M1's authority. Stable completed and
+     queued identities patch independently from placement previews and sixteen regional
+     terrain tiles. Decorative access avoids blocked plots without changing adjacency.
+     Optional groundworks/1 records committed clearings; transient masks reverse on
+     Cancel/Undo. New games pin city catalog/kit 2, while saved kit 1 keeps its unchanged
+     implementation. When a newer build understands an original compatible view again,
+     it takes priority over an older fallback overlay; valid additions merge without
+     replacing saved geography. The actual archived Stage D writer/Stage E restore
+     exercise proves catalog, anchor and clearing continuity. Final art and physical
+     device/campaign validation remain F/G. No gameplay schema, content or golden
+     simulation change is included.
+102. **Version visual finish independently from physical identity** (M1.1 Stage F):
+     new planet/stellar/civilian finish 2 and city kit 3 reuse the frozen field/maps,
+     anchors and clearing history. Old catalogs retain their rendering until an
+     explicit supported upgrade. Graphics wrapper 2 carries a checked v1 E view;
+     E preserves the original and writes valid additions, including completed then
+     demolished sites, to its overlay. F merges those additions even when it knows
+     the original catalog. Runtime PBR/GLB source, real geometry LODs and normal/AO
+     bakes replace the study finish. Lossless mipmapped review maps prioritize quality;
+     target compression/profiling stays G. Whole resource chips and portrait drawer
+     navigation keep controls/readouts accessible at large text. Artistic acceptance
+     remains an Owner decision, separate from correctness checks and measured costs.
+
+103. **Keep view composition separate from world identity and quality** (M1.1 F.1):
+     Command is the default information-first screen. Immersive mounts the same
+     persistent city/space renderer behind a compact HUD, sharing M1 inspectors
+     and commands through dismissible side/bottom contexts. Switching retains
+     camera, selection, pending orders and saved graphics; it introduces no new
+     simulation or graphics schema/catalog. Device layout lives in settings.cfg,
+     with immediate origin-local browser storage to survive page closure before
+     asynchronous file sync. Unsupported/Strategic views retain readable Command
+     while preserving the preference. Contexts scroll; compact icon controls keep
+     48dp touch targets and readable text at 200%. Contexts refit to the visible
+     map after container sorting, so phone controls stay above the toolbar.
+     Orbit/pan/zoom and Escape/F10
+     route through the actual viewport input path. Close-camera quality recreation
+     tolerates asynchronous terrain before applying finish LOD. Physical devices,
+     complete campaign/export validation and Owner art acceptance remain Stage G.
+
+104. **Keep the approved compact Immersive finish independent of saved world identity**
+     (M1.2 owner review): a small summary is the only default window; context opens
+     on selection, an empty queue becomes a pill, and management/research use tabs.
+     Device-local workspace v2 migrates untouched old defaults and keeps custom
+     geometry. Matte/Frosted/Glossy use opaque text over a tinted surface that
+     samples only the scene SubViewport. Nine scene taps per visible panel are the
+     current blur approach; shared blur and hardware profiling remain optimization
+     work. Disclosed-only planet/ring spacing is a render copy, preserving saved
+     orbital clock, physical recipe and identity. Overview framing waits for layout
+     and includes near-side perspective; saved cameras stay intact. Turn motion
+     follows arcs, attached markers follow through ambient pause, and asteroid belts
+     share the orbital transition/focused-camera path. Final evidence and platform
+     limits are in `milestones/M1_2_D_G_REVALIDATION_REPORT.md`.
+
+105. **Accept CC BY assets when the credit is recorded** (Owner decision, audio revision 3): the
+     approved revision 3 soundtrack uses the Salamander Grand Piano V3 by Alexander Holm, which
+     is CC BY 3.0. The Owner chose to keep it rather than swap to a CC0 upright piano. §15.1
+     rule 3 and `tools/import_assets.py` now accept CC BY when the batch manifest gives the
+     credit as `"attribution"`, which the intake writes into `CREDITS.md`. Share-alike,
+     non-commercial and no-derivatives licences stay rejected.
+
+106. **Horror and grimdark are no longer banned** (Owner decision, branching campaign): the darker
+     routes and endings (Only Ember, Fossil Light, and the failure endings) need them. §4.1 and
+     §8 drop the ban; §15.3 adds a dark variant that keeps the diorama forms and light direction
+     with a muted palette and one small warm light; §15.10 keeps "grimdark, horror" in the negative
+     prompt only for standard, hopeful scenes. "No grime or gore" (§15.3, Surfaces) still applies.
+     All 27 ending scenes are made at full size (3200×1200).
+
+107. **Revision 3 soundtrack installed; music encodes at Vorbis quality 5** (Owner approval, "Much
+     better. Incorporate that."): all 28 music ids are now music batch 2, rendered by
+     `tools/art/audio_rework/compose.py` and packaged by `package_batch.py` through the normal
+     intake. At quality 6 the fuller revision 3 averaged about 180 kbps (70.1 MB, over the 70 MB
+     budget of §9.11). At quality 5 it averages 153 kbps (59.9 MB). Every cue opens with 0.3 s
+     of silence, so a looping cue's `.import` sets `loop_offset=0.3` and repeats play from the
+     first note. Not yet solved: the draft Chapter 2+ asset plan's 6 themes (about 14 MB) and 22
+     ending stings (about 8 MB) would bring music to about 82 MB. That batch needs quality 4
+     for all music (about 127 kbps; about 68 MB in all) or a larger budget.
+
+108. **Branching-campaign art enters the manifest before the campaign does** (Owner approval,
+     October 24). The 41 accepted scenes and 14 accepted portraits are delivered as vignette and
+     portrait batch 2 so the art is reviewed and budgeted once, while it is fresh; the event chains
+     that show them come later and only need to name the ids. The run made scenes at 2048x768, under
+     the 2400 px the intake requires, so they are upscaled to 3200x1200 (Lanczos) before intake: a
+     net 1.17x enlargement to the 2400x900 the game ships, judged harmless for painted art.
+     Portraits are keyed from #00FF00 with the green unmixed from edge pixels and despilled before
+     intake (the intake's own key leaves an olive fringe on fine hair), and each character is moved
+     down so the head sits 10.3% below the top, matching the shipped portraits rather than the
+     brief's 12%; one offset per character keeps its expressions aligned. Held back for a redo:
+     `end_annexed`, whose blue flag with a white compass rose in a circle reads as NATO's
+     (Meridian's emblem must avoid that combination), Ilyin's expressions and all of Pell, whose
+     expressions barely differ and whose badge drew Meridian's compass rose. The redo came back on
+     October 24 and went in as vignette and portrait batch 3, through the same script: `end_annexed`
+     now flies a gold eight-pointed compass rose with no circle, which is how Meridian's emblem
+     should be drawn from here on; Ilyin's expressions read clearly; Pell is now clearly younger
+     than Ilyin, with a radio-dish badge.

@@ -1,4 +1,8 @@
 {
   "version": 1,
-  "presets": []
+  "presets": [
+    {"id": "story", "name_key": "difficulty.story.name", "desc_key": "difficulty.story.desc", "player_output_bp": 12000, "event_severity_bp": 5000, "pirate_strength_bp": 5000, "ai_aggression": 0, "ai_output_bp": 10000, "hints": true},
+    {"id": "normal", "name_key": "difficulty.normal.name", "desc_key": "difficulty.normal.desc", "player_output_bp": 10000, "event_severity_bp": 10000, "pirate_strength_bp": 10000, "ai_aggression": 1, "ai_output_bp": 10000, "hints": true},
+    {"id": "hard", "name_key": "difficulty.hard.name", "desc_key": "difficulty.hard.desc", "player_output_bp": 9000, "event_severity_bp": 15000, "pirate_strength_bp": 15000, "ai_aggression": 2, "ai_output_bp": 12000, "hints": false}
+  ]
 }

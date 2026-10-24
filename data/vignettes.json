@@ -1,4 +1,30 @@
 {
   "version": 1,
-  "vignettes": []
+  "vignettes": [
+    {"id": "founders_hall", "sky": ["bg.panel", "alloy.copper"], "ground": "bg.panel.alt", "horizon": "hall", "props": ["crowd", "window", "crate"], "accent": "window", "accent_token": "star.K"},
+    {"id": "vault_frost", "sky": ["bg.deep", "bg.panel"], "ground": "bg.panel.alt", "horizon": "vault", "props": ["pods", "figure"], "accent": "lamp", "accent_token": "hearth.gold"},
+    {"id": "labor_strike", "sky": ["bg.panel", "alloy.copper"], "ground": "line.subtle", "horizon": "plain", "props": ["machines", "figures", "towers"], "accent": "lamp", "accent_token": "hearth.gold"},
+    {"id": "sealed_archive", "sky": ["bg.deep", "bg.panel.alt"], "ground": "bg.panel", "horizon": "vault", "props": ["crate", "column"], "accent": "lamp", "accent_token": "hearth.gold"},
+    {"id": "ark_engine", "sky": ["bg.deep", "bg.panel"], "ground": "bg.panel.alt", "horizon": "plain", "props": ["drive", "scaffold", "figures"], "accent": "glow", "accent_token": "hearth.gold"},
+    {"id": "solar_flare", "sky": ["alloy.copper", "alert.ember"], "ground": "bg.panel.alt", "horizon": "plain", "props": ["domes", "pylons", "flare"], "accent": "flare", "accent_token": "alert.ember"},
+    {"id": "crop_blight", "sky": ["bg.panel.alt", "ok.green"], "ground": "bg.panel", "horizon": "terraces", "props": ["fields", "figure"], "accent": "star", "accent_token": "hearth.gold"},
+    {"id": "dark_beacon", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["beacon", "ship", "stars"], "accent": "beacon", "accent_token": "hearth.gold"},
+    {"id": "unlit_toll", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["ships", "stars"], "accent": "glow", "accent_token": "alert.ember"},
+    {"id": "meridian_hall", "sky": ["bg.panel", "ally.blue"], "ground": "bg.panel.alt", "horizon": "hall", "props": ["banners", "lectern", "figure"], "accent": "window", "accent_token": "ally.blue"},
+    {"id": "vael_light", "sky": ["bg.deep", "other.magenta"], "ground": "bg.deep", "horizon": "sea", "props": ["lights", "figure"], "accent": "lantern", "accent_token": "hearth.gold"},
+    {"id": "vael_heard", "sky": ["bg.deep", "influence.violet"], "ground": "bg.deep", "horizon": "sea", "props": ["lights", "stars"], "accent": "glow", "accent_token": "other.magenta"},
+    {"id": "mine_collapse", "sky": ["bg.panel", "mineral.slate"], "ground": "line.subtle", "horizon": "hills", "props": ["machines", "stretchers", "figures"], "accent": "lamp", "accent_token": "hearth.gold"},
+    {"id": "derelict_freighter", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["ship", "debris", "drone"], "accent": "beacon", "accent_token": "sci.cyan"},
+    {"id": "ghost_signal", "sky": ["bg.deep", "bg.panel.alt"], "ground": "bg.panel", "horizon": "hills", "props": ["dish", "stars"], "accent": "glow", "accent_token": "sci.cyan"},
+    {"id": "ice_comet", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["comet", "ships", "planet"], "accent": "star", "accent_token": "star.F"},
+    {"id": "debris_cascade", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["planet", "debris"], "accent": "glow", "accent_token": "sci.cyan"},
+    {"id": "founding_day", "sky": ["bg.panel", "hearth.gold"], "ground": "bg.panel.alt", "horizon": "plain", "props": ["crowd", "lights", "slowboat"], "accent": "lantern", "accent_token": "hearth.gold"},
+    {"id": "frontier_doctor", "sky": ["bg.panel.alt", "hearth.gold"], "ground": "bg.panel", "horizon": "hills", "props": ["tent", "figure", "domes"], "accent": "star", "accent_token": "star.K"},
+    {"id": "smugglers_market", "sky": ["bg.deep", "bg.panel"], "ground": "bg.panel", "horizon": "station", "props": ["market", "figures", "lights"], "accent": "lamp", "accent_token": "alert.ember"},
+    {"id": "refugee_slowboat", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["slowboat", "planet", "stars"], "accent": "window", "accent_token": "hearth.gold"},
+    {"id": "ancient_ruins", "sky": ["alloy.copper", "hearth.gold"], "ground": "bg.panel.alt", "horizon": "dunes", "props": ["ruins", "drone"], "accent": "star", "accent_token": "star.K"},
+    {"id": "rogue_core", "sky": ["bg.deep", "bg.panel"], "ground": "bg.panel", "horizon": "station", "props": ["column", "figure"], "accent": "glow", "accent_token": "sci.cyan"},
+    {"id": "stellar_nursery", "sky": ["bg.deep", "influence.violet"], "ground": "bg.deep", "horizon": "space", "props": ["nebula", "stars", "tower"], "accent": "glow", "accent_token": "other.magenta"},
+    {"id": "quiet_lane", "sky": ["bg.deep", "bg.panel"], "ground": "bg.deep", "horizon": "space", "props": ["beacon", "ship", "debris"], "accent": "beacon", "accent_token": "line.subtle"}
+  ]
 }
