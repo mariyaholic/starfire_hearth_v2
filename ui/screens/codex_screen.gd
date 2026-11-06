@@ -95,9 +95,15 @@ func _fill_body() -> void:
 			var v: VBoxContainer = VBoxContainer.new()
 			v.add_theme_constant_override("separation", Tokens.SPACE_S)
 			if query.is_empty():
-				v.add_child(_categories(true))
-			v.add_child(_list())
-			_body.add_child(FlowScreen.scroll_of(v))
+				# Categories stay below Search while the entries scroll. A single
+				# horizontal row also avoids an orphan category on short screens.
+				var tabs: ScrollContainer = ScrollContainer.new()
+				tabs.name = "CategoryScroll"
+				tabs.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+				tabs.add_child(_categories(false, true))
+				v.add_child(tabs)
+			v.add_child(FlowScreen.scroll_of(_list()))
+			_body.add_child(v)
 		else:
 			var v2: VBoxContainer = VBoxContainer.new()
 			v2.add_theme_constant_override("separation", Tokens.SPACE_S)
@@ -145,9 +151,11 @@ func _content_width() -> float:
 	return minf(FlowScreen.MAX_CONTENT_WIDTH, Layout.logical_size.x - m.x - m.z - 2 * Tokens.SPACE_XXL)
 
 
-func _categories(flow: bool) -> Container:
+func _categories(flow: bool, horizontal: bool = false) -> Container:
 	var box: Container
-	if flow:
+	if horizontal:
+		box = HBoxContainer.new()
+	elif flow:
 		box = HFlowContainer.new()
 	else:
 		box = VBoxContainer.new()

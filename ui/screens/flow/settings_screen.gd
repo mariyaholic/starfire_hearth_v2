@@ -40,7 +40,18 @@ func build_screen() -> void:
 	var right: VBoxContainer = GameUI.column(Tokens.SPACE_M)
 	right.add_child(_display())
 	right.add_child(_about())
-	col.add_child(FlowScreen.scroll_of(GameUI.split(left, right)))
+	if Layout.compact:
+		col.add_child(FlowScreen.scroll_of(GameUI.split(left, right)))
+	else:
+		# Each column keeps its own scroll position: the short Sound/Play column
+		# remains usable while the longer Display column is explored.
+		var columns: HBoxContainer = HBoxContainer.new()
+		columns.name = "SettingsColumns"
+		columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		columns.add_theme_constant_override("separation", Tokens.SPACE_L)
+		columns.add_child(FlowScreen.scroll_of(left))
+		columns.add_child(FlowScreen.scroll_of(right))
+		col.add_child(columns)
 
 
 func _sound() -> Control:
@@ -71,7 +82,7 @@ func _display() -> Control:
 	card.add_body(choice("ui.world.view_mode",["command","immersive"],["ui.world.command","ui.world.immersive"],Settings.view_mode,Settings.set_view_mode))
 	card.add_text(Strings.fmt("ui.world.immersive_help"), &"CaptionLabel")
 	card.add_body(choice("ui.world.quality",["auto","low","standard"],["ui.world.auto","ui.world.low","ui.world.standard"],Settings.visual_quality,Settings.set_visual_quality))
-	WorldViewTools.add_interface_controls(card)
+	WorldViewTools.add_interface_controls(card, false)
 	if DisplaySettings.supports("vsync"):
 		card.add_body(choice("ui.settings.display_vsync", Settings.VSYNC_MODES, ["ui.settings.vsync_disabled", "ui.settings.vsync_enabled", "ui.settings.vsync_adaptive", "ui.settings.vsync_mailbox"], Settings.vsync_mode, Settings.set_vsync_mode))
 	if DisplaySettings.supports("frame_cap"):
@@ -268,7 +279,7 @@ func _slider(title_key: String, value: float, lo: float, hi: float, step: float,
 	sl.max_value = hi
 	sl.step = step
 	sl.value = value
-	sl.custom_minimum_size = Vector2(200.0 * Settings.text_scale, Layout.target_size())
+	sl.custom_minimum_size = Vector2(200.0, Layout.target_size())
 	sl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(sl)
@@ -287,6 +298,14 @@ func _slider(title_key: String, value: float, lo: float, hi: float, step: float,
 		sl.drag_ended.connect(func(_changed: bool) -> void:
 			_dragging = false
 			apply.call(sl.value))
+	if Settings.text_scale > 1.5:
+		# Large labels get a full line; all slider tracks then share the same
+		# left edge instead of competing with wrapping labels for column width.
+		row.remove_child(t)
+		var stacked: VBoxContainer = GameUI.column(Tokens.SPACE_XS)
+		stacked.add_child(t)
+		stacked.add_child(row)
+		return GameUI.exempt(stacked, "a setting's value as a percentage")
 	return GameUI.exempt(row, "a setting's value as a percentage")
 
 
