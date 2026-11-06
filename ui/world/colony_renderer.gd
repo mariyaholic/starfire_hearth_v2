@@ -31,6 +31,7 @@ var layer_update_us: PackedInt64Array=PackedInt64Array()
 var routes: Array[Array] = []
 var road_network: Dictionary = {}
 var carts: Array[Node3D] = []
+var traffic: DecorativeTraffic = DecorativeTraffic.new()
 var _preview_pick: Dictionary={}
 var _blocked_pick: Array[Dictionary]=[]
 var _finish_meshes: Dictionary[String,Mesh]={}
@@ -214,12 +215,18 @@ func _rebuild_city() -> void:
 		_lines(lines,0.28,_material("road"),routes_root)
 		if not road_network.is_empty(): _street_junctions()
 		_clear(activity_root); carts.clear()
-		for i: int in mini(4,routes.size()):
+		# Older hub routes end inside parcels and have no entrance contract.
+		# Keep their saved road appearance; enable carts only on safe v2 streets.
+		traffic.configure(road_network)
+		for vehicle: Dictionary in traffic.vehicles:
 			var cart: Node3D=Node3D.new(); activity_root.add_child(cart); carts.append(cart)
 			var parts: Array[Dictionary]=[]
-			CityBuildingKit._part(parts,"box","shell",Vector3(0,0.25,0),Vector3(0.48,0.3,0.8))
-			CityBuildingKit._part(parts,"box","dark",Vector3(0,0.12,0),Vector3(0.52,0.16,0.85))
+			# The complete turning footprint fits the existing road clearance.
+			CityBuildingKit._part(parts,"box","shell",Vector3(0,0.17,0),Vector3(0.24,0.20,0.32))
+			CityBuildingKit._part(parts,"box","dark",Vector3(0,0.06,0),Vector3(0.28,0.10,0.36))
+			CityBuildingKit._part(parts,"box","light",Vector3(0,0.17,0.17),Vector3(0.18,0.04,0.025))
 			_instances(parts,cart)
+			cart.transform=DecorativeTraffic.pose(vehicle,generator.height_at)
 	var temporary: Array[int]=[]
 	for item: Dictionary in snapshot["queue"]:
 		if int(item["slot"])>=0 and not temporary.has(int(item["slot"])): temporary.append(int(item["slot"]))
@@ -415,22 +422,21 @@ func set_active(active: bool, input_blocked: bool) -> void:
 func _process(delta: float) -> void:
 	if not _active: return
 	# Small purely decorative vehicles follow the access lattice, not simulation.
-	if not motion_paused and not _input_blocked and not Settings.reduce_motion: visual_time+=minf(delta,0.1)
+	if not motion_paused and not _input_blocked and not Settings.reduce_motion:
+		visual_time+=minf(delta,0.1)
+		advance_traffic(minf(delta,0.1))
 	if _water!=null: _water.set_shader_parameter("visual_time",visual_time)
 	if _leaves!=null: _leaves.set_shader_parameter("visual_time",visual_time)
 	if _steam!=null: _steam.set_shader_parameter("visual_time",visual_time)
-	for i: int in carts.size():
-		var path: Array=routes[i]
-		var progress: float=fposmod(visual_time*0.8+i*7,path.size()-1)
-		var segment: int=int(progress)
-		var at: Vector2=(path[segment] as Vector2).lerp(path[segment+1],progress-segment)
-		carts[i].position=Vector3(at.x,generator.height_at(at.x,at.y)+0.1,at.y)
-		var forward: Vector2=(path[segment+1] as Vector2)-(path[segment] as Vector2)
-		if forward.length_squared()>0.01: carts[i].rotation.y=atan2(forward.x,forward.y)
 	_update_camera(1 if Settings.reduce_motion else 1-exp(-delta*5))
 	if not _finish_meshes.is_empty():
 		var level: int=0 if _current_distance<28 else 1 if _current_distance<48 else 2
 		if level!=_finish_lod: _finish_lod=level; _apply_finish_lod(_landscape,level)
+
+func advance_traffic(delta: float) -> void:
+	traffic.advance(delta)
+	for i: int in carts.size():
+		carts[i].transform=DecorativeTraffic.pose(traffic.vehicles[i],generator.height_at)
 
 func _viewport_input(event: InputEvent) -> void:
 	if _input_blocked or not _active: return
