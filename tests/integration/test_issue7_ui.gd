@@ -129,3 +129,61 @@ func test_title_keeps_nonbreaking_phrase_together_at_large_text(t: T) -> void:
 		for line: String in tag.text.split("\n"):
 			t.ok(font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, tag.get_theme_font_size("font_size")).x <= tag.size.x, "wrapped lines fit the title block")
 		await _stop()
+
+func test_game_codex_browses_and_returns_to_same_screen(t: T) -> void:
+	await _start(true)
+	Settings.set_reduce_motion(true)
+	GameScreen._opened_seed = 11
+	app.go(AppRoot.BEGIN, {"scenario": "s1_first_light", "seed": 11}); await _frames()
+	Overlay.close_all()
+	var game: GameScreen = app.screen
+	game.show_view(GameScreen.SYSTEM); await _frames()
+	game.open_menu(); await _frames()
+	(Overlay.top().find_child("Menu_codex", true, false) as Button).pressed.emit(); await _frames()
+	var browser: CodexScreen = Overlay.top().find_child("CodexScreen", true, false)
+	t.ok(browser != null, "game menu opens a full browser")
+	var entry: CodexIndex.Entry = browser.index.in_category("mechanics")[0]
+	var search: LineEdit = browser.find_child("Search", true, false)
+	search.text = entry.title; search.text_changed.emit(entry.title); await _frames()
+	t.ok(browser.find_child("List", true, false).get_child_count() > 0, "search returns entries")
+	browser.open(entry.id); await _frames()
+	t.eq(browser.current, entry.id)
+	(browser.find_child("BackToList", true, false) as Button).pressed.emit(); await _frames()
+	t.eq(browser.query, entry.title.strip_edges(), "return to list retains search")
+	(browser.find_child("Back", true, false) as Button).pressed.emit(); await _frames()
+	t.eq(app.screen, game, "return preserves game screen")
+	t.eq(game.view, GameScreen.SYSTEM)
+	await _stop()
+
+func test_phone_system_context_and_galaxy_route(t: T) -> void:
+	await _start(true)
+	Settings.set_reduce_motion(true)
+	Settings.set_appearance("3d")
+	GameScreen._opened_seed = 11
+	app.go(AppRoot.BEGIN, {"scenario": "s1_first_light", "seed": 11}); await _frames()
+	Overlay.close_all()
+	var game: GameScreen = app.screen
+	game.open_planet("pl_aster"); await _frames()
+	game._scroll.ensure_control_visible(game.find_child("WorldMount", true, false)); await _frames()
+	var context: Label = game.find_child("PlanetContextName", true, false)
+	t.ok(context != null, "selected planet has local context")
+	t.eq(context.text, Strings.fmt(game.state.planets["pl_aster"].name_key))
+	t.eq(context.get_line_count(), 1, "planet name stays legible in the badge")
+	var overview: Button = game.find_child("PlanetOverview", true, false)
+	var click: InputEventMouseButton = InputEventMouseButton.new()
+	click.button_index = MOUSE_BUTTON_LEFT
+	click.position = overview.get_global_rect().get_center()
+	click.global_position = click.position
+	click.pressed = true; tree.root.push_input(click, true)
+	click = click.duplicate(); click.pressed = false; tree.root.push_input(click, true)
+	await _frames()
+	t.eq(game.planet_id, "", "overview clears selection")
+	(game.find_child("SystemGalaxy", true, false) as Button).pressed.emit(); await _frames()
+	t.eq(game.view, GameScreen.GALAXY, "labeled galaxy control opens the map")
+	var renderer: GalaxyRenderer = game.world_controller.host.renderer
+	for marker: Dictionary in game.world_controller.description["systems"]:
+		var label: Label3D = renderer.bodies[marker["id"]]["label"]
+		t.eq(label.text, Strings.fmt(marker.get("name_key", "ui.galaxy.unknown")), "label uses disclosed name only")
+		if not marker["known"]: t.eq(label.text, Strings.fmt("ui.galaxy.unknown"))
+	await _stop()
+	Settings.set_appearance("strategic")

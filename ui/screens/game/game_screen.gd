@@ -335,6 +335,10 @@ func _fix_selection() -> void:
 
 
 func _refresh_view() -> void:
+	var old_context: Node = world_controller.host.get_node_or_null("PlanetContextBadge")
+	if old_context != null:
+		world_controller.host.remove_child(old_context)
+		old_context.queue_free()
 	if immersive_active() != _immersive_layout:
 		_build_layout()
 		_top.set_model(GameModel.top_bar(state, report))
@@ -736,7 +740,7 @@ func open_menu() -> void:
 		["ui.game.resume", "ui_play", Callable()],
 		["ui.game.save", "ui_save", save_game],
 		["ui.game.load", "ui_load", go.bind(AppRoot.LOAD, {"back": AppRoot.GAME})],
-		["ui.game.codex", "ui_codex", CodexOverlay.open.bind("")],
+		["ui.game.codex", "ui_codex", CodexOverlay.open_browser],
 		["ui.game.settings", "ui_settings", go.bind(AppRoot.SETTINGS, {"back": AppRoot.GAME})],
 		["ui.game.quit", "ui_close", go.bind(AppRoot.TITLE)],
 	]

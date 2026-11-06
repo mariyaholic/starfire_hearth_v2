@@ -14,6 +14,18 @@ static func open(id: String) -> Modal:
 	return m
 
 
+## Browse without replacing the game screen, so returning preserves its selection and scroll.
+static func open_browser() -> OverlayLayer:
+	var layer: OverlayLayer = OverlayLayer.new()
+	layer.name = "CodexBrowser"
+	var browser: CodexScreen = CodexScreen.make()
+	browser.back_route = AppRoot.GAME
+	browser.navigate.connect(func(_route: String, _args: Dictionary) -> void: layer.close())
+	layer.add_child(browser)
+	layer.open()
+	return layer
+
+
 static func _show(m: Modal, ix: CodexIndex, id: String, history: Array[String]) -> void:
 	for c: Node in m.body.get_children():
 		m.body.remove_child(c)
