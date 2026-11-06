@@ -30,6 +30,10 @@ static func build(s: GameScreen) -> Control:
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
 	head.add_body(row)
+	var galaxy: SfButton = SfButton.make("ui.nav.galaxy", "emblem_compass", SfButton.GHOST)
+	galaxy.name = "SystemGalaxy"
+	galaxy.pressed.connect(s.show_view.bind(GameScreen.GALAXY))
+	head.add_action(galaxy)
 	var inspect: SfButton = SfButton.make("ui.world.spatial", "emblem_compass", SfButton.GHOST)
 	inspect.name = "Appearance3D"
 	inspect.pressed.connect(Settings.set_appearance.bind("3d"))
