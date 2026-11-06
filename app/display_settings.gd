@@ -127,7 +127,8 @@ func preview_window(request: Dictionary, timeout_seconds: float = PREVIEW_SECOND
 	if _preview_target.is_empty(): _preview_before = current_window_state()
 	_preview_target = target
 	_apply_window_state(target)
-	_preview_deadline_msec = Time.get_ticks_msec() + maxi(1, roundi(timeout_seconds * 1000.0))
+	var timeout: float = timeout_seconds if is_finite(timeout_seconds) else PREVIEW_SECONDS
+	_preview_deadline_msec = Time.get_ticks_msec() + maxi(1, roundi(timeout * 1000.0))
 	var state: Dictionary = preview_state()
 	preview_changed.emit(state)
 	return {"ok": true, "reason": "preview", "state": state}
@@ -143,8 +144,11 @@ func keep_preview() -> bool:
 	if _preview_target.is_empty(): return false
 	var target: Dictionary = _preview_target.duplicate(true)
 	var before: Dictionary = _preview_before
-	var saved_size: Vector2i = before.get("size", Settings.window_size())
-	var saved_position: Vector2i = before.get("position", Vector2i(Settings.window_x, Settings.window_y))
+	var saved_size: Vector2i = Settings.window_size()
+	var saved_position: Vector2i = Vector2i(Settings.window_x, Settings.window_y)
+	if before.get("mode", "windowed") == "windowed" and not bool(before.get("maximized", false)):
+		saved_size = before.get("size", saved_size)
+		saved_position = before.get("position", saved_position)
 	# Fullscreen and borderless replace the visible rectangle; retain the last
 	# windowed rectangle so restoring later does not shrink to the monitor or
 	# lose the user's custom position.
@@ -179,16 +183,19 @@ func _clear_preview() -> void:
 func _normalize_window_request(request: Dictionary) -> Dictionary:
 	var mode: String = str(request.get("mode", Settings.window_mode))
 	if mode not in supported_window_modes(): return {}
-	var monitor: int = clampi(int(request.get("monitor", Settings.window_monitor)), 0, maxi(0, DisplayServer.get_screen_count() - 1))
-	var size: Vector2i = request.get("size", Settings.window_size())
-	if not size is Vector2i: size = Settings.window_size()
+	var raw_monitor: Variant = request.get("monitor", Settings.window_monitor)
+	var monitor: int = raw_monitor if typeof(raw_monitor) == TYPE_INT else Settings.window_monitor
+	monitor = clampi(monitor, 0, maxi(0, DisplayServer.get_screen_count() - 1))
+	var raw_size: Variant = request.get("size", Settings.window_size())
+	var size: Vector2i = raw_size if raw_size is Vector2i else Settings.window_size()
 	size = Vector2i(clampi(size.x, Settings.WINDOW_WIDTH_MIN, Settings.WINDOW_WIDTH_MAX), clampi(size.y, Settings.WINDOW_HEIGHT_MIN, Settings.WINDOW_HEIGHT_MAX))
 	var current: Dictionary = current_window_state()
 	var position: Variant = request.get("position", current.get("position", Vector2i(Settings.window_x, Settings.window_y)))
 	if not request.has("position") and current.get("mode", "windowed") != "windowed": position = Vector2i(Settings.window_x, Settings.window_y)
 	if not position is Vector2i: position = Vector2i(Settings.window_x, Settings.window_y)
+	var raw_maximized: Variant = request.get("maximized", Settings.window_maximized)
 	return {"mode": mode, "monitor": monitor, "size": size, "position": position,
-		"maximized": bool(request.get("maximized", Settings.window_maximized))}
+		"maximized": raw_maximized if typeof(raw_maximized) == TYPE_BOOL else Settings.window_maximized}
 
 
 func _apply_window_state(state: Dictionary) -> void:

@@ -65,12 +65,11 @@ func play_utterance(raw_cue: Dictionary) -> Dictionary:
 	var utterance_id: String = str(normalized.get("utterance_id", ""))
 	if not VoiceRegistry.valid(normalized):
 		return {"ok": false, "played": false, "status": STATUS_UNAVAILABLE, "reason": "invalid_cue", "utterance_id": utterance_id}
+	if not register(normalized):
+		return {"ok": false, "played": false, "status": STATUS_UNAVAILABLE, "reason": "conflicting_cue", "utterance_id": utterance_id}
 	if utterance_id == _last_requested_id:
 		return {"ok": true, "played": false, "status": str(_registry.get(utterance_id, {}).get("delivery_status", STATUS_UNAVAILABLE)), "reason": "already_requested", "utterance_id": utterance_id}
 	_last_requested_id = utterance_id
-	if not register(normalized):
-		_set_status(normalized, STATUS_UNAVAILABLE)
-		return {"ok": false, "played": false, "status": STATUS_UNAVAILABLE, "reason": "conflicting_cue", "utterance_id": utterance_id}
 	_stop_audio_only()
 	if Settings.muted or Settings.voice_volume <= 0.0:
 		_set_status(normalized, STATUS_MUTED)
@@ -105,6 +104,8 @@ func active_state() -> Dictionary:
 		return {"active": false, "utterance_id": "", "status": "stopped"}
 	var out: Dictionary = _active.duplicate(true)
 	out["active"] = true
+	out["status"] = STATUS_PLAYING
+	out["delivery_status"] = STATUS_PLAYING
 	return out
 
 
@@ -119,9 +120,11 @@ func status_text(status: String) -> String:
 
 
 func _stop_audio_only() -> void:
-	if not _active.is_empty():
-		_set_status(_active, "stopped")
+	var stopped: Dictionary = _active.duplicate(true)
+	_active.clear()
 	Audio.stop_voice()
+	if not stopped.is_empty():
+		_set_status(stopped, "stopped")
 
 
 func _set_status(cue: Dictionary, status: String) -> void:
