@@ -54,8 +54,16 @@ static func open(s: GameScreen, event_id: String, on_done: Callable) -> Modal:
 	var choices: Array = DictIO.arr_of(step, "choices")
 	for i in choices.size():
 		m.body.add_child(_choice(s, m, state, e, ev, choices[i], i))
+	# A route change removes the layer without dismissing it. Release speech in both
+	# paths, once: an animated old layer may exit after the next event has opened.
+	var voice_scope: Dictionary = {"closed": false}
+	var release_voice: Callable = func() -> void:
+		if not voice_scope["closed"]:
+			voice_scope["closed"] = true
+			VoiceService.stop_utterance()
+	m.tree_exiting.connect(release_voice)
 	m.dismissed.connect(func() -> void:
-		VoiceService.stop_utterance()
+		release_voice.call()
 		# The story cue ends with the scene: back to the scenario's own track.
 		Audio.play_music(GameModel.main_music(Game.state))
 		if on_done.is_valid():

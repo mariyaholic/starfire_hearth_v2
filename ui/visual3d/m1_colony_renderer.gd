@@ -284,8 +284,9 @@ func _viewport_input(event: InputEvent) -> void:
 		if mouse.button_index == MOUSE_BUTTON_LEFT:
 			if mouse.pressed: _dragging=true; _drag_pixels=0
 			else:
+				var was_dragging: bool = _dragging
 				_dragging=false
-				if _drag_pixels<8: select_slot(pick_slot(mouse.position))
+				if was_dragging and _drag_pixels<8: select_slot(pick_slot(mouse.position))
 		elif mouse.pressed and mouse.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
 			_distance=clampf(_distance*(0.9 if mouse.button_index == MOUSE_BUTTON_WHEEL_UP else 1.1),9,90)
 	elif event is InputEventMouseMotion and _dragging:
@@ -350,6 +351,7 @@ func _environment_setup() -> void:
 	_environment.background_mode = Environment.BG_SKY
 	_sky = ProceduralSkyMaterial.new()
 	var sky: Sky = Sky.new()
+	preload("res://ui/visual3d/sky_retirement.gd").retain(sky)
 	sky.sky_material = _sky
 	_environment.sky = sky
 	_environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
@@ -656,6 +658,8 @@ func _update_camera(weight: float) -> void:
 
 
 func _exit_tree() -> void:
+	if _environment != null:
+		preload("res://ui/visual3d/sky_retirement.gd").retain(_environment.sky)
 	if generation != null:
 		generation.cancel_owner(resource_owner)
 		generation.region_ready.disconnect(_region_ready)

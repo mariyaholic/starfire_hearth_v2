@@ -107,6 +107,13 @@ static func from_text(text: String) -> LoadResult:
 		lr.error_key = "save.error.checksum"
 		lr.error_detail = "state checksum does not match"
 		return lr
+	# Check the types consumed by both migrations and from_dict before calling either.
+	# A checksum proves only that bytes match; it does not prove they describe a game.
+	var shape_error: String = _state_shape_error(state_dict, version)
+	if not shape_error.is_empty():
+		lr.error_key = "save.error.corrupt"
+		lr.error_detail = shape_error
+		return lr
 	while version < current_version():
 		var path: String = "%s/v%d_to_v%d.gd" % [MIGRATIONS_DIR, version, version + 1]
 		if not ResourceLoader.exists(path):
@@ -117,5 +124,75 @@ static func from_text(text: String) -> LoadResult:
 		state_dict = script.call("migrate", state_dict)
 		version += 1
 	lr.state = GameState.from_dict(state_dict)
+	var problems: Array[String] = Invariants.check(lr.state)
+	# General simulation fixtures may omit a player, but a loaded save is handed
+	# directly to Continue, whose screens and commands require one.
+	if lr.state.player() == null:
+		problems.append("save has no player empire")
+	if not problems.is_empty():
+		lr.state = null
+		lr.error_key = "save.error.corrupt"
+		lr.error_detail = ", ".join(problems)
+		return lr
 	lr.ok = true
 	return lr
+
+
+## Missing newer fields remain legal for old saves; fields that are present must
+## have the types their reconstruction code expects. Unknown fields are ignored.
+static func _state_shape_error(state: Dictionary, version: int) -> String:
+	for key: String in ["schema_version", "game_seed", "turn", "scenario_id", "player_id", "empires", "systems", "lanes", "planets", "colonies", "fleets", "ships", "designs", "flags", "counters"]:
+		if not state.has(key): return "missing state.%s" % key
+	if typeof(state["schema_version"]) != TYPE_INT or state["schema_version"] != version:
+		return "state schema version does not match envelope"
+	return _object_shape_error(state, GameState.new().to_dict(), "state")
+
+
+static func _object_shape_error(data: Dictionary, template: Dictionary, kind: String) -> String:
+	var object_maps: Dictionary = {
+		"state.empires": Empire.new().to_dict(), "state.systems": StarSystem.new().to_dict(),
+		"state.lanes": Lane.new().to_dict(), "state.planets": Planet.new().to_dict(),
+		"state.colonies": Colony.new().to_dict(), "state.fleets": Fleet.new().to_dict(),
+		"state.ships": Ship.new().to_dict(), "state.designs": Design.new().to_dict(),
+		"state.modifiers": Modifier.new().to_dict(), "empire.research": ResearchBranch.new().to_dict(),
+	}
+	var object_kinds: Dictionary = {"state.empires":"empire", "state.systems":"system", "state.lanes":"lane", "state.planets":"planet", "state.colonies":"colony", "state.fleets":"fleet", "state.ships":"ship", "state.designs":"design", "state.modifiers":"modifier", "empire.research":"research"}
+	var object_arrays: Dictionary = {
+		"state.scheduled_effects": ScheduledEffect.new().to_dict(), "state.events_pending": EventInstance.new().to_dict(),
+		"state.events_scheduled": EventInstance.new().to_dict(), "state.event_log": EventLogEntry.new().to_dict(),
+		"colony.districts": Colony.PlacedDistrict.new().to_dict(), "colony.buildings": Colony.PlacedBuilding.new().to_dict(),
+		"colony.queue": BuildItem.new().to_dict(),
+	}
+	var array_kinds: Dictionary = {"colony.queue":"build_item"}
+	var string_maps: Array[String] = ["empire.known_systems"]
+	var int_arrays: Array[String] = ["planet.blocked_slots"]
+	for key: String in template:
+		if not data.has(key): continue
+		var value: Variant = data[key]
+		var expected: Variant = template[key]
+		var field: String = kind + "." + key
+		if typeof(value) != typeof(expected): return "invalid type for " + field
+		if value is Dictionary:
+			if object_maps.has(field):
+				for item: Variant in value.values():
+					if not item is Dictionary: return "invalid entity in " + field
+					var err: String = _object_shape_error(item, object_maps[field], object_kinds[field])
+					if not err.is_empty(): return err
+			else:
+				var value_type: int = TYPE_STRING if string_maps.has(field) else TYPE_INT
+				for item: Variant in value.values():
+					if typeof(item) != value_type: return "invalid map value in " + field
+		elif value is Array:
+			if object_arrays.has(field):
+				for item: Variant in value:
+					if not item is Dictionary: return "invalid item in " + field
+					var err: String = _object_shape_error(item, object_arrays[field], array_kinds.get(field, field))
+					if not err.is_empty(): return err
+			elif field == "modifier.effects":
+				for item: Variant in value:
+					if not item is Dictionary: return "invalid item in " + field
+			else:
+				var value_type: int = TYPE_INT if int_arrays.has(field) else TYPE_STRING
+				for item: Variant in value:
+					if typeof(item) != value_type: return "invalid item in " + field
+	return ""

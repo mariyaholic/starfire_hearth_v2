@@ -36,13 +36,18 @@ func test_cache_lru_active_pins_and_epoch_invalidation(t: T) -> void:
 
 func test_camera_store_is_bounded_and_new_session_discards_old_focus(t: T) -> void:
 	var session: VisualSession = VisualSession.new()
-	for i: int in 40: session.remember(str(i), {"distance": i})
+	for i: int in 40:
+		session.remember(str(i), {"distance": i})
+		session.traffic[str(i)] = {"fleet": DecorativeTraffic.new()}
 	t.eq(session.cameras.size(), 32)
+	t.eq(session.traffic.size(), 32, "traffic follows the same bounded session cache")
 	t.ok(session.recall("0").is_empty())
+	t.not_ok(session.traffic.has("0"))
 	var copy: Dictionary = session.recall("39"); copy["distance"] = 0
 	t.eq(session.recall("39")["distance"], 39)
 	session.restart()
 	t.eq(session.epoch, 2); t.ok(session.cameras.is_empty())
+	t.ok(session.traffic.is_empty(), "new sessions cannot inherit traffic")
 
 func test_generation_prioritizes_focus_deduplicates_and_rejects_old_epoch(t: T) -> void:
 	var scheduler: GenerationScheduler = GenerationScheduler.new()
@@ -154,7 +159,7 @@ func test_renderer_and_camera_survive_order_refresh_and_responsive_relayout(t: T
 	Settings.persist = false
 	Settings.set_hints_enabled(false); Settings.set_appearance("3d")
 	Game.new_game("s1_first_light", 11)
-	GameScreen._opened_seed = 11
+	GameScreen._opened_session = Game.session_serial
 	var screen: GameScreen = GameScreen.new()
 	Engine.get_main_loop().root.add_child(screen)
 	screen.show_view(GameScreen.SYSTEM)

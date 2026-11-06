@@ -69,7 +69,7 @@ static func add_to(card: Card, screen: GameScreen) -> void:
 	if mount!=null and mount.get_parent()==card.body:
 		var index: int=mount.get_index(); card.body.move_child(row,index); card.body.move_child(quality,index+1)
 
-static func add_interface_controls(card: Card) -> void:
+static func add_interface_controls(card: Card, include_contrast: bool = true) -> void:
 	card.add_body(SettingsScreen.choice("ui.world.interface_finish",["matte","frosted","glossy"],["ui.world.finish_matte","ui.world.finish_frosted","ui.world.finish_glossy"],Settings.interface_finish,Settings.set_interface_finish))
 	for setting: String in ["opacity","blur","gloss","edge"]:
 		var row: VBoxContainer=GameUI.column(4)
@@ -86,6 +86,7 @@ static func add_interface_controls(card: Card) -> void:
 			Settings.call("set_interface_"+setting,v)
 			label.text=Strings.fmt(INTERFACE_KEYS[setting])+" · "+(str(roundi(v))+" px" if setting=="blur" else str(roundi(v*100))+"%"))
 		row.add_child(slider); card.add_body(row)
+	if not include_contrast: return
 	var contrast: CheckButton=CheckButton.new(); contrast.name="InterfaceHighContrast"
 	contrast.text=Strings.fmt("ui.settings.high_contrast"); contrast.button_pressed=Settings.high_contrast
 	contrast.toggled.connect(Settings.set_high_contrast); card.add_body(contrast)

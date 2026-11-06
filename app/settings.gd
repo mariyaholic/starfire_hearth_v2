@@ -194,6 +194,8 @@ func set_muted(v: bool) -> void:
 
 
 func _apply(key: String, value: Variant) -> void:
+	if typeof(value) == TYPE_FLOAT and not is_finite(value):
+		return
 	if get(key) == value:
 		return
 	set(key, value)
@@ -202,17 +204,36 @@ func _apply(key: String, value: Variant) -> void:
 	changed.emit(key)
 
 
+## ConfigFile accepts arbitrary Variants, including collections and non-finite numbers.
+## Treat the known fields independently so one malformed value cannot abort the load.
+func _config_float(cfg: ConfigFile, section: String, key: String, fallback: float) -> float:
+	var value: Variant = cfg.get_value(section, key, fallback)
+	if typeof(value) not in [TYPE_INT, TYPE_FLOAT]: return fallback
+	var number: float = float(value)
+	return number if is_finite(number) else fallback
+
+
+func _config_int(cfg: ConfigFile, section: String, key: String, fallback: int) -> int:
+	var value: Variant = cfg.get_value(section, key, fallback)
+	return value if typeof(value) == TYPE_INT else fallback
+
+
+func _config_bool(cfg: ConfigFile, section: String, key: String, fallback: bool) -> bool:
+	var value: Variant = cfg.get_value(section, key, fallback)
+	return value if typeof(value) == TYPE_BOOL else fallback
+
+
 func _load(path: String = PATH) -> void:
 	var cfg: ConfigFile = ConfigFile.new()
 	if cfg.load(path) != OK:
 		return
 	# The version is advisory: unknown keys and sections remain available to the
 	# save path, while each known value is sanitized independently below.
-	text_scale = clampf(float(cfg.get_value("display", "text_scale", 1.0)), TEXT_SCALE_MIN, TEXT_SCALE_MAX)
-	ui_scale = clampf(float(cfg.get_value("display", "ui_scale", 1.0)), UI_SCALE_MIN, UI_SCALE_MAX)
-	high_contrast = bool(cfg.get_value("accessibility", "high_contrast", false))
-	reduce_motion = bool(cfg.get_value("accessibility", "reduce_motion", false))
-	hints_enabled = bool(cfg.get_value("game", "hints_enabled", true))
+	text_scale = clampf(_config_float(cfg, "display", "text_scale", 1.0), TEXT_SCALE_MIN, TEXT_SCALE_MAX)
+	ui_scale = clampf(_config_float(cfg, "display", "ui_scale", 1.0), UI_SCALE_MIN, UI_SCALE_MAX)
+	high_contrast = _config_bool(cfg, "accessibility", "high_contrast", false)
+	reduce_motion = _config_bool(cfg, "accessibility", "reduce_motion", false)
+	hints_enabled = _config_bool(cfg, "game", "hints_enabled", true)
 	var saved_appearance: String = str(cfg.get_value("display", "appearance", "3d"))
 	appearance = saved_appearance if saved_appearance in ["3d", "strategic"] else "3d"
 	var saved_quality: String = str(cfg.get_value("display", "visual_quality", "auto"))
@@ -221,32 +242,32 @@ func _load(path: String = PATH) -> void:
 	view_mode = saved_mode if saved_mode in ["command", "immersive"] else "command"
 	var saved_window_mode: String = str(cfg.get_value("display", "window_mode", "windowed"))
 	window_mode = saved_window_mode if saved_window_mode in WINDOW_MODES else "windowed"
-	window_monitor = maxi(0, int(cfg.get_value("display", "window_monitor", 0)))
-	window_width = clampi(int(cfg.get_value("display", "window_width", 1920)), WINDOW_WIDTH_MIN, WINDOW_WIDTH_MAX)
-	window_height = clampi(int(cfg.get_value("display", "window_height", 1080)), WINDOW_HEIGHT_MIN, WINDOW_HEIGHT_MAX)
-	window_x = int(cfg.get_value("display", "window_x", -100000))
-	window_y = int(cfg.get_value("display", "window_y", -100000))
-	window_maximized = bool(cfg.get_value("display", "window_maximized", false))
-	render_scale = clampf(snappedf(float(cfg.get_value("display", "render_scale", 1.0)), 0.05), RENDER_SCALE_MIN, RENDER_SCALE_MAX)
+	window_monitor = maxi(0, _config_int(cfg, "display", "window_monitor", 0))
+	window_width = clampi(_config_int(cfg, "display", "window_width", 1920), WINDOW_WIDTH_MIN, WINDOW_WIDTH_MAX)
+	window_height = clampi(_config_int(cfg, "display", "window_height", 1080), WINDOW_HEIGHT_MIN, WINDOW_HEIGHT_MAX)
+	window_x = _config_int(cfg, "display", "window_x", -100000)
+	window_y = _config_int(cfg, "display", "window_y", -100000)
+	window_maximized = _config_bool(cfg, "display", "window_maximized", false)
+	render_scale = clampf(snappedf(_config_float(cfg, "display", "render_scale", 1.0), 0.05), RENDER_SCALE_MIN, RENDER_SCALE_MAX)
 	var saved_vsync: String = str(cfg.get_value("display", "vsync_mode", "enabled"))
 	vsync_mode = saved_vsync if saved_vsync in VSYNC_MODES else "enabled"
-	var saved_cap: int = int(cfg.get_value("display", "frame_cap", 0))
+	var saved_cap: int = _config_int(cfg, "display", "frame_cap", 0)
 	frame_cap = saved_cap if saved_cap in FRAME_CAPS else 0
 	var saved_aa: String = str(cfg.get_value("display", "anti_aliasing", "2x"))
 	anti_aliasing = saved_aa if saved_aa in ANTI_ALIASING_MODES else "2x"
-	orbit_visible = bool(cfg.get_value("display", "orbit_visible", true))
-	orbit_opacity = clampf(snappedf(float(cfg.get_value("display", "orbit_opacity", 0.72)), 0.05), 0.0, 1.0)
+	orbit_visible = _config_bool(cfg, "display", "orbit_visible", true)
+	orbit_opacity = clampf(snappedf(_config_float(cfg, "display", "orbit_opacity", 0.72), 0.05), 0.0, 1.0)
 	var saved_finish: String = str(cfg.get_value("interface","finish","frosted"))
 	interface_finish = saved_finish if saved_finish in ["matte","frosted","glossy"] else "frosted"
-	interface_opacity = clampf(float(cfg.get_value("interface","opacity",0.82)),0.70,1.0)
-	interface_blur = clampf(float(cfg.get_value("interface","blur",8.0)),0.0,16.0)
-	interface_gloss = clampf(float(cfg.get_value("interface","gloss",0.10)),0.0,0.30)
-	interface_edge = clampf(float(cfg.get_value("interface","edge",0.15)),0.0,0.30)
-	ui_volume = clampf(float(cfg.get_value("audio", "ui_volume", 0.8)), 0.0, 1.0)
-	effects_volume = clampf(float(cfg.get_value("audio", "effects_volume", 0.8)), 0.0, 1.0)
-	voice_volume = clampf(float(cfg.get_value("audio", "voice_volume", 0.8)), 0.0, 1.0)
-	music_volume = clampf(float(cfg.get_value("audio", "music_volume", 0.7)), 0.0, 1.0)
-	muted = bool(cfg.get_value("audio", "muted", false))
+	interface_opacity = clampf(_config_float(cfg, "interface","opacity",0.82),0.70,1.0)
+	interface_blur = clampf(_config_float(cfg, "interface","blur",8.0),0.0,16.0)
+	interface_gloss = clampf(_config_float(cfg, "interface","gloss",0.10),0.0,0.30)
+	interface_edge = clampf(_config_float(cfg, "interface","edge",0.15),0.0,0.30)
+	ui_volume = clampf(_config_float(cfg, "audio", "ui_volume", 0.8), 0.0, 1.0)
+	effects_volume = clampf(_config_float(cfg, "audio", "effects_volume", 0.8), 0.0, 1.0)
+	voice_volume = clampf(_config_float(cfg, "audio", "voice_volume", 0.8), 0.0, 1.0)
+	music_volume = clampf(_config_float(cfg, "audio", "music_volume", 0.7), 0.0, 1.0)
+	muted = _config_bool(cfg, "audio", "muted", false)
 
 
 func _save(path: String = PATH) -> void:

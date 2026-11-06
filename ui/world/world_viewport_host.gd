@@ -12,6 +12,7 @@ var cache: VisualResourceCache
 var camera_key: String = ""
 var _screen: WeakRef
 var _scene_epoch: int = -1
+var _traffic_context: Dictionary = {}
 
 func setup(screen: Control, visual_session: VisualSession, generation: GenerationScheduler, resources: VisualResourceCache) -> void:
 	_screen = weakref(screen)
@@ -24,13 +25,15 @@ func setup(screen: Control, visual_session: VisualSession, generation: Generatio
 
 func attach(placeholder: Control, description: Dictionary, preview: Dictionary = {}) -> void:
 	var key: String = str(description.get("view_kind", "")) + ":" + str(description.get("id", ""))
+	var traffic_context: Dictionary = {"viewer":description.get("viewer_id", ""), "planet":description.get("planet", "")}
 	if description.is_empty() or not description.get("appearance_supported", true) or int(description.get("session_epoch", -1)) != session.epoch:
 		fail_presentation()
 		return
-	if key != camera_key or _scene_epoch != session.epoch:
+	if key != camera_key or _scene_epoch != session.epoch or (description["view_kind"] == "colony" and traffic_context != _traffic_context):
 		deactivate()
 		camera_key = key
 		_scene_epoch = session.epoch
+		_traffic_context = traffic_context
 		if description["view_kind"] == "system":
 			var system_renderer: M1SystemRenderer = M1SystemRenderer.new()
 			system_renderer.bind_services(scheduler, cache, session.epoch, str(get_instance_id()))
@@ -48,6 +51,9 @@ func attach(placeholder: Control, description: Dictionary, preview: Dictionary =
 			renderer = galaxy_renderer
 		elif description["view_kind"] == "colony":
 			var city_renderer: ColonyRenderer = ColonyRenderer.new()
+			var remembered: Dictionary = session.traffic.get(key, {})
+			if remembered.get("context", {}) == traffic_context and remembered.get("fleet") is DecorativeTraffic:
+				city_renderer.traffic = remembered["fleet"]
 			city_renderer.bind_services(scheduler,cache,session.epoch,str(get_instance_id()))
 			city_renderer.render_scale_divisor = 2 if Settings.visual_quality == "low" or (Settings.visual_quality == "auto" and (OS.has_feature("web") or Layout.compact)) else 1
 			renderer=city_renderer
@@ -74,12 +80,14 @@ func attach(placeholder: Control, description: Dictionary, preview: Dictionary =
 
 func deactivate() -> void:
 	if is_instance_valid(renderer):
-		if _scene_epoch == session.epoch: session.remember(camera_key, renderer.call("camera_state"))
+		if _scene_epoch == session.epoch:
+			session.remember(camera_key, renderer.call("camera_state"))
+			if renderer is ColonyRenderer: session.traffic[camera_key] = {"context":_traffic_context.duplicate(), "fleet":renderer.traffic}
 		scheduler.cancel_owner(str(get_instance_id()))
 		cache.release_owner(str(get_instance_id()))
 		remove_child(renderer)
 		renderer.queue_free()
-	renderer = null; mount = null; camera_key = ""
+	renderer = null; mount = null; camera_key = ""; _traffic_context = {}
 	visible = false
 
 func fail_presentation() -> void:

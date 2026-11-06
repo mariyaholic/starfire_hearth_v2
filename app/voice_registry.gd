@@ -46,7 +46,13 @@ static func normalize(raw: Dictionary) -> Dictionary:
 	cue["speaker"] = str(cue.get("speaker", "")).strip_edges()
 	cue["text_key"] = str(cue.get("text_key", "")).strip_edges()
 	cue["story_chain"] = str(cue.get("story_chain", "")).strip_edges()
-	cue["story_step"] = maxi(int(cue.get("story_step", 0)), 0)
+	var step: Variant = cue.get("story_step", 0)
+	var step_number: int = 0
+	if typeof(step) == TYPE_INT:
+		step_number = step
+	elif typeof(step) == TYPE_STRING and step.is_valid_int():
+		step_number = int(step)
+	cue["story_step"] = maxi(step_number, 0)
 	cue["locale"] = str(cue.get("locale", DEFAULT_LOCALE)).strip_edges()
 	if str(cue["locale"]).is_empty():
 		cue["locale"] = DEFAULT_LOCALE

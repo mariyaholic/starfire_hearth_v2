@@ -22,7 +22,7 @@ func test_switching_keeps_renderer_selection_camera_orders_and_saved_world(t: T)
 	ImmersiveWorkspace.reset_memory()
 	Settings.persist=false; Settings.set_hints_enabled(false); Settings.set_reduce_motion(true)
 	Settings.set_appearance("3d"); Settings.set_view_mode("command")
-	Game.new_game("s1_first_light",11); GameScreen._opened_seed=11
+	Game.new_game("s1_first_light",11); GameScreen._opened_session=Game.session_serial
 	var screen: GameScreen=GameScreen.new(); tree.root.add_child(screen)
 	await frames()
 	var colony: Colony=Game.view().colonies[screen.colony_id]
@@ -93,7 +93,7 @@ func test_compact_windows_keep_real_jobs_and_finish_changes_do_not_mutate_campai
 	Settings.persist=false; Settings.set_hints_enabled(false); Settings.set_reduce_motion(true)
 	Settings.set_appearance("3d"); Settings.set_view_mode("immersive")
 	ImmersiveWorkspace.reset_memory()
-	Game.new_game("s1_first_light",11); GameScreen._opened_seed=11
+	Game.new_game("s1_first_light",11); GameScreen._opened_session=Game.session_serial
 	var screen: GameScreen=GameScreen.new(); tree.root.add_child(screen); await frames()
 	var workspace: Variant=screen.find_child("ImmersiveWorld",true,false)
 	t.eq(workspace.layout_data["open"],["summary"])
@@ -124,7 +124,7 @@ func test_phone_contexts_fit_visible_map_and_scroll_to_quality_at_large_text(t: 
 	var original_text: float=Settings.text_scale
 	Settings.persist=false; Settings.set_hints_enabled(false); Settings.set_reduce_motion(true)
 	Settings.set_appearance("3d"); Settings.set_visual_quality("low"); Settings.set_view_mode("immersive")
-	Game.new_game("s1_first_light",11); GameScreen._opened_seed=11
+	Game.new_game("s1_first_light",11); GameScreen._opened_session=Game.session_serial
 	var screen: GameScreen=GameScreen.new(); tree.root.add_child(screen); await frames()
 	for window_size: Vector2i in [Vector2i(2400,1080),Vector2i(1072,2300)]:
 		tree.root.size=window_size; Layout.set_profile(Layout.Profile.PHONE); await frames()

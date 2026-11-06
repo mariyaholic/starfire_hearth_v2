@@ -105,7 +105,12 @@ static func update(state: GameState, r: TurnResult) -> void:
 			.with_severity(ReportItem.SEVERITY_CRITICAL))
 		return
 	for d: Dictionary in definitions(state):
-		if DictIO.bool_of(d, "required") and not state.objectives_done.has(DictIO.str_of(d, "id")):
+		if not DictIO.bool_of(d, "required"):
+			continue
+		if DictIO.str_of(d, "type") == "never_flag":
+			if status(state, d).failed:
+				return
+		elif not state.objectives_done.has(DictIO.str_of(d, "id")):
 			return
 	# Every required objective is done: "never" objectives that held count as done now.
 	for d: Dictionary in definitions(state):
