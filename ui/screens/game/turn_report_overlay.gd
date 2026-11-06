@@ -65,6 +65,8 @@ static func open_checklist(s: GameScreen, items: Array[ReportItem], on_confirm: 
 	var go: SfButton = SfButton.make("ui.endturn.anyway", "ui_end_turn", SfButton.PRIMARY)
 	go.name = "EndAnyway"
 	go.pressed.connect(func() -> void:
+		if m._closing:
+			return
 		m.close()
 		if on_confirm.is_valid():
 			on_confirm.call_deferred())

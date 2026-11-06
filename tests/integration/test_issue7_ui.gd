@@ -133,7 +133,7 @@ func test_title_keeps_nonbreaking_phrase_together_at_large_text(t: T) -> void:
 func test_game_codex_browses_and_returns_to_same_screen(t: T) -> void:
 	await _start(true)
 	Settings.set_reduce_motion(true)
-	GameScreen._opened_seed = 11
+	GameScreen._opened_session = Game.session_serial + 1
 	app.go(AppRoot.BEGIN, {"scenario": "s1_first_light", "seed": 11}); await _frames()
 	Overlay.close_all()
 	var game: GameScreen = app.screen
@@ -159,7 +159,7 @@ func test_phone_system_context_and_galaxy_route(t: T) -> void:
 	await _start(true)
 	Settings.set_reduce_motion(true)
 	Settings.set_appearance("3d")
-	GameScreen._opened_seed = 11
+	GameScreen._opened_session = Game.session_serial + 1
 	app.go(AppRoot.BEGIN, {"scenario": "s1_first_light", "seed": 11}); await _frames()
 	Overlay.close_all()
 	var game: GameScreen = app.screen

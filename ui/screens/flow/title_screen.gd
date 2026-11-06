@@ -75,7 +75,12 @@ func build_screen() -> void:
 		col.add_child(v)
 	var first: Control = menu.get_child(0) as Control
 	if first != null and not Layout.touch_ui:
-		first.grab_focus.call_deferred()
+		_focus_if_attached.call_deferred(first)
+
+
+func _focus_if_attached(control: Control) -> void:
+	if is_instance_valid(control) and control.is_inside_tree():
+		control.grab_focus()
 
 
 func _pc_column(menu: VBoxContainer) -> VBoxContainer:

@@ -1276,6 +1276,7 @@ ui.load.load,Load
 ui.load.none,No saved games yet.
 ui.load.title,Load game
 ui.load.when,"{date}, saved {saved}"
+ui.load.saved_only,Saved {saved}
 ui.market.buy,Buy one lot
 ui.market.note,"Trades happen at once, in lots of {lot}, up to {max} lots a turn. Energy is the currency."
 ui.market.price,{price} energy
