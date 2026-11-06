@@ -28,7 +28,6 @@ static func is_lasting(key: String) -> bool:
 static func apply(state: GameState, empire_id: String, colony_id: String, effects: Array, source_key: String, r: TurnResult) -> Array[Modifier]:
 	var created: Array[Modifier] = []
 	var by_turns: Dictionary[int, Array] = {}
-	var scope_colony: Dictionary[int, bool] = {}
 	for fx: Variant in effects:
 		if typeof(fx) != TYPE_DICTIONARY:
 			continue
@@ -41,24 +40,28 @@ static func apply(state: GameState, empire_id: String, colony_id: String, effect
 			var turns: int = DictIO.int_of(d, "turns", -1)
 			if not by_turns.has(turns):
 				by_turns[turns] = []
-			by_turns[turns].append(_plain_effect(d))
-			if DictIO.str_of(d, "target") == "colony":
-				scope_colony[turns] = true
+			by_turns[turns].append(d)
 		else:
 			apply_one(state, empire_id, colony_id, key, DictIO.int_of(d, "value"), DictIO.str_of(d, "target"), source_key, r)
 	var turn_keys: Array = by_turns.keys()
 	turn_keys.sort()
 	for turns: Variant in turn_keys:
-		var m: Modifier = Modifier.new()
-		m.id = state.next_id("mod")
-		m.source_key = source_key
-		m.empire_id = empire_id
-		m.colony_id = _colony_for(state, empire_id, colony_id) if scope_colony.get(int(turns), false) else ""
-		for e: Dictionary in by_turns[turns]:
-			m.effects.append(e)
-		m.turns_left = int(turns)
-		state.modifiers[m.id] = m
-		created.append(m)
+		for local: bool in [false, true]:
+			var scoped: Array[Dictionary] = []
+			for effect: Dictionary in by_turns[turns]:
+				if (DictIO.str_of(effect, "target") == "colony") == local:
+					scoped.append(_plain_effect(effect))
+			if scoped.is_empty():
+				continue
+			var m: Modifier = Modifier.new()
+			m.id = state.next_id("mod")
+			m.source_key = source_key
+			m.empire_id = empire_id
+			m.colony_id = _colony_for(state, empire_id, colony_id) if local else ""
+			m.effects = scoped
+			m.turns_left = int(turns)
+			state.modifiers[m.id] = m
+			created.append(m)
 	return created
 
 
