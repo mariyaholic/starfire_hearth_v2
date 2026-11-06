@@ -18,7 +18,7 @@ static func pack(data: Dictionary, version: int = 1) -> String:
 
 static func repack(data: Dictionary, original: String, version: int = 1) -> String:
 	var current: Dictionary = CanonicalJson.parse(pack(data,version))
-	var previous: Variant = JSON.parse_string(original)
+	var previous: Variant = _parse_untrusted(original)
 	if previous is Dictionary:
 		for key: String in previous:
 			if not current.has(key): current[key] = previous[key]
@@ -38,7 +38,7 @@ static func repack_component(data: Dictionary, original: String, version: int = 
 	var packed: String = pack_component(kind, data, target_version)
 	if packed.is_empty(): return ""
 	var current: Dictionary = JSON.parse_string(packed)
-	var previous: Variant = JSON.parse_string(original)
+	var previous: Variant = _parse_untrusted(original)
 	if previous is Dictionary:
 		for key: String in previous:
 			if not current.has(key): current[key] = previous[key]
@@ -59,7 +59,7 @@ static func pack_component(kind: String, data: Dictionary, version: int = COMPON
 
 static func inspect_component(raw: String, expected_kind: String = "") -> Dictionary:
 	if raw.is_empty(): return {"status":"missing", "data":{}, "raw":raw}
-	var wrapper: Variant = JSON.parse_string(raw)
+	var wrapper: Variant = _parse_untrusted(raw)
 	if not wrapper is Dictionary or wrapper.get("format") != COMPONENT_FORMAT:
 		return {"status":"invalid", "data":{}, "raw":raw}
 	var kind: Variant = wrapper.get("component")
@@ -88,7 +88,7 @@ static func inspect_component(raw: String, expected_kind: String = "") -> Dictio
 static func component_raws(raw: String) -> Dictionary:
 	var out: Dictionary = {}
 	if raw.is_empty(): return out
-	var wrapper: Variant = JSON.parse_string(raw)
+	var wrapper: Variant = _parse_untrusted(raw)
 	if not wrapper is Dictionary: return out
 	var components: Variant = wrapper.get("components", {})
 	if not components is Dictionary: return out
@@ -99,7 +99,7 @@ static func component_raws(raw: String) -> Dictionary:
 
 ## Merge component strings into a wrapper while retaining unknown wrapper keys.
 static func with_components(raw: String, components: Dictionary) -> String:
-	var wrapper: Variant = JSON.parse_string(raw)
+	var wrapper: Variant = _parse_untrusted(raw)
 	if not wrapper is Dictionary: return raw
 	var merged: Dictionary = {}
 	var previous: Variant = wrapper.get("components", {})
@@ -111,7 +111,7 @@ static func with_components(raw: String, components: Dictionary) -> String:
 
 static func inspect(raw: String) -> Dictionary:
 	if raw.is_empty(): return {"status": "missing", "data": {}, "components": {}}
-	var wrapper: Variant = JSON.parse_string(raw)
+	var wrapper: Variant = _parse_untrusted(raw)
 	if not wrapper is Dictionary or wrapper.get("format") != FORMAT:
 		return {"status": "invalid", "data": {}, "components": component_raws(raw)}
 	var payload: Variant = wrapper.get("payload")
@@ -129,3 +129,9 @@ static func inspect(raw: String) -> Dictionary:
 	if not errors.is_empty() or not data is Dictionary:
 		return {"status": "invalid", "data": {}, "components": component_raws(raw)}
 	return {"status": "supported", "version": int(version), "data": data, "components": component_raws(raw)}
+
+
+## Parse optional or future data without emitting engine errors on damaged input.
+static func _parse_untrusted(raw: String) -> Variant:
+	var json: JSON = JSON.new()
+	return json.data if json.parse(raw) == OK else null
