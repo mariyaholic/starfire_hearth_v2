@@ -22,6 +22,7 @@ const STATUS_KEYS: Dictionary = {
 var _registry: Dictionary[String, Dictionary] = {}
 var _active: Dictionary = {}
 var _last_requested_id: String = ""
+var _request_serial: int = 0
 
 
 func _ready() -> void:
@@ -69,8 +70,14 @@ func play_utterance(raw_cue: Dictionary) -> Dictionary:
 		return {"ok": false, "played": false, "status": STATUS_UNAVAILABLE, "reason": "conflicting_cue", "utterance_id": utterance_id}
 	if utterance_id == _last_requested_id:
 		return {"ok": true, "played": false, "status": str(_registry.get(utterance_id, {}).get("delivery_status", STATUS_UNAVAILABLE)), "reason": "already_requested", "utterance_id": utterance_id}
+	_request_serial += 1
+	var request_serial: int = _request_serial
 	_last_requested_id = utterance_id
 	_stop_audio_only()
+	# A stopped-status listener may close the scope or start another utterance.
+	# That newer operation owns the player and must not be overwritten on return.
+	if request_serial != _request_serial:
+		return {"ok": true, "played": false, "status": "stopped", "reason": "superseded", "utterance_id": utterance_id}
 	if Settings.muted or Settings.voice_volume <= 0.0:
 		_set_status(normalized, STATUS_MUTED)
 		return {"ok": true, "played": false, "status": STATUS_MUTED, "reason": "voice_muted", "utterance_id": utterance_id}
@@ -93,10 +100,12 @@ func request(cue: Dictionary) -> Dictionary:
 
 
 func stop_utterance() -> void:
-	_stop_audio_only()
-	_active.clear()
+	_request_serial += 1
+	var request_serial: int = _request_serial
 	_last_requested_id = ""
-	changed.emit({"active": false, "status": "stopped"})
+	_stop_audio_only()
+	if request_serial == _request_serial:
+		changed.emit({"active": false, "status": "stopped"})
 
 
 func active_state() -> Dictionary:
