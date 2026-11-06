@@ -125,6 +125,10 @@ static func from_text(text: String) -> LoadResult:
 		version += 1
 	lr.state = GameState.from_dict(state_dict)
 	var problems: Array[String] = Invariants.check(lr.state)
+	# General simulation fixtures may omit a player, but a loaded save is handed
+	# directly to Continue, whose screens and commands require one.
+	if lr.state.player() == null:
+		problems.append("save has no player empire")
 	if not problems.is_empty():
 		lr.state = null
 		lr.error_key = "save.error.corrupt"
