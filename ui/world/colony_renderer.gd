@@ -159,6 +159,10 @@ func _reveal_city() -> void:
 		_transition_tween.tween_callback(_finish_construction_transition)
 
 func _finish_construction_transition() -> void:
+	# Pause/Reduce motion can complete a reveal before its tween callback runs.
+	# Cancel the old writer before making the finished city fully visible.
+	if _transition_tween != null and _transition_tween.is_valid(): _transition_tween.kill()
+	_transition_tween = null
 	_container.modulate.a = 1.0
 	_construction_transition = false; _transition_installing = false
 	_pending_description.clear(); _pending_preview.clear()
