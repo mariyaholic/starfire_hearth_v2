@@ -102,6 +102,7 @@ func _fill_body() -> void:
 				tabs.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 				tabs.add_child(_categories(false, true))
 				v.add_child(tabs)
+				_reveal_category(tabs)
 			v.add_child(FlowScreen.scroll_of(_list()))
 			_body.add_child(v)
 		else:
@@ -143,6 +144,15 @@ func _fill_body() -> void:
 	panel.add_child(FlowScreen.scroll_of(_entry_view()))
 	row.add_child(panel)
 	_body.add_child(host)
+
+
+func _reveal_category(tabs: ScrollContainer) -> void:
+	# Category selection and Back rebuild the strip. Keep its selected tab in view
+	# once the nested containers have their final size.
+	for i: int in 2: await get_tree().process_frame
+	if not is_instance_valid(tabs) or not tabs.is_inside_tree(): return
+	var selected: Control = tabs.get_node_or_null("Categories/Category_" + category)
+	if selected != null: tabs.ensure_control_visible(selected)
 
 
 ## The width the frame gives its content (MAX_CONTENT_WIDTH at most).

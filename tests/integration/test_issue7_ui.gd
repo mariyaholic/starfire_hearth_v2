@@ -72,9 +72,19 @@ func test_phone_codex_categories_stay_below_search_while_entries_scroll(t: T) ->
 	var tabs: ScrollContainer = categories.get_parent()
 	t.not_ok(tabs.get_v_scroll_bar().visible)
 	t.ok(tabs.get_h_scroll_bar().max_value > tabs.size.x, "overflow categories are horizontally reachable")
+	tabs.scroll_horizontal = int(tabs.get_h_scroll_bar().max_value); await _frames()
 	(categories.get_child(categories.get_child_count() - 1) as Button).pressed.emit()
 	await _frames()
 	t.eq((app.screen as CodexScreen).category, "people")
+	var people: Control = app.screen.find_child("Category_people", true, false)
+	tabs = people.get_parent().get_parent()
+	t.ok(tabs.get_global_rect().encloses(people.get_global_rect()), "selected overflow category stays visible after the list rebuild")
+	var entry: CodexIndex.Entry = (app.screen as CodexScreen).index.in_category("people")[0]
+	(app.screen as CodexScreen).open(entry.id); await _frames()
+	(app.screen.find_child("BackToList", true, false) as Button).pressed.emit(); await _frames()
+	people = app.screen.find_child("Category_people", true, false)
+	tabs = people.get_parent().get_parent()
+	t.ok(tabs.get_global_rect().encloses(people.get_global_rect()), "Back restores the selected category in view")
 	await _stop()
 
 func test_scale_drag_applies_once_released_and_rebuilds(t: T) -> void:
