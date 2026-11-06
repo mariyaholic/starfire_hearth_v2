@@ -42,6 +42,7 @@ var _sidebar: PanelContainer
 var _top: PanelContainer
 var _dust: MultiMeshInstance3D
 var _sky_material: ShaderMaterial
+var _environment_sky: Sky
 var _target: Vector3 = Vector3(1, 0, 0)
 var _look_at: Vector3 = Vector3(1, 0, 0)
 var _distance: float = 28.0
@@ -439,6 +440,8 @@ func _environment() -> void:
 	var environment: Environment = Environment.new()
 	environment.background_mode = Environment.BG_SKY
 	var sky: Sky = Sky.new()
+	_environment_sky = sky
+	preload("res://ui/visual3d/sky_retirement.gd").retain(sky)
 	if render_scale_divisor>1:
 		sky.radiance_size = Sky.RADIANCE_SIZE_32
 		environment.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
@@ -882,6 +885,7 @@ func pick_body(screen_position: Vector2) -> String:
 
 
 func _exit_tree() -> void:
+	preload("res://ui/visual3d/sky_retirement.gd").retain(_environment_sky)
 	if generation != null:
 		generation.surface_ready.disconnect(_surface_ready)
 		generation.cancel_owner(resource_owner)

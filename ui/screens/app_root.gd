@@ -32,6 +32,11 @@ var scenario_id: String = CampaignProgress.ORDER[0]
 
 
 func _ready() -> void:
+	# Intercept only the main window; secondary windows keep their own close behavior.
+	get_tree().set_auto_accept_quit(false)
+	if not get_tree().root.close_requested.is_connected(Audio.quit_gracefully):
+		get_tree().root.close_requested.connect(Audio.quit_gracefully)
+	Audio.shutdown_started.connect(_prepare_for_quit)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	# Tests and the screenshot tour turn persistence off: then progress stays in memory.
 	if Settings.persist:
@@ -39,6 +44,14 @@ func _ready() -> void:
 	go(TITLE)
 	if OS.has_feature("web"):
 		_web_smoke.call_deferred()
+
+
+func _prepare_for_quit() -> void:
+	# Remove the scene while the renderer is still running so its skies can retire.
+	if is_instance_valid(screen):
+		remove_child(screen)
+		screen.queue_free()
+		screen = null
 
 
 ## The web smoke test (tools/web_smoke.mjs) opens the game with ?smoke=begin: start Scenario 1,

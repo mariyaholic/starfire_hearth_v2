@@ -168,7 +168,7 @@ func _menu() -> VBoxContainer:
 		var q: SfButton = SfButton.make("ui.title.quit", "ui_close", SfButton.GHOST)
 		q.name = "Quit"
 		q.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		q.pressed.connect(func() -> void: get_tree().quit())
+		q.pressed.connect(Audio.quit_gracefully)
 		v.add_child(q)
 	return v
 

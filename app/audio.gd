@@ -6,6 +6,7 @@ extends Node
 
 signal music_changed(id: String)
 signal voice_finished(utterance_id: String)
+signal shutdown_started
 
 const BUS_UI: String = "UI"
 const BUS_EFFECTS: String = "Effects"
@@ -16,6 +17,9 @@ const CROSSFADE: float = 1.2
 ## The same sound asked for again within this many milliseconds plays once.
 const REPEAT_MS: int = 45
 const SILENT_DB: float = -60.0
+## AudioServer deletes stopped playbacks asynchronously on its mix thread.
+const SHUTDOWN_TIMEOUT_MS: int = 2000
+const SKY_RETIREMENT: GDScript = preload("res://ui/visual3d/sky_retirement.gd")
 
 ## The music cue last asked for ("" for none), delivered or not.
 var current_music: String = ""
@@ -35,6 +39,9 @@ var _delivered: Dictionary[String, Array] = {}
 var _synth: Dictionary[String, AudioStream] = {}
 var _last_at: Dictionary[String, int] = {}
 var _fade: Tween = null
+var _shutting_down: bool = false
+var _quit_requested: bool = false
+var _stopping: Array[WeakRef] = []
 
 
 func _ready() -> void:
@@ -57,6 +64,8 @@ func _ready() -> void:
 ## Plays a §15.4 sound: the delivered file (a random variant if there are several), or its
 ## synthesised fallback. Unknown ids and beds without a file are silent.
 func play(id: String) -> void:
+	if _shutting_down:
+		return
 	var now: int = Time.get_ticks_msec()
 	if now - int(_last_at.get(id, -100000)) < REPEAT_MS:
 		return
@@ -79,11 +88,14 @@ func play(id: String) -> void:
 	p.stream = st
 	p.pitch_scale = 1.0 + (randf() - 0.5) * 0.06 if SoundSynth.VARIED.has(id) and not AssetIds.is_delivered(id) else 1.0
 	p.play()
+	_remember_playback(p)
 
 
 ## Plays an already validated optional speech stream. Voice never falls back to SoundSynth:
 ## absent or malformed speech is silent while the written dialogue remains available.
 func play_voice(utterance_id: String, stream: AudioStream) -> bool:
+	if _shutting_down:
+		return false
 	stop_voice()
 	if utterance_id.is_empty() or stream == null or _voice == null:
 		return false
@@ -92,6 +104,7 @@ func play_voice(utterance_id: String, stream: AudioStream) -> bool:
 	# Headless runs retain the selected utterance for lifecycle tests but never start audio.
 	if DisplayServer.get_name() != "headless":
 		_voice.play()
+		_remember_playback(_voice)
 	return true
 
 
@@ -110,6 +123,8 @@ func is_voice_playing() -> bool:
 ## Crossfades to a music cue (§15.5; "" fades to silence). A cue that is not delivered yet fades
 ## out whatever plays and waits in silence. Stings play once; everything else loops.
 func play_music(id: String) -> void:
+	if _shutting_down:
+		return
 	if id == current_music:
 		return
 	current_music = id
@@ -135,28 +150,82 @@ func play_music(id: String) -> void:
 		# Headless runs (tests, tools) have no audio output: the track is chosen but not started.
 		if DisplayServer.get_name() != "headless":
 			nxt.play()
+			_remember_playback(nxt)
 		_fade.tween_property(nxt, "volume_db", 0.0, CROSSFADE)
 	_fade.chain().tween_callback(_stop_faded)
 
 
-## Stops everything on the way out, so no playback is left alive in the audio server at exit.
-func _exit_tree() -> void:
+## Stop accepting new sounds and release our ownership before waiting for the audio mixer.
+func _begin_shutdown() -> void:
+	if _shutting_down:
+		return
+	_shutting_down = true
 	if _fade != null and _fade.is_valid():
 		_fade.kill()
+	_fade = null
 	for p: AudioStreamPlayer in _ui + _fx + _music:
+		_remember_playback(p)
 		p.stop()
 		p.stream = null
 	if _voice != null:
+		_remember_playback(_voice)
 		_voice.stop()
 		_voice.stream = null
 	voice_utterance = ""
-	# Let go of the tracks too: a stream still referenced at exit is reported as a leak.
+	current_music = ""
 	_delivered.clear()
 	_synth.clear()
 
 
+func _remember_playback(player: AudioStreamPlayer) -> void:
+	_prune_playbacks()
+	if player.has_stream_playback():
+		var playback: AudioStreamPlayback = player.get_stream_playback()
+		if playback != null:
+			for tracked: WeakRef in _stopping:
+				if tracked.get_ref() == playback:
+					return
+			_stopping.append(weakref(playback))
+
+
+func _prune_playbacks() -> void:
+	for i: int in range(_stopping.size() - 1, -1, -1):
+		if _stopping[i].get_ref() == null:
+			_stopping.remove_at(i)
+
+
+func _playbacks_pending() -> bool:
+	_prune_playbacks()
+	return not _stopping.is_empty()
+
+
+## Normal desktop quit waits for server-owned playback and pending sky updates to drain.
+## The timeout protects against a stalled driver; browser unload and direct SceneTree.quit()
+## are outside this asynchronous path and cannot guarantee the same cleanup.
+func quit_gracefully() -> void:
+	if _quit_requested:
+		return
+	_quit_requested = true
+	_begin_shutdown()
+	shutdown_started.emit()
+	var tree: SceneTree = get_tree()
+	var deadline: int = Time.get_ticks_msec() + SHUTDOWN_TIMEOUT_MS
+	while (_playbacks_pending() or SKY_RETIREMENT.has_pending()) and Time.get_ticks_msec() < deadline:
+		await tree.process_frame
+	if _playbacks_pending() or SKY_RETIREMENT.has_pending():
+		push_warning("Shutdown timed out waiting for audio or rendering cleanup")
+	if is_inside_tree():
+		tree.quit()
+
+
+func _exit_tree() -> void:
+	_begin_shutdown()
+
+
 ## The delivered track of the current cue, or null while it waits in silence.
 func current_track() -> AudioStream:
+	if _shutting_down:
+		return null
 	var streams: Array = _delivered_streams(current_music) if not current_music.is_empty() else []
 	return streams[0] if not streams.is_empty() else null
 

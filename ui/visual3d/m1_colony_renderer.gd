@@ -350,6 +350,7 @@ func _environment_setup() -> void:
 	_environment.background_mode = Environment.BG_SKY
 	_sky = ProceduralSkyMaterial.new()
 	var sky: Sky = Sky.new()
+	preload("res://ui/visual3d/sky_retirement.gd").retain(sky)
 	sky.sky_material = _sky
 	_environment.sky = sky
 	_environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
@@ -656,6 +657,8 @@ func _update_camera(weight: float) -> void:
 
 
 func _exit_tree() -> void:
+	if _environment != null:
+		preload("res://ui/visual3d/sky_retirement.gd").retain(_environment.sky)
 	if generation != null:
 		generation.cancel_owner(resource_owner)
 		generation.region_ready.disconnect(_region_ready)
