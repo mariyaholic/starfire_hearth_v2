@@ -15,12 +15,14 @@ var conflicts: Array[Array] = []
 var _next: int = 0
 var _wait_sequence: int = 0
 var _network_identity: Dictionary = {}
+var replaced_trips: int = 0
 
 func configure(network: Dictionary) -> void:
 	var identity: Dictionary = {"routes":network.get("routes", []), "connected":network.get("connected", []), "access_paths":network.get("access_paths", [])}
 	if identity == _network_identity: return
 	_network_identity = identity.duplicate(true)
-	vehicles.clear(); conflicts.clear(); _next = 0; _wait_sequence = 0
+	var previous: Array[Dictionary] = vehicles.duplicate()
+	vehicles.clear(); conflicts.clear(); replaced_trips = 0
 	var graph: AStar2D = AStar2D.new()
 	var nodes: Dictionary = {}
 	var entrances: Array[Dictionary] = []
@@ -66,6 +68,7 @@ func configure(network: Dictionary) -> void:
 	var candidates: Array[Dictionary] = []
 	for i: int in entrances.size():
 		for j: int in range(i + 1, entrances.size()):
+			if entrances[i]["id"] == entrances[j]["id"]: continue
 			var route: Array[Vector2] = []
 			route.assign(graph.get_point_path(nodes[entrances[i]["point"]], nodes[entrances[j]["point"]]))
 			route = _corners(route)
@@ -77,6 +80,13 @@ func configure(network: Dictionary) -> void:
 	candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		if a["length"] != b["length"]: return a["length"] < b["length"]
 		return str(a["origin"]) + "/" + str(a["destination"]) < str(b["origin"]) + "/" + str(b["destination"]))
+	# Preserve the actual journey, including easing, heading, wait age and its
+	# reservation, whenever every old segment is still on the safe drawn graph.
+	# Reordering, resampling or adding roads does not restart an existing cart.
+	for vehicle: Dictionary in previous:
+		if _has_terminal(network,vehicle["origin"],vehicle["route"][0]) and _has_terminal(network,vehicle["destination"],vehicle["route"][-1]) and supports(vehicle["route"], routes):
+			vehicles.append(vehicle)
+		else: replaced_trips += 1
 	for candidate: Dictionary in candidates:
 		if vehicles.size() >= CAP: break
 		var route: Array[Vector2] = candidate["route"]
@@ -95,6 +105,7 @@ func configure(network: Dictionary) -> void:
 			"wait_order":_wait_sequence})
 		_wait_sequence += 1
 		vehicles.append(candidate)
+	_next = _next % vehicles.size() if not vehicles.is_empty() else 0
 	for vehicle: Dictionary in vehicles:
 		var row: Array = []
 		for other: Dictionary in vehicles: row.append(_overlap(vehicle["route"], other["route"]))
@@ -220,4 +231,33 @@ static func _overlap(a: Array[Vector2], b: Array[Vector2]) -> bool:
 	for i: int in a.size() - 1:
 		for j: int in b.size() - 1:
 			if Geometry2D.segment_intersects_segment(a[i], a[i + 1], b[j], b[j + 1]) != null: return true
+	return false
+
+## Segment coverage, not matching vertex arrays: road samplers may add or remove
+## collinear points without changing the pavement underneath a moving vehicle.
+static func supports(path: Array[Vector2], roads: Array) -> bool:
+	for i: int in path.size() - 1:
+		var a: Vector2 = path[i]; var b: Vector2 = path[i + 1]
+		var length: float = a.distance_to(b)
+		if length < 0.00001: continue
+		var axis: Vector2 = (b - a) / length
+		var spans: Array[Vector2] = []
+		for road: Array in roads:
+			for j: int in road.size() - 1:
+				var c: Vector2 = road[j]; var d: Vector2 = road[j + 1]
+				if absf(axis.cross(c - a)) > ENTRANCE_TOLERANCE or absf(axis.cross(d - a)) > ENTRANCE_TOLERANCE: continue
+				var left: float = axis.dot(c - a); var right: float = axis.dot(d - a)
+				spans.append(Vector2(minf(left, right), maxf(left, right)))
+		spans.sort_custom(func(x: Vector2, y: Vector2) -> bool: return x.x < y.x)
+		var covered: float = 0.0
+		for span: Vector2 in spans:
+			if span.x > covered + ENTRANCE_TOLERANCE: break
+			covered = maxf(covered, span.y)
+		if covered < length - ENTRANCE_TOLERANCE: return false
+	return true
+
+static func _has_terminal(network: Dictionary, id: String, point: Vector2) -> bool:
+	for i: int in network.get("connected", []).size():
+		var path: Array = network["access_paths"][i]
+		if network["connected"][i] == id and not path.is_empty() and point.distance_to(path[0]) <= ENTRANCE_TOLERANCE: return true
 	return false

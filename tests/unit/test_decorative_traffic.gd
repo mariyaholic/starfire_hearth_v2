@@ -129,7 +129,7 @@ func test_resampled_entrances_join_only_near_drawn_segments(t: T) -> void:
 		t.not_ok("far" in [vehicle["origin"], vehicle["destination"]], "off-road entrances beyond tolerance are rejected")
 	t.ok(uses_near, "planner-sized missing stubs snap to the drawn segment")
 
-func test_matching_rebuild_preserves_trip_but_changed_roads_reset(t: T) -> void:
+func test_matching_rebuild_preserves_trip_but_removed_frontage_replaces_trip(t: T) -> void:
 	var network: Dictionary = _network([[Vector2.ZERO, Vector2(0, 8)]])
 	var traffic: DecorativeTraffic = DecorativeTraffic.new()
 	traffic.configure(network); traffic.advance(3.0)
@@ -140,3 +140,45 @@ func test_matching_rebuild_preserves_trip_but_changed_roads_reset(t: T) -> void:
 	traffic.configure(changed)
 	t.eq(traffic.vehicles[0]["state"], "waiting", "changed topology safely starts a new fleet")
 	t.eq(traffic.vehicles[0]["at"], Vector2.ZERO)
+
+func test_road_addition_reordering_and_resampling_keep_running_trip_and_reservation(t: T) -> void:
+	var network: Dictionary = {"routes":[[Vector2.ZERO,Vector2(0,8)]],"connected":["depot","farm"],"access_paths":[[Vector2.ZERO],[Vector2(0,8)]]}
+	var traffic: DecorativeTraffic = DecorativeTraffic.new()
+	traffic.configure(network); traffic.advance(2.3)
+	var before: Dictionary = traffic.vehicles[0].duplicate(true)
+	var changed: Dictionary = {"routes":[[Vector2(8,0),Vector2(8,8)],[Vector2(0,8),Vector2(0,5),Vector2(0,2),Vector2.ZERO]],
+		"connected":["lab","farm","mine","depot"],"access_paths":[[Vector2(8,8)],[Vector2(0,8)],[Vector2(8,0)],[Vector2.ZERO]]}
+	traffic.configure(changed)
+	t.eq(traffic.vehicles[0],before,"changed network keeps the exact running journey and reservation")
+	t.eq(traffic.replaced_trips,0)
+	t.eq(traffic.vehicles.size(),2,"new independent development gets a second delivery")
+	traffic.advance(0.025)
+	t.ok((traffic.vehicles[0]["at"] as Vector2).distance_to(before["at"])<0.04,"first post-change step remains bounded")
+	t.ok(traffic.vehicles[0]["active"],"running trip retains its reservation")
+
+func test_removed_pavement_is_not_retained_or_bridged(t: T) -> void:
+	var traffic: DecorativeTraffic = DecorativeTraffic.new()
+	var network: Dictionary = {"routes":[[Vector2.ZERO,Vector2(0,8)]],"connected":["depot","farm"],"access_paths":[[Vector2.ZERO],[Vector2(0,8)]]}
+	traffic.configure(network); traffic.advance(2.0)
+	network["routes"]=[[Vector2.ZERO,Vector2(0,3)],[Vector2(0,4),Vector2(0,8)]]
+	traffic.configure(network)
+	t.eq(traffic.replaced_trips,1,"renderer must conceal an unsupported trip during construction replacement")
+	t.empty(traffic.vehicles,"no invisible shortcut across removed pavement")
+
+func test_derived_graph_joins_drawn_crossings_but_excludes_closed_parcels(t: T) -> void:
+	var drawn: Array[Array] = [[Vector2(-6,0),Vector2(6,0)],[Vector2(0,-6),Vector2(0,6)]]
+	var entries: Array[Dictionary] = [{"id":"a","point":Vector2(-6,0)},{"id":"b","point":Vector2(0,6)}]
+	var before: Array[Array] = drawn.duplicate(true)
+	var graph: Dictionary = TrafficRoadNetwork.derive(drawn,entries,[])
+	var traffic: DecorativeTraffic = DecorativeTraffic.new(); traffic.configure(graph)
+	t.eq(traffic.vehicles.size(),1,"a real unsampled road crossing connects actual destinations")
+	t.ok(traffic.vehicles[0]["route"].has(Vector2.ZERO))
+	var polygon: PackedVector2Array = TrafficRoadNetwork.rectangle(Rect2(-1,-1,2,2))
+	graph=TrafficRoadNetwork.derive(drawn,entries,[{"polygon":polygon}])
+	traffic.configure(graph)
+	t.empty(traffic.vehicles,"closed parcel blocks the crossing without a made-up detour")
+	for route: Array in graph["routes"]:
+		for point: Vector2 in route:
+			t.ok(absf(point.x)<0.0001 or absf(point.y)<0.0001,"retained geometry lies on drawn roads")
+			t.not_ok(Rect2(-1,-1,2,2).has_point(point),"closed parcel interior remains empty")
+	t.eq(drawn,before,"derived routing never edits its input geometry or recipe")

@@ -30,6 +30,7 @@ var geometry_bytes_estimate: int = 0
 var layer_update_us: PackedInt64Array=PackedInt64Array()
 var routes: Array[Array] = []
 var road_network: Dictionary = {}
+var traffic_network: Dictionary = {}
 var carts: Array[Node3D] = []
 var traffic: DecorativeTraffic = DecorativeTraffic.new()
 var _preview_pick: Dictionary={}
@@ -38,6 +39,11 @@ var _finish_meshes: Dictionary[String,Mesh]={}
 var _finish_lod: int=2
 var parcel_overlay: bool=true
 var _panning: bool=false
+var _construction_transition: bool = false
+var _transition_installing: bool = false
+var _transition_tween: Tween
+var _pending_description: Dictionary = {}
+var _pending_preview: Dictionary = {}
 
 func _load_meshes() -> void:
 	super()
@@ -106,11 +112,56 @@ static func ground_inputs(description: Dictionary) -> Dictionary:
 		"sites":sites,"prepared":description.get("prepared_sites",[]),"blocked":description.get("blocked",[]),"count":description.get("slot_count",0),"tiles":1}
 
 func configure(description: Dictionary, preview: Dictionary = {}) -> void:
+	# A completed construction can remove the pavement under an old trip. Keep
+	# the old city and its carts together until hidden, then replace the snapshot.
+	# This is a short construction transition, never travel across missing roads.
+	if is_node_ready() and not recipe.is_empty() and DisplayServer.get_name() != "headless" and (_construction_transition or _development_key(description) != _development_key(snapshot)):
+		_pending_description = description.duplicate(true); _pending_preview = preview.duplicate(true)
+		if _construction_transition:
+			if _transition_installing: _install_pending_city()
+			return
+		_construction_transition = true
+		if Settings.reduce_motion or motion_paused:
+			_install_pending_city()
+		else:
+			_transition_tween = create_tween()
+			_transition_tween.tween_property(_container,"modulate:a",0.0,0.18)
+			_transition_tween.tween_callback(_install_pending_city)
+		return
+	_install_description(description, preview)
+
+func _development_key(description: Dictionary) -> String:
+	return CanonicalJson.stringify({"ground":ground_inputs(description),"districts":description.get("districts",[]),"buildings":description.get("buildings",[]),"roads":description.get("road_recipe",{})})
+
+func _install_description(description: Dictionary, preview: Dictionary) -> void:
 	snapshot = description.duplicate(true); ghost = preview.duplicate(true)
 	if not is_node_ready(): return
 	var key: String = CanonicalJson.stringify(ground_inputs(snapshot)).sha256_text()
 	if key != _terrain_inputs: _configure_landscape()
-	if not recipe.is_empty(): _rebuild_city()
+	elif not recipe.is_empty():
+		_rebuild_city()
+
+func _install_pending_city() -> void:
+	_transition_installing = true
+	if _transition_tween != null and _transition_tween.is_valid(): _transition_tween.kill()
+	_container.modulate.a = 0.0
+	_install_description(_pending_description,_pending_preview)
+	if not busy: _reveal_city()
+
+func _reveal_city() -> void:
+	if not _construction_transition or not _transition_installing: return
+	if _transition_tween != null and _transition_tween.is_valid(): _transition_tween.kill()
+	if Settings.reduce_motion or motion_paused:
+		_finish_construction_transition()
+	else:
+		_transition_tween = create_tween()
+		_transition_tween.tween_property(_container,"modulate:a",1.0,0.18)
+		_transition_tween.tween_callback(_finish_construction_transition)
+
+func _finish_construction_transition() -> void:
+	_container.modulate.a = 1.0
+	_construction_transition = false; _transition_installing = false
+	_pending_description.clear(); _pending_preview.clear()
 
 func _ready() -> void:
 	planning = true
@@ -153,6 +204,7 @@ func _region_ready(owner: String, epoch: int, key: String, result: Dictionary) -
 	# Results can finish after a queue/ghost/selection update. Layers always use
 	# the latest snapshot; the geometry job contains only completed ground inputs.
 	if selected_slot >= 0 and slot_areas.has(selected_slot): _highlight_selection()
+	_reveal_city()
 
 func _apply_terrain(maps: Dictionary) -> void:
 	completed.clear(); queued.clear()
@@ -187,26 +239,18 @@ func _rebuild_city() -> void:
 				for part: Dictionary in parts: part["role"]="preview" if ghost.get("valid",false) else "preview_invalid"
 				var translated: Array[Dictionary] = []; _translate(parts,site["at"]+Vector3(0,0.08,0),translated)
 				_instances(translated,preview_root); _preview_pick=_pick_info(translated,index)
-	var occupied: Array[int] = []
-	for district: Dictionary in snapshot["districts"]: occupied.append(int(district["slot"]))
-	for building: Dictionary in snapshot["buildings"]:
-		if int(building["slot"]) >= 0: occupied.append(int(building["slot"]))
-	occupied.sort()
 	var roads_key: String = CanonicalJson.stringify({"districts":snapshot["districts"],"buildings":snapshot["buildings"],"recipe":snapshot.get("road_recipe",{}),"terrain":_terrain_inputs,"style":architecture,"kit":snapshot.get("city_kit_version",1)})
 	if roads_key != _roads_key:
 		_roads_key=roads_key; _clear(routes_root)
-		var landmarks: Array[Dictionary]=[]
-		var index: int=0
-		for building: Dictionary in snapshot["buildings"]:
-			if int(building["slot"])>=0: continue
-			var at: Vector3=_landmark_position(index); index+=1
-			landmarks.append({"center":Vector2(at.x,at.z),"reach":Vector2(6,12) if building["id"]=="ark_hull" else Vector2(3.5,3.5)})
+		var access: Dictionary = _access_description()
 		if int(snapshot.get("road_recipe",{}).get("version",1))==CityAccessNetwork.VERSION:
-			road_network=_access_network()
+			road_network=CityAccessNetwork.plan(access["entries"],access["obstacles"],generator.height_at,terrain_kind in ["continental","ocean"])
 			routes.assign(road_network["routes"])
 		else:
-			road_network={}
-			routes=RegionalAccessRoutes.build(recipe["slots"],occupied,landmarks)
+			# Legacy recipes describe unsafe center-to-hub strokes. Adapt only the
+			# visible presentation to real frontages; the saved recipe is unchanged.
+			road_network=_legacy_access_network(access)
+			routes.assign(road_network["routes"])
 		var lines: Array[Array] = []
 		for path: Array in routes:
 			var line: Array = []
@@ -215,9 +259,8 @@ func _rebuild_city() -> void:
 		_lines(lines,0.28,_material("road"),routes_root)
 		if not road_network.is_empty(): _street_junctions()
 		_clear(activity_root); carts.clear()
-		# Older hub routes end inside parcels and have no entrance contract.
-		# Keep their saved road appearance; enable carts only on safe v2 streets.
-		traffic.configure(road_network)
+		traffic_network = TrafficRoadNetwork.derive(routes,access["entries"],_traffic_exclusions(access["obstacles"]),generator.height_at,terrain_kind in ["continental","ocean"])
+		traffic.configure(traffic_network)
 		for vehicle: Dictionary in traffic.vehicles:
 			var cart: Node3D=Node3D.new(); activity_root.add_child(cart); carts.append(cart)
 			var parts: Array[Dictionary]=[]
@@ -242,6 +285,10 @@ func _rebuild_city() -> void:
 	if layer_update_us.size()>64: layer_update_us.remove_at(0)
 
 func _access_network() -> Dictionary:
+	var access: Dictionary = _access_description()
+	return CityAccessNetwork.plan(access["entries"],access["obstacles"],generator.height_at,terrain_kind in ["continental","ocean"])
+
+func _access_description() -> Dictionary:
 	var entries: Array[Dictionary]=[]
 	var obstacles: Array[Dictionary]=[]
 	for site: Dictionary in recipe["slots"]:
@@ -271,7 +318,40 @@ func _access_network() -> Dictionary:
 			at=_landmark_position(index); parts=_building_parts(building_id,appearance_seed)
 		var access: Dictionary=CityRoadAccess.describe(key,at,parts,_meshes,building_id)
 		entries.append(access["entry"]); obstacles.append(access["obstacle"])
-	return CityAccessNetwork.plan(entries,obstacles,generator.height_at,terrain_kind in ["continental","ocean"])
+	return {"entries":entries,"obstacles":obstacles}
+
+func _legacy_access_network(access: Dictionary) -> Dictionary:
+	var obstacles: Array[Dictionary] = access["obstacles"].duplicate(true)
+	for site: Dictionary in recipe["slots"]:
+		if site["blocked"] or completed.has("slot:" + str(site["slot"])): continue
+		var at: Vector3 = site["at"]
+		obstacles.append({"center":Vector2(at.x,at.z),"radius":3.02})
+	# An unbuilt/blocked ring may separate an outer landmark from the town.
+	# Keep supported components instead of abandoning all inner deliveries when
+	# the first (alphabetically ordered) landmark cannot reach them.
+	var remaining: Array[Dictionary] = access["entries"].duplicate(true)
+	var network: Dictionary = {"routes":[],"junctions":[],"connected":[],"access_paths":[]}
+	while not remaining.is_empty():
+		var component: Dictionary = CityAccessNetwork.plan(remaining,obstacles,generator.height_at,terrain_kind in ["continental","ocean"])
+		for key: String in network: network[key].append_array(component[key])
+		var connected: Array = component["connected"]
+		if connected.is_empty(): break
+		remaining = remaining.filter(func(entry: Dictionary) -> bool: return not connected.has(entry["id"]))
+	return network
+
+func _traffic_exclusions(obstacles: Array[Dictionary]) -> Array[Dictionary]:
+	var exclusions: Array[Dictionary] = []
+	for site: Dictionary in recipe["slots"]:
+		var at: Vector3 = site["at"]
+		var exclusion: Dictionary = {"polygon":TrafficRoadNetwork.parcel(Vector2(at.x,at.z),site["blocked"])}
+		var key: String = "slot:" + str(site["slot"])
+		# Occupied sites have paved frontages inside their outline. Their actual
+		# building bounds below exclude the interior occupied by the assembly.
+		if not completed.has(key): exclusions.append(exclusion)
+	for obstacle: Dictionary in obstacles:
+		if obstacle.has("rect"):
+			exclusions.append({"id":obstacle["id"],"polygon":TrafficRoadNetwork.rectangle(obstacle["rect"])})
+	return exclusions
 
 func _street_junctions() -> void:
 	var parts: Array[Dictionary]=[]
@@ -421,8 +501,11 @@ func set_active(active: bool, input_blocked: bool) -> void:
 
 func _process(delta: float) -> void:
 	if not _active: return
+	if _construction_transition and (Settings.reduce_motion or motion_paused):
+		if not _transition_installing: _install_pending_city()
+		elif not busy: _finish_construction_transition()
 	# Small purely decorative vehicles follow the access lattice, not simulation.
-	if not motion_paused and not _input_blocked and not Settings.reduce_motion:
+	if not motion_paused and not _input_blocked and not Settings.reduce_motion and not _construction_transition:
 		visual_time+=minf(delta,0.1)
 		advance_traffic(minf(delta,0.1))
 	if _water!=null: _water.set_shader_parameter("visual_time",visual_time)
