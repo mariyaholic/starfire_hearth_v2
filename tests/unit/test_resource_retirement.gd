@@ -4,6 +4,31 @@ const RETIREMENT: GDScript = preload("res://ui/visual3d/sky_retirement.gd")
 const AUDIO: GDScript = preload("res://app/audio.gd")
 
 
+func test_sky_created_during_post_draw_survives_until_its_own_draw(t: T) -> void:
+	# Headless has no render boundary; its explicit bypass is checked below.
+	if DisplayServer.get_name() == "headless": return
+	while RETIREMENT.has_pending(): await RenderingServer.frame_post_draw
+	var late: Array[WeakRef] = []
+	var create_late: Callable = func() -> void:
+		var sky: Sky = Sky.new()
+		sky.sky_material = ProceduralSkyMaterial.new()
+		RETIREMENT.retain(sky)
+		late.append(weakref(sky))
+	# This listener runs before the retirement callback for the earlier sky.
+	RenderingServer.frame_post_draw.connect(create_late, CONNECT_ONE_SHOT)
+	var earlier: Sky = Sky.new()
+	earlier.sky_material = ProceduralSkyMaterial.new()
+	RETIREMENT.retain(earlier)
+	earlier = null
+	await RenderingServer.frame_post_draw
+	t.eq(late.size(), 1)
+	t.ok(late[0].get_ref() != null, "a sky created after this draw must survive it")
+	t.ok(RETIREMENT.has_pending(), "new sky still needs a rendering boundary")
+	await RenderingServer.frame_post_draw
+	t.eq(late[0].get_ref(), null, "new sky releases after a subsequent draw")
+	t.not_ok(RETIREMENT.has_pending())
+
+
 func test_sky_lifetime_reaches_draw_boundary(t: T) -> void:
 	var sky: Sky = Sky.new()
 	sky.sky_material = ProceduralSkyMaterial.new()
@@ -18,7 +43,9 @@ func test_sky_lifetime_reaches_draw_boundary(t: T) -> void:
 		t.ok(reference.get_ref() != null, "sky remains alive until the renderer draws")
 		t.eq(RETIREMENT._pending.size(), 1, "repeated retirement is deduplicated")
 		await RenderingServer.frame_post_draw
-		t.eq(reference.get_ref(), null, "sky is released promptly after drawing")
+		# The draw counter advances after this signal on the compatibility renderer.
+		if reference.get_ref() != null: await RenderingServer.frame_post_draw
+		t.eq(reference.get_ref(), null, "sky is released within two draw boundaries")
 		t.not_ok(RETIREMENT.has_pending())
 
 
