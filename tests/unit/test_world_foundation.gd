@@ -159,7 +159,7 @@ func test_renderer_and_camera_survive_order_refresh_and_responsive_relayout(t: T
 	Settings.persist = false
 	Settings.set_hints_enabled(false); Settings.set_appearance("3d")
 	Game.new_game("s1_first_light", 11)
-	GameScreen._opened_seed = 11
+	GameScreen._opened_session = Game.session_serial
 	var screen: GameScreen = GameScreen.new()
 	Engine.get_main_loop().root.add_child(screen)
 	screen.show_view(GameScreen.SYSTEM)

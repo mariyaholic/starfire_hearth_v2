@@ -49,7 +49,9 @@ func _card(sv: Dictionary) -> Control:
 			tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 			tr.custom_minimum_size = Vector2(160, 90)
 			row.add_child(tr)
-	var when: Label = FlowScreen.label(Strings.fmt("ui.load.when", {"date": Fmt.date(int(sv["turn"])), "saved": Time.get_datetime_string_from_unix_time(int(sv["modified"]), true)}), &"SecondaryLabel")
+	var saved: String = Time.get_datetime_string_from_unix_time(int(sv["modified"]), true)
+	var when_text: String = Strings.fmt("ui.load.when", {"date": Fmt.date(int(sv["turn"])), "saved": saved}) if int(sv["turn"]) > 0 else Strings.fmt("ui.load.saved_only", {"saved": saved})
+	var when: Label = FlowScreen.label(when_text, &"SecondaryLabel")
 	when.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	when.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	row.add_child(GameUI.exempt(when, "the save's date and time"))

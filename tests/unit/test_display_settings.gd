@@ -113,7 +113,7 @@ func test_production_world_host_applies_supported_graphics_to_world(t: T) -> voi
 	var old_aa: String = Settings.anti_aliasing
 	Settings.persist = false
 	Settings.set_hints_enabled(false); Settings.set_reduce_motion(true); Settings.set_appearance("3d")
-	Game.new_game("s1_first_light", 11); GameScreen._opened_seed = 11
+	Game.new_game("s1_first_light", 11); GameScreen._opened_session = Game.session_serial
 	var screen: GameScreen = GameScreen.new()
 	Engine.get_main_loop().root.add_child(screen)
 	screen.show_view(GameScreen.SYSTEM)

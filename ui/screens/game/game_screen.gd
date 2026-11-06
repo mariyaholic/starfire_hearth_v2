@@ -61,7 +61,8 @@ var world_controller: WorldViewController
 var state: GameState = null
 var report: Economy.EmpireReport = null
 
-static var _opened_seed: int = -1
+static var _opened_session: int = -1
+var _session: int = -1
 
 var _bg: ColorRect
 var _root: VBoxContainer
@@ -74,6 +75,7 @@ var _ring: HighlightRing
 var _refresh_queued: bool = false
 var _relayout_queued: bool = false
 var _step: Dictionary = {}
+var _event_overlay: Modal
 var _immersive_layout: bool = false
 var immersive_panel: String = "inspect"
 var immersive_panel_open: bool = false
@@ -98,6 +100,7 @@ func _ready() -> void:
 	world_controller.setup(self)
 	world_controller.selection_requested.connect(_world_selected)
 	Settings.changed.connect(_world_setting_changed)
+	_session = Game.session_serial
 	state = Game.view()
 	var cap: Colony = GameModel.capital(state)
 	if cap != null:
@@ -689,6 +692,8 @@ func _apply_highlight() -> void:
 # --- End Turn and what follows -----------------------------------------------------------------
 
 func end_turn() -> void:
+	if not is_inside_tree() or _session != Game.session_serial or Overlay.stack_size() > 0:
+		return
 	state = Game.view()
 	report = Economy.empire(state, state.player_id)
 	var checks: Array[ReportItem] = GameModel.end_turn_checks(state, report)
@@ -703,6 +708,8 @@ func end_turn() -> void:
 
 
 func resolve_turn() -> void:
+	if not is_inside_tree() or _session != Game.session_serial:
+		return
 	Overlay.close_all()
 	var r: TurnResult = Game.end_turn()
 	if Game.state.is_over():
@@ -713,15 +720,21 @@ func resolve_turn() -> void:
 
 ## Opens the first event waiting for an answer, and the next one when that is answered.
 func next_event() -> void:
+	if not is_inside_tree() or _session != Game.session_serial:
+		return
+	if is_instance_valid(_event_overlay) and _event_overlay.is_inside_tree() and not _event_overlay._closing:
+		return
 	var pending: Array[EventInstance] = Events.pending_for(Game.view(), Game.state.player_id)
 	if pending.is_empty():
 		return
-	EventOverlay.open(self, pending[0].id, next_event)
+	_event_overlay = EventOverlay.open(self, pending[0].id, next_event)
 
 
 func _start() -> void:
-	if Game.last_result == null and Game.state.turn <= 1 and _opened_seed != Game.state.game_seed:
-		_opened_seed = Game.state.game_seed
+	if not is_inside_tree() or _session != Game.session_serial:
+		return
+	if Game.last_result == null and Game.state.turn <= 1 and _opened_session != _session:
+		_opened_session = _session
 		TurnReportOverlay.open_report(self, GameModel.opening_report(state, report), Strings.fmt("ui.report.opening_title"), next_event)
 	else:
 		next_event()
