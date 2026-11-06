@@ -119,9 +119,26 @@ func _name_block() -> VBoxContainer:
 		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		t.add_theme_color_override("font_color", Tokens.color("hearth.gold"))
 		v.add_child(t)
-	var tag: Label = FlowScreen.label(Strings.fmt("ui.title.tagline"), &"SecondaryLabel")
+	var tagline: String = Strings.fmt("ui.title.tagline")
+	var tag: Label = FlowScreen.label(tagline, &"SecondaryLabel")
 	tag.name = "Tagline"
 	tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# Some text backends wrap at a nonbreaking space. When the full tagline
+	# cannot fit, explicitly move its nonbreaking phrase to the next line.
+	var wrap_tagline: Callable = func() -> void:
+		var text: String = tagline
+		var join: int = tagline.find("\u00a0")
+		var before: int = tagline.rfind(" ", join) if join >= 0 else -1
+		if before >= 0 and not tagline.contains("\n") and tag.size.x > 1.0:
+			var font: Font = tag.get_theme_font("font")
+			if font != null:
+				var font_size: int = tag.get_theme_font_size("font_size")
+				var suffix: String = tagline.substr(before + 1)
+				if font.get_string_size(tagline, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > tag.size.x and font.get_string_size(suffix, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x <= tag.size.x:
+					text = tagline.substr(0, before) + "\n" + suffix
+		if tag.text != text: tag.text = text
+	tag.resized.connect(wrap_tagline)
+	wrap_tagline.call_deferred()
 	v.add_child(tag)
 	return v
 

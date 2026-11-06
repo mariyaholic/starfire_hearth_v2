@@ -1077,7 +1077,7 @@ ui.cost.price,Price
 ui.cost.short,You have {have}: not enough yet.
 ui.flow.back,Back
 ui.title.name,Starfire Hearth
-ui.title.tagline,Frontier colonies in the Long Silence
+ui.title.tagline,Frontier colonies in the Long Silence
 ui.title.continue,Continue
 ui.title.continue_detail,"{scenario}, {date}"
 ui.title.campaign,Campaign
