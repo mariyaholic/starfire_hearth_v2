@@ -100,9 +100,9 @@ func restore_camera(saved: Dictionary) -> void:
 func set_active(active: bool, input_blocked: bool) -> void:
 	set_process(active)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
-	_container.mouse_filter = Control.MOUSE_FILTER_IGNORE if input_blocked else Control.MOUSE_FILTER_STOP
+	_container.mouse_filter = Control.MOUSE_FILTER_IGNORE if input_blocked or not active else Control.MOUSE_FILTER_STOP
 	if input_blocked or not active: _dragging=false; _touches.clear(); _multi_touch=false; _pinch_distance=0; _panning=false
-	_input_blocked = input_blocked
+	_input_blocked = input_blocked or not active
 
 signal selected(id: String)
 var snapshot: Dictionary = {}
@@ -340,8 +340,9 @@ func _viewport_input(event: InputEvent) -> void:
 		if mouse.button_index == MOUSE_BUTTON_LEFT:
 			if mouse.pressed: _dragging=true; _drag_pixels=0; _panning=mouse.shift_pressed
 			else:
+				var was_dragging: bool = _dragging
 				_dragging=false
-				if _drag_pixels<8 and not _panning:
+				if was_dragging and _drag_pixels<8 and not _panning:
 					var id: String = pick_body(mouse.position)
 					if not id.is_empty(): focus_body(id)
 				_panning=false
