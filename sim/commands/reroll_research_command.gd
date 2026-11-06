@@ -28,9 +28,19 @@ func validate(state: GameState) -> Result:
 	var r: Result = Construction._check_cost(e, cost)
 	if not r.ok:
 		return r
+	# Validation must not create a missing branch in the input state.
+	var rb: ResearchBranch = e.research.get(branch, null)
+	if rb == null:
+		rb = ResearchBranch.new()
+	var kept: int = 0
+	for tid: String in rb.hand:
+		if tid == rb.card or Research.always_offered(state, tid):
+			kept += 1
+	if kept >= Research.HAND_SIZE:
+		return Result.fail("error.research.nothing_new")
 	var others: int = 0
 	for tid: String in Research.available(state, e, branch):
-		if not e.branch(branch).hand.has(tid):
+		if not rb.hand.has(tid):
 			others += 1
 	if others == 0:
 		return Result.fail("error.research.nothing_new")
