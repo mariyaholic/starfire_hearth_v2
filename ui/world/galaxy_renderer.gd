@@ -23,7 +23,8 @@ func _build_map() -> void:
 			var label: Label3D = Label3D.new()
 			label.text = Strings.fmt(system.get("name_key", "ui.galaxy.unknown"))
 			label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-			label.pixel_size = 0.012; label.font_size = 30; label.outline_size = 6
+			label.pixel_size = 0.055; label.font_size = 32; label.outline_size = 6
+			label.no_depth_test = true
 			label.position = Vector3(0,0.85,0)
 			(bodies[system["id"]]["node"] as Node3D).add_child(label)
 			bodies[system["id"]]["label"] = label

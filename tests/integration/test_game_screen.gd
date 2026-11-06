@@ -202,7 +202,7 @@ func _start(prof: Array, game_seed: int) -> AppRoot:
 	_root.size = prof[0]
 	settings.call("set_text_scale", float(prof[2]))
 	_root.get_node("Layout").call("set_profile", 2 if prof[1] else 1)
-	GameScreen._opened_seed = -1
+	GameScreen._opened_session = -1
 	var app: AppRoot = (load("res://ui/screens/app_root.tscn") as PackedScene).instantiate()
 	_root.add_child(app)
 	await _frames(3)

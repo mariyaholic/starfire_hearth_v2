@@ -14,6 +14,8 @@ var last_result: TurnResult = null
 var presentation: String = ""
 var presentation_overlay: String = ""
 var fresh_appearance: bool = false
+## Monotonically identifies a session, including loads and games with the same seed.
+var session_serial: int = 0
 
 
 func _init() -> void:
@@ -32,6 +34,7 @@ func new_game(scenario_id: String, game_seed: int, difficulty_id: String = "norm
 
 ## Takes over a state (a new game or a loaded save) with an empty order queue.
 func resume(s: GameState, graphics: String = "", graphics_overlay: String = "", fresh: bool = false) -> void:
+	session_serial += 1
 	state = s
 	presentation = graphics
 	presentation_overlay = graphics_overlay

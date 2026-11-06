@@ -64,7 +64,7 @@ func test_every_world_and_stellar_family_has_a_selectable_representation(t: T) -
 
 func test_new_session_cannot_restore_previous_camera_or_apply_old_requests(t: T) -> void:
 	Settings.persist = false; Settings.set_hints_enabled(false); Settings.set_appearance("3d")
-	Game.new_game("s1_first_light", 11); GameScreen._opened_seed = 11
+	Game.new_game("s1_first_light", 11); GameScreen._opened_session = Game.session_serial
 	var screen: GameScreen = GameScreen.new()
 	Engine.get_main_loop().root.add_child(screen)
 	screen.show_view(GameScreen.SYSTEM)

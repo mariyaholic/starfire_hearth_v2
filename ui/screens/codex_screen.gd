@@ -95,9 +95,16 @@ func _fill_body() -> void:
 			var v: VBoxContainer = VBoxContainer.new()
 			v.add_theme_constant_override("separation", Tokens.SPACE_S)
 			if query.is_empty():
-				v.add_child(_categories(true))
-			v.add_child(_list())
-			_body.add_child(FlowScreen.scroll_of(v))
+				# Categories stay below Search while the entries scroll. A single
+				# horizontal row also avoids an orphan category on short screens.
+				var tabs: ScrollContainer = ScrollContainer.new()
+				tabs.name = "CategoryScroll"
+				tabs.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+				tabs.add_child(_categories(false, true))
+				v.add_child(tabs)
+				_reveal_category(tabs)
+			v.add_child(FlowScreen.scroll_of(_list()))
+			_body.add_child(v)
 		else:
 			var v2: VBoxContainer = VBoxContainer.new()
 			v2.add_theme_constant_override("separation", Tokens.SPACE_S)
@@ -139,15 +146,26 @@ func _fill_body() -> void:
 	_body.add_child(host)
 
 
+func _reveal_category(tabs: ScrollContainer) -> void:
+	# Category selection and Back rebuild the strip. Keep its selected tab in view
+	# once the nested containers have their final size.
+	for i: int in 2: await get_tree().process_frame
+	if not is_instance_valid(tabs) or not tabs.is_inside_tree(): return
+	var selected: Control = tabs.get_node_or_null("Categories/Category_" + category)
+	if selected != null: tabs.ensure_control_visible(selected)
+
+
 ## The width the frame gives its content (MAX_CONTENT_WIDTH at most).
 func _content_width() -> float:
 	var m: Vector4 = Layout.safe_margins
 	return minf(FlowScreen.MAX_CONTENT_WIDTH, Layout.logical_size.x - m.x - m.z - 2 * Tokens.SPACE_XXL)
 
 
-func _categories(flow: bool) -> Container:
+func _categories(flow: bool, horizontal: bool = false) -> Container:
 	var box: Container
-	if flow:
+	if horizontal:
+		box = HBoxContainer.new()
+	elif flow:
 		box = HFlowContainer.new()
 	else:
 		box = VBoxContainer.new()

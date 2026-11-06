@@ -42,6 +42,7 @@ var _sidebar: PanelContainer
 var _top: PanelContainer
 var _dust: MultiMeshInstance3D
 var _sky_material: ShaderMaterial
+var _environment_sky: Sky
 var _target: Vector3 = Vector3(1, 0, 0)
 var _look_at: Vector3 = Vector3(1, 0, 0)
 var _distance: float = 28.0
@@ -99,9 +100,9 @@ func restore_camera(saved: Dictionary) -> void:
 func set_active(active: bool, input_blocked: bool) -> void:
 	set_process(active)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
-	_container.mouse_filter = Control.MOUSE_FILTER_IGNORE if input_blocked else Control.MOUSE_FILTER_STOP
+	_container.mouse_filter = Control.MOUSE_FILTER_IGNORE if input_blocked or not active else Control.MOUSE_FILTER_STOP
 	if input_blocked or not active: _dragging=false; _touches.clear(); _multi_touch=false; _pinch_distance=0; _panning=false
-	_input_blocked = input_blocked
+	_input_blocked = input_blocked or not active
 
 signal selected(id: String)
 var snapshot: Dictionary = {}
@@ -339,8 +340,9 @@ func _viewport_input(event: InputEvent) -> void:
 		if mouse.button_index == MOUSE_BUTTON_LEFT:
 			if mouse.pressed: _dragging=true; _drag_pixels=0; _panning=mouse.shift_pressed
 			else:
+				var was_dragging: bool = _dragging
 				_dragging=false
-				if _drag_pixels<8 and not _panning:
+				if was_dragging and _drag_pixels<8 and not _panning:
 					var id: String = pick_body(mouse.position)
 					if not id.is_empty(): focus_body(id)
 				_panning=false
@@ -439,6 +441,8 @@ func _environment() -> void:
 	var environment: Environment = Environment.new()
 	environment.background_mode = Environment.BG_SKY
 	var sky: Sky = Sky.new()
+	_environment_sky = sky
+	preload("res://ui/visual3d/sky_retirement.gd").retain(sky)
 	if render_scale_divisor>1:
 		sky.radiance_size = Sky.RADIANCE_SIZE_32
 		environment.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
@@ -882,6 +886,7 @@ func pick_body(screen_position: Vector2) -> String:
 
 
 func _exit_tree() -> void:
+	preload("res://ui/visual3d/sky_retirement.gd").retain(_environment_sky)
 	if generation != null:
 		generation.surface_ready.disconnect(_surface_ready)
 		generation.cancel_owner(resource_owner)

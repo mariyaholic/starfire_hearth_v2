@@ -99,10 +99,12 @@ func list_saves() -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	for s: Dictionary in list_slots():
 		var slot: String = s["slot"]
-		var v: Variant = JSON.parse_string(FileAccess.get_file_as_string(_path(slot)))
-		if typeof(v) != TYPE_DICTIONARY:
-			continue
-		var env: Dictionary = v
+		# Keep unreadable slots visible, so the load screen can report the error
+		# and the player can delete them. JSON.parse_string logs on broken input.
+		var json: JSON = JSON.new()
+		var env: Dictionary = {}
+		if json.parse(FileAccess.get_file_as_string(_path(slot))) == OK and json.data is Dictionary:
+			env = json.data
 		var thumb: String = thumbnail_path(slot)
 		out.append({
 			"slot": slot,
@@ -121,9 +123,14 @@ func latest_checkpoint(scenario_id: String, game_seed: int, before_turn: int) ->
 	var best: String = ""
 	var best_turn: int = -1
 	for s: Dictionary in list_saves():
-		if s["kind"] != KIND_CHECKPOINT or s["scenario_id"] != scenario_id or int(s["seed"]) != game_seed:
+		if s["kind"] != KIND_CHECKPOINT:
 			continue
-		var turn: int = s["turn"]
+		# Envelope summary fields are unchecked; use the verified state so a
+		# corrupt or mismatched newer slot cannot hide an older usable checkpoint.
+		var loaded: SaveSerializer.LoadResult = load_slot(s["slot"])
+		if not loaded.ok or loaded.state.scenario_id != scenario_id or loaded.state.game_seed != game_seed:
+			continue
+		var turn: int = loaded.state.turn
 		if turn < before_turn and turn > best_turn:
 			best = s["slot"]
 			best_turn = turn

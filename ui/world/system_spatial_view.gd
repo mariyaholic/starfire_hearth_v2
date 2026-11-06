@@ -11,6 +11,10 @@ static func build(screen: GameScreen) -> Control:
 	buttons.add_theme_constant_override("h_separation", Tokens.SPACE_S)
 	buttons.add_theme_constant_override("v_separation", Tokens.SPACE_S)
 	head.add_body(buttons)
+	var galaxy: SfButton = SfButton.make("ui.nav.galaxy", "emblem_compass", SfButton.GHOST)
+	galaxy.name = "SystemGalaxy"
+	galaxy.pressed.connect(screen.show_view.bind(GameScreen.GALAXY))
+	buttons.add_child(galaxy)
 	var overview: SfButton = SfButton.make("ui.3d.overview", "emblem_compass", SfButton.GHOST)
 	overview.name = "SystemOverview"
 	overview.pressed.connect(screen.world_controller.overview)
@@ -26,6 +30,24 @@ static func build(screen: GameScreen) -> Control:
 	mount.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	split.add_child(mount)
 	screen.world_controller.attach(mount, "system", screen.system_id, screen.state)
+	if Layout.compact and screen.state.planets.has(screen.planet_id):
+		var context: HBoxContainer = HBoxContainer.new()
+		context.name = "PlanetContext"
+		context.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		var back: SfButton = SfButton.make("ui.3d.overview", "ui_back", SfButton.SECONDARY)
+		back.name = "PlanetOverview"
+		back.pressed.connect(screen.world_controller.overview)
+		context.add_child(back)
+		var title: Label = FlowScreen.label(Strings.fmt(screen.state.planets[screen.planet_id].name_key), &"StrongLabel")
+		title.name = "PlanetContextName"
+		title.autowrap_mode = TextServer.AUTOWRAP_OFF
+		title.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		context.add_child(title)
+		# The persistent viewport host is above the scrolling mount. Keep this badge
+		# on that host so it follows the visible portion of the render while scrolling.
+		var badge: PanelContainer = FlowScreen.scrim(context)
+		badge.name = "PlanetContextBadge"
+		screen.world_controller.host.add_child(badge)
 	var snapshot: Dictionary = screen.world_controller.description
 	if snapshot.is_empty(): return col
 	WorldViewTools.add_to(head, screen)

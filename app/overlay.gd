@@ -184,6 +184,7 @@ func close_all() -> void:
 	close_breakdowns()
 	clear_toasts()
 	for c: Control in _stack.duplicate():
+		root.remove_child(c)
 		c.queue_free()
 	_stack.clear()
 
