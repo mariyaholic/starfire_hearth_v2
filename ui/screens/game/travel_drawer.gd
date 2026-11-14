@@ -2,6 +2,13 @@ class_name TravelDrawer
 extends RefCounted
 ## Fleet orders are available from the same drawer in both map presentations.
 
+const AUTO_STATUS: Dictionary[String, String] = {
+	"disabled": "ui.auto_explore.status.disabled",
+	"travelling": "ui.auto_explore.status.travelling",
+	"surveying": "ui.auto_explore.status.surveying",
+	"waiting": "ui.auto_explore.status.waiting",
+}
+
 static func open(screen: GameScreen) -> void:
 	var d: Drawer = Drawer.make(Strings.fmt("ui.travel.title"), Drawer.SIDE_RIGHT)
 	d.name = "TravelDrawer"
@@ -17,6 +24,19 @@ static func open(screen: GameScreen) -> void:
 		count += 1
 		var card: Card = Card.make(GameUI.name_of("hulls", ship.hull))
 		card.name = "Fleet_" + fid
+		if Ships.role(ship) == Ships.ROLE_SURVEY:
+			var auto_enabled: bool = AutoExplore.enabled(screen.state, fid)
+			var auto_status: String = AutoExplore.status(screen.state, fid)
+			card.add_text(Strings.fmt(AUTO_STATUS.get(auto_status, "ui.auto_explore.status.waiting")), &"SecondaryLabel")
+			card.add_text(Strings.fmt("ui.auto_explore.hint"), &"CaptionLabel")
+			var setting: bool = not auto_enabled
+			var auto_check: Result = AutoExplore.can_set(screen.state, screen.state.player_id, fid, setting)
+			var auto_button: SfButton = SfButton.make("ui.auto_explore.enable" if setting else "ui.auto_explore.disable", "", SfButton.SECONDARY)
+			auto_button.name = "AutoExplore_" + fid
+			auto_button.disabled = not auto_check.ok
+			auto_button.pressed.connect(_set_auto.bind(screen, d, fid, setting, Game.session_serial))
+			card.add_body(auto_button)
+			if not auto_check.ok: card.add_body(GameUI.refusal(auto_check))
 		var location: String = screen.system_label(fleet.system_id)
 		if not fleet.path.is_empty():
 			card.add_text(Strings.fmt("ui.travel.en_route", {"system": screen.system_label(fleet.path[-1])}), &"SecondaryLabel").set_meta("audit_numeric_ok", "unknown star marker identifier")
@@ -64,3 +84,10 @@ static func _move(screen: GameScreen, drawer: Drawer, fleet_id: String, destinat
 		return
 	drawer.close()
 	screen.order(MoveFleetCommand.create(screen.state.player_id, fleet_id, destination))
+
+
+static func _set_auto(screen: GameScreen, drawer: Drawer, fleet_id: String, enabled: bool, session: int) -> void:
+	if not is_instance_valid(screen) or not screen.is_inside_tree() or Game.session_serial != session:
+		return
+	drawer.close()
+	screen.order(SetAutoExploreCommand.create(screen.state.player_id, fleet_id, enabled))

@@ -22,28 +22,30 @@ func _initialize() -> void:
 	var seed_index: int = args.find("--seed")
 	if seed_index >= 0 and seed_index + 1 < args.size(): seed = int(args[seed_index + 1])
 	var trace: bool = args.has("--trace")
+	var choice: int = 2
+	var choice_index: int = args.find("--choice")
+	if choice_index >= 0 and choice_index + 1 < args.size(): choice = int(args[choice_index + 1])
+	if choice < 0 or choice > 2:
+		printerr("--choice must be 0, 1 or 2")
+		quit(1)
+		return
+	var started_auto: bool = false
 	var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", seed, "normal")
 	if trace: print("turn=%d hash=%s" % [state.turn, state.state_hash()])
 	for unused: int in range(100):
 		if state.is_over(): break
 		var q: CommandQueue = CommandQueue.new(state)
 		var eid: String = state.player_id
+		for event: EventInstance in Events.pending_for(state, eid):
+			_try(q, ChooseEventCommand.create(eid, event.id, choice))
 		for ship: Ship in state.ships_of(eid):
 			var f: Fleet = state.fleets[ship.fleet_id]
 			if ship.is_busy() or not f.path.is_empty(): continue
 			match Ships.role(ship):
 				Ships.ROLE_SURVEY:
-					if not state.player().surveyed_planets.has("pl_vesper"):
-						if f.system_id == "sys_vesper": _try(q, SurveyCommand.create(eid, ship.id, "pl_vesper"))
-						else: _try(q, MoveFleetCommand.create(eid, f.id, "sys_vesper"))
-					elif not state.player().known_systems.has("sys_tessel"):
-						if f.system_id != "sys_ember": _try(q, MoveFleetCommand.create(eid, f.id, "sys_ember"))
-						else: _try(q, MoveFleetCommand.create(eid, f.id, "sys_tessel"))
-					elif not state.player().surveyed_planets.has("pl_tessel"):
-						if f.system_id == "sys_tessel": _try(q, SurveyCommand.create(eid, ship.id, "pl_tessel"))
-						else: _try(q, MoveFleetCommand.create(eid, f.id, "sys_tessel"))
-					elif not state.player().known_systems.has("sys_halden"):
-						_try(q, MoveFleetCommand.create(eid, f.id, "sys_halden"))
+					if not started_auto:
+						_try(q, SetAutoExploreCommand.create(eid, f.id, true))
+						started_auto = AutoExplore.enabled(q.preview(), f.id)
 				Ships.ROLE_CONSTRUCTION:
 					if f.system_id != "sys_tessel": _try(q, MoveFleetCommand.create(eid, f.id, "sys_tessel"))
 					elif state.player().surveyed_planets.has("pl_tessel") and state.planets["pl_tessel"].colony_id.is_empty():
@@ -71,6 +73,11 @@ func _initialize() -> void:
 			printerr("invariant failure on turn %d: %s" % [state.turn, str(problems)])
 			quit(1)
 			return
+	var expected_flag: String = ["m2a_halden_salvage", "m2a_halden_study", "m2a_halden_left_intact"][choice]
+	if not state.flags.has(expected_flag):
+		printerr("requested Halden choice did not resolve")
+		quit(1)
+		return
 	print("validation waits: " + str(waiting))
 	print("expedition seed=%d outcome=%s turn=%d hash=%s" % [seed, state.outcome, state.turn, state.state_hash()])
 	for status: Objectives.Status in Objectives.statuses(state):

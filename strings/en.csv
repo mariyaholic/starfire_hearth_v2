@@ -1488,7 +1488,7 @@ ui.world.interface_gloss,Gloss
 ui.world.interface_edge,Edge light
 scenario.m2a.name,M2A Exploration Preview
 scenario.m2a.desc,A standalone expedition beyond Ember. Survey new worlds and develop a frontier colony.
-scenario.m2a.briefing,"Our slowboats can reach the neighbouring stars. Send the survey probe ahead, establish a colony in Vesper, and visit Halden’s Gate. Tessel offers a place for an optional outpost. Open Fleet Travel from the galaxy or system toolbar to plot a course; unknown stars are numbered until a ship arrives. This preview stands apart from campaign progress."
+scenario.m2a.briefing,"Our slowboats can reach the neighbouring stars. Send the survey probe ahead, establish a colony in Vesper, and visit Halden’s Gate. Tessel offers a place for an optional outpost. Open Fleet Travel from the galaxy or system toolbar to plot a course or enable automatic exploration for the survey probe; unknown stars are numbered until a ship arrives. This preview stands apart from campaign progress."
 scenario.m2a.debrief,Your expedition has carried the hearth beyond Ember. The stars are no longer just points on a chart.
 ui.campaign.preview_label,Standalone preview · available now
 planet.tessel.name,Tessel Reach
@@ -1522,3 +1522,20 @@ report.fleet_route_blocked,A fleet’s route is blocked; travel has paused.
 ui.travel.via,Route: {route}
 ui.travel.remaining,Remaining: {turns} turns
 ui.travel.action,Travel
+event.m2a_halden.1.title,A Quiet Cache
+event.m2a_halden.1.body,"Your crew finds a small service cache drifting beside Halden’s silent gate. Its sealed cases carry old maintenance markings, and inside are spare parts and meticulous notes from the people who kept the lane markers tended. The beacon itself remains dark. We could bring the supplies home, though storage limits may reduce what we can keep, or study the records and share what we learn with our researchers. If neither is worth the energy today, we can leave the cache as we found it. There is no hurry, and no signal asks us to wake the gate."
+event.m2a_halden.1.c0,Salvage what fits
+event.m2a_halden.1.c1,Study the records
+event.m2a_halden.1.c2,Leave the cache intact
+objective.m2a.cache,Decide what to do with the cache at Halden’s Gate
+ui.auto_explore.enable,Start auto-explore
+ui.auto_explore.disable,Stop auto-explore
+ui.auto_explore.status.disabled,Automatic exploration off
+ui.auto_explore.status.travelling,Exploring: travelling
+ui.auto_explore.status.surveying,Exploring: surveying
+ui.auto_explore.status.waiting,Exploring: waiting
+ui.auto_explore.hint,Automatic exploration sends an idle survey fleet to reachable unknown systems or unsurveyed planets. A manual travel or survey order stops it. Stopping leaves the current journey or survey in progress.
+error.auto_explore.unavailable,This fleet cannot explore automatically.
+report.auto_explore_complete,Automatic exploration has no reachable systems or planets left.
+why.cond.visited_system,Visited {system}
+ui.system.no_planets,There are no planets in this system.

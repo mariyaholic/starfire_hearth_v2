@@ -45,6 +45,8 @@ static func make(type: String) -> Command:
 			return SetGovernorCommand.new()
 		VetoPlanCommand.TYPE:
 			return VetoPlanCommand.new()
+		SetAutoExploreCommand.TYPE:
+			return SetAutoExploreCommand.new()
 		MoveFleetCommand.TYPE:
 			return MoveFleetCommand.new()
 		SurveyCommand.TYPE:
@@ -71,6 +73,6 @@ static func known_types() -> Array[String]:
 		BuildShipCommand.TYPE, CancelBuildCommand.TYPE, MoveBuildUpCommand.TYPE,
 		PickResearchCommand.TYPE, RerollResearchCommand.TYPE, ActivateOrdinanceCommand.TYPE,
 		CancelOrdinanceCommand.TYPE, SetGovernorCommand.TYPE, VetoPlanCommand.TYPE,
-		MoveFleetCommand.TYPE, SurveyCommand.TYPE, BuildOutpostCommand.TYPE, ColoniseCommand.TYPE,
+		SetAutoExploreCommand.TYPE, MoveFleetCommand.TYPE, SurveyCommand.TYPE, BuildOutpostCommand.TYPE, ColoniseCommand.TYPE,
 		ChooseEventCommand.TYPE, AcknowledgeCommand.TYPE, TradeCommand.TYPE, RushBuildCommand.TYPE,
 	]

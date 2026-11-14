@@ -7,7 +7,9 @@ relay stopped transmitting.
 **Status:** milestone M1 (First Light): Scenario 1 plays from the title to the debrief on PC and in
 a phone browser. A separate **M2A Exploration Preview** adds civilian interstellar travel,
 frontier surveys, an outpost and a new colony. Launch it from Campaign; it does not complete
-Scenario 2 or unlock later campaign chapters. See `docs/milestones/` for plans and reports.
+Scenario 2 or unlock later campaign chapters. Opt a survey probe into automatic exploration
+or resolve a one-shot discovery at Halden's dormant gate. See `docs/milestones/` for plans
+and reports.
 
 ## Requirements
 

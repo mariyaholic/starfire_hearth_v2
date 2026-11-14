@@ -7,7 +7,7 @@
   "debrief_key": "scenario.m2a.debrief",
   "status": "playable",
   "origin": "generation_ark",
-  "expected_turns": 35,
+  "expected_turns": 50,
   "director_start": 9999,
   "teaches": [
     "colonies",
@@ -260,6 +260,12 @@
         "type": "visited_system",
         "system": "sys_halden",
         "text_key": "objective.m2a.gate"
+      },
+      {
+        "id": "m2a_resolve_cache",
+        "type": "flag",
+        "flag": "m2a_halden_resolved",
+        "text_key": "objective.m2a.cache"
       }
     ],
     "optional": [
@@ -273,7 +279,9 @@
     ]
   },
   "tutorial": [],
-  "scripted_events": [],
+  "scripted_events": [
+    "m2a_halden_cache"
+  ],
   "legacies": [],
   "loss": [
     {

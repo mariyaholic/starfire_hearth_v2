@@ -494,3 +494,16 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 111. **Keep the world visible before appearance controls**. Actual desktop play exposed a system
      map pushed below the fold by visual settings. Keep those settings behind a closed expander
      and make travel destinations wrap above short action buttons at 200% phone text
+
+112. **Resolve Halden before preview victory**. Give the discovery a new required objective and
+     one-shot event memory, so arrival cannot immediately skip its choice or let an older
+     completed visit flag bypass the decision. Keep a free refusal to prevent a poverty softlock
+
+113. **Save survey automation as explicit intent**. Namespace integer flags by fleet ID, assign
+     at most one new task after commands, and let accepted manual orders clear the intent.
+     Disabling automation preserves existing routes, progress and surveys. Select unknown
+     destinations from public topology rather than reading their hidden planet payloads
+
+114. **Bound procedural story art to its illustration frame**. Actual desktop and 200% phone
+     captures exposed a fallback planet drawing across the portrait and body; clip it at the
+     StoryScene boundary while keeping the illustration and fixing the narrow beacon caption

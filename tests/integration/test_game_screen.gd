@@ -310,3 +310,102 @@ func test_preview_travel_controls_and_stale_callback(t: T) -> void:
 	t.ok(gs.find_child("FleetTravel", true, false) != null, "immersive 3D system offers travel")
 	Settings.set_view_mode("command")
 	await _stop(app)
+
+
+func test_preview_cache_choices_render_and_stale_choice_is_safe(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 1)
+	app.go(AppRoot.BRIEFING, {"scenario": "m2a_expedition"})
+	await _frames(3)
+	app.go(AppRoot.BEGIN, {"seed": 1})
+	await _frames(4)
+	Overlay.close_all()
+	var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+	state.player().known_systems["sys_halden"] = Empire.FOG_SURVEYED
+	state.turn = 2
+	Events.run(state, TurnResult.new())
+	app.go(AppRoot.CONTINUE, {"state": state})
+	await _frames(4)
+	var modal: Modal = Overlay.top() as Modal
+	t.ok(modal != null and modal.name == "EventOverlay", "Gate decision opens in the event overlay")
+	if modal != null:
+		var first: Node = modal.find_child("Choice_0", true, false)
+		var second: Node = modal.find_child("Choice_1", true, false)
+		var third: Node = modal.find_child("Choice_2", true, false)
+		t.ok(first != null and second != null and third != null, "all three options render")
+		if first != null and second != null:
+			t.ok(first.find_child("Cost_energy", true, false) != null, "salvage cost is visible")
+			t.ok(second.find_child("Cost_energy", true, false) != null, "study cost is visible")
+			t.ok(first.find_children("*", "EffectList", true, false).size() > 0, "salvage effect is visible")
+			t.ok(second.find_children("*", "EffectList", true, false).size() > 0, "study effect is visible")
+			var buttons: Array[Node] = first.find_children("*", "BaseButton", true, false)
+			var button: BaseButton = buttons[0] as BaseButton if not buttons.is_empty() else null
+			Game.new_game("m2a_expedition", 1)
+			if button != null: button.pressed.emit()
+			t.eq(Game.queue.size(), 0, "stale event choice cannot order a new session")
+	await _stop(app)
+
+
+func test_preview_auto_explore_toggle_uses_command_bus(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 1)
+	app.go(AppRoot.BRIEFING, {"scenario": "m2a_expedition"})
+	await _frames(3)
+	app.go(AppRoot.BEGIN, {"seed": 1})
+	await _frames(4)
+	Overlay.close_all()
+	var gs: GameScreen = app.screen as GameScreen
+	gs.show_view(GameScreen.GALAXY)
+	gs.open_travel()
+	await _frames(3)
+	var drawer: Drawer = Overlay.top() as Drawer
+	var toggle: BaseButton = drawer.find_child("AutoExplore_flt_0002", true, false) as BaseButton
+	t.ok(toggle != null and not toggle.disabled, "survey fleet offers automation")
+	if toggle != null:
+		toggle.pressed.emit()
+		t.ok(AutoExplore.enabled(Game.view(), "flt_0002"), "toggle submits intent through the command queue")
+		Game.end_turn()
+		await _frames(4)
+		var fleet: Fleet = Game.view().fleets["flt_0002"]
+		var route: Array[String] = fleet.path.duplicate()
+		gs.open_travel()
+		await _frames(3)
+		drawer = Overlay.top() as Drawer
+		toggle = drawer.find_child("AutoExplore_flt_0002", true, false) as BaseButton
+		t.ok(toggle != null and not toggle.disabled, "automation can be stopped while in transit")
+		if toggle != null:
+			toggle.pressed.emit()
+			t.not_ok(AutoExplore.enabled(Game.view(), "flt_0002"), "stop changes intent")
+			t.eq(Game.view().fleets["flt_0002"].path, route, "stop keeps the current journey")
+	await _stop(app)
+
+
+func test_preview_empty_gate_system_copy_and_beacon(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 1)
+	var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+	state.player().known_systems["sys_halden"] = Empire.FOG_SURVEYED
+	state.turn = 2
+	Settings.set_appearance("strategic")
+	app.go(AppRoot.CONTINUE, {"state": state})
+	await _frames(4)
+	Overlay.close_all()
+	var gs: GameScreen = app.screen as GameScreen
+	gs.jump("system", "sys_halden")
+	await _frames(3)
+	for mode: String in ["strategic", "3d"]:
+		Settings.set_appearance(mode)
+		await _frames(4)
+		var no_planets: bool = false
+		var beacon: bool = false
+		var invalid_hint: bool = false
+		for label: Node in gs.find_children("*", "Label", true, false):
+			var content: String = (label as Label).text
+			if content == Strings.fmt("ui.system.no_planets"): no_planets = true
+			if content == Strings.fmt("ui.system.beacon_dormant"): beacon = true
+			if content == Strings.fmt("ui.system.pick_hint"): invalid_hint = true
+		t.ok(no_planets, mode + " explains an empty system")
+		t.ok(beacon, mode + " names the dormant beacon")
+		if mode == "strategic":
+			var beacon_label: Label = gs.find_child("SystemBeacon", true, false) as Label
+			t.ok(beacon_label != null and beacon_label.size.x >= beacon_label.get_minimum_size().x, "beacon caption has room to read")
+			if beacon_label != null: t.eq(beacon_label.get_line_count(), 1, "desktop beacon caption does not wrap per character")
+		t.not_ok(invalid_hint, mode + " does not ask for a nonexistent planet")
+	await _stop(app)

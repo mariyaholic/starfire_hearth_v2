@@ -6,6 +6,8 @@ static func build(screen: GameScreen) -> Control:
 	var sys: StarSystem = screen.state.systems[screen.system_id]
 	var head: Card = Card.make(Strings.fmt(sys.name_key), Strings.fmt(SystemView.STAR_KEYS.get(sys.spectral, "ui.worlds.star.g")), "emblem_hearth", "hearth.gold")
 	head.name = "SystemHeader"
+	if sys.beacon != StarSystem.BEACON_NONE:
+		head.add_text(Strings.fmt(SystemView.BEACON_KEYS.get(sys.beacon, "ui.system.beacon_dormant")), &"CaptionLabel")
 	col.add_child(head)
 	var buttons: HFlowContainer = HFlowContainer.new()
 	buttons.add_theme_constant_override("h_separation", Tokens.SPACE_S)
@@ -85,6 +87,9 @@ static func populate_inspector(screen: GameScreen, sys: StarSystem, inspector: V
 	elif selection == sys.id:
 		var star_card: Card = Card.make(Strings.fmt(sys.name_key), Strings.fmt(SystemView.STAR_KEYS.get(sys.spectral, "ui.worlds.star.g")), "emblem_hearth", "hearth.gold")
 		star_card.name = "StarInspector"
+		if sys.beacon != StarSystem.BEACON_NONE:
+			star_card.add_text(Strings.fmt(SystemView.BEACON_KEYS.get(sys.beacon, "ui.system.beacon_dormant")), &"CaptionLabel")
+		if sys.planet_ids.is_empty(): star_card.add_text(Strings.fmt("ui.system.no_planets"), &"CaptionLabel")
 		inspector.add_child(star_card)
 	else:
 		if screen.state.ships.has(selection) and screen.state.ships[selection].owner_id == screen.state.player_id:
@@ -96,7 +101,7 @@ static func populate_inspector(screen: GameScreen, sys: StarSystem, inspector: V
 		elif screen.state.colonies.has(selection) and screen.state.colonies[selection].owner_id == screen.state.player_id:
 			inspector.add_child(SystemView._panel(screen, screen.state.planets[screen.state.colonies[selection].planet_id]))
 		else:
-			var hint: Card = Card.make(Strings.fmt("ui.system.pick_title"), "", "map_outpost", "text.secondary")
-			hint.add_text(Strings.fmt("ui.system.pick_hint"))
+			var hint: Card = Card.make(Strings.fmt("ui.3d.overview" if sys.planet_ids.is_empty() else "ui.system.pick_title"), "", "map_outpost", "text.secondary")
+			hint.add_text(Strings.fmt("ui.system.no_planets" if sys.planet_ids.is_empty() else "ui.system.pick_hint"))
 			inspector.add_child(hint)
 	inspector.add_child(SystemView._fleets(screen, sys))
