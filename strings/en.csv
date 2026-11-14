@@ -1486,3 +1486,39 @@ ui.world.interface_opacity,Panel opacity
 ui.world.interface_blur,Blur
 ui.world.interface_gloss,Gloss
 ui.world.interface_edge,Edge light
+scenario.m2a.name,M2A Exploration Preview
+scenario.m2a.desc,A standalone expedition beyond Ember. Survey new worlds and develop a frontier colony.
+scenario.m2a.briefing,"Our slowboats can reach the neighbouring stars. Send the survey probe ahead, establish a colony in Vesper, and visit Halden’s Gate. Tessel offers a place for an optional outpost. Open Fleet Travel from the galaxy or system toolbar to plot a course; unknown stars are numbered until a ship arrives. This preview stands apart from campaign progress."
+scenario.m2a.debrief,Your expedition has carried the hearth beyond Ember. The stars are no longer just points on a chart.
+ui.campaign.preview_label,Standalone preview · available now
+planet.tessel.name,Tessel Reach
+planet.vesper.name,Vesper Haven
+objective.m2a.survey,Survey a planet beyond Ember
+objective.m2a.develop,Develop a colony in Vesper
+objective.m2a.gate,Visit Halden’s Gate
+objective.m2a.outpost,Build an outpost in Tessel
+ui.travel.title,Fleet travel
+ui.travel.hint,Choose a destination for an idle civilian fleet. Unknown stars keep their numbers until arrival. Travel advances when you end the turn.
+ui.travel.unknown,Unknown star {number}
+ui.travel.at,At {system}
+ui.travel.en_route,En route to {system}
+ui.travel.eta,Journey: {turns} turns
+ui.travel.none,No civilian fleets are available.
+ui.travel.open,Fleet travel
+ui.galaxy.exploration,Select Fleet travel to chart a route. Stars are named on arrival.
+error.fleet.not_found,Fleet not found.
+error.fleet.not_owned,This fleet is not yours.
+error.fleet.in_transit,This fleet is already travelling.
+error.fleet.empty,This fleet has no ships.
+error.fleet.unavailable,This fleet is busy or cannot travel.
+error.fleet.no_route,No open route to that system.
+error.fleet.already_here,This fleet is already there.
+report.fleet_arrived,Fleet arrived in {system}.
+breakdown.travel_turns,Travel time
+source.travel_lane,Deep-space lane
+ui.travel.no_routes,No available route for this fleet.
+ui.world.appearance_options,Appearance options
+report.fleet_route_blocked,A fleet’s route is blocked; travel has paused.
+ui.travel.via,Route: {route}
+ui.travel.remaining,Remaining: {turns} turns
+ui.travel.action,Travel

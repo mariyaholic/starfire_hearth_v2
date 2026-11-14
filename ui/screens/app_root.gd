@@ -132,7 +132,7 @@ func _open(to: String, args: Dictionary = {}) -> void:
 	if screen != null:
 		remove_child(screen)
 		screen.queue_free()
-	if to == DEBRIEF and Game.has_game() and Game.state.outcome == GameState.OUTCOME_WON:
+	if to == DEBRIEF and Game.has_game() and Game.state.outcome == GameState.OUTCOME_WON and CampaignProgress.ORDER.has(Game.state.scenario_id):
 		progress.record_win(Game.state.scenario_id)
 	route = to
 	screen = _make(to, args)

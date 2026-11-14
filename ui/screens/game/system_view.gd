@@ -210,6 +210,9 @@ static func _fleets(s: GameScreen, sys: StarSystem) -> Control:
 	for sh: Ship in s.state.ships_of(s.state.player_id):
 		if Ships.system_of(s.state, sh) != sys.id:
 			continue
+		var fleet: Fleet = s.state.fleets.get(sh.fleet_id, null)
+		if fleet != null and (not fleet.path.is_empty() or fleet.move_progress != 0):
+			continue
 		here += 1
 		var hull: Dictionary = Content.db().record("hulls", sh.hull)
 		var row: HBoxContainer = HBoxContainer.new()

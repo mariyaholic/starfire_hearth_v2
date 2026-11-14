@@ -481,3 +481,16 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      now flies a gold eight-pointed compass rose with no circle, which is how Meridian's emblem
      should be drawn from here on; Ilyin's expressions read clearly; Pell is now clearly younger
      than Ilyin, with a radio-dish badge.
+
+109. **M2A is a separate exploration preview** (14 November 2026). Build a complete civilian
+     expedition before introducing combat, pirates and active beacons. Keep canonical Scenario 2
+     and campaign progression unchanged, so a preview win cannot claim an unfinished chapter
+
+110. **Travel uses existing save fields and known waypoints**. Resolve deep-lane movement in the
+     existing movement phase using the slowest civilian hull and whole-turn ceiling. Reveal a
+     destination on arrival, require known intermediate systems and keep unknown planet details
+     hidden. Invalid loaded routes freeze with a warning; never silently reset a journey
+
+111. **Keep the world visible before appearance controls**. Actual desktop play exposed a system
+     map pushed below the fold by visual settings. Keep those settings behind a closed expander
+     and make travel destinations wrap above short action buttons at 200% phone text

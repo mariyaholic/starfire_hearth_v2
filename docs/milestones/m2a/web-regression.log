@@ -1,0 +1,7 @@
+desktop: 01_compact_default
+desktop: 02_jobs_window
+desktop: 03_appearance
+desktop: 04_large_text
+desktop: 05_system_spacing
+desktop: 06_system_after_reload
+phone: 01_compact_default

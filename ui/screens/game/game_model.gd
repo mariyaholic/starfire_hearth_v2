@@ -62,6 +62,9 @@ static func end_turn_checks(state: GameState, er: Economy.EmpireReport) -> Array
 		var hull: Dictionary = db.record("hulls", sh.hull)
 		if sh.is_busy() or DictIO.str_of(hull, "class") != "civilian":
 			continue
+		var fleet: Fleet = state.fleets.get(sh.fleet_id, null)
+		if fleet != null and (not fleet.path.is_empty() or fleet.move_progress != 0):
+			continue
 		var sys_id: String = Ships.system_of(state, sh)
 		var args: Dictionary = {"ship_key": DictIO.str_of(hull, "name_key")}
 		if state.systems.has(sys_id):

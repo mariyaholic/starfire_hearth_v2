@@ -45,7 +45,7 @@ static func run(state: GameState, player_commands: Array[Command]) -> TurnResult
 			"research":
 				_phase_research(r)
 			"movement":
-				pass
+				Travel.advance(r.state, r)
 			"combat":
 				pass
 			"occupation":

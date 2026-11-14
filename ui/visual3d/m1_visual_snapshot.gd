@@ -26,6 +26,8 @@ static func system_view(state: GameState, system_id: String) -> Dictionary:
 	var ships: Array[Dictionary] = []
 	for ship: Ship in state.ships_of(viewer.id):
 		if Ships.system_of(state, ship) != system_id: continue
+		var fleet: Fleet = state.fleets.get(ship.fleet_id, null)
+		if fleet != null and (not fleet.path.is_empty() or fleet.move_progress != 0): continue
 		ships.append({"id": ship.id, "name_key": DictIO.str_of(Content.db().record("hulls", ship.hull), "name_key"),
 			"hull": ship.hull, "target": ship.task_target, "task": ship.task, "turns_left": ship.task_turns})
 	ships.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["id"] < b["id"])

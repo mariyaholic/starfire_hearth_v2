@@ -42,6 +42,15 @@ jobs:
             godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy "$policy" --seeds 1-3 --turns 60 --out telemetry --check-determinism
           done
 
+      - name: Expedition preview (three seeds replayed for determinism)
+        run: |
+          for seed in 1 2 3; do
+            godot --headless --path . -s tools/expedition_bot.gd -- --seed "$seed" --trace > "/tmp/expedition-${seed}-a.log"
+            godot --headless --path . -s tools/expedition_bot.gd -- --seed "$seed" --trace > "/tmp/expedition-${seed}-b.log"
+            cmp "/tmp/expedition-${seed}-a.log" "/tmp/expedition-${seed}-b.log"
+            tail -n 6 "/tmp/expedition-${seed}-a.log"
+          done
+
       - name: Telemetry gates (invariants, determinism, performance; balance is advisory here)
         run: godot --headless --path . -s tools/telemetry_report.gd -- --in telemetry --balance advisory
 
