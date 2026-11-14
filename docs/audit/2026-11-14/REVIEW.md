@@ -187,3 +187,29 @@ and actual OS/touch controls remain separately labelled. Physical phones,
 hardware GPU/driver behavior, native Windows/macOS execution, audible output and
 long-duration/multi-tab storage behavior have not been certified by this review.
 No merge, deployment or broad privacy/security certification is implied.
+
+**Browser harness follow-up**
+
+The subsequent CI run at `a4db294` failed the iPad gameplay screenshot after PC
+and phone passed. The retained trace records a 30-second capture timeout before
+the iPad assertions ran; it does not establish a game-state/layout regression or
+a GPU root cause. See [the browser follow-up](CI_BROWSER_FOLLOWUP.md) for the
+original failure and the sequential pinned-browser comparison.
+
+Reviewer accepts the tooling correction: close the title context before game
+boot and use a fresh browser per profile, with the original 30-second
+capture/navigation and 90-second boot limits. All profiles, six screenshot names,
+layout/turn/save/hash/error assertions and fatal capture handling remain. The
+independent mock checked success and injected capture/hash/browser-error failures;
+this is failure-accounting evidence, not browser gameplay.
+
+Both the untouched and corrected harness passed all three profiles locally with
+Playwright 1.56.1 / Chromium 141.0.7390.37, so the CI failure was not reproduced.
+Reviewer inspected the corrected iPad title/game screenshots and JSON: compact
+touch layout, turn 2, hash `911cdd430061`, one save, no errors/problems and a
+3.442-second game capture. Visible UI fits; the lower game view still contains a
+gray terrain placeholder, so the image does not prove completed terrain
+rendering. Final harness SHA-256 is
+`0a76652885414b751e7745902f952b943c7a8d7aeff0d6d07530744f69289d64`.
+No product code changed, and this approval does not assert that a later remote
+CI run has completed.

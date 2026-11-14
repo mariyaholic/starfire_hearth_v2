@@ -6,9 +6,14 @@ No test used the owner's real saves, browser profile or laptop
 
 ## Frozen code and results
 
-The final source/test aggregate is
+The consolidated suite's source/test aggregate is
 `7b1f583c2fe00acdc18bc74bd08eca8245c769f0e424b85c88a7ae75a136e79e`.
 It matches before and after the final suite
+
+The first remote CI run subsequently found a browser-harness capture timeout.
+The follow-up changes only that test tool; its separate reproduction, correction
+and validation are recorded in [the browser follow-up](CI_BROWSER_FOLLOWUP.md).
+Earlier aggregate hashes and raw manifests retain their original scope
 
 | Check | Actual result |
 | --- | --- |

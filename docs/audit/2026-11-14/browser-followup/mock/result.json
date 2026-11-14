@@ -1,0 +1,45 @@
+{
+  "method": "mock Playwright module; no real browser, screenshots or gameplay",
+  "cases": [
+    {
+      "case": "pass",
+      "assertions_passed": true,
+      "exit_code": 0,
+      "browsers_launched": 3,
+      "contexts_closed": 6,
+      "max_live_contexts": 1,
+      "capture_attempts": 6,
+      "ipad_problem_count": 0
+    },
+    {
+      "case": "capture",
+      "assertions_passed": true,
+      "exit_code": 1,
+      "browsers_launched": 3,
+      "contexts_closed": 6,
+      "max_live_contexts": 1,
+      "capture_attempts": 6,
+      "ipad_problem_count": 1
+    },
+    {
+      "case": "hash",
+      "assertions_passed": true,
+      "exit_code": 1,
+      "browsers_launched": 3,
+      "contexts_closed": 6,
+      "max_live_contexts": 1,
+      "capture_attempts": 6,
+      "ipad_problem_count": 1
+    },
+    {
+      "case": "error",
+      "assertions_passed": true,
+      "exit_code": 1,
+      "browsers_launched": 3,
+      "contexts_closed": 6,
+      "max_live_contexts": 1,
+      "capture_attempts": 6,
+      "ipad_problem_count": 1
+    }
+  ]
+}
