@@ -3,3 +3,6 @@ playtest/** -text
 playtest/web-baseline/qualified-input-timings.tsv whitespace=cr-at-eol
 # Engine logs can contain trailing spaces; preserve and inspect the original output.
 validation/*.log -text -whitespace
+browser-followup/*.log -text -whitespace
+browser-followup/** -text
+browser-followup/**/*.log -whitespace

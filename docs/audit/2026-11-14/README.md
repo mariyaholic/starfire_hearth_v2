@@ -26,6 +26,7 @@ merge or deployment
 | [Astra advisory](ADVISORY.md) | Baseline risk inventory, including issues outside the bounded fixes |
 | [Continuation report](../../milestones/M2F_REPORT.md) | Completed feature and its separate native/Web reload evidence |
 | [Consolidated validation](VALIDATION.md) | Frozen source, 418 passing tests, exports, browser checks and retained logs |
+| [CI browser follow-up](CI_BROWSER_FOLLOWUP.md) | Retained remote capture failure, isolated test lifecycle and pinned before/after evidence |
 
 The inventories name states, transitions, authoritative writers and failure
 boundaries across the application. They are risk-based audits, not exhaustive

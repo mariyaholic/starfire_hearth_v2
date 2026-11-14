@@ -1,6 +1,8 @@
 {
   "scope": "Entire audit evidence directory, excluding this manifest",
-  "source_test_digest": "7b1f583c2fe00acdc18bc74bd08eca8245c769f0e424b85c88a7ae75a136e79e",
+  "source_test_digest": "aac44a3a02070b9dfa5f3950a6dea792019430cc36b8cbf726de3aa3808e5a2f",
+  "full_suite_source_test_digest": "7b1f583c2fe00acdc18bc74bd08eca8245c769f0e424b85c88a7ae75a136e79e",
+  "runtime_changed_after_full_suite": false,
   "files": [
     {
       "path": ".gdignore",
@@ -9,8 +11,8 @@
     },
     {
       "path": ".gitattributes",
-      "bytes": 287,
-      "sha256": "7ae2de1a165f7ee7b96c4d2a24f49e0d3c57765bb27b46113a87336f4ba5c1e0"
+      "bytes": 392,
+      "sha256": "f68041c71be0f3b7d52d0859f72dc2b5d744a637a1e025083022aa9ec681b9c3"
     },
     {
       "path": "ADVISORY.md",
@@ -21,6 +23,11 @@
       "path": "APP_AUDIT.md",
       "bytes": 12022,
       "sha256": "2d0edd98233bb9e4d4a6934d76eb08f6da15dd2828e6cb30af0fa1f38a275157"
+    },
+    {
+      "path": "CI_BROWSER_FOLLOWUP.md",
+      "bytes": 4563,
+      "sha256": "14f27478fa78df383cc66deac352c3e4b507945fb7af558c12a119fd8d662608"
     },
     {
       "path": "PLAN.md",
@@ -34,13 +41,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 8330,
-      "sha256": "d50d1f6dfea7ae1e8164df5de54aead2c88861d3f93b72b537ca9237f277df56"
+      "bytes": 8473,
+      "sha256": "11ad2ceb56a52cafb82e5401099011829afb3ea87fd7d843ec997e9d3d763305"
     },
     {
       "path": "REVIEW.md",
-      "bytes": 21810,
-      "sha256": "bde35fc8e9dc78790c5300305daae677819f8626b4b6882f1f72f670c6e09dd3"
+      "bytes": 23352,
+      "sha256": "0421e848dd431350b519195535a5d85539a301cd72f17ba6ab7deb82df6b03d9"
     },
     {
       "path": "SIM_AUDIT.md",
@@ -49,8 +56,243 @@
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 5945,
-      "sha256": "9eac50b0870577b76ca5973884269e4fb357c5d14b3593cbc8374d5aa6c950d7"
+      "bytes": 6271,
+      "sha256": "4d04431aff3361e3bb0503c6eee26349028fba9f6825dae1224742c486728f15"
+    },
+    {
+      "path": "browser-followup/baseline/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "browser-followup/baseline/web_ipad.png",
+      "bytes": 2503111,
+      "sha256": "60a8ccc64a9ddceae61cccabe4789909eb1b48566ccb443a7e3817a69df3238c"
+    },
+    {
+      "path": "browser-followup/baseline/web_ipad_game.png",
+      "bytes": 232390,
+      "sha256": "602737eb1b4eccff31e01018a5d3ccabdf1941cedb9cf27db13afc1e13d46ab0"
+    },
+    {
+      "path": "browser-followup/baseline/web_pc.png",
+      "bytes": 1739324,
+      "sha256": "e8d4f78f8c61420efb66e06538e46554184135592c9e7d02750d10696728355d"
+    },
+    {
+      "path": "browser-followup/baseline/web_pc_game.png",
+      "bytes": 138834,
+      "sha256": "2a517650c5b80c5d7f4f4ac3b9c0ceba45b398dd4c4e5054a3474f23a009cd7f"
+    },
+    {
+      "path": "browser-followup/baseline/web_phone.png",
+      "bytes": 1577953,
+      "sha256": "a2050ff377b6dfe0d0d3bf6ac8eb3c4d28d6e0e6e764aecf041a73d81d8bbda2"
+    },
+    {
+      "path": "browser-followup/baseline/web_phone_game.png",
+      "bytes": 221614,
+      "sha256": "81a15adbce11009dfa9463fb8bc094341c28857816fe47729ffbd17e1b45a19b"
+    },
+    {
+      "path": "browser-followup/baseline.log",
+      "bytes": 487,
+      "sha256": "f121a84f7dc82859ce819426c592cce75753b1c9568bf2f8d3ccb71f09a14ea4"
+    },
+    {
+      "path": "browser-followup/ci-failed.log",
+      "bytes": 18087,
+      "sha256": "2701ab706a18e086a713670275eeeb03c3020879308c6fc0a306a7636b301d02"
+    },
+    {
+      "path": "browser-followup/fixed/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "browser-followup/fixed/web_ipad.png",
+      "bytes": 2503111,
+      "sha256": "60a8ccc64a9ddceae61cccabe4789909eb1b48566ccb443a7e3817a69df3238c"
+    },
+    {
+      "path": "browser-followup/fixed/web_ipad_game.png",
+      "bytes": 232390,
+      "sha256": "602737eb1b4eccff31e01018a5d3ccabdf1941cedb9cf27db13afc1e13d46ab0"
+    },
+    {
+      "path": "browser-followup/fixed/web_ipad_result.json",
+      "bytes": 3064,
+      "sha256": "2c79f74ecfddaab0525a55632bad447178c77823bf1494d188e472aa3010dae3"
+    },
+    {
+      "path": "browser-followup/fixed/web_pc.png",
+      "bytes": 1739324,
+      "sha256": "e8d4f78f8c61420efb66e06538e46554184135592c9e7d02750d10696728355d"
+    },
+    {
+      "path": "browser-followup/fixed/web_pc_game.png",
+      "bytes": 138802,
+      "sha256": "1c0718fb59947569229b768bbfa1ff4f8ec23bcada6bf3935e7899be6c530953"
+    },
+    {
+      "path": "browser-followup/fixed/web_pc_result.json",
+      "bytes": 2873,
+      "sha256": "b462b923c044db7b4ac8eef82f7db7e4ef82ba47ca886a6201eed03ec6d8a993"
+    },
+    {
+      "path": "browser-followup/fixed/web_phone.png",
+      "bytes": 1577953,
+      "sha256": "a2050ff377b6dfe0d0d3bf6ac8eb3c4d28d6e0e6e764aecf041a73d81d8bbda2"
+    },
+    {
+      "path": "browser-followup/fixed/web_phone_game.png",
+      "bytes": 221614,
+      "sha256": "81a15adbce11009dfa9463fb8bc094341c28857816fe47729ffbd17e1b45a19b"
+    },
+    {
+      "path": "browser-followup/fixed/web_phone_result.json",
+      "bytes": 3087,
+      "sha256": "f2a915f2f6e96348f6493e90e931381c0b2743a7aab22ac065504ed7dc92a74f"
+    },
+    {
+      "path": "browser-followup/fixed.log",
+      "bytes": 496,
+      "sha256": "6f1e839cf8cddb58d8a8d696b6ebd91e78e512b675d67db6503096a4563b0c04"
+    },
+    {
+      "path": "browser-followup/mock/capture/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "browser-followup/mock/capture/web_ipad_result.json",
+      "bytes": 1451,
+      "sha256": "46ead7c672de6b9cea46b184f13780f1641115ba01cddd00e29c96987f1f2251"
+    },
+    {
+      "path": "browser-followup/mock/capture/web_pc_result.json",
+      "bytes": 778,
+      "sha256": "ac53c2634beac2488666a1ffbb02bf4b940f277b4ca2b62f2fb0043e9f21f334"
+    },
+    {
+      "path": "browser-followup/mock/capture/web_phone_result.json",
+      "bytes": 995,
+      "sha256": "d3625335b6abc8153fabda61f4ecc57cbf07a3331e5d6bb1eea8e7e2bebb28d6"
+    },
+    {
+      "path": "browser-followup/mock/capture-audit.json",
+      "bytes": 440,
+      "sha256": "d439c76d9b95710c0cedcc65864f8e7bb07936c716194b015bb1e9cb9c1ca8cc"
+    },
+    {
+      "path": "browser-followup/mock/capture.log",
+      "bytes": 716,
+      "sha256": "c0fd119261fad48b9c4bd81023ff461e6be2fb0348a690dd12d2752a719f4ddf"
+    },
+    {
+      "path": "browser-followup/mock/error/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "browser-followup/mock/error/web_ipad_result.json",
+      "bytes": 1069,
+      "sha256": "6d8a98829795effa2a99158a05788d589d48e5c5174065b6339bd82407cc3f1b"
+    },
+    {
+      "path": "browser-followup/mock/error/web_pc_result.json",
+      "bytes": 778,
+      "sha256": "ac53c2634beac2488666a1ffbb02bf4b940f277b4ca2b62f2fb0043e9f21f334"
+    },
+    {
+      "path": "browser-followup/mock/error/web_phone_result.json",
+      "bytes": 995,
+      "sha256": "d3625335b6abc8153fabda61f4ecc57cbf07a3331e5d6bb1eea8e7e2bebb28d6"
+    },
+    {
+      "path": "browser-followup/mock/error-audit.json",
+      "bytes": 428,
+      "sha256": "bad2ee46f72229ce6c5767fe46a17f56d692dcc7ad830234e58563652abbb7f8"
+    },
+    {
+      "path": "browser-followup/mock/error.log",
+      "bytes": 540,
+      "sha256": "831007bb72d40d794df10db06fb49dfc33ccc13b6b71adcdc9a9435dd7b90cc0"
+    },
+    {
+      "path": "browser-followup/mock/hash/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "browser-followup/mock/hash/web_ipad_result.json",
+      "bytes": 1046,
+      "sha256": "87a46f7186cc6785f39965c0dfb87b7927e4850b95963696660ed2d859c1a989"
+    },
+    {
+      "path": "browser-followup/mock/hash/web_pc_result.json",
+      "bytes": 778,
+      "sha256": "ac53c2634beac2488666a1ffbb02bf4b940f277b4ca2b62f2fb0043e9f21f334"
+    },
+    {
+      "path": "browser-followup/mock/hash/web_phone_result.json",
+      "bytes": 995,
+      "sha256": "d3625335b6abc8153fabda61f4ecc57cbf07a3331e5d6bb1eea8e7e2bebb28d6"
+    },
+    {
+      "path": "browser-followup/mock/hash-audit.json",
+      "bytes": 422,
+      "sha256": "cf882c53aae274b266bb5a0f40bc47339c77e40b0006d6cff6abdd3925b4d002"
+    },
+    {
+      "path": "browser-followup/mock/hash.log",
+      "bytes": 558,
+      "sha256": "1363f33fe51425db29a9797994038138d0916eb86b06a72e064a4cf7a1a3ade9"
+    },
+    {
+      "path": "browser-followup/mock/node_modules/playwright/index.js",
+      "bytes": 2176,
+      "sha256": "a4fdc6d72636061f895ef8068920e72334f677074a7d47e3bd83a19857e2f5ab"
+    },
+    {
+      "path": "browser-followup/mock/pass/.gdignore",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "browser-followup/mock/pass/web_ipad_result.json",
+      "bytes": 970,
+      "sha256": "5b26600fb65ecf5c73081be26da667a67aa05c403d7176f6619c421b5f367816"
+    },
+    {
+      "path": "browser-followup/mock/pass/web_pc_result.json",
+      "bytes": 778,
+      "sha256": "ac53c2634beac2488666a1ffbb02bf4b940f277b4ca2b62f2fb0043e9f21f334"
+    },
+    {
+      "path": "browser-followup/mock/pass/web_phone_result.json",
+      "bytes": 995,
+      "sha256": "d3625335b6abc8153fabda61f4ecc57cbf07a3331e5d6bb1eea8e7e2bebb28d6"
+    },
+    {
+      "path": "browser-followup/mock/pass-audit.json",
+      "bytes": 422,
+      "sha256": "5a34ce71d3db9c33b9b449735ad2a126374ddfa27994516709f50565010ab25e"
+    },
+    {
+      "path": "browser-followup/mock/pass.log",
+      "bytes": 485,
+      "sha256": "135605417ffe4013565006c518bd1d457d70c723e8465c9252092f31e847b9a9"
+    },
+    {
+      "path": "browser-followup/mock/result.json",
+      "bytes": 1052,
+      "sha256": "1e1aa546c01c28ad282e0e7f7fd8bb515cea1f17af24abf7f66ebdee01e4d55d"
+    },
+    {
+      "path": "browser-followup/mock/run.py",
+      "bytes": 2162,
+      "sha256": "ba39111f843e6d4e5ef3f3cd350a19d419a087fcb75c31bf3e254a8e901ddecc"
     },
     {
       "path": "fixtures/web-verifier-fixture.gd.txt",
