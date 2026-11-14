@@ -1247,6 +1247,12 @@ ui.game.quit,Quit to title
 ui.game.resume,Resume
 ui.game.save,Save game
 ui.game.save_failed,The game could not be saved.
+ui.game.autosave_failed,An automatic save failed. Please save your game.
+ui.game.saving,Saving game…
+ui.game.save_unconfirmed,The browser save could not be confirmed. It may finish later; try saving again.
+ui.campaign.save_failed,Campaign progress could not be saved. Changes may be lost when you close the game.
+ui.load.confirm_delete_title,Delete save?
+ui.load.confirm_delete_body,This save will be deleted permanently.
 ui.game.save_note,A save holds the game as the last turn left it. Orders you have not yet ended the turn on are not part of it.
 ui.game.saved,Game saved.
 ui.game.settings,Settings
@@ -1579,3 +1585,5 @@ error.continue.invalid_victory,The expedition victory could not be verified.
 ui.debrief.saving_expedition,Saving expedition…
 error.continue.saving,The expedition is being saved.
 error.continue.web_unconfirmed,The browser save could not be confirmed. It may finish later; retry before closing.
+error.game.finished,This game has already ended.
+error.command.not_player,You can only give orders to your own empire.

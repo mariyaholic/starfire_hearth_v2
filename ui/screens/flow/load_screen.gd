@@ -68,6 +68,8 @@ func _card(sv: Dictionary) -> Control:
 
 
 func _load(slot: String) -> void:
+	if not is_inside_tree():
+		return
 	var lr: SaveSerializer.LoadResult = SaveService.load_slot(slot)
 	if not lr.ok:
 		Overlay.toast(Strings.fmt(lr.error_key), ReportItem.SEVERITY_WARNING)
@@ -76,5 +78,32 @@ func _load(slot: String) -> void:
 
 
 func _delete(slot: String) -> void:
-	SaveService.delete(slot)
-	_queue_rebuild()
+	if not is_inside_tree():
+		return
+	var directory: String = SaveService.dir
+	var path: String = SaveService._path(slot)
+	if not FileAccess.file_exists(path):
+		_queue_rebuild()
+		return
+	var original: PackedByteArray = FileAccess.get_file_as_bytes(path)
+	var session: int = Game.session_serial
+	var modal: Modal = Modal.make(Strings.fmt("ui.load.confirm_delete_title"))
+	modal.name = "DeleteSaveConfirmation"
+	modal.body.add_child(FlowScreen.label(Strings.fmt("ui.load.confirm_delete_body")))
+	var cancel: SfButton = SfButton.make("ui.endturn.back", "ui_back", SfButton.GHOST)
+	cancel.name = "CancelDelete"
+	cancel.pressed.connect(modal.close)
+	modal.add_action(cancel)
+	var confirm: SfButton = SfButton.make("ui.load.delete", "ui_demolish", SfButton.DANGER)
+	confirm.name = "ConfirmDelete"
+	confirm.pressed.connect(func() -> void:
+		if modal._closing or not modal.is_inside_tree() or not is_inside_tree() or Game.session_serial != session:
+			return
+		modal.close()
+		if SaveService.dir != directory or not FileAccess.file_exists(path) or FileAccess.get_file_as_bytes(path) != original:
+			_queue_rebuild()
+			return
+		SaveService.delete(slot)
+		_queue_rebuild())
+	modal.add_action(confirm)
+	modal.open()

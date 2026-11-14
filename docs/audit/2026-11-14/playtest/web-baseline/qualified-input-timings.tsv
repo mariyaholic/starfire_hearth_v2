@@ -1,0 +1,7 @@
+action	mouseup_to_next_raf_callback_ms	observation_window_ms	raf_interval_count	raf_interval_p95_ms	cdp_main_thread_task_ms
+title Campaign	137.2	2234.8	26	116.6	2119.8
+S1 Begin	1144.9	3378.8	12	383.2	3249.6
+game Menu open	2069.5	2078.3	0		645.4
+game Settings open	946.1	3042.2	19	866.6	3073.6
+End turn checklist	812.9	3714.9	3	883.2	3703.8
+confirm End turn (with autosave)	1359.3	3670.4	2	1150.0	3673.1

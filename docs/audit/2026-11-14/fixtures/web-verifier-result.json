@@ -1,0 +1,10 @@
+{
+  "launched": 3,
+  "pending": 0,
+  "results": {
+    "a": true,
+    "b": true,
+    "timeout": false
+  },
+  "page_errors": []
+}

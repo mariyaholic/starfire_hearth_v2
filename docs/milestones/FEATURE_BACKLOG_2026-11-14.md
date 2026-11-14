@@ -10,9 +10,11 @@ waits for exact committed bytes; the immediate-after-active reload retest passed
 The failing and delayed-success cases remain in the evidence. This finishes the
 current feature task before moving to the audit phase
 
-Keep PR #9 frozen at `90e3db5`, ready for review and unmerged. All subsequent
-changes stay on the separate continuation branch and its new PR. GitHub assigns
-the number; no number is reserved or forced
+PR #9 was frozen at `90e3db5` and made ready without this session merging it.
+During audit validation, GitHub showed it merged externally at 08:17 UTC;
+the exact frozen head is an ancestor of `main` at `4ac2cd0`. All subsequent
+changes stay on the separate continuation branch in PR #10, targeting `main`
+after that verified merge. GitHub assigned the number; none was reserved or forced
 
 ## Defer feature additions to a later session
 

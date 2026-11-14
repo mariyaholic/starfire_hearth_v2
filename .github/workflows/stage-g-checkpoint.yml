@@ -66,6 +66,8 @@ jobs:
           godot --headless --path . --export-release Web build/stage_g/web/index.html > build/stage_g/validation/export_web.log 2>&1
           godot --headless --path . --export-release Windows build/stage_g/windows/StarfireHearth.exe > build/stage_g/validation/export_windows.log 2>&1
           godot --headless --path . --export-release Linux build/stage_g/linux/StarfireHearth.x86_64 > build/stage_g/validation/export_linux.log 2>&1
+          mkdir -p build/stage_g/web_debug
+          godot --headless --path . --export-debug Web build/stage_g/web_debug/index.html > build/stage_g/validation/export_web_debug.log 2>&1
           test -f build/stage_g/web/index.wasm
           test -f build/stage_g/windows/StarfireHearth.exe
           test -f build/stage_g/linux/StarfireHearth.x86_64
@@ -83,7 +85,7 @@ jobs:
       - name: Run actual exported Web mouse and touch interactions
         timeout-minutes: 40
         env:
-          M11_BUILD_DIR: build/stage_g/web
+          M11_BUILD_DIR: build/stage_g/web_debug
           M11_OUT_DIR: build/stage_g/web_interaction
         run: python3 tools/m11_immersive_web_smoke.py
 

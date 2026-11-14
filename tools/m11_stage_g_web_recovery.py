@@ -10,7 +10,7 @@ from PIL import Image, ImageStat
 from playwright.sync_api import sync_playwright
 
 
-BUILD = Path("build/stage_g/web").resolve()
+BUILD = Path(os.environ.get("M11_BUILD_DIR", "build/stage_g/web_debug")).resolve()
 OUT = Path("build/stage_g/recovery").resolve()
 
 
@@ -28,7 +28,7 @@ def main() -> int:
     url = f"http://127.0.0.1:{server.server_port}/index.html?smoke=m11-immersive"
     result = {
         "build": str(BUILD), "profile": "phone_portrait", "viewport": [390, 844],
-        "qualification": "Actual release Web export in Chromium software WebGL with the opt-in game probe. This tests the shell notice and reload continuity; it does not certify phone hardware.",
+        "qualification": "Actual debug Web export in Chromium software WebGL with the opt-in game probe. This tests the shell notice and reload continuity; it does not certify phone hardware.",
     }
     try:
         with sync_playwright() as playwright:

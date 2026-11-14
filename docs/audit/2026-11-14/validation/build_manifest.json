@@ -1,0 +1,110 @@
+{
+  "production_and_tools_digest_excluding_tests": "c382ffa992bfc6311b4566ecd51cea0eba799f65e3c2cbe67d9e5b3430fe678f",
+  "export_source_digest": "367f8c944620eb9678cb82d6fb26b8456805ef7ee7fc937356ddf9e7d1400ec0",
+  "final_source_digest": "7b1f583c2fe00acdc18bc74bd08eca8245c769f0e424b85c88a7ae75a136e79e",
+  "only_post_export_source_change": "tests/unit/test_stop_fleet.gd error-precedence and unchanged-preview assertions; verified by reconstructing original aggregate digest",
+  "web_raw_bytes": 140090161,
+  "web_gzip_bytes": 107533260,
+  "files": [
+    {
+      "path": "linux/StarfireHearth.x86_64",
+      "bytes": 173755152,
+      "sha256": "f3c25c02c0ef9c57dbc17cd18d0fe7b88c6380f2ebc931e765d872c4018b5036"
+    },
+    {
+      "path": "web/index.apple-touch-icon.png",
+      "bytes": 9325,
+      "sha256": "f36fd75875099043841cf67568fdd44c6160167f8ed047c8622f291568f01c47"
+    },
+    {
+      "path": "web/index.audio.position.worklet.js",
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    },
+    {
+      "path": "web/index.audio.worklet.js",
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    {
+      "path": "web/index.html",
+      "bytes": 7169,
+      "sha256": "38ea6094b3af09bc10d2f7a3f54ddff23ad8b91cf6b2a6f2b1019ce588181bd3"
+    },
+    {
+      "path": "web/index.icon.png",
+      "bytes": 11656,
+      "sha256": "abb0c1cd8a8675f98693801315b67d801e0c1065b9baaad706710c928f987075"
+    },
+    {
+      "path": "web/index.js",
+      "bytes": 279815,
+      "sha256": "33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba"
+    },
+    {
+      "path": "web/index.pck",
+      "bytes": 100235728,
+      "sha256": "6e4215165f144d3fcef9fae1b97cac6a420147db78e1e9580606c9b8137b43bb"
+    },
+    {
+      "path": "web/index.png",
+      "bytes": 21443,
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+    },
+    {
+      "path": "web/index.wasm",
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    {
+      "path": "web-debug/index.apple-touch-icon.png",
+      "bytes": 9325,
+      "sha256": "f36fd75875099043841cf67568fdd44c6160167f8ed047c8622f291568f01c47"
+    },
+    {
+      "path": "web-debug/index.audio.position.worklet.js",
+      "bytes": 2973,
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8"
+    },
+    {
+      "path": "web-debug/index.audio.worklet.js",
+      "bytes": 7298,
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3"
+    },
+    {
+      "path": "web-debug/index.html",
+      "bytes": 7169,
+      "sha256": "925a3ee72b1995e7443379d1d947887378a6841590d1616cf4a463fd08b8f24d"
+    },
+    {
+      "path": "web-debug/index.icon.png",
+      "bytes": 11656,
+      "sha256": "abb0c1cd8a8675f98693801315b67d801e0c1065b9baaad706710c928f987075"
+    },
+    {
+      "path": "web-debug/index.js",
+      "bytes": 315645,
+      "sha256": "ffc3898b59fba6f5af0c02f76e5ee526cc061e65c7d2d6f4f98186876cea15c4"
+    },
+    {
+      "path": "web-debug/index.pck",
+      "bytes": 100235728,
+      "sha256": "6e4215165f144d3fcef9fae1b97cac6a420147db78e1e9580606c9b8137b43bb"
+    },
+    {
+      "path": "web-debug/index.png",
+      "bytes": 21443,
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e"
+    },
+    {
+      "path": "web-debug/index.wasm",
+      "bytes": 37902138,
+      "sha256": "11ea19645368f8e73cf337b59cfd7ceeb4ebb51f7a3bbf77d1a5c3ddfedbc522"
+    },
+    {
+      "path": "windows/StarfireHearth.exe",
+      "bytes": 209504224,
+      "sha256": "f7cfc2c8751403d2108b76875cb4aa43f5482990d2bea096c40a70e3058e2ddf"
+    }
+  ]
+}

@@ -41,9 +41,20 @@ func _ready() -> void:
 	# Tests and the screenshot tour turn persistence off: then progress stays in memory.
 	if Settings.persist:
 		progress = CampaignProgress.load_file()
+	progress.persistence_failed.connect(_campaign_write_failed.bind(progress))
 	go(TITLE)
-	if OS.has_feature("web"):
+	# Smoke routes can start games and alter persistence; never expose them in release builds.
+	if OS.has_feature("web") and OS.is_debug_build():
 		_web_smoke.call_deferred()
+
+
+func _campaign_write_failed(revision: int, source: CampaignProgress) -> void:
+	_warn_campaign_write.call_deferred(revision, source)
+
+
+func _warn_campaign_write(revision: int, source: CampaignProgress) -> void:
+	if is_inside_tree() and progress == source and source.write_revision == revision:
+		Overlay.toast(Strings.fmt("ui.campaign.save_failed"), ReportItem.SEVERITY_WARNING)
 
 
 func _prepare_for_quit() -> void:

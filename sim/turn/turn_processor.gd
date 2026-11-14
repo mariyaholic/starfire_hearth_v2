@@ -27,6 +27,14 @@ const PHASES: Array[String] = [
 static func run(state: GameState, player_commands: Array[Command]) -> TurnResult:
 	var r: TurnResult = TurnResult.new()
 	r.state = state.clone()
+	# Real scenarios are absorbing after victory or defeat; the historical synthetic `test`
+	# fixture has no scenario definition and deliberately exercises post-outcome golden turns.
+	if state.is_over() and Content.db().scenarios.has(state.scenario_id):
+		r.state_hash = r.state.state_hash()
+		for cmd: Command in player_commands:
+			if cmd != null:
+				r.rejected.append({"command": cmd.to_dict(), "reason_key": "error.game.finished", "args": {}})
+		return r
 	var ai_commands: Array[Command] = []
 	for eid: String in DictIO.sorted_keys(state.empires):
 		var e: Empire = state.empires[eid]
@@ -120,21 +128,24 @@ static func _phase_stability(r: TurnResult) -> void:
 
 
 static func _phase_commands(r: TurnResult, player_commands: Array[Command], ai_commands: Array[Command]) -> void:
-	var all: Array[Command] = player_commands.duplicate()
-	all.append_array(ai_commands)
-	for cmd: Command in all:
-		var v: Result = cmd.validate(r.state)
-		if v.ok:
-			cmd.apply(r.state)
-			continue
-		r.rejected.append({"command": cmd.to_dict(), "reason_key": v.reason_key, "args": v.args})
-		if r.state.empires.has(cmd.empire_id) and r.state.empires[cmd.empire_id].is_player:
-			var args: Dictionary = v.args.duplicate()
-			args["reason_key"] = v.reason_key
-			r.report_items.append(
-				ReportItem.make(ReportItem.CATEGORY_COLONIES, 60, "report.order_rejected", args)
-					.with_severity(ReportItem.SEVERITY_WARNING)
-			)
+	# Player input can act only for the active player; AI orders are a distinct trusted source.
+	for is_player_order: bool in [true, false]:
+		var commands: Array[Command] = player_commands if is_player_order else ai_commands
+		for cmd: Command in commands:
+			if cmd == null:
+				continue
+			var v: Result = Result.fail("error.command.not_player") if is_player_order and cmd.empire_id != r.state.player_id else cmd.validate(r.state)
+			if v.ok:
+				cmd.apply(r.state)
+				continue
+			r.rejected.append({"command": cmd.to_dict(), "reason_key": v.reason_key, "args": v.args})
+			if is_player_order and r.state.player() != null and r.state.player().is_player:
+				var args: Dictionary = v.args.duplicate()
+				args["reason_key"] = v.reason_key
+				r.report_items.append(
+					ReportItem.make(ReportItem.CATEGORY_COLONIES, 60, "report.order_rejected", args)
+						.with_severity(ReportItem.SEVERITY_WARNING)
+				)
 
 
 static func _phase_report(r: TurnResult) -> void:

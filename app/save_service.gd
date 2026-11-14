@@ -17,13 +17,15 @@ const KIND_MANUAL: String = "manual"
 
 ## Where saves go; tests point it at a scratch folder.
 var dir: String = DIR
+var _save_attempt: int = 0
 
 
 func _ready() -> void:
 	Game.turn_resolved.connect(_on_turn_resolved)
 
 
-func save(slot: String, state: GameState) -> Error:
+func save(slot: String, state: GameState, capture_thumbnail: bool = true) -> Error:
+	_save_attempt += 1
 	DirAccess.make_dir_recursive_absolute(dir)
 	var graphics: Dictionary = Worlds.save_fields(state)
 	var text: String = SaveSerializer.to_text(state, Game.game_version(), graphics["presentation"], graphics["presentation_overlay"])
@@ -44,15 +46,24 @@ func save(slot: String, state: GameState) -> Error:
 		return write_error
 	var replace_error: Error = DirAccess.rename_absolute(pending, _path(slot))
 	if replace_error != OK: return replace_error
-	_write_thumbnail(slot)
+	if capture_thumbnail:
+		_write_thumbnail(slot, _capture_thumbnail())
 	return OK
 
 
 ## The auto-save for a turn, plus a checkpoint on every fifth turn.
 func autosave(state: GameState) -> Error:
-	var err: Error = save("%s_%d" % [KIND_AUTO, state.turn % AUTO_RING], state)
+	var auto: String = "%s_%d" % [KIND_AUTO, state.turn % AUTO_RING]
+	var err: Error = save(auto, state, false)
+	var thumbnail: PackedByteArray = PackedByteArray()
+	if err == OK:
+		thumbnail = _capture_thumbnail()
+		_write_thumbnail(auto, thumbnail)
 	if err == OK and state.turn % CHECKPOINT_EVERY == 0:
-		err = save("%s_%d" % [KIND_CHECKPOINT, (state.turn / CHECKPOINT_EVERY) % CHECKPOINT_RING], state)
+		var checkpoint: String = "%s_%d" % [KIND_CHECKPOINT, (state.turn / CHECKPOINT_EVERY) % CHECKPOINT_RING]
+		err = save(checkpoint, state, false)
+		if err == OK:
+			_write_thumbnail(checkpoint, thumbnail)
 	return err
 
 
@@ -150,19 +161,33 @@ func thumbnail_path(slot: String) -> String:
 
 func _on_turn_resolved(r: TurnResult) -> void:
 	if Settings.persist and r.state != null:
-		autosave(r.state)
+		if autosave(r.state) != OK:
+			_notify_autosave_failure.call_deferred(Game.session_serial, _save_attempt)
 
 
-func _write_thumbnail(slot: String) -> void:
+func _notify_autosave_failure(session: int, attempt: int) -> void:
+	if Game.session_serial == session and _save_attempt == attempt:
+		Overlay.toast(Strings.fmt("ui.game.autosave_failed"), ReportItem.SEVERITY_WARNING)
+
+
+func _capture_thumbnail() -> PackedByteArray:
 	if DisplayServer.get_name() == "headless" or not is_inside_tree():
-		return
+		return PackedByteArray()
 	var tex: ViewportTexture = get_viewport().get_texture()
 	var img: Image = tex.get_image() if tex != null else null
 	if img == null or img.is_empty():
-		return
+		return PackedByteArray()
 	# As wide as THUMB_SIZE, keeping the window's shape (phones are wider than 16:9).
 	img.resize(THUMB_SIZE.x, maxi(1, roundi(THUMB_SIZE.x * img.get_height() / float(img.get_width()))), Image.INTERPOLATE_BILINEAR)
-	img.save_png(thumbnail_path(slot))
+	return img.save_png_to_buffer()
+
+
+func _write_thumbnail(slot: String, bytes: PackedByteArray) -> void:
+	if bytes.is_empty():
+		return
+	var f: FileAccess = FileAccess.open(thumbnail_path(slot), FileAccess.WRITE)
+	if f != null:
+		f.store_buffer(bytes)
 
 
 func _path(slot: String) -> String:
