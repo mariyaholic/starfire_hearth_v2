@@ -1,0 +1,14 @@
+{
+  "request_count": 7,
+  "same_origin_http": 6,
+  "same_origin_local_blob": 1,
+  "other_destinations": [],
+  "methods": [
+    "GET"
+  ],
+  "request_body_bytes": 0,
+  "websockets": [],
+  "page_console_errors": [],
+  "harness_failure": "Page.screenshot: Timeout 20000ms exceeded.\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n",
+  "scope": "Browser-context request/response observation during the actual bounded normal release flow; not a host-wide packet capture."
+}

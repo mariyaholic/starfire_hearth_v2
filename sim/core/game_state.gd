@@ -55,9 +55,42 @@ var outcome_reason: String = ""
 
 ## Allocates a new stable id such as "col_0007".
 func next_id(prefix: String) -> String:
-	var n: int = counters.get(prefix, 0) + 1
+	var n: int = maxi(0, counters.get(prefix, 0))
+	var candidate: String = ""
+	# A stale counter can occur in an older or repaired save. Never overwrite a live entity.
+	while true:
+		# The integer counter can be malformed or exhausted; restart before signed overflow.
+		if n == 9223372036854775807:
+			n = 0
+		n += 1
+		candidate = "%s_%04d" % [prefix, n]
+		if not _id_in_use(prefix, candidate):
+			break
 	counters[prefix] = n
-	return "%s_%04d" % [prefix, n]
+	return candidate
+
+
+func _id_in_use(prefix: String, candidate: String) -> bool:
+	match prefix:
+		"col": return colonies.has(candidate)
+		"flt": return fleets.has(candidate)
+		"shp": return ships.has(candidate)
+		"lane": return lanes.has(candidate)
+		"des": return designs.has(candidate)
+		"mod": return modifiers.has(candidate)
+		"bld":
+			for c: Colony in colonies.values():
+				for item: BuildItem in c.queue:
+					if item.id == candidate: return true
+		"evt":
+			for event: EventInstance in events_pending:
+				if event.id == candidate: return true
+			for event: EventInstance in events_scheduled:
+				if event.id == candidate: return true
+		"sfx":
+			for effect: ScheduledEffect in scheduled_effects:
+				if effect.id == candidate: return true
+	return false
 
 
 func player() -> Empire:

@@ -16,10 +16,17 @@ func _init(base: GameState) -> void:
 
 ## Validates and queues a command. On failure nothing changes and the Result says why.
 func submit(cmd: Command) -> Result:
-	var r: Result = cmd.validate(_preview)
+	# Commands are mutable RefCounted objects. Capture the exact order shown in the preview;
+	# later edits to the caller's instance must not silently alter the queued operation.
+	var snapshot: Command = CommandRegistry.from_dict(cmd.to_dict()) if cmd != null else null
+	if snapshot == null:
+		return Result.fail("error.command.unknown")
+	if snapshot.empire_id != _base.player_id:
+		return Result.fail("error.command.not_player")
+	var r: Result = snapshot.validate(_preview)
 	if r.ok:
-		cmd.apply(_preview)
-		_commands.append(cmd)
+		snapshot.apply(_preview)
+		_commands.append(snapshot)
 	return r
 
 
@@ -49,7 +56,11 @@ func preview() -> GameState:
 
 
 func commands() -> Array[Command]:
-	return _commands.duplicate()
+	# Do not expose the mutable orders retained by the queue to UI, replay, or callers.
+	var snapshots: Array[Command] = []
+	for cmd: Command in _commands:
+		snapshots.append(CommandRegistry.from_dict(cmd.to_dict()))
+	return snapshots
 
 
 func size() -> int:

@@ -1,0 +1,736 @@
+{
+  "authoritative_state": {
+    "colonies": {
+      "col_0001": {
+        "autonomous_from": "",
+        "autonomy_turns": 0,
+        "buildings": [
+          {
+            "building_id": "ark_hull",
+            "slot": -1
+          },
+          {
+            "building_id": "spaceport",
+            "slot": 6
+          }
+        ],
+        "districts": [
+          {
+            "branch": "",
+            "district_id": "habitation",
+            "slot": 0,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "habitation",
+            "slot": 1,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "agriculture",
+            "slot": 2,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "agriculture",
+            "slot": 3,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "energy",
+            "slot": 4,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "mining",
+            "slot": 5,
+            "tier": 1
+          }
+        ],
+        "famine_turns": 0,
+        "founded_turn": 1,
+        "governor_budget_bp": 5000,
+        "governor_focus": "balanced",
+        "governor_funds": 0,
+        "governor_on": false,
+        "governor_vetoes": {},
+        "growth": 4000,
+        "id": "col_0001",
+        "job_priority": [
+          "food",
+          "energy",
+          "minerals",
+          "alloys",
+          "research",
+          "clerks"
+        ],
+        "name": "",
+        "outpost_kind": "",
+        "owner_id": "emp_player",
+        "planet_id": "pl_aster",
+        "pops": 10,
+        "queue": [],
+        "stability": 67
+      },
+      "col_0002": {
+        "autonomous_from": "",
+        "autonomy_turns": 0,
+        "buildings": [],
+        "districts": [
+          {
+            "branch": "",
+            "district_id": "habitation",
+            "slot": 0,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "habitation",
+            "slot": 1,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "agriculture",
+            "slot": 2,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "agriculture",
+            "slot": 3,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "energy",
+            "slot": 4,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "mining",
+            "slot": 5,
+            "tier": 1
+          }
+        ],
+        "famine_turns": 0,
+        "founded_turn": 1,
+        "governor_budget_bp": 5000,
+        "governor_focus": "balanced",
+        "governor_funds": 0,
+        "governor_on": false,
+        "governor_vetoes": {},
+        "growth": 3200,
+        "id": "col_0002",
+        "job_priority": [
+          "food",
+          "energy",
+          "minerals",
+          "alloys",
+          "research",
+          "clerks"
+        ],
+        "name": "",
+        "outpost_kind": "",
+        "owner_id": "emp_player",
+        "planet_id": "pl_vesper",
+        "pops": 6,
+        "queue": [],
+        "stability": 60
+      }
+    },
+    "counters": {
+      "col": 2,
+      "flt": 3,
+      "lane": 4,
+      "shp": 3
+    },
+    "designs": {},
+    "difficulty_id": "normal",
+    "director_next": 0,
+    "empires": {
+      "emp_player": {
+        "capital_id": "col_0001",
+        "decode_progress": 0,
+        "energy_short_turns": 0,
+        "faction_id": "ark",
+        "flags": {},
+        "id": "emp_player",
+        "is_player": true,
+        "known_systems": {
+          "sys_ember": "surveyed",
+          "sys_halden": "surveyed",
+          "sys_shroud": "surveyed",
+          "sys_tessel": "surveyed",
+          "sys_vesper": "surveyed"
+        },
+        "legacies": [],
+        "name_key": "faction.ark.name",
+        "noise": 0,
+        "ordinances": {},
+        "origin_id": "generation_ark",
+        "research": {
+          "engineering": {
+            "branch": "engineering",
+            "card": "",
+            "draws": 2,
+            "hand": [
+              "automated_mining",
+              "orbital_construction"
+            ],
+            "progress": 360
+          },
+          "physics": {
+            "branch": "physics",
+            "card": "",
+            "draws": 2,
+            "hand": [
+              "fusion_efficiency",
+              "sensor_arrays"
+            ],
+            "progress": 360
+          },
+          "society": {
+            "branch": "society",
+            "card": "",
+            "draws": 0,
+            "hand": [
+              "hydroponics",
+              "frontier_medicine",
+              "civic_charters"
+            ],
+            "progress": 360
+          }
+        },
+        "stock": {
+          "alloys": 20000,
+          "energy": 23200,
+          "food": 25264,
+          "influence": 20000,
+          "minerals": 22200
+        },
+        "surveyed_planets": [
+          "pl_aster",
+          "pl_tessel",
+          "pl_vesper",
+          "pl_shroud_giant"
+        ],
+        "tech_turns": {},
+        "techs": [
+          "habitat_domes"
+        ]
+      }
+    },
+    "event_log": [],
+    "event_memory": {
+      "m2a_halden_cache": 35,
+      "m2a_shroud_derelict": 36
+    },
+    "events_pending": [],
+    "events_scheduled": [],
+    "flags": {
+      "expedition:completed_turn": 40,
+      "expedition:continued": 1,
+      "m2a_halden_resolved": 35,
+      "m2a_halden_salvage": 35,
+      "m2a_shroud_resolved": 36,
+      "m2a_shroud_supplies": 36
+    },
+    "fleets": {
+      "flt_0001": {
+        "admiral_id": "",
+        "id": "flt_0001",
+        "move_progress": 0,
+        "owner_id": "emp_player",
+        "path": [],
+        "ship_ids": [
+          "shp_0001"
+        ],
+        "stance": "balanced",
+        "system_id": "sys_shroud"
+      },
+      "flt_0002": {
+        "admiral_id": "",
+        "id": "flt_0002",
+        "move_progress": 3,
+        "owner_id": "emp_player",
+        "path": [
+          "sys_vesper"
+        ],
+        "ship_ids": [
+          "shp_0002"
+        ],
+        "stance": "balanced",
+        "system_id": "sys_ember"
+      },
+      "flt_0003": {
+        "admiral_id": "",
+        "id": "flt_0003",
+        "move_progress": 0,
+        "owner_id": "emp_player",
+        "path": [],
+        "ship_ids": [
+          "shp_0003"
+        ],
+        "stance": "balanced",
+        "system_id": "sys_ember"
+      }
+    },
+    "game_seed": 57,
+    "lanes": {
+      "lane_0001": {
+        "a": "sys_ember",
+        "b": "sys_tessel",
+        "id": "lane_0001",
+        "kind": "deep",
+        "length_cly": 200
+      },
+      "lane_0002": {
+        "a": "sys_tessel",
+        "b": "sys_halden",
+        "id": "lane_0002",
+        "kind": "deep",
+        "length_cly": 200
+      },
+      "lane_0003": {
+        "a": "sys_ember",
+        "b": "sys_vesper",
+        "id": "lane_0003",
+        "kind": "deep",
+        "length_cly": 350
+      },
+      "lane_0004": {
+        "a": "sys_vesper",
+        "b": "sys_shroud",
+        "id": "lane_0004",
+        "kind": "deep",
+        "length_cly": 200
+      }
+    },
+    "modifiers": {},
+    "objective_progress": {},
+    "objectives_done": {
+      "develop_vesper": 39,
+      "m2a_resolve_cache": 39,
+      "survey_frontier": 39,
+      "visit_gate": 39
+    },
+    "outcome": "",
+    "outcome_reason": "",
+    "outcome_turn": 0,
+    "planets": {
+      "pl_aster": {
+        "art_seed": 11,
+        "blocked_slots": [
+          7,
+          15
+        ],
+        "colony_id": "col_0001",
+        "id": "pl_aster",
+        "name_key": "planet.aster.name",
+        "orbit": 1,
+        "size": "medium",
+        "system_id": "sys_ember",
+        "traits": [
+          "fertile_soil"
+        ],
+        "type": "continental"
+      },
+      "pl_shroud_giant": {
+        "art_seed": 83,
+        "blocked_slots": [],
+        "colony_id": "",
+        "id": "pl_shroud_giant",
+        "name_key": "planet.shroud_giant.name",
+        "orbit": 1,
+        "size": "",
+        "system_id": "sys_shroud",
+        "traits": [],
+        "type": "gas_giant"
+      },
+      "pl_tessel": {
+        "art_seed": 61,
+        "blocked_slots": [],
+        "colony_id": "",
+        "id": "pl_tessel",
+        "name_key": "planet.tessel.name",
+        "orbit": 1,
+        "size": "",
+        "system_id": "sys_tessel",
+        "traits": [],
+        "type": "asteroid_belt"
+      },
+      "pl_vesper": {
+        "art_seed": 71,
+        "blocked_slots": [],
+        "colony_id": "col_0002",
+        "id": "pl_vesper",
+        "name_key": "planet.vesper.name",
+        "orbit": 1,
+        "size": "medium",
+        "system_id": "sys_vesper",
+        "traits": [],
+        "type": "ocean"
+      }
+    },
+    "player_id": "emp_player",
+    "scenario_id": "m2a_expedition",
+    "scheduled_effects": [],
+    "schema_version": 2,
+    "ships": {
+      "shp_0001": {
+        "armor": 0,
+        "design_id": "",
+        "fleet_id": "flt_0001",
+        "hull": "construction_ship",
+        "id": "shp_0001",
+        "owner_id": "emp_player",
+        "shield": 0,
+        "structure": 0,
+        "task": "outpost",
+        "task_param": "research",
+        "task_target": "pl_shroud_giant",
+        "task_turns": 1
+      },
+      "shp_0002": {
+        "armor": 0,
+        "design_id": "",
+        "fleet_id": "flt_0002",
+        "hull": "survey_probe",
+        "id": "shp_0002",
+        "owner_id": "emp_player",
+        "shield": 0,
+        "structure": 0,
+        "task": "",
+        "task_param": "",
+        "task_target": "",
+        "task_turns": 0
+      },
+      "shp_0003": {
+        "armor": 0,
+        "design_id": "",
+        "fleet_id": "flt_0003",
+        "hull": "colony_ship",
+        "id": "shp_0003",
+        "owner_id": "emp_player",
+        "shield": 0,
+        "structure": 0,
+        "task": "",
+        "task_param": "",
+        "task_target": "",
+        "task_turns": 0
+      }
+    },
+    "systems": {
+      "sys_ember": {
+        "beacon": "none",
+        "id": "sys_ember",
+        "magnitude": 3,
+        "name_key": "system.ember.name",
+        "owner_id": "emp_player",
+        "planet_ids": [
+          "pl_aster"
+        ],
+        "specials": [],
+        "spectral": "K",
+        "x": 0,
+        "y": 0
+      },
+      "sys_halden": {
+        "beacon": "dormant",
+        "id": "sys_halden",
+        "magnitude": 3,
+        "name_key": "system.halden.name",
+        "owner_id": "",
+        "planet_ids": [],
+        "specials": [
+          "dormant_beacon"
+        ],
+        "spectral": "G",
+        "x": 420,
+        "y": -180
+      },
+      "sys_shroud": {
+        "beacon": "none",
+        "id": "sys_shroud",
+        "magnitude": 2,
+        "name_key": "system.shroud.name",
+        "owner_id": "",
+        "planet_ids": [
+          "pl_shroud_giant"
+        ],
+        "specials": [
+          "nebula",
+          "derelict"
+        ],
+        "spectral": "M",
+        "x": -510,
+        "y": -260
+      },
+      "sys_tessel": {
+        "beacon": "none",
+        "id": "sys_tessel",
+        "magnitude": 3,
+        "name_key": "system.tessel.name",
+        "owner_id": "",
+        "planet_ids": [
+          "pl_tessel"
+        ],
+        "specials": [],
+        "spectral": "G",
+        "x": 220,
+        "y": -90
+      },
+      "sys_vesper": {
+        "beacon": "none",
+        "id": "sys_vesper",
+        "magnitude": 3,
+        "name_key": "system.vesper.name",
+        "owner_id": "",
+        "planet_ids": [
+          "pl_vesper"
+        ],
+        "specials": [],
+        "spectral": "G",
+        "x": -310,
+        "y": -260
+      }
+    },
+    "turn": 42
+  },
+  "auto_enabled": false,
+  "auto_status": "disabled",
+  "builder_param": "research",
+  "builder_system": "sys_shroud",
+  "builder_task": "outpost",
+  "builder_task_turns": 1,
+  "buttons": [
+    {
+      "disabled": false,
+      "name": "More",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@2155/@HBoxContainer@2156/More",
+      "rect": "[P: (1595.0, 4.0), S: (101.0, 40.0)]",
+      "text": "More"
+    },
+    {
+      "disabled": false,
+      "name": "Menu",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@2155/@HBoxContainer@2156/Menu",
+      "rect": "[P: (1868.0, 4.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_galaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_galaxy",
+      "rect": "[P: (12.0, 52.0), S: (181.0, 40.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_system",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_system",
+      "rect": "[P: (12.0, 100.0), S: (181.0, 40.0)]",
+      "text": "System"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_colony",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_colony",
+      "rect": "[P: (12.0, 148.0), S: (181.0, 40.0)]",
+      "text": "Colony"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_research",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_research",
+      "rect": "[P: (12.0, 196.0), S: (181.0, 40.0)]",
+      "text": "Research"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_ordinances",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_ordinances",
+      "rect": "[P: (12.0, 244.0), S: (181.0, 40.0)]",
+      "text": "Ordinances"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_market",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_market",
+      "rect": "[P: (12.0, 292.0), S: (181.0, 40.0)]",
+      "text": "Market"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_objectives",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Nav_objectives",
+      "rect": "[P: (12.0, 340.0), S: (181.0, 40.0)]",
+      "text": "Objectives"
+    },
+    {
+      "disabled": false,
+      "name": "FleetTravel",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/FleetTravel",
+      "rect": "[P: (12.0, 892.0), S: (181.0, 40.0)]",
+      "text": "Fleet travel"
+    },
+    {
+      "disabled": false,
+      "name": "ModeToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/ModeToggle",
+      "rect": "[P: (12.0, 940.0), S: (181.0, 40.0)]",
+      "text": "Immersive view"
+    },
+    {
+      "disabled": true,
+      "name": "Undo",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/Undo",
+      "rect": "[P: (12.0, 988.0), S: (181.0, 40.0)]",
+      "text": "Undo"
+    },
+    {
+      "disabled": false,
+      "name": "EndTurn",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/NavBar/@MarginContainer@2158/@VBoxContainer@2159/EndTurn",
+      "rect": "[P: (12.0, 1036.0), S: (181.0, 40.0)]",
+      "text": "End turn"
+    },
+    {
+      "disabled": false,
+      "name": "SystemGalaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2640/SystemGalaxy",
+      "rect": "[P: (421.0, 36.0), S: (115.0, 40.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "SystemOverview",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2640/SystemOverview",
+      "rect": "[P: (544.0, 36.0), S: (133.0, 40.0)]",
+      "text": "Overview"
+    },
+    {
+      "disabled": false,
+      "name": "Focus_sys_shroud",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2640/Focus_sys_shroud",
+      "rect": "[P: (685.0, 36.0), S: (148.0, 40.0)]",
+      "text": "The Shroud"
+    },
+    {
+      "disabled": false,
+      "name": "Focus_pl_shroud_giant",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2640/Focus_pl_shroud_giant",
+      "rect": "[P: (841.0, 36.0), S: (92.0, 40.0)]",
+      "text": "Veil"
+    },
+    {
+      "disabled": false,
+      "name": "Focus_shp_0001",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2640/Focus_shp_0001",
+      "rect": "[P: (941.0, 36.0), S: (195.0, 40.0)]",
+      "text": "Construction Ship"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceStrategic",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2643/AppearanceStrategic",
+      "rect": "[P: (421.0, 84.0), S: (168.0, 40.0)]",
+      "text": "Strategic view"
+    },
+    {
+      "disabled": false,
+      "name": "CameraReset",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2643/CameraReset",
+      "rect": "[P: (597.0, 84.0), S: (165.0, 40.0)]",
+      "text": "Reset camera"
+    },
+    {
+      "disabled": false,
+      "name": "WorldPause",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2643/WorldPause",
+      "rect": "[P: (770.0, 84.0), S: (108.0, 40.0)]",
+      "text": "Pause"
+    },
+    {
+      "disabled": false,
+      "name": "OrbitVisibility",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2643/OrbitVisibility",
+      "rect": "[P: (886.0, 84.0), S: (199.0, 40.0)]",
+      "text": "Show orbital paths"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeVisualFinish",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2643/UpgradeVisualFinish",
+      "rect": "[P: (1231.0, 84.0), S: (218.0, 40.0)]",
+      "text": "Use new visual finish"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeOrbits",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/@HFlowContainer@2643/UpgradeOrbits",
+      "rect": "[P: (421.0, 132.0), S: (315.0, 40.0)]",
+      "text": "Enable orbital motion for this save"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceOptionsToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/SystemHeader/@VBoxContainer@2632/@VBoxContainer@2634/AppearanceOptionsToggle",
+      "rect": "[P: (421.0, 180.0), S: (1277.0, 38.0)]",
+      "text": "Appearance options"
+    },
+    {
+      "disabled": true,
+      "name": "@Button@2714",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/@BoxContainer@2641/SystemInspector/PlanetPanel/@VBoxContainer@2664/@VBoxContainer@2666/@VBoxContainer@2723/Outpost_energy/@Button@2714",
+      "rect": "[P: (1081.0, 724.0), S: (617.0, 40.0)]",
+      "text": "Build a Energy outpost with the Construction Ship"
+    },
+    {
+      "disabled": true,
+      "name": "@Button@2724",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@2157/ViewHost/Scroll/@VBoxContainer@2162/View/@VBoxContainer@2746/@BoxContainer@2641/SystemInspector/PlanetPanel/@VBoxContainer@2664/@VBoxContainer@2666/@VBoxContainer@2733/Outpost_research/@Button@2724",
+      "rect": "[P: (1081.0, 826.0), S: (617.0, 40.0)]",
+      "text": "Build a Research outpost with the Construction Ship"
+    }
+  ],
+  "completion_turn": 40,
+  "continued": true,
+  "energy": 23200,
+  "flags": {},
+  "food": 25264,
+  "global_flags": {
+    "expedition:completed_turn": 40,
+    "expedition:continued": 1,
+    "m2a_halden_resolved": 35,
+    "m2a_halden_salvage": 35,
+    "m2a_shroud_resolved": 36,
+    "m2a_shroud_supplies": 36
+  },
+  "influence": 20000,
+  "logical_size": "(1920.0, 1080.0)",
+  "minerals": 22200,
+  "outcome": "",
+  "outcome_turn": 0,
+  "outpost_id": "",
+  "pending_events": [],
+  "probe_path": [
+    "sys_vesper"
+  ],
+  "probe_progress": 3,
+  "probe_system": "sys_ember",
+  "probe_task": "",
+  "remaining_eta": 2,
+  "route": "game",
+  "scale": 1.0,
+  "state_hash": "95d181b86c06bf4af485e54464acd7a18c4636ba9d9131f28786eff2981eea6a",
+  "top_overlay": "",
+  "turn": 42
+}

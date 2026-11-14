@@ -1,0 +1,40 @@
+{
+  "pass": true,
+  "expected_state_delta_only": [
+    "outcome",
+    "outcome_turn",
+    "outcome_reason",
+    "flags.expedition:continued",
+    "flags.expedition:completed_turn"
+  ],
+  "entire_authoritative_dict_matches_expected": true,
+  "saved_envelope_bytes_identical_after_reload_and_title_continue": true,
+  "turn": 41,
+  "completion_turn": 40,
+  "builder_task_turns": 2,
+  "probe_progress": 2,
+  "ack_reload": {
+    "tap_start_to_detection_ms": 3091.23,
+    "detection_to_reload_call_ms": 0.0018,
+    "polls": [
+      {
+        "elapsed_ms": 1547.8,
+        "rgb": [
+          11,
+          22,
+          34
+        ]
+      },
+      {
+        "elapsed_ms": 3091.22,
+        "rgb": [
+          19,
+          38,
+          58
+        ]
+      }
+    ],
+    "visual_detection": "First actual rendered active-game topbar sample RGB19,38,58; no post-detection delay, capture or saved-record read."
+  },
+  "errors": []
+}

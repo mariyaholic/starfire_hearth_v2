@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "before_turn": 41,
+  "after_turn": 41,
+  "completion_turn": 40,
+  "only_changes": [
+    "outcome",
+    "outcome_turn",
+    "outcome_reason",
+    "flags.expedition:continued",
+    "flags.expedition:completed_turn"
+  ],
+  "unchanged": "All other authoritative fields, including all stocks, fleet paths/progress, ship tasks/countdowns, colonies, research, event memory and counters."
+}

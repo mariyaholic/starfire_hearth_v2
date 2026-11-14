@@ -1,0 +1,30 @@
+{
+  "final_hash": "67a42761225b0e12d06d267010ea50dd01830c802144d13a20c48659eea5cff0",
+  "fixture": "Synthetic turn-1 victory in m2a_expedition; required objectives premarked, normal Objectives.update and ExpeditionContinuation.begin; seed 1 normal difficulty.",
+  "issued_commands": {
+    "build_outpost": 1,
+    "choose_event": 2,
+    "colonise": 1,
+    "move_fleet": 2,
+    "pick_research": 13,
+    "set_auto_explore": 1
+  },
+  "last_resolved_turn": 200,
+  "last_save_bytes": 7453,
+  "limits": "One machine, one seed and one simple policy. Measurements cover TurnProcessor.run only, exclude UI/frame rendering, command preparation, invariant checks and save serialization.",
+  "max_save_bytes": 7454,
+  "next_turn": 201,
+  "original_win_turn": 1,
+  "outcome": "",
+  "outcome_turn": 0,
+  "policy": "After fixture: legal queued orders only; choose free event choice when valid, pick first offered card in each branch, start one survey automation, send builder to Tessel minerals and colony ship to Vesper. No direct state edits after initial fixture.",
+  "processor_max_ms": 29.396,
+  "processor_mean_ms": 7.992055,
+  "processor_p95_ms": 20.342,
+  "start_turn": 1,
+  "starting_state_hash": "94a0e01724306db083fc3485e7d7ac80ec65963674635584d1dcc567fbd17b10",
+  "turns_processed": 200,
+  "validation_waits": {},
+  "verified_save_round_trips": 20,
+  "violations": []
+}

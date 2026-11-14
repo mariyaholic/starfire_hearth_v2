@@ -1,0 +1,252 @@
+{
+  "local_storage": {
+    "starfire_hearth.view_mode.v1": "command"
+  },
+  "session_storage": {},
+  "databases": [
+    {
+      "name": "/userfs",
+      "version": 21,
+      "stores": [
+        {
+          "name": "FILE_DATA",
+          "entries": [
+            {
+              "key": "/userfs/godot",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.339000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.339000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:21:55.687000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/settings.cfg",
+              "mode": 33206,
+              "timestamp": "2026-11-14 08:21:55.690000+00:00",
+              "bytes": 614,
+              "text": "[display]\n\nsettings_version=2\ntext_scale=1.0\nui_scale=1.0\nappearance=\"3d\"\nvisual_quality=\"auto\"\nview_mode=\"command\"\nwindow_mode=\"windowed\"\nwindow_monitor=0\nwindow_width=1920\nwindow_height=1080\nwindow_x=-100000\nwindow_y=-100000\nwindow_maximized=false\nrender_scale=1.0\nvsync_mode=\"enabled\"\nframe_cap=0\nanti_aliasing=\"2x\"\norbit_visible=true\norbit_opacity=0.72\n\n[accessibility]\n\nhigh_contrast=false\nreduce_motion=false\n\n[game]\n\nhints_enabled=true\n\n[interface]\n\nversion=1\nfinish=\"frosted\"\nopacity=0.82\nblur=8.0\ngloss=0.1\nedge=0.15\n\n[audio]\n\nui_volume=0.8\neffects_volume=0.8\nvoice_volume=0.8\nmusic_volume=0.7\nmuted=true\n"
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.823000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CanvasOcclusionShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.688000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CanvasOcclusionShaderGLES3/f818a8f730d58a711992c8a4e0128943b6de769e22c755bf25fa9b2c91eb797a",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.688000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CanvasSdfShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.584000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CanvasSdfShaderGLES3/bb66bedc1351d45606a9e7a58d673d19a5dcf38d178d630d1254904a435ccd11",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.584000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CanvasShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.687000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CanvasShaderGLES3/8e0fd2a4dcaed358e6f55b4a13dac2e99da849634cb76e03fa72090229e6bf2d",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.687000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CopyShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.611000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CopyShaderGLES3/227703cbe4dbfc7cd2037ec10eef081d3f1f5593f23f5be9a7adb858e12a0b59",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.611000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CubemapFilterShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.676000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/CubemapFilterShaderGLES3/b6ae124cd1d4a7e561bd528bd4a77c138ee3a3ecec10dff52834da05a584150b",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.676000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/FeedShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.684000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/FeedShaderGLES3/bf3e769fb9cccb160c1455e48ff14753cb627a350dd01a48eb0f0c360453e632",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.684000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/GlowShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.676000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/GlowShaderGLES3/451048476e1fd0d1e3d2ee406829fdfa053b6cd3cd83ca130a227981bae863d2",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.676000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/ParticlesCopyShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.611000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/ParticlesCopyShaderGLES3/5a972e52ef34baa6d9112f5010053a97977d72e736e5df0bdaf9397b3f4235ad",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.611000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/ParticlesShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.595000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/ParticlesShaderGLES3/f214330bd79fb762157c96bdfee38537c739e4c46a27337eee2cd92c69e5f3fd",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.595000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/PostShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.677000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/PostShaderGLES3/729cdac5e0043b26c3ab71ce2dd86ddffee039defeae03f3ef5a0caa17ef0345",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.677000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/SceneShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.692000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/SceneShaderGLES3/81fd88adc17955a891cb1328d77f82f2b14140dac9c8cf7d6d86f91312221718",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.692000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/SkeletonShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.590000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/SkeletonShaderGLES3/4d6fb1c1f824f2814a65e4f43bf7c7d011ecfa4b240872b642ed708dce520009",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.590000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/SkyShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.822000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/SkyShaderGLES3/d030fd8e6c7c05254b38b058d2bfe8373638ee5d4e13abfc4957c6e2b708bef8",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.822000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/TexBlitShaderGLES3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.823000+00:00",
+              "bytes": 0,
+              "text": null
+            },
+            {
+              "key": "/userfs/godot/app_userdata/Starfire Hearth/shader_cache/TexBlitShaderGLES3/b314a86ef543f95f31f3abeafa04de0fb5d0bc188a65b08a74fdd40c707e1ed3",
+              "mode": 16893,
+              "timestamp": "2026-11-14 08:18:14.823000+00:00",
+              "bytes": 0,
+              "text": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "service_workers": [],
+  "cookies": []
+}

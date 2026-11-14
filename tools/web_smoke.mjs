@@ -66,57 +66,119 @@ await mkdir(outDir, { recursive: true });
 // Keep Godot's editor from importing the screenshots as textures.
 await writeFile(join(outDir, '.gdignore'), '');
 
-// Software WebGL 2, as on a machine without a GPU.
-const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+// Give software WebGL a bounded capture window, including on loaded CI runners.
+const captureTimeoutMs = 30_000;
+const navigationTimeoutMs = 30_000;
+const browserArgs = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
 let failures = 0;
 for (const device of DEVICES) {
-  const context = await browser.newContext(device.context);
-  const page = await context.newPage();
-  const errors = [];
+  // A fresh browser per profile releases the previous SwiftShader/WASM processes. The title
+  // context is closed before the game starts, so at most one Godot instance is live at a time.
+  let browser = null;
+  let context = null;
+  let stage = 'launch';
   let layout = null;
-  page.on('console', (msg) => {
-    const text = msg.text();
-    const m = text.match(/^Starfire Hearth layout: ([^,]+, [^,]+),/);
-    if (m) layout = m[1];
-    if (msg.type() === 'error') errors.push(text);
-  });
-  page.on('pageerror', (err) => errors.push(err.message));
-  const started = Date.now();
-  await page.goto(url);
-  // The boot overlay is removed once the engine runs the main scene.
-  const booted = await page
-    .waitForFunction(() => !document.getElementById('status'), null, { timeout: bootTimeoutMs, polling: 250 })
-    .then(() => true, () => false);
-  const bootSeconds = ((Date.now() - started) / 1000).toFixed(1);
-  await page.waitForTimeout(3000);
-  await page.screenshot({ path: join(outDir, `web_${device.id}.png`) });
-  const problems = [];
-  // A new game, played for one turn.
-  const gamePage = await context.newPage();
   let smokeLine = null;
-  gamePage.on('console', (msg) => {
-    const text = msg.text();
-    if (text.startsWith('Starfire Hearth smoke:')) smokeLine = text;
-    if (msg.type() === 'error') errors.push(`(new game) ${text}`);
-  });
-  gamePage.on('pageerror', (err) => errors.push(`(new game) ${err.message}`));
-  await gamePage.goto(`${url}?smoke=begin`);
-  const deadline = Date.now() + bootTimeoutMs;
-  while (!smokeLine && Date.now() < deadline) await gamePage.waitForTimeout(250);
-  await gamePage.waitForTimeout(1000);
-  await gamePage.screenshot({ path: join(outDir, `web_${device.id}_game.png`) });
+  let booted = false;
+  let bootSeconds = null;
+  let cleanupFailed = false;
+  const errors = [];
+  const consoleTail = [];
+  const timingsMs = {};
+  const problems = [];
+  const diagnostics = [];
+  const recordFailure = (where, error) => {
+    const detail = error && error.stack ? error.stack : String(error);
+    problems.push(`${where}: ${detail}`);
+    diagnostics.push({stage: where, error: detail});
+  };
+  const observe = (page, label, captureLayout = false) => {
+    page.on('console', msg => {
+      const text = msg.text();
+      consoleTail.push({page: label, type: msg.type(), text: text.slice(0, 1000)});
+      if (consoleTail.length > 40) consoleTail.shift();
+      if (captureLayout) {
+        const match = text.match(/^Starfire Hearth layout: ([^,]+, [^,]+),/);
+        if (match) layout = match[1];
+      }
+      if (label === 'new game' && text.startsWith('Starfire Hearth smoke:')) smokeLine = text;
+      if (msg.type() === 'error') errors.push(`${label}: ${text}`);
+    });
+    page.on('pageerror', error => errors.push(`${label}: ${error.message}`));
+    page.on('crash', () => errors.push(`${label}: page crashed`));
+  };
+  try {
+    browser = await chromium.launch({args: browserArgs});
+    try {
+      stage = 'title boot';
+      context = await browser.newContext(device.context);
+      const page = await context.newPage();
+      observe(page, 'title', true);
+      const started = Date.now();
+      await page.goto(url, {timeout: navigationTimeoutMs});
+      booted = await page.waitForFunction(() => !document.getElementById('status'), null,
+        {timeout: bootTimeoutMs, polling: 250}).then(() => true, () => false);
+      bootSeconds = ((Date.now() - started) / 1000).toFixed(1);
+      if (booted) {
+        await page.waitForTimeout(3000);
+        stage = 'title screenshot';
+        const captureStarted = Date.now();
+        await page.screenshot({path: join(outDir, `web_${device.id}.png`), timeout: captureTimeoutMs});
+        timingsMs.titleScreenshot = Date.now() - captureStarted;
+      }
+    } catch (error) {
+      recordFailure(stage, error);
+    } finally {
+      if (context) { await context.close(); context = null; }
+    }
+    try {
+      stage = 'game boot';
+      context = await browser.newContext(device.context);
+      const page = await context.newPage();
+      observe(page, 'new game');
+      const gameStarted = Date.now();
+      await page.goto(`${url}?smoke=begin`, {timeout: navigationTimeoutMs});
+      const deadline = Date.now() + bootTimeoutMs;
+      while (!smokeLine && Date.now() < deadline) await page.waitForTimeout(250);
+      timingsMs.gameToSmoke = Date.now() - gameStarted;
+      await page.waitForTimeout(1000);
+      stage = 'game screenshot';
+      const captureStarted = Date.now();
+      await page.screenshot({path: join(outDir, `web_${device.id}_game.png`), timeout: captureTimeoutMs});
+      timingsMs.gameScreenshot = Date.now() - captureStarted;
+    } catch (error) {
+      recordFailure(stage, error);
+    } finally {
+      if (context) { await context.close(); context = null; }
+    }
+  } catch (error) {
+    recordFailure(stage, error);
+  } finally {
+    if (browser) {
+      try { await browser.close(); }
+      catch (error) { cleanupFailed = true; recordFailure('browser close', error); }
+    }
+  }
   if (!smokeLine) problems.push('a new game did not start and play a turn (no smoke line in the console)');
   else if (!/turn 2, state [0-9a-f]{12}, [1-9]\d* save/.test(smokeLine)) problems.push(`unexpected smoke line: ${smokeLine}`);
   else if (expectHash && !smokeLine.includes(`state ${expectHash}`)) problems.push(`the web build reached state ${smokeLine.match(/state ([0-9a-f]+)/)[1]}, the desktop ${expectHash}`);
   if (!booted) problems.push(`engine did not start within ${bootTimeoutMs / 1000} s`);
   if (layout !== device.expect) problems.push(`layout is "${layout}", expected "${device.expect}"`);
-  for (const e of errors) problems.push(`console error: ${e.slice(0, 300)}`);
-  console.log(`${problems.length ? 'FAIL' : 'PASS'}  ${device.id}: started in ${bootSeconds} s, layout "${layout}"; ${smokeLine ?? 'no new game'}`);
-  for (const p of problems) console.log(`      ${p}`);
+  for (const error of errors) problems.push(`console error: ${error.slice(0, 300)}`);
+  const result = {device: device.id, profile: device.context, booted, bootSeconds, layout,
+    expectedLayout: device.expect, smokeLine, expectedHash: expectHash, timingsMs, errors, consoleTail,
+    diagnostics, problems};
+  await writeFile(join(outDir, `web_${device.id}_result.json`), JSON.stringify(result, null, 2) + '\n');
+  console.log(`${problems.length ? 'FAIL' : 'PASS'}  ${device.id}: started in ${bootSeconds ?? 'unknown'} s, layout "${layout}"; ${smokeLine ?? 'no new game'}`);
+  for (const problem of problems) console.log(`      ${problem}`);
   failures += problems.length ? 1 : 0;
-  await context.close();
+  if (cleanupFailed) {
+    const remaining = DEVICES.length - DEVICES.indexOf(device) - 1;
+    failures += remaining;
+    console.log(`FAIL  ${remaining} remaining profile(s) not run because browser cleanup failed`);
+    break;
+  }
 }
-await browser.close();
 server.close();
-console.log(`web_smoke: ${DEVICES.length - failures} of ${DEVICES.length} device(s) passed; screenshots in ${outDir}`);
+console.log(`web_smoke: ${DEVICES.length - failures} of ${DEVICES.length} device(s) passed; screenshots and results in ${outDir}`);
 process.exit(failures ? 1 : 0);

@@ -1,0 +1,93 @@
+{
+  "device": "ipad",
+  "profile": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15",
+    "viewport": {
+      "width": 1180,
+      "height": 820
+    },
+    "deviceScaleFactor": 2,
+    "hasTouch": true
+  },
+  "booted": true,
+  "bootSeconds": "6.4",
+  "layout": "compact, touch",
+  "expectedLayout": "compact, touch",
+  "smokeLine": "Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)",
+  "expectedHash": "911cdd430061",
+  "timingsMs": {
+    "titleScreenshot": 4698,
+    "gameToSmoke": 7812,
+    "gameScreenshot": 3442
+  },
+  "errors": [],
+  "consoleTail": [
+    {
+      "page": "title",
+      "type": "log",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "page": "title",
+      "type": "log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "page": "title",
+      "type": "log",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "page": "title",
+      "type": "log",
+      "text": "Starfire Hearth layout: compact, touch, UI scale 2.00, 1180x820 logical"
+    },
+    {
+      "page": "new game",
+      "type": "log",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "page": "new game",
+      "type": "log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "page": "new game",
+      "type": "log",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "page": "new game",
+      "type": "log",
+      "text": "Starfire Hearth layout: compact, touch, UI scale 2.00, 1180x820 logical"
+    },
+    {
+      "page": "new game",
+      "type": "log",
+      "text": "Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)"
+    },
+    {
+      "page": "new game",
+      "type": "warning",
+      "text": "[.WebGL-0x334c0332e800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "page": "new game",
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "page": "new game",
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    },
+    {
+      "page": "new game",
+      "type": "warning",
+      "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+    }
+  ],
+  "diagnostics": [],
+  "problems": []
+}

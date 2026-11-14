@@ -8,11 +8,14 @@ extends RefCounted
 const ORDER: Array[String] = ["s1_first_light", "s2_the_crossing", "s3_neighbours"]
 const PATH: String = "user://campaign.json"
 
+signal persistence_failed(revision: int)
+
 var difficulty_id: String = "normal"
 ## The file this progress was loaded from and saves to; "" keeps it in memory (tests).
 var file_path: String = ""
 ## Scenario id -> the legacy id picked at its debrief ("" until one is picked).
 var won: Dictionary[String, String] = {}
+var write_revision: int = 0
 
 
 func is_won(scenario_id: String) -> bool:
@@ -103,13 +106,24 @@ static func load_file(path: String = PATH) -> CampaignProgress:
 func save_file() -> Error:
 	if file_path.is_empty():
 		return OK
-	var f: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
+	var pending: String = file_path + ".pending"
+	var f: FileAccess = FileAccess.open(pending, FileAccess.WRITE)
 	if f == null:
 		return FileAccess.get_open_error()
 	f.store_string(JSON.stringify(to_dict(), "  ") + "\n")
+	f.flush()
+	var err: Error = f.get_error()
 	f.close()
-	return OK
+	if err != OK:
+		DirAccess.remove_absolute(pending)
+		return err
+	err = DirAccess.rename_absolute(pending, file_path)
+	if err != OK:
+		DirAccess.remove_absolute(pending)
+	return err
 
 
 func _changed() -> void:
-	save_file()
+	write_revision += 1
+	if save_file() != OK:
+		persistence_failed.emit(write_revision)

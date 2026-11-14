@@ -361,5 +361,6 @@
       "advanced_districts"
     ]
   },
-  "finish_pending_events_before_victory": true
+  "finish_pending_events_before_victory": true,
+  "allow_post_victory": true
 }

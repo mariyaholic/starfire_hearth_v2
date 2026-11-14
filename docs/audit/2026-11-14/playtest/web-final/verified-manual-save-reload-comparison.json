@@ -1,0 +1,47 @@
+{
+  "pass": true,
+  "initial_setup": "Existing S1turn2 save produced by earlier actual normal play; seeded before first app load in fresh disposable origin.",
+  "manual_slot": "manual_1",
+  "complete_authoritative_dict_preserved": true,
+  "saved_envelope_bytes_equal_across_reload_continue_explicit_load": true,
+  "snapshots": [
+    {
+      "snapshot": "after-manual-ack-reload.json",
+      "manual_envelope_sha256": "028d8792dc79e2674b9e8bd02175b01b59017abd487ff1c30ef4dd06c573f94a",
+      "state_equals_initial": true,
+      "turn": 2,
+      "seed": 1183028510
+    },
+    {
+      "snapshot": "after-title-continue.json",
+      "manual_envelope_sha256": "028d8792dc79e2674b9e8bd02175b01b59017abd487ff1c30ef4dd06c573f94a",
+      "state_equals_initial": true,
+      "turn": 2,
+      "seed": 1183028510
+    },
+    {
+      "snapshot": "after-explicit-manual-load.json",
+      "manual_envelope_sha256": "028d8792dc79e2674b9e8bd02175b01b59017abd487ff1c30ef4dd06c573f94a",
+      "state_equals_initial": true,
+      "turn": 2,
+      "seed": 1183028510
+    }
+  ],
+  "timing": {
+    "input_start_to_first_success_toast_sample_ms": 21012.22,
+    "detection_to_reload_call_ms": 0.0021,
+    "polls": [
+      {
+        "elapsed_ms": 12598.97,
+        "success_green_pixels": 0
+      },
+      {
+        "elapsed_ms": 21012.21,
+        "success_green_pixels": 445
+      }
+    ],
+    "qualification": "First actual green success toast region triggers immediate reload in same script; no fixed post-ack wait or inspection."
+  },
+  "console_page_errors": [],
+  "visual_limit": "Resumed frames show active UI/date while 3D terrain viewport is gray; no completed-render/visual-quality claim."
+}

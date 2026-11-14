@@ -1,7 +1,8 @@
 extends SceneTree
 ## Aggregates bot telemetry and prints PASS / FAIL / SKIP for each gate of §12.
 ##   godot --headless --path . -s tools/telemetry_report.gd -- --in telemetry/ [--budget-ms 300]
-##       [--balance strict|advisory]
+##       [--balance strict|advisory] [--expect-runs N] [--expect-scenario ID] [--expect-seeds 1-20]
+##       [--expect-group policy:difficulty:count ...] [--require-determinism]
 ## A gate is SKIP, with its reason, when the runs cannot measure it yet. Exits 1 on any FAIL; with
 ## --balance advisory the five balance gates are still computed and printed, but only the
 ## invariant, determinism and performance gates decide the exit code (used while tuning).
@@ -21,14 +22,45 @@ func _initialize() -> void:
 	var in_dir: String = "telemetry"
 	var budget_ms: float = 300.0
 	var strict_balance: bool = true
+	var expected_runs: int = -1
+	var expected_scenario: String = ""
+	var expected_groups: Array[String] = []
+	var expected_seeds: Array[int] = []
+	var require_determinism: bool = false
 	var args: PackedStringArray = OS.get_cmdline_user_args()
 	for i in args.size():
+		if args[i] in ["--expect-runs", "--expect-group", "--expect-seeds", "--expect-scenario"] and (i + 1 >= args.size() or args[i + 1].begins_with("--")):
+			printerr("telemetry_report: missing value for " + args[i])
+			quit(2)
+			return
 		if args[i] == "--in" and i + 1 < args.size():
 			in_dir = args[i + 1]
 		if args[i] == "--budget-ms" and i + 1 < args.size():
 			budget_ms = args[i + 1].to_float()
 		if args[i] == "--balance" and i + 1 < args.size():
 			strict_balance = args[i + 1] != "advisory"
+		if args[i] == "--expect-runs" and i + 1 < args.size():
+			if not args[i + 1].is_valid_int() or args[i + 1].to_int() < 1:
+				printerr("telemetry_report: --expect-runs must be positive")
+				quit(2)
+				return
+			expected_runs = args[i + 1].to_int()
+		if args[i] == "--expect-scenario" and i + 1 < args.size():
+			expected_scenario = args[i + 1]
+		if args[i] == "--expect-group" and i + 1 < args.size():
+			expected_groups.append(args[i + 1])
+		if args[i] == "--expect-seeds" and i + 1 < args.size():
+			expected_seeds = TelemetryCoverage.seeds(args[i + 1])
+			if expected_seeds.is_empty():
+				printerr("telemetry_report: invalid --expect-seeds")
+				quit(2)
+				return
+		if args[i] == "--require-determinism":
+			require_determinism = true
+	if not expected_seeds.is_empty() and expected_groups.is_empty():
+		printerr("telemetry_report: --expect-seeds requires at least one --expect-group")
+		quit(2)
+		return
 	var runs: Array[Dictionary] = _load_runs(in_dir)
 	if runs.is_empty():
 		printerr("telemetry_report: no telemetry files in %s" % in_dir)
@@ -36,6 +68,11 @@ func _initialize() -> void:
 		return
 	var lines: Array[String] = []
 	var fails: int = 0
+	var coverage: Array[String] = TelemetryCoverage.errors(runs, expected_groups, expected_seeds, expected_runs, require_determinism, expected_scenario)
+	if not coverage.is_empty():
+		fails += _gate(lines, "coverage", false, "; ".join(coverage))
+	elif expected_runs >= 0 or not expected_groups.is_empty() or require_determinism or not expected_scenario.is_empty():
+		lines.append("PASS  coverage: the requested run groups, seed sets and replay requirements are present")
 	var policies: Dictionary[String, int] = {}
 	var stub: bool = true
 	for r: Dictionary in runs:
@@ -70,8 +107,11 @@ func _initialize() -> void:
 		for row: Dictionary in r["turns"]:
 			times.append(float(row["end_turn_ms"]))
 	times.sort()
-	var p95: float = times[mini(times.size() - 1, int(ceil(times.size() * 0.95)) - 1)]
-	fails += _gate(lines, "performance", p95 < budget_ms, "end-turn p95 %.2f ms (budget %.0f ms, %d turns, desktop only)" % [p95, budget_ms, times.size()])
+	if times.is_empty():
+		fails += _gate(lines, "performance", false, "no measured turns")
+	else:
+		var p95: float = times[mini(times.size() - 1, int(ceil(times.size() * 0.95)) - 1)]
+		fails += _gate(lines, "performance", p95 < budget_ms, "end-turn p95 %.2f ms (budget %.0f ms, %d turns, desktop only)" % [p95, budget_ms, times.size()])
 
 	# Balance gates need a playable scenario with an economy and objectives.
 	var reason: String = "the scenario is a stub (no economy, builds or objectives before M1)"
@@ -255,6 +295,26 @@ func _load_runs(dir_path: String) -> Array[Dictionary]:
 	names.sort()
 	for f: String in names:
 		var v: Variant = JSON.parse_string(FileAccess.get_file_as_string(dir_path.path_join(f)))
-		if typeof(v) == TYPE_DICTIONARY and (v as Dictionary).has("summary"):
+		if _valid_run(v):
 			out.append(v)
+		else:
+			printerr("telemetry_report: ignoring malformed telemetry file " + f)
 	return out
+
+
+func _valid_run(value: Variant) -> bool:
+	if not value is Dictionary:
+		return false
+	var run: Dictionary = value
+	if not run.get("summary") is Dictionary or not run.get("meta") is Dictionary or not run.get("turns") is Array:
+		return false
+	var meta: Dictionary = run["meta"]
+	var summary: Dictionary = run["summary"]
+	if typeof(meta.get("policy")) != TYPE_STRING or str(meta["policy"]).is_empty():
+		return false
+	if typeof(summary.get("invariant_problems")) not in [TYPE_INT, TYPE_FLOAT]:
+		return false
+	for row: Variant in run["turns"]:
+		if not row is Dictionary or typeof(row.get("end_turn_ms")) not in [TYPE_INT, TYPE_FLOAT]:
+			return false
+	return true

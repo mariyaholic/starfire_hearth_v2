@@ -1,0 +1,93 @@
+{
+  "userfs_prefix": "/userfs/godot/app_userdata/Starfire Hearth/",
+  "method": "Fresh production Web export in Chromium SwiftShader. S1 turn2 save created by earlier actual normal play and text100 settings seeded into IndexedDB BEFORE first app load; subsequent gameplay only actual mouse/keyboard input. No smoke hooks or runtime game/state calls.",
+  "build": "/workspace/starfire-evidence/audit-final/build/web",
+  "actions": [
+    {
+      "action": "INITIAL SETUP seed normal SaveSerializer file + text100 settings in IndexedDB",
+      "timestamp": 1794645242.5073872
+    },
+    {
+      "key": "Enter",
+      "capture": "raw-002.png",
+      "timestamp": 1794645290.461218
+    },
+    {
+      "tap": [
+        1888,
+        24
+      ],
+      "capture": "raw-003.png",
+      "timestamp": 1794645292.813284
+    },
+    {
+      "manual_ack_reload": [
+        1622,
+        136
+      ],
+      "wait": 1200,
+      "capture": "raw-004.png",
+      "read_idb": "after-manual-ack-reload.json",
+      "timestamp": 1794645332.152293
+    },
+    {
+      "key": "Enter",
+      "capture": "raw-005.png",
+      "read_idb": "after-title-continue.json",
+      "timestamp": 1794645401.6520631
+    },
+    {
+      "tap": [
+        1888,
+        24
+      ],
+      "timestamp": 1794645432.2526886
+    },
+    {
+      "tap": [
+        1622,
+        184
+      ],
+      "capture": "raw-006.png",
+      "timestamp": 1794645437.2205043
+    },
+    {
+      "tap": [
+        304,
+        272
+      ],
+      "capture": "raw-007.png",
+      "read_idb": "after-explicit-manual-load.json",
+      "timestamp": 1794645478.8588822
+    },
+    {
+      "quit": true,
+      "timestamp": 1794645481.843135
+    }
+  ],
+  "errors": [],
+  "captures": [
+    "raw-001.png",
+    "raw-002.png",
+    "raw-003.png",
+    "raw-004.png",
+    "raw-005.png",
+    "raw-006.png",
+    "raw-007.png"
+  ],
+  "manual_ack_reload": {
+    "input_start_to_first_success_toast_sample_ms": 21012.22,
+    "detection_to_reload_call_ms": 0.0021,
+    "polls": [
+      {
+        "elapsed_ms": 12598.97,
+        "success_green_pixels": 0
+      },
+      {
+        "elapsed_ms": 21012.21,
+        "success_green_pixels": 445
+      }
+    ],
+    "qualification": "First actual green success toast region triggers immediate reload in same script; no fixed post-ack wait or inspection."
+  }
+}

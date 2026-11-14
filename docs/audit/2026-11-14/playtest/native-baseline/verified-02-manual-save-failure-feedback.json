@@ -1,0 +1,1059 @@
+{
+  "authoritative_state": {
+    "colonies": {
+      "col_0001": {
+        "autonomous_from": "",
+        "autonomy_turns": 0,
+        "buildings": [
+          {
+            "building_id": "ark_hull",
+            "slot": -1
+          },
+          {
+            "building_id": "spaceport",
+            "slot": 6
+          }
+        ],
+        "districts": [
+          {
+            "branch": "",
+            "district_id": "habitation",
+            "slot": 0,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "habitation",
+            "slot": 1,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "agriculture",
+            "slot": 2,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "agriculture",
+            "slot": 3,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "energy",
+            "slot": 4,
+            "tier": 1
+          },
+          {
+            "branch": "",
+            "district_id": "mining",
+            "slot": 5,
+            "tier": 1
+          }
+        ],
+        "famine_turns": 0,
+        "founded_turn": 1,
+        "governor_budget_bp": 5000,
+        "governor_focus": "balanced",
+        "governor_funds": 0,
+        "governor_on": false,
+        "governor_vetoes": {},
+        "growth": 0,
+        "id": "col_0001",
+        "job_priority": [
+          "food",
+          "energy",
+          "minerals",
+          "alloys",
+          "research",
+          "clerks"
+        ],
+        "name": "",
+        "outpost_kind": "",
+        "owner_id": "emp_player",
+        "planet_id": "pl_aster",
+        "pops": 10,
+        "queue": [],
+        "stability": 67
+      }
+    },
+    "counters": {
+      "col": 1,
+      "flt": 3,
+      "lane": 4,
+      "shp": 3
+    },
+    "designs": {},
+    "difficulty_id": "normal",
+    "director_next": 0,
+    "empires": {
+      "emp_player": {
+        "capital_id": "col_0001",
+        "decode_progress": 0,
+        "energy_short_turns": 0,
+        "faction_id": "ark",
+        "flags": {},
+        "id": "emp_player",
+        "is_player": true,
+        "known_systems": {
+          "sys_ember": "surveyed"
+        },
+        "legacies": [],
+        "name_key": "faction.ark.name",
+        "noise": 0,
+        "ordinances": {},
+        "origin_id": "generation_ark",
+        "research": {
+          "engineering": {
+            "branch": "engineering",
+            "card": "",
+            "draws": 0,
+            "hand": [
+              "automated_mining",
+              "orbital_construction"
+            ],
+            "progress": 0
+          },
+          "physics": {
+            "branch": "physics",
+            "card": "",
+            "draws": 0,
+            "hand": [
+              "fusion_efficiency",
+              "sensor_arrays"
+            ],
+            "progress": 0
+          },
+          "society": {
+            "branch": "society",
+            "card": "",
+            "draws": 0,
+            "hand": [
+              "hydroponics",
+              "frontier_medicine",
+              "civic_charters"
+            ],
+            "progress": 0
+          }
+        },
+        "stock": {
+          "alloys": 0,
+          "energy": 12000,
+          "food": 30000,
+          "influence": 10000,
+          "minerals": 40000
+        },
+        "surveyed_planets": [
+          "pl_aster"
+        ],
+        "tech_turns": {},
+        "techs": []
+      }
+    },
+    "event_log": [],
+    "event_memory": {},
+    "events_pending": [],
+    "events_scheduled": [],
+    "flags": {},
+    "fleets": {
+      "flt_0001": {
+        "admiral_id": "",
+        "id": "flt_0001",
+        "move_progress": 0,
+        "owner_id": "emp_player",
+        "path": [],
+        "ship_ids": [
+          "shp_0001"
+        ],
+        "stance": "balanced",
+        "system_id": "sys_ember"
+      },
+      "flt_0002": {
+        "admiral_id": "",
+        "id": "flt_0002",
+        "move_progress": 0,
+        "owner_id": "emp_player",
+        "path": [],
+        "ship_ids": [
+          "shp_0002"
+        ],
+        "stance": "balanced",
+        "system_id": "sys_ember"
+      },
+      "flt_0003": {
+        "admiral_id": "",
+        "id": "flt_0003",
+        "move_progress": 0,
+        "owner_id": "emp_player",
+        "path": [],
+        "ship_ids": [
+          "shp_0003"
+        ],
+        "stance": "balanced",
+        "system_id": "sys_ember"
+      }
+    },
+    "game_seed": 70,
+    "lanes": {
+      "lane_0001": {
+        "a": "sys_ember",
+        "b": "sys_tessel",
+        "id": "lane_0001",
+        "kind": "deep",
+        "length_cly": 200
+      },
+      "lane_0002": {
+        "a": "sys_tessel",
+        "b": "sys_halden",
+        "id": "lane_0002",
+        "kind": "deep",
+        "length_cly": 200
+      },
+      "lane_0003": {
+        "a": "sys_ember",
+        "b": "sys_vesper",
+        "id": "lane_0003",
+        "kind": "deep",
+        "length_cly": 350
+      },
+      "lane_0004": {
+        "a": "sys_vesper",
+        "b": "sys_shroud",
+        "id": "lane_0004",
+        "kind": "deep",
+        "length_cly": 200
+      }
+    },
+    "modifiers": {},
+    "objective_progress": {},
+    "objectives_done": {},
+    "outcome": "",
+    "outcome_reason": "",
+    "outcome_turn": 0,
+    "planets": {
+      "pl_aster": {
+        "art_seed": 11,
+        "blocked_slots": [
+          7,
+          15
+        ],
+        "colony_id": "col_0001",
+        "id": "pl_aster",
+        "name_key": "planet.aster.name",
+        "orbit": 1,
+        "size": "medium",
+        "system_id": "sys_ember",
+        "traits": [
+          "fertile_soil"
+        ],
+        "type": "continental"
+      },
+      "pl_shroud_giant": {
+        "art_seed": 83,
+        "blocked_slots": [],
+        "colony_id": "",
+        "id": "pl_shroud_giant",
+        "name_key": "planet.shroud_giant.name",
+        "orbit": 1,
+        "size": "",
+        "system_id": "sys_shroud",
+        "traits": [],
+        "type": "gas_giant"
+      },
+      "pl_tessel": {
+        "art_seed": 61,
+        "blocked_slots": [],
+        "colony_id": "",
+        "id": "pl_tessel",
+        "name_key": "planet.tessel.name",
+        "orbit": 1,
+        "size": "",
+        "system_id": "sys_tessel",
+        "traits": [],
+        "type": "asteroid_belt"
+      },
+      "pl_vesper": {
+        "art_seed": 71,
+        "blocked_slots": [],
+        "colony_id": "",
+        "id": "pl_vesper",
+        "name_key": "planet.vesper.name",
+        "orbit": 1,
+        "size": "medium",
+        "system_id": "sys_vesper",
+        "traits": [],
+        "type": "ocean"
+      }
+    },
+    "player_id": "emp_player",
+    "scenario_id": "m2a_expedition",
+    "scheduled_effects": [],
+    "schema_version": 2,
+    "ships": {
+      "shp_0001": {
+        "armor": 0,
+        "design_id": "",
+        "fleet_id": "flt_0001",
+        "hull": "construction_ship",
+        "id": "shp_0001",
+        "owner_id": "emp_player",
+        "shield": 0,
+        "structure": 0,
+        "task": "",
+        "task_param": "",
+        "task_target": "",
+        "task_turns": 0
+      },
+      "shp_0002": {
+        "armor": 0,
+        "design_id": "",
+        "fleet_id": "flt_0002",
+        "hull": "survey_probe",
+        "id": "shp_0002",
+        "owner_id": "emp_player",
+        "shield": 0,
+        "structure": 0,
+        "task": "",
+        "task_param": "",
+        "task_target": "",
+        "task_turns": 0
+      },
+      "shp_0003": {
+        "armor": 0,
+        "design_id": "",
+        "fleet_id": "flt_0003",
+        "hull": "colony_ship",
+        "id": "shp_0003",
+        "owner_id": "emp_player",
+        "shield": 0,
+        "structure": 0,
+        "task": "",
+        "task_param": "",
+        "task_target": "",
+        "task_turns": 0
+      }
+    },
+    "systems": {
+      "sys_ember": {
+        "beacon": "none",
+        "id": "sys_ember",
+        "magnitude": 3,
+        "name_key": "system.ember.name",
+        "owner_id": "emp_player",
+        "planet_ids": [
+          "pl_aster"
+        ],
+        "specials": [],
+        "spectral": "K",
+        "x": 0,
+        "y": 0
+      },
+      "sys_halden": {
+        "beacon": "dormant",
+        "id": "sys_halden",
+        "magnitude": 3,
+        "name_key": "system.halden.name",
+        "owner_id": "",
+        "planet_ids": [],
+        "specials": [
+          "dormant_beacon"
+        ],
+        "spectral": "G",
+        "x": 420,
+        "y": -180
+      },
+      "sys_shroud": {
+        "beacon": "none",
+        "id": "sys_shroud",
+        "magnitude": 2,
+        "name_key": "system.shroud.name",
+        "owner_id": "",
+        "planet_ids": [
+          "pl_shroud_giant"
+        ],
+        "specials": [
+          "nebula",
+          "derelict"
+        ],
+        "spectral": "M",
+        "x": -510,
+        "y": -260
+      },
+      "sys_tessel": {
+        "beacon": "none",
+        "id": "sys_tessel",
+        "magnitude": 3,
+        "name_key": "system.tessel.name",
+        "owner_id": "",
+        "planet_ids": [
+          "pl_tessel"
+        ],
+        "specials": [],
+        "spectral": "G",
+        "x": 220,
+        "y": -90
+      },
+      "sys_vesper": {
+        "beacon": "none",
+        "id": "sys_vesper",
+        "magnitude": 3,
+        "name_key": "system.vesper.name",
+        "owner_id": "",
+        "planet_ids": [
+          "pl_vesper"
+        ],
+        "specials": [],
+        "spectral": "G",
+        "x": -310,
+        "y": -260
+      }
+    },
+    "turn": 2
+  },
+  "auto_enabled": false,
+  "auto_status": "disabled",
+  "builder_param": "",
+  "builder_system": "sys_ember",
+  "builder_task": "",
+  "builder_task_turns": 0,
+  "buttons": [
+    {
+      "disabled": false,
+      "name": "More",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/More",
+      "rect": "[P: (1595.0, 4.0), S: (101.0, 40.0)]",
+      "text": "More"
+    },
+    {
+      "disabled": false,
+      "name": "Menu",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/Menu",
+      "rect": "[P: (1868.0, 4.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_galaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_galaxy",
+      "rect": "[P: (12.0, 52.0), S: (181.0, 40.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_system",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_system",
+      "rect": "[P: (12.0, 100.0), S: (181.0, 40.0)]",
+      "text": "System"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_colony",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_colony",
+      "rect": "[P: (12.0, 148.0), S: (181.0, 40.0)]",
+      "text": "Colony"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_research",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_research",
+      "rect": "[P: (12.0, 196.0), S: (181.0, 40.0)]",
+      "text": "Research"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_ordinances",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_ordinances",
+      "rect": "[P: (12.0, 244.0), S: (181.0, 40.0)]",
+      "text": "Ordinances"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_market",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_market",
+      "rect": "[P: (12.0, 292.0), S: (181.0, 40.0)]",
+      "text": "Market"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_objectives",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Nav_objectives",
+      "rect": "[P: (12.0, 340.0), S: (181.0, 40.0)]",
+      "text": "Objectives"
+    },
+    {
+      "disabled": false,
+      "name": "ModeToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/ModeToggle",
+      "rect": "[P: (12.0, 940.0), S: (181.0, 40.0)]",
+      "text": "Immersive view"
+    },
+    {
+      "disabled": true,
+      "name": "Undo",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/Undo",
+      "rect": "[P: (12.0, 988.0), S: (181.0, 40.0)]",
+      "text": "Undo"
+    },
+    {
+      "disabled": false,
+      "name": "EndTurn",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/NavBar/@MarginContainer@39/@VBoxContainer@40/EndTurn",
+      "rect": "[P: (12.0, 1036.0), S: (181.0, 40.0)]",
+      "text": "End turn"
+    },
+    {
+      "disabled": false,
+      "name": "Colony_col_0001",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyTabs/Colony_col_0001",
+      "rect": "[P: (405.0, 84.0), S: (104.0, 40.0)]",
+      "text": "Aster"
+    },
+    {
+      "disabled": false,
+      "name": "WhyStability",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@HFlowContainer@102/WhyStability",
+      "rect": "[P: (421.0, 262.0), S: (202.0, 40.0)]",
+      "text": "Why did it change?"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceStrategic",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/AppearanceStrategic",
+      "rect": "[P: (421.0, 400.0), S: (168.0, 40.0)]",
+      "text": "Strategic view"
+    },
+    {
+      "disabled": false,
+      "name": "CameraReset",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/CameraReset",
+      "rect": "[P: (597.0, 400.0), S: (165.0, 40.0)]",
+      "text": "Reset camera"
+    },
+    {
+      "disabled": false,
+      "name": "WorldPause",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/WorldPause",
+      "rect": "[P: (770.0, 400.0), S: (108.0, 40.0)]",
+      "text": "Pause"
+    },
+    {
+      "disabled": false,
+      "name": "WorldDusk",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/WorldDusk",
+      "rect": "[P: (886.0, 400.0), S: (101.0, 40.0)]",
+      "text": "Dusk"
+    },
+    {
+      "disabled": false,
+      "name": "WorldParcels",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/WorldParcels",
+      "rect": "[P: (421.0, 448.0), S: (171.0, 40.0)]",
+      "text": "Parcel outlines"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeVisualFinish",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/UpgradeVisualFinish",
+      "rect": "[P: (600.0, 448.0), S: (218.0, 40.0)]",
+      "text": "Use new visual finish"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeCityRoads",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@HFlowContainer@144/UpgradeCityRoads",
+      "rect": "[P: (826.0, 448.0), S: (193.0, 40.0)]",
+      "text": "Update city roads"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceOptionsToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/AppearanceOptionsToggle",
+      "rect": "[P: (421.0, 496.0), S: (614.0, 38.0)]",
+      "text": "Appearance options"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_0",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_0",
+      "rect": "[P: (421.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "1"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_1",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_1",
+      "rect": "[P: (503.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "2"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_2",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_2",
+      "rect": "[P: (585.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "3"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_3",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_3",
+      "rect": "[P: (667.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "4"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_4",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_4",
+      "rect": "[P: (749.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "5"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_5",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_5",
+      "rect": "[P: (831.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "6"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_6",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_6",
+      "rect": "[P: (913.0, 1030.0), S: (74.0, 40.0)]",
+      "text": "7"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_7",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_7",
+      "rect": "[P: (421.0, 1078.0), S: (74.0, 40.0)]",
+      "text": "8"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_8",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_8",
+      "rect": "[P: (503.0, 1078.0), S: (74.0, 40.0)]",
+      "text": "9"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_9",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_9",
+      "rect": "[P: (585.0, 1078.0), S: (84.0, 40.0)]",
+      "text": "10"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_10",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_10",
+      "rect": "[P: (677.0, 1078.0), S: (84.0, 40.0)]",
+      "text": "11"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_11",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_11",
+      "rect": "[P: (769.0, 1078.0), S: (84.0, 40.0)]",
+      "text": "12"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_12",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_12",
+      "rect": "[P: (861.0, 1078.0), S: (84.0, 40.0)]",
+      "text": "13"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_13",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_13",
+      "rect": "[P: (421.0, 1126.0), S: (84.0, 40.0)]",
+      "text": "14"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_14",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_14",
+      "rect": "[P: (513.0, 1126.0), S: (84.0, 40.0)]",
+      "text": "15"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_15",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_15",
+      "rect": "[P: (605.0, 1126.0), S: (84.0, 40.0)]",
+      "text": "16"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_16",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_16",
+      "rect": "[P: (697.0, 1126.0), S: (84.0, 40.0)]",
+      "text": "17"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_17",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_17",
+      "rect": "[P: (789.0, 1126.0), S: (84.0, 40.0)]",
+      "text": "18"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_18",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_18",
+      "rect": "[P: (881.0, 1126.0), S: (84.0, 40.0)]",
+      "text": "19"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_19",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/ParcelSelectors/Slot_19",
+      "rect": "[P: (421.0, 1174.0), S: (84.0, 40.0)]",
+      "text": "20"
+    },
+    {
+      "disabled": false,
+      "name": "Raise_energy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@201/Raise_energy",
+      "rect": "[P: (995.0, 1413.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_minerals",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@205/Raise_minerals",
+      "rect": "[P: (995.0, 1461.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_alloys",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@209/Raise_alloys",
+      "rect": "[P: (995.0, 1509.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_research",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@213/Raise_research",
+      "rect": "[P: (995.0, 1557.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_clerks",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@217/Raise_clerks",
+      "rect": "[P: (995.0, 1605.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "GovernorToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/GovernorCard/@VBoxContainer@218/@VBoxContainer@220/GovernorToggle",
+      "rect": "[P: (1083.0, 1383.0), S: (615.0, 40.0)]",
+      "text": "Turn governor on"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@236",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@245/@VBoxContainer@244/Build_survey_probe/@Button@236",
+      "rect": "[P: (433.0, 1751.0), S: (1253.0, 40.0)]",
+      "text": "Survey Probe"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@246",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@255/@VBoxContainer@254/Build_construction_ship/@Button@246",
+      "rect": "[P: (433.0, 1849.0), S: (1253.0, 40.0)]",
+      "text": "Construction Ship"
+    },
+    {
+      "disabled": true,
+      "name": "@Button@256",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@275/@VBoxContainer@274/Build_colony_ship/@Button@256",
+      "rect": "[P: (433.0, 1947.0), S: (1253.0, 40.0)]",
+      "text": "Colony Ship"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@454",
+      "path": "/root/Overlay/OverlayRoot/Toasts/@PanelContainer@455/@HBoxContainer@450/@Button@454",
+      "rect": "[P: (1844.0, 936.0), S: (40.0, 40.0)]",
+      "text": ""
+    }
+  ],
+  "completion_turn": 0,
+  "continued": false,
+  "energy": 12000,
+  "flags": {},
+  "food": 30000,
+  "global_flags": {},
+  "influence": 10000,
+  "logical_size": "(1920.0, 1080.0)",
+  "minerals": 40000,
+  "outcome": "",
+  "outcome_turn": 0,
+  "outpost_id": "",
+  "pending_events": [],
+  "probe_path": [],
+  "probe_progress": 0,
+  "probe_system": "sys_ember",
+  "probe_task": "",
+  "remaining_eta": 0,
+  "route": "game",
+  "scale": 1.0,
+  "state_hash": "f5887f5510cfaaead5a7c4aef9d689d7ed63c31e7d1873da9e7104ca693f8684",
+  "top_overlay": "",
+  "turn": 2,
+  "visible_text": [
+    {
+      "path": "/root/Overlay/OverlayRoot/Toasts/@PanelContainer@455/@HBoxContainer@450/@Label@453",
+      "text": "The game could not be saved."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Food/@HBoxContainer@47/@Label@49",
+      "text": "300"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Food/@HBoxContainer@47/@Label@50",
+      "text": "+13.0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Energy/@HBoxContainer@54/@Label@56",
+      "text": "120"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Energy/@HBoxContainer@54/@Label@57",
+      "text": "+9.0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Minerals/@HBoxContainer@61/@Label@63",
+      "text": "400"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Minerals/@HBoxContainer@61/@Label@64",
+      "text": "+11.0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Alloys/@HBoxContainer@68/@Label@70",
+      "text": "0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Alloys/@HBoxContainer@68/@Label@71",
+      "text": "0.0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Research/@HBoxContainer@75/@Label@78",
+      "text": "+5.4"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Influence/@HBoxContainer@82/@Label@84",
+      "text": "100"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/Chip_Influence/@HBoxContainer@82/@Label@85",
+      "text": "+4.0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/ResourceStrip/@HBoxContainer@46/NoiseMeter/@HBoxContainer@92/@Label@91",
+      "text": "0.0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@36/@HBoxContainer@37/Date/@Label@95",
+      "text": "Month 2, Year 100 S."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@HBoxContainer@100/@VBoxContainer@104/@Label@105",
+      "text": "Aster"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@HBoxContainer@100/@VBoxContainer@104/@Label@106",
+      "text": "Colony"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@HBoxContainer@125/@Label@108",
+      "text": "Settlers"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@HBoxContainer@125/@Label@109",
+      "text": "10k"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@MarginContainer@126/@HBoxContainer@113/@Label@111",
+      "text": "Housing"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@MarginContainer@126/@HBoxContainer@113/@Label@112",
+      "text": "20"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@HBoxContainer@127/@Label@115",
+      "text": "Jobs"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@HBoxContainer@127/@Label@116",
+      "text": "10 / 10"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@MarginContainer@128/@HBoxContainer@120/@Label@118",
+      "text": "Growth"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/@MarginContainer@128/@HBoxContainer@120/@Label@119",
+      "text": "+20%"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/Stat_stability/@HBoxContainer@124/@Label@122",
+      "text": "Stability"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/ColonyStats/@VBoxContainer@99/@VBoxContainer@101/@HFlowContainer@129/Stat_stability/@HBoxContainer@124/@Label@123",
+      "text": "67"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@HBoxContainer@131/@VBoxContainer@135/@Label@136",
+      "text": "Planner"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@HBoxContainer@131/@VBoxContainer@135/@Label@137",
+      "text": "Choose a slot. A preview shows what a district would change before you commit."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@Label@165",
+      "text": "Select a parcel to plan construction. Drag to orbit; wheel or pinch to zoom. Arrow keys select parcels; Home shows the region."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@183/Planner/@VBoxContainer@130/@VBoxContainer@132/@Label@166",
+      "text": "Ark Hull"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@184/SlotMenu/@VBoxContainer@167/@HBoxContainer@168/@VBoxContainer@172/@Label@173",
+      "text": "Slot"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@184/SlotMenu/@VBoxContainer@167/@VBoxContainer@169/@Label@174",
+      "text": "Choose a slot on the grid to build there."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@184/Queue/@VBoxContainer@175/@HBoxContainer@176/@VBoxContainer@180/@Label@181",
+      "text": "Build queue"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@185/@VBoxContainer@184/Queue/@VBoxContainer@175/@VBoxContainer@177/@Label@182",
+      "text": "Nothing is being built."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@HBoxContainer@187/@VBoxContainer@191/@Label@192",
+      "text": "Job priority"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@HBoxContainer@187/@VBoxContainer@191/@Label@193",
+      "text": "Settlers fill jobs from the top of this list."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@197/@Label@195",
+      "text": "Food"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@197/@Label@196",
+      "text": "4 / 4"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@201/@Label@199",
+      "text": "Energy"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@201/@Label@200",
+      "text": "2 / 2"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@205/@Label@203",
+      "text": "Minerals"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@205/@Label@204",
+      "text": "2 / 2"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@209/@Label@207",
+      "text": "Metals"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@209/@Label@208",
+      "text": "0 / 0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@213/@Label@211",
+      "text": "Research"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@213/@Label@212",
+      "text": "0 / 0"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@217/@Label@215",
+      "text": "Clerk"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/JobPriority/@VBoxContainer@186/@VBoxContainer@188/@HBoxContainer@217/@Label@216",
+      "text": "2 / 2"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/GovernorCard/@VBoxContainer@218/@HBoxContainer@219/@VBoxContainer@223/@Label@224",
+      "text": "Governor"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/GovernorCard/@VBoxContainer@218/@HBoxContainer@219/@VBoxContainer@223/@Label@225",
+      "text": "Builds for you within a budget."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/@HBoxContainer@227/GovernorCard/@VBoxContainer@218/@VBoxContainer@220/@Label@226",
+      "text": "A governor builds within a budget you set, always shows its next plan and the reason for it, and obeys your veto."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@HBoxContainer@229/@VBoxContainer@233/@Label@234",
+      "text": "Shipyard"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@HBoxContainer@229/@VBoxContainer@233/@Label@235",
+      "text": "The Spaceport builds civilian ships."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@245/@VBoxContainer@244/@HFlowContainer@243/@HFlowContainer@241/Cost_minerals/@PanelContainer@240/@HBoxContainer@237/@Label@239",
+      "text": "50"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@245/@VBoxContainer@244/@HFlowContainer@243/@Label@242",
+      "text": "Turns to build: 2"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@255/@VBoxContainer@254/@HFlowContainer@253/@HFlowContainer@251/Cost_minerals/@PanelContainer@250/@HBoxContainer@247/@Label@249",
+      "text": "100"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@255/@VBoxContainer@254/@HFlowContainer@253/@Label@252",
+      "text": "Turns to build: 3"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@275/@VBoxContainer@274/Build_colony_ship/@Label@257",
+      "text": "Needs 50 Metals; you have 0."
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@275/@VBoxContainer@274/@HFlowContainer@273/@HFlowContainer@271/Cost_alloys/@PanelContainer@262/@HBoxContainer@258/@Label@260",
+      "text": "50"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@275/@VBoxContainer@274/@HFlowContainer@273/@HFlowContainer@271/Cost_food/@PanelContainer@266/@HBoxContainer@263/@Label@265",
+      "text": "150"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@275/@VBoxContainer@274/@HFlowContainer@273/@HFlowContainer@271/Cost_minerals/@PanelContainer@270/@HBoxContainer@267/@Label@269",
+      "text": "150"
+    },
+    {
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@38/ViewHost/Scroll/@VBoxContainer@43/View/@VBoxContainer@276/Shipyard/@VBoxContainer@228/@VBoxContainer@230/@PanelContainer@275/@VBoxContainer@274/@HFlowContainer@273/@Label@272",
+      "text": "Turns to build: 4"
+    }
+  ]
+}

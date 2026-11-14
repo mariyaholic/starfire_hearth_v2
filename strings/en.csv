@@ -1247,6 +1247,12 @@ ui.game.quit,Quit to title
 ui.game.resume,Resume
 ui.game.save,Save game
 ui.game.save_failed,The game could not be saved.
+ui.game.autosave_failed,An automatic save failed. Please save your game.
+ui.game.saving,Saving game…
+ui.game.save_unconfirmed,The browser save could not be confirmed. It may finish later; try saving again.
+ui.campaign.save_failed,Campaign progress could not be saved. Changes may be lost when you close the game.
+ui.load.confirm_delete_title,Delete save?
+ui.load.confirm_delete_body,This save will be deleted permanently.
 ui.game.save_note,A save holds the game as the last turn left it. Orders you have not yet ended the turn on are not part of it.
 ui.game.saved,Game saved.
 ui.game.settings,Settings
@@ -1565,3 +1571,19 @@ ui.research.completes_next,Completes next turn
 ui.research.no_income,No research income
 breakdown.research_bank,Stored {branch} research
 source.research_bank,Stored research
+ui.debrief.continue_expedition,Continue expedition
+ui.debrief.return_campaign,Return to campaign
+ui.objectives.continued,The expedition continues after completing its required objectives.
+ui.objectives.completed_on,Required objectives completed on {date} (turn {turn}).
+error.continue.stale,This expedition is no longer the active game.
+error.continue.pending_orders,Undo or resolve pending orders before continuing.
+error.continue.save_failed,The expedition could not be saved. Try again.
+error.continue.unsupported,This scenario cannot continue after victory.
+error.continue.not_won,The expedition has not been won.
+error.continue.already_continued,This expedition has already continued.
+error.continue.invalid_victory,The expedition victory could not be verified.
+ui.debrief.saving_expedition,Saving expedition…
+error.continue.saving,The expedition is being saved.
+error.continue.web_unconfirmed,The browser save could not be confirmed. It may finish later; retry before closing.
+error.game.finished,This game has already ended.
+error.command.not_player,You can only give orders to your own empire.

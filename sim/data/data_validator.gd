@@ -166,6 +166,8 @@ func _check_value(v: Variant, ftype: String, where: String) -> void:
 					error(where, "\"%s\" is not a resource" % str(k))
 				if typeof(m[k]) != TYPE_INT:
 					error("%s.%s" % [where, str(k)], "expected a whole number of centi-units")
+				elif int(m[k]) < 0:
+					error("%s.%s" % [where, str(k)], "resource amounts must be non-negative")
 		"effects":
 			_check_effects(v, where)
 		_:
@@ -226,6 +228,11 @@ func _check_scenario(sid: String, sc: Dictionary) -> void:
 		error(w, "status must be one of %s" % ", ".join(SCENARIO_STATUS))
 	if not db.has("origins", DictIO.str_of(sc, "origin")):
 		error(w, "origin \"%s\" is not a known origin" % DictIO.str_of(sc, "origin"))
+	if sc.has("allow_post_victory"):
+		if typeof(sc["allow_post_victory"]) != TYPE_BOOL:
+			error(w, "allow_post_victory must be a boolean")
+		elif sc["allow_post_victory"] and sid != "m2a_expedition":
+			error(w, "allow_post_victory is limited to the expedition preview")
 	if sc.has("finish_pending_events_before_victory") and typeof(sc["finish_pending_events_before_victory"]) != TYPE_BOOL:
 		error(w, "finish_pending_events_before_victory must be a boolean")
 	var map: Dictionary = DictIO.dict_of(sc, "map")

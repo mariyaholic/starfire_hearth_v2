@@ -1,0 +1,1 @@
+PASS release query leaves existing auto_2 bytes untouched and does not run smoke
