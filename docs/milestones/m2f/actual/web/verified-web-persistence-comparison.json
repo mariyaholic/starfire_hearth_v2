@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "before": {
+    "turn": 41,
+    "outcome": "won",
+    "outcome_turn": 40
+  },
+  "after": {
+    "turn": 41,
+    "outcome": "",
+    "completion_turn": 40
+  },
+  "comparison": "Full persisted authoritative dictionary differs only in outcome fields and 2 continuation flags; same dictionary after actual reload and title Continue.",
+  "timing_limit": "The first 500ms IDB read still held the winning state. Browser reload occurred after inspection, before any further turn. This does not establish zero-delay tab-close durability."
+}

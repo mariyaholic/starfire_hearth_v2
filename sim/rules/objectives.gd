@@ -114,6 +114,9 @@ static func update(state: GameState, r: TurnResult) -> void:
 		r.report_items.append(ReportItem.make(ReportItem.CATEGORY_STORY, 100, "report.scenario_lost", {"reason_key": reason})
 			.with_severity(ReportItem.SEVERITY_CRITICAL))
 		return
+	# The original win is retained in continuation flags; allow optional goals and loss, but no repeat win.
+	if ExpeditionContinuation.is_continued(state):
+		return
 	for d: Dictionary in definitions(state):
 		if not DictIO.bool_of(d, "required"):
 			continue

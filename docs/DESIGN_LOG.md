@@ -528,3 +528,16 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      before a card is selected. A funded card completes in the next research phase, never
      immediately on selection. An eligible opted-in probe awaiting its next automatic task
      does not need a manual-order warning
+
+119. **Continue the preview without rewriting its victory**. Clone an opted-in authoritative
+     win, keep its completion turn in existing integer flags and reset only active outcome
+     fields. Preserve goals and allow later defeat, but never award victory again. Save one
+     replacement auto slot before resuming the new session; leave checkpoints intact and
+     retain the winning session on write failure. Guard both debrief actions against stale
+     state/session callbacks
+
+120. **Confirm browser continuation before opening play**. A real rapid reload reproduced
+     the old victory because virtual filesystem writes preceded IndexedDB persistence.
+     Keep the debrief busy until a read-only transaction confirms the exact saved envelope,
+     then recheck session and operation identity. Timeout means unconfirmed storage, not
+     success; never roll back an uncertain write over potentially newer durable data

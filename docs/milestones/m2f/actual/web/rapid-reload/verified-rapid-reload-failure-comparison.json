@@ -1,0 +1,11 @@
+{
+  "observed_failure": true,
+  "equal_persisted_dict_before_and_after_reload": true,
+  "turn": 41,
+  "outcome": "won",
+  "outcome_turn": 40,
+  "continuation_flags_present": false,
+  "actual_title_continue_destination": "Victory debrief, screenshot verified-03",
+  "requested_wait_after_tap_ms": 500,
+  "measured_input_start_to_reload_ms": 1059.8
+}

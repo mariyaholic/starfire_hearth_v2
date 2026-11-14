@@ -226,6 +226,11 @@ func _check_scenario(sid: String, sc: Dictionary) -> void:
 		error(w, "status must be one of %s" % ", ".join(SCENARIO_STATUS))
 	if not db.has("origins", DictIO.str_of(sc, "origin")):
 		error(w, "origin \"%s\" is not a known origin" % DictIO.str_of(sc, "origin"))
+	if sc.has("allow_post_victory"):
+		if typeof(sc["allow_post_victory"]) != TYPE_BOOL:
+			error(w, "allow_post_victory must be a boolean")
+		elif sc["allow_post_victory"] and sid != "m2a_expedition":
+			error(w, "allow_post_victory is limited to the expedition preview")
 	if sc.has("finish_pending_events_before_victory") and typeof(sc["finish_pending_events_before_victory"]) != TYPE_BOOL:
 		error(w, "finish_pending_events_before_victory must be a boolean")
 	var map: Dictionary = DictIO.dict_of(sc, "map")
