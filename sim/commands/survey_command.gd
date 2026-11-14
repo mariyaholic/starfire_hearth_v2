@@ -26,6 +26,7 @@ func validate(state: GameState) -> Result:
 
 
 func apply(state: GameState) -> void:
+	AutoExplore.set_enabled(state, empire_id, state.ships[ship_id].fleet_id, false)
 	Ships.start_survey(state, ship_id, planet_id)
 
 

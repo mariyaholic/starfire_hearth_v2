@@ -65,6 +65,13 @@ static func check_ship(state: GameState, empire_id: String, ship_id: String, nee
 		return Result.fail("error.ship.wrong_role", {"role_key": Names.ship_role(needed_role)})
 	if sh.is_busy():
 		return Result.fail("error.ship.busy")
+	if not state.fleets.has(sh.fleet_id):
+		return Result.fail("error.fleet.unavailable")
+	var fleet: Fleet = state.fleets[sh.fleet_id]
+	if fleet.owner_id != empire_id or not fleet.ship_ids.has(ship_id) or not state.systems.has(fleet.system_id):
+		return Result.fail("error.fleet.unavailable")
+	if not fleet.path.is_empty() or fleet.move_progress != 0:
+		return Result.fail("error.fleet.in_transit")
 	return Result.success()
 
 
@@ -186,6 +193,14 @@ static func advance(state: GameState, r: TurnResult) -> void:
 			continue
 		var sh: Ship = state.ships[shid]
 		if not sh.is_busy():
+			continue
+		# A corrupt or invalidated in-transit fleet must not complete work at its old system.
+		if not state.fleets.has(sh.fleet_id):
+			continue
+		var fleet: Fleet = state.fleets[sh.fleet_id]
+		if fleet.owner_id != sh.owner_id or not fleet.ship_ids.has(sh.id) or not state.systems.has(fleet.system_id) or not fleet.path.is_empty() or fleet.move_progress != 0:
+			continue
+		if not state.planets.has(sh.task_target) or state.planets[sh.task_target].system_id != fleet.system_id:
 			continue
 		sh.task_turns -= 1
 		if sh.task_turns > 0:

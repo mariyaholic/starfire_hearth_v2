@@ -1,0 +1,23 @@
+{
+  "method": "Direct deterministic research fixture rendered with Godot 4.7.2.stable.official.ed1daf0bf under a private Xvfb using Mesa llvmpipe, not manual gameplay or a physical phone. Phone profile is simulated at 2400x1080 with 200% text.",
+  "fixture": "Seed 1 preview, turn 2; Physics bank 12.34 with no selected card; Society selected card has 56 of 55 points and zero research income. Screens are scrolled to each relevant control.",
+  "shutdown": "Explicit overlay, AppRoot and Game session cleanup followed by existing Audio.quit_gracefully; verbose log reports no leak, resource-in-use, shutdown timeout or ERROR lines. Earlier direct SceneTree.quit logs reported music playback objects at exit.",
+  "captures": [
+    {
+      "file": "captures/desktop100_banked.png",
+      "sha256": "dfab4f568ecac2a24542dc720daff798bfe47f2bd6d013ffc2361362b449aa6a"
+    },
+    {
+      "file": "captures/desktop100_funded_zero_rate.png",
+      "sha256": "dfab4f568ecac2a24542dc720daff798bfe47f2bd6d013ffc2361362b449aa6a"
+    },
+    {
+      "file": "captures/phone200_banked.png",
+      "sha256": "38919a4ea915be30e9a37e3bb14d6968dd81e5cb8fcfcf7e2a8625a560863144"
+    },
+    {
+      "file": "captures/phone200_funded_zero_rate.png",
+      "sha256": "b051c7b1fad654faa319821df27be8d037b43d26ae31962108625c1ef417934d"
+    }
+  ]
+}

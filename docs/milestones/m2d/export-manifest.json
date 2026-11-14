@@ -1,0 +1,28 @@
+{
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "source_test_digest": "676f26742ff11fdeebf109f2dfe710ef118ef4caeb99ba188f57516243c49a89",
+  "exports_all_exit_zero": true,
+  "note": "Export success is not native Windows execution acceptance",
+  "artifacts": [
+    {
+      "artifact": "web/index.pck",
+      "bytes": 100218288,
+      "sha256": "cb7f2540ee5c6692780218de9d07a0642fae671bdf9c2f1b4c54487182a5e9f0"
+    },
+    {
+      "artifact": "web/index.wasm",
+      "bytes": 39514754,
+      "sha256": "fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0"
+    },
+    {
+      "artifact": "windows/StarfireHearth.exe",
+      "bytes": 209486784,
+      "sha256": "944cc12f6d4d85948a92f2ec6a004495eb5aa303b959658f0283dc8824ec3a09"
+    },
+    {
+      "artifact": "linux/StarfireHearth.x86_64",
+      "bytes": 173737712,
+      "sha256": "65a638a08cc1aceae19cdcbeb2dfa484f409d602ba993b2b037a6908bbabb08d"
+    }
+  ]
+}

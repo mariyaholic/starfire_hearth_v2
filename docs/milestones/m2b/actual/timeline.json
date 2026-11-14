@@ -1,0 +1,14 @@
+[
+  {
+    "seconds": 0.0,
+    "action": "Click Menu (turn 4)"
+  },
+  {
+    "seconds": 1.37,
+    "action": "Click Menu_quit (turn 4)"
+  },
+  {
+    "seconds": 2.73,
+    "action": "Click Quit (turn 4)"
+  }
+]

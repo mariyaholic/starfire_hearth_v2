@@ -4,7 +4,7 @@ extends RefCounted
 ## each type below is a closed check with a readable progress count. Once done, an objective
 ## stays done.
 
-const TYPES: Array[String] = ["colonies_developed", "outposts", "stability_streak", "flag", "total_pops", "techs", "never_flag"]
+const TYPES: Array[String] = ["colonies_developed", "outposts", "stability_streak", "flag", "total_pops", "techs", "never_flag", "surveyed_planets", "visited_system"]
 const LOSS_TYPES: Array[String] = ["capital_pops_zero", "capital_autonomy"]
 
 
@@ -58,7 +58,17 @@ static func status(state: GameState, d: Dictionary) -> Status:
 					s.progress += 1
 		"outposts":
 			s.target = DictIO.int_of(d, "count", 1)
-			s.progress = ColonyRules.outposts(state, e.id).size()
+			for c: Colony in ColonyRules.outposts(state, e.id):
+				var system: String = DictIO.str_of(d, "system")
+				if system.is_empty() or state.planets[c.planet_id].system_id == system:
+					s.progress += 1
+		"surveyed_planets":
+			s.target = DictIO.int_of(d, "count", 1)
+			for pid: String in e.surveyed_planets:
+				if state.planets.has(pid) and state.planets[pid].system_id != DictIO.str_of(d, "exclude_system"):
+					s.progress += 1
+		"visited_system":
+			s.progress = 1 if e.known_systems.has(DictIO.str_of(d, "system")) else 0
 		"stability_streak":
 			s.target = DictIO.int_of(d, "turns", 10)
 			s.progress = state.objective_progress.get(s.id, 0)
@@ -112,6 +122,9 @@ static func update(state: GameState, r: TurnResult) -> void:
 				return
 		elif not state.objectives_done.has(DictIO.str_of(d, "id")):
 			return
+	# A scenario may preserve outstanding player decisions before ending. Loss still wins priority.
+	if DictIO.bool_of(scenario(state), "finish_pending_events_before_victory") and not Events.pending_for(state, e.id).is_empty():
+		return
 	# Every required objective is done: "never" objectives that held count as done now.
 	for d: Dictionary in definitions(state):
 		if DictIO.str_of(d, "type") == "never_flag" and not status(state, d).failed:

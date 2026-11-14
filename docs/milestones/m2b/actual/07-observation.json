@@ -1,0 +1,230 @@
+{
+  "auto_enabled": true,
+  "auto_status": "travelling",
+  "buttons": [
+    {
+      "disabled": false,
+      "name": "More",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@1341/@HBoxContainer@1342/More",
+      "rect": "[P: (1595.0, 4.0), S: (101.0, 40.0)]",
+      "text": "More"
+    },
+    {
+      "disabled": false,
+      "name": "Menu",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@1341/@HBoxContainer@1342/Menu",
+      "rect": "[P: (1868.0, 4.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_galaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_galaxy",
+      "rect": "[P: (12.0, 52.0), S: (181.0, 40.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_system",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_system",
+      "rect": "[P: (12.0, 100.0), S: (181.0, 40.0)]",
+      "text": "System"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_colony",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_colony",
+      "rect": "[P: (12.0, 148.0), S: (181.0, 40.0)]",
+      "text": "Colony"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_research",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_research",
+      "rect": "[P: (12.0, 196.0), S: (181.0, 40.0)]",
+      "text": "Research"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_ordinances",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_ordinances",
+      "rect": "[P: (12.0, 244.0), S: (181.0, 40.0)]",
+      "text": "Ordinances"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_market",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_market",
+      "rect": "[P: (12.0, 292.0), S: (181.0, 40.0)]",
+      "text": "Market"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_objectives",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Nav_objectives",
+      "rect": "[P: (12.0, 340.0), S: (181.0, 40.0)]",
+      "text": "Objectives"
+    },
+    {
+      "disabled": false,
+      "name": "FleetTravel",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/FleetTravel",
+      "rect": "[P: (12.0, 892.0), S: (181.0, 40.0)]",
+      "text": "Fleet travel"
+    },
+    {
+      "disabled": false,
+      "name": "ModeToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/ModeToggle",
+      "rect": "[P: (12.0, 940.0), S: (181.0, 40.0)]",
+      "text": "Immersive view"
+    },
+    {
+      "disabled": false,
+      "name": "Undo",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/Undo",
+      "rect": "[P: (12.0, 988.0), S: (181.0, 40.0)]",
+      "text": "Undo"
+    },
+    {
+      "disabled": false,
+      "name": "EndTurn",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/NavBar/@MarginContainer@1344/@VBoxContainer@1345/EndTurn",
+      "rect": "[P: (12.0, 1036.0), S: (181.0, 40.0)]",
+      "text": "End turn"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceStrategic",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1500/AppearanceStrategic",
+      "rect": "[P: (421.0, 154.0), S: (168.0, 40.0)]",
+      "text": "Strategic view"
+    },
+    {
+      "disabled": false,
+      "name": "CameraReset",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1500/CameraReset",
+      "rect": "[P: (597.0, 154.0), S: (165.0, 40.0)]",
+      "text": "Reset camera"
+    },
+    {
+      "disabled": false,
+      "name": "WorldPause",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1500/WorldPause",
+      "rect": "[P: (770.0, 154.0), S: (108.0, 40.0)]",
+      "text": "Pause"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeVisualFinish",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1500/UpgradeVisualFinish",
+      "rect": "[P: (886.0, 154.0), S: (218.0, 40.0)]",
+      "text": "Use new visual finish"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceOptionsToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/AppearanceOptionsToggle",
+      "rect": "[P: (421.0, 202.0), S: (1283.0, 38.0)]",
+      "text": "Appearance options"
+    },
+    {
+      "disabled": false,
+      "name": "System_sys_ember",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1499/System_sys_ember",
+      "rect": "[P: (421.0, 736.0), S: (113.0, 40.0)]",
+      "text": "Ember"
+    },
+    {
+      "disabled": false,
+      "name": "System_sys_halden",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1499/System_sys_halden",
+      "rect": "[P: (542.0, 736.0), S: (167.0, 40.0)]",
+      "text": "Halden's Gate"
+    },
+    {
+      "disabled": false,
+      "name": "System_sys_tessel",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1499/System_sys_tessel",
+      "rect": "[P: (717.0, 736.0), S: (111.0, 40.0)]",
+      "text": "Tessel"
+    },
+    {
+      "disabled": false,
+      "name": "System_sys_vesper",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@1343/ViewHost/Scroll/@VBoxContainer@1348/View/@VBoxContainer@1522/Galaxy/@VBoxContainer@1491/@VBoxContainer@1493/@HFlowContainer@1499/System_sys_vesper",
+      "rect": "[P: (836.0, 736.0), S: (179.0, 40.0)]",
+      "text": "Unknown star 4"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1527",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@HBoxContainer@1528/@Button@1527",
+      "rect": "[P: (1864.0, 16.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Move_flt_0001_sys_ember",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0001/@VBoxContainer@1535/@VBoxContainer@1537/@VBoxContainer@1545/Move_flt_0001_sys_ember",
+      "rect": "[P: (1552.0, 244.0), S: (330.0, 40.0)]",
+      "text": "Travel"
+    },
+    {
+      "disabled": false,
+      "name": "Move_flt_0001_sys_tessel",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0001/@VBoxContainer@1535/@VBoxContainer@1537/@VBoxContainer@1549/Move_flt_0001_sys_tessel",
+      "rect": "[P: (1552.0, 348.0), S: (330.0, 40.0)]",
+      "text": "Travel"
+    },
+    {
+      "disabled": false,
+      "name": "Move_flt_0001_sys_vesper",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0001/@VBoxContainer@1535/@VBoxContainer@1537/@VBoxContainer@1553/Move_flt_0001_sys_vesper",
+      "rect": "[P: (1552.0, 452.0), S: (330.0, 40.0)]",
+      "text": "Travel"
+    },
+    {
+      "disabled": false,
+      "name": "AutoExplore_flt_0002",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0002/@VBoxContainer@1554/@VBoxContainer@1556/AutoExplore_flt_0002",
+      "rect": "[P: (1552.0, 707.0), S: (330.0, 38.0)]",
+      "text": "Stop auto-explore"
+    },
+    {
+      "disabled": false,
+      "name": "Move_flt_0003_sys_halden",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0003/@VBoxContainer@1566/@VBoxContainer@1568/@VBoxContainer@1576/Move_flt_0003_sys_halden",
+      "rect": "[P: (1552.0, 963.0), S: (330.0, 40.0)]",
+      "text": "Travel"
+    },
+    {
+      "disabled": false,
+      "name": "Move_flt_0003_sys_tessel",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0003/@VBoxContainer@1566/@VBoxContainer@1568/@VBoxContainer@1580/Move_flt_0003_sys_tessel",
+      "rect": "[P: (1552.0, 1067.0), S: (330.0, 40.0)]",
+      "text": "Travel"
+    },
+    {
+      "disabled": false,
+      "name": "Move_flt_0003_sys_vesper",
+      "path": "/root/Overlay/OverlayRoot/TravelDrawer/@PanelContainer@1533/@MarginContainer@1524/@VBoxContainer@1525/@ScrollContainer@1532/@VBoxContainer@1531/Fleet_flt_0003/@VBoxContainer@1566/@VBoxContainer@1568/@VBoxContainer@1584/Move_flt_0003_sys_vesper",
+      "rect": "[P: (1552.0, 1171.0), S: (330.0, 40.0)]",
+      "text": "Travel"
+    }
+  ],
+  "energy": 28900,
+  "flags": {
+    "auto_explore:flt_0002": 1
+  },
+  "logical_size": "(1920.0, 1080.0)",
+  "minerals": 50000,
+  "probe_path": [
+    "sys_tessel"
+  ],
+  "probe_progress": 1,
+  "probe_task": "",
+  "route": "game",
+  "scale": 1.0,
+  "turn": 3
+}

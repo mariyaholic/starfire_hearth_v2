@@ -1,0 +1,50 @@
+{
+  "scope": "Byte comparison of the captured replay pairs; consolidated full-suite source consistency is recorded separately",
+  "pairs": [
+    {
+      "saved_trace": "default-1-0-a.log",
+      "repeat_matches": true,
+      "sha256": "38aebb2b205e18b94b57333d3a265b66595e94ee0e119a561e999a9bfffe130f"
+    },
+    {
+      "saved_trace": "default-1-1-a.log",
+      "repeat_matches": true,
+      "sha256": "b424b29fab2d065850140a8d7cb9c874559ed47de47a6cfaa284da72498e9135"
+    },
+    {
+      "saved_trace": "default-1-2-a.log",
+      "repeat_matches": true,
+      "sha256": "d035ddaadc71e8baab4f45e42a0a8f0b6a0d55272363dc0930c9668bcaa3270e"
+    },
+    {
+      "saved_trace": "default-2-2-a.log",
+      "repeat_matches": true,
+      "sha256": "293cd239f02170caf1cc37094258cf08d8e4fb941ef2a8a5448221a4526ebf0b"
+    },
+    {
+      "saved_trace": "default-3-2-a.log",
+      "repeat_matches": true,
+      "sha256": "a3f4b90d94f472d03a80c2f8a73c5a54d3f41915e31a8f21f0c33402edc48584"
+    },
+    {
+      "saved_trace": "shroud-first-energy.log",
+      "repeat_matches": true,
+      "sha256": "61d6e0603ef48c307d9f9bb296eac66ba91ad9703936a87d0f362a0a30ca90b2"
+    },
+    {
+      "saved_trace": "shroud-first-research.log",
+      "repeat_matches": true,
+      "sha256": "78712ee247a3ac4004e3dcd840026557149dff77079994755b8b56ab37effb03"
+    },
+    {
+      "saved_trace": "vesper-first-energy.log",
+      "repeat_matches": true,
+      "sha256": "1c68e2e454fda0c36cd24e53cebc6eece95a53fb4b5d76498bf5aa52a2f9c74e"
+    },
+    {
+      "saved_trace": "vesper-first-research.log",
+      "repeat_matches": true,
+      "sha256": "f85a28f00e71c7951c55d472d24f688d2e4c3acd4a5f086e4b54c134a4518df9"
+    }
+  ]
+}

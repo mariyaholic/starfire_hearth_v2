@@ -15,11 +15,13 @@ static func build(screen: GameScreen) -> Control:
 	choices.add_theme_constant_override("v_separation", Tokens.SPACE_S)
 	for marker: Dictionary in screen.world_controller.description.get("systems", []):
 		var button: SfButton = SfButton.make(marker.get("name_key", "ui.galaxy.unknown"), "emblem_hearth", SfButton.GHOST)
+		button.text = screen.system_label(marker["id"])
+		button.set_meta("audit_numeric_ok", "unknown star marker identifier")
 		button.name = "System_" + marker["id"]
 		button.pressed.connect(screen.world_controller.select.bind(marker["id"]))
 		choices.add_child(button)
 	card.add_body(choices)
 	WorldViewTools.add_to(card, screen)
-	card.add_text(Strings.fmt("ui.galaxy.locked"), &"CaptionLabel").name = "LockedNote"
+	card.add_text(Strings.fmt("ui.galaxy.exploration" if screen.state.scenario_id == "m2a_expedition" else "ui.galaxy.locked"), &"CaptionLabel").name = "LockedNote"
 	col.add_child(card)
 	return col

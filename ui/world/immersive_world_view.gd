@@ -67,6 +67,8 @@ static func toolbar(owner: GameScreen, parent: Container) -> void:
 	_button(parent,"ui.nav.more","ui_menu","Nav_more",owner.open_more,compact)
 	_button(parent,"ui.world.enter_command","ui_display","ModeToggle",owner.toggle_view_mode,compact)
 	_button(parent,"ui.world.build" if owner.view==GameScreen.COLONY else "ui.world.inspect","ui_plus" if owner.view==GameScreen.COLONY else "ui_why","ImmersiveInspect",owner.toggle_immersive_panel.bind("inspect"),compact)
+	if owner.state.scenario_id == "m2a_expedition" and owner.view in [GameScreen.GALAXY, GameScreen.SYSTEM]:
+		_button(parent,"ui.travel.open","ship_fleet","FleetTravel",owner.open_travel,compact)
 	_button(parent,"ui.world.manage","ui_colony","ImmersiveManage",owner.toggle_immersive_panel.bind("manage"),compact)
 	if not compact: _button(parent,"ui.world.objects","emblem_compass","ImmersiveObjects",owner.toggle_immersive_panel.bind("objects"),false)
 	_button(parent,"ui.world.camera_tools","ui_settings","ImmersiveTools",owner.toggle_immersive_panel.bind("tools"),compact)
@@ -296,8 +298,10 @@ func _objects(body: VBoxContainer) -> void:
 	var description: Dictionary = screen.world_controller.description
 	if screen.view == GameScreen.GALAXY:
 		for item: Dictionary in description.get("systems",[]):
-			_button(flow,item.get("name_key","ui.galaxy.unknown"),"emblem_hearth","System_"+item["id"],screen.world_controller.select.bind(item["id"]),false)
-		body.add_child(GameUI.caption(Strings.fmt("ui.galaxy.locked")))
+			var marker: SfButton = _button(flow,item.get("name_key","ui.galaxy.unknown"),"emblem_hearth","System_"+item["id"],screen.world_controller.select.bind(item["id"]),false)
+			marker.text = screen.system_label(item["id"])
+			marker.set_meta("audit_numeric_ok", "unknown star marker identifier")
+		body.add_child(GameUI.caption(Strings.fmt("ui.galaxy.exploration" if screen.state.scenario_id == "m2a_expedition" else "ui.galaxy.locked")))
 	else:
 		_button(flow,screen.state.systems[screen.system_id].name_key,"emblem_hearth","Focus_"+screen.system_id,screen.world_controller.focus.bind(screen.system_id),false)
 		for collection: String in ["planets","ships","outposts","colonies"]:

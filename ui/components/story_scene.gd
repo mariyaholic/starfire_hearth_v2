@@ -23,6 +23,7 @@ static func make(p_id: String, height: float = 180.0) -> StoryScene:
 
 
 func _init() -> void:
+	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 

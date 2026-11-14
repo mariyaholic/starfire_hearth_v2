@@ -123,17 +123,26 @@ static func check(state: GameState) -> Array[String]:
 
 	for fid: String in DictIO.sorted_keys(state.fleets):
 		var f: Fleet = state.fleets[fid]
+		if f.id != fid:
+			problems.append("fleet key %s holds id %s" % [fid, f.id])
 		if not state.systems.has(f.system_id):
 			problems.append("fleet %s is in missing system %s" % [fid, f.system_id])
 		_check_owner(state, "fleet " + fid, f.owner_id, problems)
+		var seen_ships: Dictionary[String, bool] = {}
 		for shid: String in f.ship_ids:
+			if seen_ships.has(shid):
+				problems.append("fleet %s lists ship %s twice" % [fid, shid])
+			seen_ships[shid] = true
 			if not state.ships.has(shid):
 				problems.append("fleet %s lists missing ship %s" % [fid, shid])
-			elif state.ships[shid].fleet_id != fid:
+			elif state.ships[shid].fleet_id != fid or state.ships[shid].owner_id != f.owner_id:
 				problems.append("ship %s and fleet %s disagree" % [shid, fid])
 		for step: String in f.path:
 			if not state.systems.has(step):
 				problems.append("fleet %s routes through missing system %s" % [fid, step])
+
+		if not Travel.route_valid(state, f):
+			problems.append("fleet %s has an invalid route or movement progress" % fid)
 
 	for shid: String in DictIO.sorted_keys(state.ships):
 		var sh: Ship = state.ships[shid]
@@ -145,6 +154,8 @@ static func check(state: GameState) -> Array[String]:
 			problems.append("ship %s has %d task turns" % [shid, sh.task_turns])
 		if sh.fleet_id != "" and not state.fleets.has(sh.fleet_id):
 			problems.append("ship %s is in missing fleet %s" % [shid, sh.fleet_id])
+		elif sh.fleet_id != "" and not state.fleets[sh.fleet_id].ship_ids.has(shid):
+			problems.append("ship %s is not listed by fleet %s" % [shid, sh.fleet_id])
 		_check_owner(state, "ship " + shid, sh.owner_id, problems)
 		if sh.structure < 0:
 			problems.append("ship %s has negative structure" % shid)

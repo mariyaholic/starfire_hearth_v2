@@ -22,7 +22,7 @@ const CONDITIONS: Array[String] = [
 	"min_turn", "max_turn", "flags_all", "flags_none", "colony_stability_max",
 	"colony_stability_min", "colony_pops_min", "colonies_min", "has_building", "has_district",
 	"techs_all", "stock_min", "net_max", "net_min", "decode_min", "outposts_min",
-	"colony_planet_type", "colony_is_capital", "stock_max", "autonomous_colony",
+	"colony_planet_type", "colony_is_capital", "stock_max", "autonomous_colony", "visited_system",
 ]
 
 const DIRECTOR_GAP_MIN: int = 4
@@ -363,6 +363,12 @@ static func check(state: GameState, e: Empire, trig: Dictionary, colony_id: Stri
 		if state.flags.has(f):
 			out.ok = false
 			return out
+	if trig.has("visited_system"):
+		var system_id: String = DictIO.str_of(trig, "visited_system")
+		if system_id.is_empty() or not state.systems.has(system_id) or not e.known_systems.has(system_id):
+			out.ok = false
+			return out
+		out.reasons.append({"key": "why.cond.visited_system", "args": {"system_key": state.systems[system_id].name_key}})
 	if trig.has("colonies_min"):
 		var n: int = ColonyRules.settled(state, e.id).size()
 		if n < DictIO.int_of(trig, "colonies_min"):

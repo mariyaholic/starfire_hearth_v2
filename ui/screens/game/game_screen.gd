@@ -306,7 +306,7 @@ func _queue_refresh() -> void:
 
 func _refresh() -> void:
 	_refresh_queued = false
-	if not is_inside_tree() or _root == null:
+	if not is_inside_tree() or _root == null or not Game.has_game():
 		return
 	state = Game.view()
 	report = Economy.empire(state, state.player_id)
@@ -386,7 +386,7 @@ func _world_selected(id: String) -> void:
 		if state.player().known_systems.has(id):
 			system_id = id; planet_id = ""
 			show_view(SYSTEM)
-		else: Overlay.toast(Strings.fmt("ui.galaxy.locked_toast"), ReportItem.SEVERITY_INFO)
+		else: Overlay.toast(Strings.fmt("ui.galaxy.exploration" if state.scenario_id == "m2a_expedition" else "ui.galaxy.locked_toast"), ReportItem.SEVERITY_INFO)
 		return
 	if state.colonies.has(id) and state.colonies[id].owner_id == state.player_id and not state.colonies[id].is_outpost():
 		open_colony(id)
@@ -481,6 +481,11 @@ func _refresh_nav() -> void:
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_nav_inner.add_child(spacer)
+	if state.scenario_id == "m2a_expedition" and view in [GALAXY, SYSTEM]:
+		var travel: SfButton = SfButton.make_icon("ship_fleet", "ui.travel.open", SfButton.GHOST) if Layout.compact else SfButton.make("ui.travel.open", "ship_fleet", SfButton.GHOST)
+		travel.name = "FleetTravel"
+		travel.pressed.connect(open_travel)
+		_nav_inner.add_child(travel)
 	var mode: SfButton = SfButton.make_icon("ui_display", "ui.world.enter_immersive", SfButton.GHOST) if Layout.compact else SfButton.make("ui.world.enter_immersive", "ui_display", SfButton.GHOST)
 	mode.name = "ModeToggle"
 	mode.pressed.connect(toggle_view_mode)
@@ -570,7 +575,9 @@ func jump(kind: String, id: String) -> void:
 			else:
 				if state.systems.has(id):
 					system_id = id
+					planet_id = ""
 				show_view(SYSTEM)
+				_refresh_view()
 		"research":
 			show_view(RESEARCH)
 		"objective":
@@ -857,3 +864,19 @@ func demo(state_name: String) -> void:
 			open_why("colony", colony_id)
 	await get_tree().process_frame
 	await get_tree().process_frame
+
+
+func open_travel() -> void:
+	TravelDrawer.open(self)
+
+
+## Stable numbers match the map markers without disclosing undiscovered names.
+func system_label(id: String) -> String:
+	if not state.systems.has(id):
+		return Strings.fmt("ui.galaxy.unknown")
+	if state.player().known_systems.has(id):
+		return Strings.fmt(state.systems[id].name_key)
+	if state.scenario_id != "m2a_expedition":
+		return Strings.fmt("ui.galaxy.unknown")
+	var ids: Array[String] = DictIO.sorted_keys(state.systems)
+	return Strings.fmt("ui.travel.unknown", {"number": str(ids.find(id) + 1)})

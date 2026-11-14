@@ -1486,3 +1486,82 @@ ui.world.interface_opacity,Panel opacity
 ui.world.interface_blur,Blur
 ui.world.interface_gloss,Gloss
 ui.world.interface_edge,Edge light
+scenario.m2a.name,M2A Exploration Preview
+scenario.m2a.desc,A standalone expedition beyond Ember. Survey new worlds and develop a frontier colony. An optional branch leads farther out.
+scenario.m2a.briefing,"Our slowboats can reach the neighbouring stars. Send the survey probe ahead, establish a colony in Vesper, and visit Halden’s Gate. Tessel offers a place for an optional outpost, and another optional branch lies beyond Vesper. Open Fleet Travel from the galaxy or system toolbar to plot a course or enable automatic exploration for the survey probe; unknown stars are numbered until a ship arrives. This preview stands apart from campaign progress."
+scenario.m2a.debrief,Your expedition has carried the hearth beyond Ember. The stars are no longer just points on a chart.
+ui.campaign.preview_label,Standalone preview · available now
+planet.tessel.name,Tessel Reach
+planet.vesper.name,Vesper Haven
+objective.m2a.survey,Survey a planet beyond Ember
+objective.m2a.develop,Develop a colony in Vesper
+objective.m2a.gate,Visit Halden’s Gate
+objective.m2a.outpost,Build an outpost in Tessel
+ui.travel.title,Fleet travel
+ui.travel.hint,Choose a destination for an idle civilian fleet. Unknown stars keep their numbers until arrival. Travel advances when you end the turn.
+ui.travel.unknown,Unknown star {number}
+ui.travel.at,At {system}
+ui.travel.en_route,En route to {system}
+ui.travel.eta,Journey: {turns} turns
+ui.travel.none,No civilian fleets are available.
+ui.travel.open,Fleet travel
+ui.galaxy.exploration,Select Fleet travel to chart a route. Stars are named on arrival.
+error.fleet.not_found,Fleet not found.
+error.fleet.not_owned,This fleet is not yours.
+error.fleet.in_transit,This fleet is already travelling.
+error.fleet.empty,This fleet has no ships.
+error.fleet.unavailable,This fleet is busy or cannot travel.
+error.fleet.no_route,No open route to that system.
+error.fleet.already_here,This fleet is already there.
+report.fleet_arrived,Fleet arrived in {system}.
+breakdown.travel_turns,Travel time
+source.travel_lane,Deep-space lane
+ui.travel.no_routes,No available route for this fleet.
+ui.world.appearance_options,Appearance options
+report.fleet_route_blocked,A fleet’s route is blocked; travel has paused.
+ui.travel.via,Route: {route}
+ui.travel.remaining,Remaining: {turns} turns
+ui.travel.action,Travel
+event.m2a_halden.1.title,A Quiet Cache
+event.m2a_halden.1.body,"Your crew finds a small service cache drifting beside Halden’s silent gate. Its sealed cases carry old maintenance markings, and inside are spare parts and meticulous notes from the people who kept the lane markers tended. The beacon itself remains dark. We could bring the supplies home, though storage limits may reduce what we can keep, or study the records and share what we learn with our researchers. If neither is worth the energy today, we can leave the cache as we found it. There is no hurry, and no signal asks us to wake the gate."
+event.m2a_halden.1.c0,Salvage what fits
+event.m2a_halden.1.c1,Study the records
+event.m2a_halden.1.c2,Leave the cache intact
+objective.m2a.cache,Decide what to do with the cache at Halden’s Gate
+ui.auto_explore.enable,Start auto-explore
+ui.auto_explore.disable,Stop auto-explore
+ui.auto_explore.status.disabled,Automatic exploration off
+ui.auto_explore.status.travelling,Exploring: travelling
+ui.auto_explore.status.surveying,Exploring: surveying
+ui.auto_explore.status.waiting,Exploring: waiting
+ui.auto_explore.hint,Automatic exploration sends an idle survey fleet to reachable unknown systems or unsurveyed planets. A manual travel or survey order stops it. Stopping automatic exploration keeps the entire current route or survey.
+error.auto_explore.unavailable,This fleet cannot explore automatically.
+report.auto_explore_complete,Automatic exploration has no reachable systems or planets left.
+why.cond.visited_system,Visited {system}
+ui.system.no_planets,There are no planets in this system.
+ui.travel.stop_at,Stop at {system}
+ui.travel.stop_hint,Finish the current leg and remove later destinations. Automatic exploration also stops.
+ui.travel.stop_action,Stop at next system
+error.fleet.not_moving,This fleet is not travelling.
+error.fleet.already_stopping,This fleet is already stopping at its next system.
+error.fleet.invalid_route,This fleet’s route is blocked.
+planet.shroud_giant.name,Veil
+event.m2a_shroud.1.title,The Quiet Freighter
+event.m2a_shroud.1.body,"Pilot Nia Chen and engineer Ravi Das find a freighter drifting among the distant lights. Its crew left careful records and a cargo still sealed against the cold. The engines are silent, but the hull and provisions could help our settlements. We could recover either, spending energy to bring it home; storage limits may reduce what we can keep. Or we could leave the ship undisturbed and honour the people who brought it this far. Their log ends with a list of names, written as if someone expected them to be read."
+event.m2a_shroud.1.c0,Recover what remains of the hull
+event.m2a_shroud.1.c1,Recover the provisions
+event.m2a_shroud.1.c2,Honour the crew
+ui.system.outpost_kind,{resource} outpost
+ui.system.outpost_projected,Projected per turn with current modifiers
+ui.system.outpost_actual,Current output per turn
+ui.system.outpost_branch,{branch} research
+ui.system.outpost_energy_net,Energy net (includes upkeep)
+ui.system.outpost_upkeep,Energy upkeep
+ui.system.outpost_upkeep_included,Upkeep included in energy net
+breakdown.outpost_upkeep,Outpost energy upkeep
+ui.research.banked,Stored research: {amount}
+ui.research.bank_hint,Research accumulates even when no card is selected.
+ui.research.completes_next,Completes next turn
+ui.research.no_income,No research income
+breakdown.research_bank,Stored {branch} research
+source.research_bank,Stored research

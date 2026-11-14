@@ -69,18 +69,22 @@ static func build(state: GameState, kind: String, entity_id: String, epoch: int)
 
 static func galaxy(state: GameState) -> Dictionary:
 	var systems: Array[Dictionary] = []
-	for id: String in DictIO.sorted_keys(state.systems):
+	var ids: Array[String] = DictIO.sorted_keys(state.systems)
+	for id: String in ids:
 		var system: StarSystem = state.systems[id]
 		var known: bool = state.player().known_systems.has(id)
 		var marker: Dictionary = {"id": id, "x": system.x, "y": system.y, "known": known}
 		if known:
 			marker["name_key"] = system.name_key
 			marker["spectral"] = system.spectral
+		elif state.scenario_id == "m2a_expedition":
+			marker["label_key"] = "ui.travel.unknown"
+			marker["label_args"] = {"number": str(ids.find(id) + 1)}
 		systems.append(marker)
 	var lanes: Array[Dictionary] = []
 	for id: String in DictIO.sorted_keys(state.lanes):
 		var lane: Lane = state.lanes[id]
-		lanes.append({"id": id, "a": lane.a, "b": lane.b, "locked": true})
+		lanes.append({"id": id, "a": lane.a, "b": lane.b, "locked": lane.kind != Lane.KIND_DEEP or state.flags.has("fog_locked:" + lane.a) or state.flags.has("fog_locked:" + lane.b)})
 	return {"id": "galaxy", "systems": systems, "lanes": lanes}
 
 static func _parcel_labels(state: GameState, colony: Colony) -> Array[String]:

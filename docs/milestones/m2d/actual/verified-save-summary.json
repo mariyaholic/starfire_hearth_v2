@@ -1,0 +1,52 @@
+{
+  "save_file": "/tmp/starfire-m2d-actual-v2-data/godot/app_userdata/Starfire Hearth/saves/manual_1.json",
+  "save_sha256": "e7eaee69830bed99aa89b1942146d960e684e6a3f93a92a6d93e0a7856ddb0c0",
+  "turn": 10,
+  "outpost": {
+    "autonomous_from": "",
+    "autonomy_turns": 0,
+    "buildings": [],
+    "districts": [],
+    "famine_turns": 0,
+    "founded_turn": 9,
+    "governor_budget_bp": 5000,
+    "governor_focus": "balanced",
+    "governor_funds": 0,
+    "governor_on": false,
+    "governor_vetoes": {},
+    "growth": 0,
+    "id": "col_0002",
+    "job_priority": [
+      "food",
+      "energy",
+      "minerals",
+      "alloys",
+      "research",
+      "clerks"
+    ],
+    "name": "",
+    "outpost_kind": "research",
+    "owner_id": "emp_player",
+    "planet_id": "pl_shroud_giant",
+    "pops": 0,
+    "queue": [],
+    "stability": 50
+  },
+  "planet": {
+    "art_seed": 83,
+    "blocked_slots": [],
+    "colony_id": "col_0002",
+    "id": "pl_shroud_giant",
+    "name_key": "planet.shroud_giant.name",
+    "orbit": 1,
+    "size": "",
+    "system_id": "sys_shroud",
+    "traits": [],
+    "type": "gas_giant"
+  },
+  "flags": {
+    "m2a_shroud_resolved": 4,
+    "m2a_shroud_supplies": 4
+  },
+  "verification": "Actual Menu > Save created this file. File parsed read-only; reload was not exercised in M2D."
+}

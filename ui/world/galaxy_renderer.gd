@@ -21,13 +21,15 @@ func _build_map() -> void:
 			(bodies[system["id"]]["material"] as ShaderMaterial).set_shader_parameter("star_color",Color(colors.get(system["spectral"],"fff0cb")))
 		if not bodies[system["id"]].has("label"):
 			var label: Label3D = Label3D.new()
-			label.text = Strings.fmt(system.get("name_key", "ui.galaxy.unknown"))
+			label.text = Strings.fmt(system.get("label_key", system.get("name_key", "ui.galaxy.unknown")), system.get("label_args", {}))
 			label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 			label.pixel_size = 0.055; label.font_size = 32; label.outline_size = 6
 			label.no_depth_test = true
 			label.position = Vector3(0,0.85,0)
 			(bodies[system["id"]]["node"] as Node3D).add_child(label)
 			bodies[system["id"]]["label"] = label
+		else:
+			(bodies[system["id"]]["label"] as Label3D).text = Strings.fmt(system.get("label_key", system.get("name_key", "ui.galaxy.unknown")), system.get("label_args", {}))
 	if not positions.is_empty():
 		_center = (lo+hi)*0.5
 		_overview_distance = maxf(16, (hi-lo).length()*2.2)

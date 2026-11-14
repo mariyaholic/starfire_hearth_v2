@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "id": "m2a_halden_cache",
+  "kind": "scripted",
+  "scenarios": [
+    "m2a_expedition"
+  ],
+  "vignette": "quiet_lane",
+  "cooldown": 0,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "visited_system": "sys_halden"
+      },
+      "speaker": "archivist_sola",
+      "expression": "neutral",
+      "music": "mood_light",
+      "title_key": "event.m2a_halden.1.title",
+      "body_key": "event.m2a_halden.1.body",
+      "choices": [
+        {
+          "label_key": "event.m2a_halden.1.c0",
+          "cost": {
+            "energy": 1500
+          },
+          "effects": [
+            {
+              "key": "add_stock:minerals",
+              "value": 4000
+            }
+          ],
+          "set_flags": [
+            "m2a_halden_resolved",
+            "m2a_halden_salvage"
+          ]
+        },
+        {
+          "label_key": "event.m2a_halden.1.c1",
+          "cost": {
+            "energy": 2000
+          },
+          "effects": [
+            {
+              "key": "research_bp:all",
+              "value": 5000,
+              "turns": 10
+            }
+          ],
+          "set_flags": [
+            "m2a_halden_resolved",
+            "m2a_halden_study"
+          ]
+        },
+        {
+          "label_key": "event.m2a_halden.1.c2",
+          "set_flags": [
+            "m2a_halden_resolved",
+            "m2a_halden_left_intact"
+          ]
+        }
+      ]
+    }
+  ]
+}

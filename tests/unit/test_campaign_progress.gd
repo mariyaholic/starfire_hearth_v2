@@ -48,3 +48,16 @@ func test_round_trips_through_a_dictionary(t: T) -> void:
 	var junk: CampaignProgress = CampaignProgress.from_dict({"won": {"not_a_scenario": "x"}})
 	t.not_ok(junk.is_won("not_a_scenario"), "unknown scenarios are dropped on load")
 	t.eq(junk.difficulty_id, "normal", "the default difficulty")
+
+
+func test_preview_does_not_change_campaign(t: T) -> void:
+	var p: CampaignProgress = CampaignProgress.new()
+	p.record_win(S1)
+	p.pick_legacy(S1, "steady_hands")
+	var before: Dictionary = p.to_dict()
+	p.record_win("m2a_expedition")
+	p.pick_legacy("m2a_expedition", "archive_scholars")
+	t.eq(p.to_dict(), before, "preview cannot record campaign progress")
+	t.eq(p.carried_legacies("m2a_expedition"), [] as Array[String], "preview inherits no campaign legacies")
+	t.not_ok(p.is_unlocked(S3), "preview cannot unlock S3")
+	t.eq(CampaignProgress.ORDER, [S1, S2, S3] as Array[String])

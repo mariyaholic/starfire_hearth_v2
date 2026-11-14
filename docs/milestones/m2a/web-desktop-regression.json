@@ -1,0 +1,134 @@
+[
+  {
+    "name": "desktop",
+    "checks": [
+      {
+        "label": "default has summary only",
+        "pass": true
+      },
+      {
+        "label": "default card leaves the scene exposed",
+        "pass": true
+      },
+      {
+        "label": "persistent turn control",
+        "pass": true
+      },
+      {
+        "label": "reachable actual control ImmersiveManage",
+        "pass": true
+      },
+      {
+        "label": "reachable actual control ManageTab_jobs",
+        "pass": true
+      },
+      {
+        "label": "reachable actual control Raise_energy",
+        "pass": true
+      },
+      {
+        "label": "Jobs sends real order from the window",
+        "pass": true
+      },
+      {
+        "label": "matte retains state_hash",
+        "pass": true
+      },
+      {
+        "label": "matte retains graphics_hash",
+        "pass": true
+      },
+      {
+        "label": "matte retains orders",
+        "pass": true
+      },
+      {
+        "label": "matte retains renderer",
+        "pass": true
+      },
+      {
+        "label": "glossy retains state_hash",
+        "pass": true
+      },
+      {
+        "label": "glossy retains graphics_hash",
+        "pass": true
+      },
+      {
+        "label": "glossy retains orders",
+        "pass": true
+      },
+      {
+        "label": "glossy retains renderer",
+        "pass": true
+      },
+      {
+        "label": "frosted retains state_hash",
+        "pass": true
+      },
+      {
+        "label": "frosted retains graphics_hash",
+        "pass": true
+      },
+      {
+        "label": "frosted retains orders",
+        "pass": true
+      },
+      {
+        "label": "frosted retains renderer",
+        "pass": true
+      },
+      {
+        "label": "End turn reachable at 200% text",
+        "pass": true
+      },
+      {
+        "label": "one turn matches pure simulation",
+        "pass": true
+      },
+      {
+        "label": "overview fills the mounted aspect",
+        "pass": true
+      },
+      {
+        "label": "outer orbit guide stays in view",
+        "pass": true
+      },
+      {
+        "label": "known system has rendered orbital bodies",
+        "pass": true
+      },
+      {
+        "label": "save succeeds",
+        "pass": true
+      },
+      {
+        "label": "device mode survives page recreation",
+        "pass": true
+      },
+      {
+        "label": "campaign survives IndexedDB reload",
+        "pass": true
+      },
+      {
+        "label": "same saved turn reconstructs the same orbital positions",
+        "pass": true
+      },
+      {
+        "label": "no browser/script/shader errors",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "captures": [
+      "desktop_01_compact_default.png",
+      "desktop_02_jobs_window.png",
+      "desktop_03_appearance.png",
+      "desktop_04_large_text.png",
+      "desktop_05_system_spacing.png",
+      "desktop_06_system_after_reload.png"
+    ],
+    "elapsed_seconds": 431.3,
+    "qualification": "Actual Web export, Chromium SwiftShader, mouse or touch emulation. One resolved turn and destroyed-page IndexedDB reload; physical devices not tested."
+  }
+]

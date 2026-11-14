@@ -17,7 +17,7 @@ static func build(s: GameScreen) -> Control:
 	map.name = "GalaxyMap"
 	map.setup(s)
 	card.add_body(map)
-	var note: Label = card.add_text(Strings.fmt("ui.galaxy.locked"), &"CaptionLabel")
+	var note: Label = card.add_text(Strings.fmt("ui.galaxy.exploration" if s.state.scenario_id == "m2a_expedition" else "ui.galaxy.locked"), &"CaptionLabel")
 	note.name = "LockedNote"
 	col.add_child(card)
 	return col
@@ -57,7 +57,8 @@ class Map:
 			v.add_child(wrap)
 			var l: Label = Label.new()
 			l.theme_type_variation = &"CaptionLabel"
-			l.text = Strings.fmt(sys.name_key) if here else Strings.fmt("ui.galaxy.unknown")
+			l.text = s.system_label(id)
+			l.set_meta("audit_numeric_ok", "unknown star marker identifier")
 			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			v.add_child(l)
@@ -99,14 +100,13 @@ class Map:
 				continue
 			draw_dashed_line(_pos[lane.a], _pos[lane.b], line, 2.0, 8.0)
 			var mid: Vector2 = (_pos[lane.a] + _pos[lane.b]) / 2.0
-			if lock != null:
+			if lock != null and (_screen.state.flags.has("fog_locked:" + lane.a) or _screen.state.flags.has("fog_locked:" + lane.b) or lane.kind != Lane.KIND_DEEP):
 				draw_texture(lock, mid - lock.get_size() / 2.0, Tokens.color("text.secondary"))
 
 	func _chosen(id: String) -> void:
-		var sys: StarSystem = _screen.state.systems[id]
-		if _screen.state.player().known_systems.has(id) and not sys.planet_ids.is_empty():
+		if _screen.state.player().known_systems.has(id):
 			_screen.system_id = id
 			_screen.planet_id = ""
 			_screen.show_view(GameScreen.SYSTEM)
 		else:
-			Overlay.toast(Strings.fmt("ui.galaxy.locked_toast"), ReportItem.SEVERITY_INFO)
+			Overlay.toast(Strings.fmt("ui.galaxy.exploration" if _screen.state.scenario_id == "m2a_expedition" else "ui.galaxy.locked_toast"), ReportItem.SEVERITY_INFO)
