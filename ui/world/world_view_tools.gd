@@ -62,12 +62,22 @@ static func add_to(card: Card, screen: GameScreen) -> void:
 		var city: ColonyRenderer=screen.world_controller.host.renderer as ColonyRenderer
 		if not city.road_network.get("unreachable",[]).is_empty(): card.add_text(Strings.fmt("ui.world.roads_gap"),&"CaptionLabel")
 	var quality: Control=SettingsScreen.choice("ui.world.quality", ["auto","low","standard"], ["ui.world.auto","ui.world.low","ui.world.standard"], Settings.visual_quality, Settings.set_visual_quality)
-	card.add_body(quality)
-	add_interface_controls(card)
+	var toggle: CheckButton = CheckButton.new()
+	toggle.name = "AppearanceOptionsToggle"
+	toggle.text = Strings.fmt("ui.world.appearance_options")
+	toggle.custom_minimum_size.y = Layout.target_size()
+	card.add_body(toggle)
+	var options: Card = Card.make("")
+	options.name = "AppearanceOptions"
+	options.visible = false
+	options.add_body(quality)
+	add_interface_controls(options)
+	toggle.toggled.connect(func(value: bool) -> void: options.visible = value)
+	card.add_body(options)
 	# Scene controls precede the mount; they stay reachable on compact screens.
 	var mount: Control=screen.world_controller.host.mount.get_ref() as Control if screen.world_controller.host.mount!=null else null
 	if mount!=null and mount.get_parent()==card.body:
-		var index: int=mount.get_index(); card.body.move_child(row,index); card.body.move_child(quality,index+1)
+		var index: int=mount.get_index(); card.body.move_child(row,index); card.body.move_child(toggle,index+1); card.body.move_child(options,index+2)
 
 static func add_interface_controls(card: Card, include_contrast: bool = true) -> void:
 	card.add_body(SettingsScreen.choice("ui.world.interface_finish",["matte","frosted","glossy"],["ui.world.finish_matte","ui.world.finish_frosted","ui.world.finish_glossy"],Settings.interface_finish,Settings.set_interface_finish))

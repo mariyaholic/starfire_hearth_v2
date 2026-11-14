@@ -40,6 +40,8 @@ func legacy_of(scenario_id: String) -> String:
 ## The legacies a scenario starts with: the one picked after each earlier scenario.
 func carried_legacies(scenario_id: String) -> Array[String]:
 	var out: Array[String] = []
+	if not ORDER.has(scenario_id):
+		return out
 	for id: String in ORDER:
 		if id == scenario_id:
 			break
@@ -50,13 +52,15 @@ func carried_legacies(scenario_id: String) -> Array[String]:
 
 ## A win counts as soon as the debrief opens, so leaving before picking a legacy keeps it.
 func record_win(scenario_id: String) -> void:
-	if not won.has(scenario_id):
+	if ORDER.has(scenario_id) and not won.has(scenario_id):
 		won[scenario_id] = ""
 		_changed()
 
 
 ## Replaying a won scenario lets the player pick again; the new pick replaces the old one.
 func pick_legacy(scenario_id: String, legacy_id: String) -> void:
+	if not ORDER.has(scenario_id):
+		return
 	won[scenario_id] = legacy_id
 	_changed()
 

@@ -262,3 +262,51 @@ func _audit(t: T, label: String) -> void:
 	t.ok(rep.checked_labels >= 3, "%s: audited %d labels" % [label, rep.checked_labels])
 	for issue: Dictionary in rep.issues.slice(0, 6):
 		t.fail("%s: %s %s | %s | %s" % [label, issue["rule"], issue["detail"], issue["text"], issue["path"]])
+
+
+func test_preview_travel_controls_and_stale_callback(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 1)
+	app.go(AppRoot.BRIEFING, {"scenario": "m2a_expedition"})
+	await _frames(3)
+	app.go(AppRoot.BEGIN, {"seed": 1})
+	await _frames(4)
+	Overlay.close_all()
+	var gs: GameScreen = app.screen as GameScreen
+	Settings.set_appearance("strategic")
+	gs.show_view(GameScreen.GALAXY)
+	await _frames(3)
+	t.ok(gs.find_child("FleetTravel", true, false) != null, "strategic map offers travel")
+	gs.open_travel()
+	await _frames(3)
+	var drawer: Drawer = Overlay.top() as Drawer
+	t.ok(drawer != null, "travel drawer opens")
+	var move: BaseButton = drawer.find_child("Move_flt_0001_sys_tessel", true, false) as BaseButton if drawer != null else null
+	t.ok(move != null, "reachable unknown system offers a move")
+	if move != null:
+		move.pressed.emit()
+		t.eq(Game.view().fleets["flt_0001"].path, ["sys_tessel"] as Array[String], "button queues selected fleet and destination")
+		Game.undo()
+		Overlay.close_all()
+		await _frames(4)
+		gs.open_travel()
+		await _frames(3)
+		drawer = Overlay.top() as Drawer
+		move = drawer.find_child("Move_flt_0001_sys_tessel", true, false) as BaseButton
+		t.ok(move != null, "undo restores the move choice")
+		var old_serial: int = Game.session_serial
+		Game.new_game("m2a_expedition", 1)
+		t.ok(Game.session_serial != old_serial)
+		if move != null: move.pressed.emit()
+		t.eq(Game.queue.size(), 0, "stale drawer callback cannot order a new session")
+	Overlay.close_all()
+	gs.planet_id = "pl_aster"
+	gs.jump("system", "sys_vesper")
+	t.eq(gs.system_id, "sys_vesper", "arrival report opens the destination")
+	t.eq(gs.planet_id, "", "arrival report clears the previous planet selection")
+	Settings.set_appearance("3d")
+	Settings.set_view_mode("immersive")
+	gs.show_view(GameScreen.SYSTEM)
+	await _frames(4)
+	t.ok(gs.find_child("FleetTravel", true, false) != null, "immersive 3D system offers travel")
+	Settings.set_view_mode("command")
+	await _stop(app)

@@ -3,6 +3,17 @@
 Newest first. A claim marked **Verified** names the command that proved it, run from the
 repository root after `godot --headless --path . --import`. Everything else is **Unverified**.
 
+## Unreleased: M2A exploration preview
+
+- Add a standalone four-system expedition without advancing the canonical campaign
+- Add civilian routes, remaining travel time, discovery and arrival reports
+- Block conflicting tasks, invalid routes, stale controls and undiscovered shortcuts
+- Keep system maps visible and fit travel controls at 200% phone text
+- **Verified:** Godot 4.7.2 import and data validation; `tests/run_tests.gd` passes
+  the consolidated results are recorded in `docs/milestones/M2A_REPORT.md`;
+  expedition seeds 1–3 finish all objectives on turn 30 with matching replays
+- **Unverified:** real Windows/GPU behavior, physical phones and full M2 combat systems
+
 ## Unreleased: M1, First Light (in progress)
 
 - Branching-campaign art is in: all 42 scenes and endings (vignette batches 2 and

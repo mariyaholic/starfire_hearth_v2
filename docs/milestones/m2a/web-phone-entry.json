@@ -1,0 +1,17 @@
+{
+  "method": "Actual exported web canvas in headless Chromium/SwiftShader, mobile viewport873x393 at2.75DPR, has_touch, touchscreen.tap; no smoke probe or scene injection.",
+  "screenshots": [
+    "01-title.png",
+    "02-campaign.png",
+    "03-campaign-scrolled.png",
+    "04-preview-briefing.png"
+  ],
+  "elapsed_seconds": 64.2,
+  "errors": [],
+  "logs": [
+    "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+    "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL",
+    "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support.",
+    "Starfire Hearth layout: compact, touch, UI scale 2.75, 873x393 logical"
+  ]
+}
