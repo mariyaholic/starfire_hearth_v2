@@ -24,6 +24,7 @@ try:
             browser = p.chromium.launch(executable_path='/usr/bin/chromium', args=['--no-sandbox', '--disable-dev-shm-usage', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'])
             context = browser.new_context(**config); page = context.new_page()
             errors, checks, captures = [], [], []
+            stage = 'initializing page'
             def watch():
                 page.on('pageerror', lambda error: errors.append(str(error)))
                 page.on('console', lambda message: errors.append(message.text) if message.type == 'error' else None)
@@ -34,11 +35,15 @@ try:
                 checks.append({'label': label, 'pass': bool(value)})
                 if not value: raise AssertionError(label)
             def action(value):
+                global stage
+                stage = 'action: ' + value
                 serial = data()['serial']
                 page.evaluate('(value) => { window.__m11StageFAction = value; }', value)
                 wait(f'window.__m11StageF.serial > {serial}')
             def click(key):
+                global stage
                 action('reveal:' + key)
+                stage = 'click: ' + key
                 wait(f'window.__m11StageF.controls[{json.dumps(key)}]?.reachable === true')
                 state = data(); button = state['controls'].get(key)
                 check(button and button['enabled'] and button['reachable'], 'reachable actual control ' + key)
@@ -48,14 +53,19 @@ try:
                 if name == 'phone': page.touchscreen.tap(x, y)
                 else: page.mouse.click(x, y)
             def capture(label):
+                global stage
+                stage = 'capture: ' + label
                 page.screenshot(path=str(out / f'{name}_{label}.png'), timeout=120000)
                 captures.append(f'{name}_{label}.png'); print(f'{name}: {label}', flush=True)
             try:
+                stage = 'load initial page'
                 page.goto(f'http://127.0.0.1:{server.server_port}/index.html?smoke=m11-immersive', wait_until='load')
+                stage = 'wait for initial game and renderer'
                 wait("window.__m11StageF?.phase === 'ready'")
                 wait('window.__m11StageF.renderer.busy === false')
                 action('mode_immersive'); wait('window.__m11StageF.immersive_active === true')
                 wait("window.__m11StageF.workspace.windows.some(w => w.kind === 'summary')")
+                stage = 'inspect default workspace'
                 state = data(); windows = state['workspace']['windows']
                 check([w['kind'] for w in windows] == ['summary'], 'default has summary only')
                 share = sum(w['width'] * w['height'] for w in windows) / (state['logical_size']['x'] * state['logical_size']['y'])
@@ -64,11 +74,13 @@ try:
                 capture('01_compact_default')
                 click('ImmersiveManage'); wait("window.__m11StageF.workspace.active === 'manage'")
                 click('ManageTab_jobs'); wait("window.__m11StageF.workspace.manage_tab === 'jobs'")
+                stage = 'inspect jobs and submit order'
                 orders = data()['orders']; click('Raise_energy')
                 wait(f'window.__m11StageF.orders === {orders + 1}')
                 check(True, 'Jobs sends real order from the window')
                 capture('02_jobs_window')
                 action('context_close'); action('tools')
+                stage = 'inspect appearance settings'
                 before = data()
                 for finish in ['matte', 'glossy', 'frosted']:
                     action('finish_' + finish)
@@ -85,6 +97,7 @@ try:
                 check(data()['state_hash'] == data()['expected_hash'], 'one turn matches pure simulation')
                 action('system'); wait('window.__m11StageF.orbit_positions')
                 wait('window.__m11StageF.orbit_frame?.ready === true && window.__m11StageF.orbit_frame.scene_width > 100')
+                stage = 'inspect system orbit frame'
                 frame = data()['orbit_frame']
                 axis = 'width' if name == 'phone' else 'height'
                 check(frame[axis] > frame['scene_' + axis] * .5, 'overview fills the mounted aspect')
@@ -94,9 +107,11 @@ try:
                 capture('05_system_spacing')
                 action('save'); check(data()['error'] == '0', 'save succeeds')
                 action('persist_mode'); page.wait_for_timeout(3500)
+                stage = 'recreate page after save'
                 page.close(); page = context.new_page(); watch()
                 page.goto(f'http://127.0.0.1:{server.server_port}/index.html?smoke=m11-immersive', wait_until='load')
                 wait("window.__m11StageF?.phase === 'ready'")
+                stage = 'verify saved state after reload'
                 check(data()['view_mode'] == 'immersive', 'device mode survives page recreation')
                 check(data()['state_hash'] == saved_hash, 'campaign survives IndexedDB reload')
                 action('system'); wait('window.__m11StageF.orbit_positions')
@@ -106,7 +121,21 @@ try:
                 result = {'name': name, 'checks': checks, 'errors': errors, 'captures': captures, 'elapsed_seconds': round(time.monotonic()-started, 1), 'qualification': 'Actual Web export, Chromium SwiftShader, mouse or touch emulation. One resolved turn and destroyed-page IndexedDB reload; physical devices not tested.'}
                 results.append(result)
             except Exception as error:
-                (out / f'{name}_failure.json').write_text(json.dumps({'error': str(error), 'checks': checks, 'errors': errors, 'evidence': data()}, indent=2)+'\n')
+                failure_capture = None
+                capture_error = None
+                try:
+                    failure_capture = f'{name}_failure.png'
+                    page.screenshot(path=str(out / failure_capture), timeout=10000)
+                except Exception as screenshot_error:
+                    failure_capture = None
+                    capture_error = str(screenshot_error)
+                try:
+                    evidence = data()
+                except Exception as evidence_error:
+                    evidence = {'unavailable': str(evidence_error)}
+                failure = {'stage': stage, 'error': str(error), 'checks': checks, 'errors': errors,
+                           'evidence': evidence, 'screenshot': failure_capture, 'screenshot_error': capture_error}
+                (out / f'{name}_failure.json').write_text(json.dumps(failure, indent=2)+'\n')
                 raise
             finally:
                 (out / 'verification.json').write_text(json.dumps(results, indent=2)+'\n')

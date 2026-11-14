@@ -36,6 +36,7 @@ static func run(state: GameState, player_commands: Array[Command]) -> TurnResult
 		match phase:
 			"commands":
 				_phase_commands(r, player_commands, ai_commands)
+				AutoExplore.advance(r.state, r)
 			"construction":
 				_phase_construction(r)
 			"production":
@@ -45,7 +46,7 @@ static func run(state: GameState, player_commands: Array[Command]) -> TurnResult
 			"research":
 				_phase_research(r)
 			"movement":
-				pass
+				Travel.advance(r.state, r)
 			"combat":
 				pass
 			"occupation":

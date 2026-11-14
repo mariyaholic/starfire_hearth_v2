@@ -37,7 +37,9 @@ func build_screen() -> void:
 	var actions: Array[Control] = []
 	if Layout.compact:
 		actions.append(begin)
-	col.add_child(header(Strings.fmt(DictIO.str_of(rec, "name_key", "ui.title.unknown_scenario")), Strings.fmt("ui.briefing.kicker"), actions))
+	var heading: HBoxContainer = header(Strings.fmt(DictIO.str_of(rec, "name_key", "ui.title.unknown_scenario")), Strings.fmt("ui.briefing.kicker"), actions)
+	if scenario_id == "m2a_expedition": heading.set_meta("audit_numeric_ok", "preview milestone name")
+	col.add_child(heading)
 	var story: Card = _story_card(rec)
 	var goals: Card = _objectives_card(rec)
 	if Layout.compact:

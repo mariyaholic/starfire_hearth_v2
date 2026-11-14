@@ -1,0 +1,29 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+  slow golden/test_golden_hashes.gd::test_s1_survives_save_and_load_every_turn (810 ms)
+  slow integration/test_flow_screens.gd::test_every_flow_screen_passes_the_audit (2663 ms)
+  slow integration/test_game_screen.gd::test_every_view_and_overlay_passes_the_audit (9485 ms)
+  slow integration/test_game_screen.gd::test_orders_are_given_from_the_views (785 ms)
+  slow integration/test_immersive.gd::test_phone_contexts_fit_visible_map_and_scroll_to_quality_at_large_text (1864 ms)
+  slow integration/test_immersive.gd::test_switching_keeps_renderer_selection_camera_orders_and_saved_world (4109 ms)
+  slow integration/test_skeleton_run.gd::test_balanced_bot_runs_clean (1476 ms)
+  slow integration/test_skeleton_run.gd::test_random_legal_bot_is_deterministic (1961 ms)
+  slow integration/test_traffic_lifecycle.gd::test_legacy_visible_access_keeps_saved_recipes_and_safe_traffic (2025 ms)
+  slow integration/test_ui_audit.gd::test_showcase_passes_audit (639 ms)
+  slow unit/test_assets.gd::test_every_delivered_id_loads (2972 ms)
+  slow unit/test_audio.gd::test_every_sound_id_has_a_fallback (1340 ms)
+  slow unit/test_city_incorporation.gd::test_chunked_region_core_ring_skirts_and_scheduler_parity (1136 ms)
+  slow unit/test_region_continuity.gd::test_all_actual_m1_parcel_sizes_and_modifiers_have_feasible_footings (1392 ms)
+  slow unit/test_region_continuity.gd::test_region_jobs_lod_shared_edges_cancellation_and_backend_parity (820 ms)
+WARNING: Strings: missing key ui.voice.key_that_does_not_exist
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] fmt (res://app/strings.gd:36)
+         [1] text_for (res://app/voice_service.gd:124)
+         [2] test_registry_is_stable_and_localization_falls_back_to_key (res://tests/unit/test_voice.gd:21)
+         [3] _run (res://tests/run_tests.gd:78)
+         [4] test_desktop_quit_controls_use_graceful_path (res://tests/unit/test_resource_retirement.gd:99)
+  slow unit/test_world_foundation.gd::test_renderer_and_camera_survive_order_refresh_and_responsive_relayout (513 ms)
+  slow unit/test_world_space.gd::test_every_world_and_stellar_family_has_a_selectable_representation (551 ms)
+
+328 passed, 0 failed, 14244 checks, 65 files, 47.6 s

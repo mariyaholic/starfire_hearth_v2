@@ -28,6 +28,7 @@ func build_screen() -> void:
 	body.add_child(FlowScreen.label(Strings.fmt("ui.campaign.intro"), &"SecondaryLabel"))
 	body.add_child(_difficulty())
 	body.add_child(_scenarios())
+	body.add_child(_preview())
 	col.add_child(FlowScreen.scroll_of(body))
 
 
@@ -128,4 +129,18 @@ func _card(id: String) -> Card:
 		b.name = "Play"
 		b.pressed.connect(go.bind(AppRoot.BRIEFING, {"scenario": id}))
 		c.add_action(b)
+	return c
+
+
+func _preview() -> Card:
+	var id: String = "m2a_expedition"
+	var rec: Dictionary = Content.db().scenarios.get(id, {})
+	var c: Card = Card.make(Strings.fmt(DictIO.str_of(rec, "name_key")), Strings.fmt("ui.campaign.preview_label"), "emblem_compass", "accent.teal")
+	c.name = "ExplorationPreview"
+	c._title.set_meta("audit_numeric_ok", "preview milestone name")
+	c.add_text(Strings.fmt(DictIO.str_of(rec, "desc_key")), &"SecondaryLabel")
+	var b: SfButton = SfButton.make("ui.campaign.play", "ui_play", SfButton.PRIMARY)
+	b.name = "PlayPreview"
+	b.pressed.connect(go.bind(AppRoot.BRIEFING, {"scenario": id}))
+	c.add_action(b)
 	return c

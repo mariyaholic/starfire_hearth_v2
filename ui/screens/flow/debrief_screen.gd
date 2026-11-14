@@ -57,7 +57,9 @@ func build_screen() -> void:
 	var in_footer: bool = not Layout.compact or actions.size() > 1
 	if not in_footer:
 		in_header = actions
-	col.add_child(header(Strings.fmt("ui.debrief.won" if won() else "ui.debrief.lost"), Strings.fmt(DictIO.str_of(rec, "name_key", "ui.title.unknown_scenario")), in_header))
+	var heading: HBoxContainer = header(Strings.fmt("ui.debrief.won" if won() else "ui.debrief.lost"), Strings.fmt(DictIO.str_of(rec, "name_key", "ui.title.unknown_scenario")), in_header)
+	if state != null and state.scenario_id == "m2a_expedition": heading.set_meta("audit_numeric_ok", "preview milestone name")
+	col.add_child(heading)
 	var body: VBoxContainer = VBoxContainer.new()
 	body.name = "Body"
 	body.add_theme_constant_override("separation", Tokens.SPACE_L)
@@ -80,7 +82,7 @@ func build_screen() -> void:
 		footer.name = "Footer"
 		footer.alignment = FlowContainer.ALIGNMENT_END
 		footer.add_theme_constant_override("h_separation", Tokens.SPACE_M)
-		if won() and not Layout.compact:
+		if won() and not legacies().is_empty() and not Layout.compact:
 			_pick_hint = FlowScreen.label(Strings.fmt("ui.debrief.pick_first"), &"CaptionLabel")
 			_pick_hint.name = "PickHint"
 			_pick_hint.size_flags_vertical = Control.SIZE_SHRINK_CENTER

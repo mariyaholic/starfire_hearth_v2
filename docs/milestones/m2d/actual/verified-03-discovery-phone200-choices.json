@@ -1,0 +1,391 @@
+{
+  "auto_enabled": false,
+  "auto_status": "disabled",
+  "builder_param": "",
+  "builder_system": "sys_vesper",
+  "builder_task": "",
+  "builder_task_turns": 0,
+  "buttons": [
+    {
+      "disabled": false,
+      "name": "More",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@1167/@HBoxContainer@1168/More",
+      "rect": "[P: (643.0, 4.0), S: (149.0, 60.0)]",
+      "text": "More"
+    },
+    {
+      "disabled": false,
+      "name": "Menu",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@1167/@HBoxContainer@1168/Menu",
+      "rect": "[P: (800.0, 4.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Colony_col_0001",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/ColonyTabs/Colony_col_0001",
+      "rect": "[P: (12.0, 92.0), S: (153.0, 60.0)]",
+      "text": "Aster"
+    },
+    {
+      "disabled": false,
+      "name": "WhyStability",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/ColonyStats/@VBoxContainer@1207/@HFlowContainer@1210/WhyStability",
+      "rect": "[P: (24.0, 552.0), S: (324.0, 60.0)]",
+      "text": "Why did it change?"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceStrategic",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/AppearanceStrategic",
+      "rect": "[P: (24.0, 767.0), S: (265.0, 60.0)]",
+      "text": "Strategic view"
+    },
+    {
+      "disabled": false,
+      "name": "CameraReset",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/CameraReset",
+      "rect": "[P: (297.0, 767.0), S: (259.0, 60.0)]",
+      "text": "Reset camera"
+    },
+    {
+      "disabled": false,
+      "name": "WorldPause",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/WorldPause",
+      "rect": "[P: (564.0, 767.0), S: (149.0, 60.0)]",
+      "text": "Pause"
+    },
+    {
+      "disabled": false,
+      "name": "WorldDusk",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/WorldDusk",
+      "rect": "[P: (24.0, 835.0), S: (135.0, 60.0)]",
+      "text": "Dusk"
+    },
+    {
+      "disabled": false,
+      "name": "WorldParcels",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/WorldParcels",
+      "rect": "[P: (167.0, 835.0), S: (259.0, 60.0)]",
+      "text": "Parcel outlines"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeVisualFinish",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/UpgradeVisualFinish",
+      "rect": "[P: (434.0, 835.0), S: (353.0, 60.0)]",
+      "text": "Use new visual finish"
+    },
+    {
+      "disabled": false,
+      "name": "UpgradeCityRoads",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/@HFlowContainer@1246/UpgradeCityRoads",
+      "rect": "[P: (24.0, 903.0), S: (309.0, 60.0)]",
+      "text": "Update city roads"
+    },
+    {
+      "disabled": false,
+      "name": "AppearanceOptionsToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/AppearanceOptionsToggle",
+      "rect": "[P: (24.0, 971.0), S: (818.0, 53.0)]",
+      "text": "Appearance options"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_0",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_0",
+      "rect": "[P: (24.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "1"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_1",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_1",
+      "rect": "[P: (133.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "2"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_2",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_2",
+      "rect": "[P: (242.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "3"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_3",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_3",
+      "rect": "[P: (351.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "4"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_4",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_4",
+      "rect": "[P: (460.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "5"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_5",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_5",
+      "rect": "[P: (569.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "6"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_6",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_6",
+      "rect": "[P: (678.0, 1320.0), S: (101.0, 60.0)]",
+      "text": "7"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_7",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_7",
+      "rect": "[P: (24.0, 1388.0), S: (101.0, 60.0)]",
+      "text": "8"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_8",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_8",
+      "rect": "[P: (133.0, 1388.0), S: (101.0, 60.0)]",
+      "text": "9"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_9",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_9",
+      "rect": "[P: (242.0, 1388.0), S: (118.0, 60.0)]",
+      "text": "10"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_10",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_10",
+      "rect": "[P: (368.0, 1388.0), S: (118.0, 60.0)]",
+      "text": "11"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_11",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_11",
+      "rect": "[P: (494.0, 1388.0), S: (118.0, 60.0)]",
+      "text": "12"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_12",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_12",
+      "rect": "[P: (620.0, 1388.0), S: (118.0, 60.0)]",
+      "text": "13"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_13",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_13",
+      "rect": "[P: (24.0, 1456.0), S: (118.0, 60.0)]",
+      "text": "14"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_14",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_14",
+      "rect": "[P: (150.0, 1456.0), S: (118.0, 60.0)]",
+      "text": "15"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_15",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_15",
+      "rect": "[P: (276.0, 1456.0), S: (118.0, 60.0)]",
+      "text": "16"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_16",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_16",
+      "rect": "[P: (402.0, 1456.0), S: (118.0, 60.0)]",
+      "text": "17"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_17",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_17",
+      "rect": "[P: (528.0, 1456.0), S: (118.0, 60.0)]",
+      "text": "18"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_18",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_18",
+      "rect": "[P: (654.0, 1456.0), S: (118.0, 60.0)]",
+      "text": "19"
+    },
+    {
+      "disabled": false,
+      "name": "Slot_19",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1287/@VBoxContainer@1285/Planner/@VBoxContainer@1238/@VBoxContainer@1240/ParcelSelectors/Slot_19",
+      "rect": "[P: (24.0, 1524.0), S: (118.0, 60.0)]",
+      "text": "20"
+    },
+    {
+      "disabled": false,
+      "name": "Raise_energy",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1329/JobPriority/@VBoxContainer@1288/@VBoxContainer@1290/@HBoxContainer@1303/Raise_energy",
+      "rect": "[P: (782.0, 2127.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_minerals",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1329/JobPriority/@VBoxContainer@1288/@VBoxContainer@1290/@HBoxContainer@1307/Raise_minerals",
+      "rect": "[P: (782.0, 2195.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_alloys",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1329/JobPriority/@VBoxContainer@1288/@VBoxContainer@1290/@HBoxContainer@1311/Raise_alloys",
+      "rect": "[P: (782.0, 2263.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_research",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1329/JobPriority/@VBoxContainer@1288/@VBoxContainer@1290/@HBoxContainer@1315/Raise_research",
+      "rect": "[P: (782.0, 2331.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Raise_clerks",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1329/JobPriority/@VBoxContainer@1288/@VBoxContainer@1290/@HBoxContainer@1319/Raise_clerks",
+      "rect": "[P: (782.0, 2399.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "GovernorToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/@VBoxContainer@1329/GovernorCard/@VBoxContainer@1320/@VBoxContainer@1322/GovernorToggle",
+      "rect": "[P: (24.0, 2585.0), S: (818.0, 60.0)]",
+      "text": "Turn governor on"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1338",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/Shipyard/@VBoxContainer@1330/@VBoxContainer@1332/@PanelContainer@1347/@VBoxContainer@1346/Build_survey_probe/@Button@1338",
+      "rect": "[P: (36.0, 2848.0), S: (794.0, 60.0)]",
+      "text": "Survey Probe"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1348",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/Shipyard/@VBoxContainer@1330/@VBoxContainer@1332/@PanelContainer@1357/@VBoxContainer@1356/Build_construction_ship/@Button@1348",
+      "rect": "[P: (36.0, 2984.0), S: (794.0, 60.0)]",
+      "text": "Construction Ship"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1358",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/ViewHost/Scroll/@VBoxContainer@1174/View/@VBoxContainer@1376/Shipyard/@VBoxContainer@1330/@VBoxContainer@1332/@PanelContainer@1375/@VBoxContainer@1374/Build_colony_ship/@Button@1358",
+      "rect": "[P: (36.0, 3120.0), S: (794.0, 60.0)]",
+      "text": "Colony Ship"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_system",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/Nav_system",
+      "rect": "[P: (44.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_colony",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/Nav_colony",
+      "rect": "[P: (128.0, 316.0), S: (172.0, 60.0)]",
+      "text": "Colony"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_research",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/Nav_research",
+      "rect": "[P: (308.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_more",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/Nav_more",
+      "rect": "[P: (392.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "ModeToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/ModeToggle",
+      "rect": "[P: (616.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": true,
+      "name": "Undo",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/Undo",
+      "rect": "[P: (700.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "EndTurn",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@1169/NavBar/@MarginContainer@1170/@HBoxContainer@1171/EndTurn",
+      "rect": "[P: (784.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1011",
+      "path": "/root/Overlay/OverlayRoot/EventOverlay/@PanelContainer@1006/@VBoxContainer@998/@ScrollContainer@1004/@VBoxContainer@1003/Choice_0/@VBoxContainer@1012/@Button@1011",
+      "rect": "[P: (52.0, -54.0), S: (794.0, 53.0)]",
+      "text": "Recover what remains of the hull"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1022",
+      "path": "/root/Overlay/OverlayRoot/EventOverlay/@PanelContainer@1006/@VBoxContainer@998/@ScrollContainer@1004/@VBoxContainer@1003/Choice_1/@VBoxContainer@1023/@Button@1022",
+      "rect": "[P: (52.0, 104.0), S: (794.0, 53.0)]",
+      "text": "Recover the provisions"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@1033",
+      "path": "/root/Overlay/OverlayRoot/EventOverlay/@PanelContainer@1006/@VBoxContainer@998/@ScrollContainer@1004/@VBoxContainer@1003/Choice_2/@VBoxContainer@1034/@Button@1033",
+      "rect": "[P: (52.0, 262.0), S: (794.0, 53.0)]",
+      "text": "Honour the crew"
+    }
+  ],
+  "energy": 21800,
+  "flags": {},
+  "food": 22600,
+  "global_flags": {},
+  "influence": 10800,
+  "logical_size": "(872.7273, 392.7273)",
+  "minerals": 32200,
+  "outpost_id": "",
+  "pending_events": [
+    {
+      "chain": "m2a_shroud_derelict",
+      "id": "evt_0001",
+      "step": 1
+    }
+  ],
+  "probe_path": [],
+  "probe_progress": 0,
+  "probe_system": "sys_shroud",
+  "probe_task": "",
+  "remaining_eta": 0,
+  "route": "game",
+  "scale": 2.75,
+  "top_overlay": "EventOverlay",
+  "turn": 4
+}

@@ -5,7 +5,13 @@ style. You lead a slowboat colony a hundred years into the Long Silence, the cen
 relay stopped transmitting.
 
 **Status:** milestone M1 (First Light): Scenario 1 plays from the title to the debrief on PC and in
-a phone browser. See `docs/milestones/` for plans and reports.
+a phone browser. A separate **M2A Exploration Preview** adds civilian interstellar travel,
+frontier surveys, an outpost and a new colony. Launch it from Campaign; it does not complete
+Scenario 2 or unlock later campaign chapters. Opt a survey probe into automatic exploration
+or resolve a one-shot discovery at Halden's dormant gate. Stop a journey at its next system,
+or take an optional detour beyond Vesper to The Shroud's derelict and energy/research outpost.
+Surveyed outpost sites show projected production and upkeep before a builder arrives.
+See `docs/milestones/` for plans, evidence and platform acceptance limits.
 
 ## Requirements
 
@@ -22,6 +28,8 @@ it once after cloning and after adding new scripts or assets.
 godot --headless --path . --import                      # import assets, register class names
 godot --headless --path . -s tools/validate_data.gd     # data schema and cross-reference checks
 godot --headless --path . -s tests/run_tests.gd         # full headless test suite
+godot --headless --path . -s tools/expedition_bot.gd -- --seed 1 --trace  # M2A expedition
+godot --headless --path . -s tools/expedition_bot.gd -- --seed 1 --route vesper-first --outpost research --trace  # optional Shroud itinerary
 godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy random-legal --seeds 1-3 --turns 60 --out telemetry/ --check-determinism
 godot --headless --path . -s tools/telemetry_report.gd -- --in telemetry/
 godot --headless --path . -s tools/palette_report.gd   # contrast and colour-blind separation
@@ -40,6 +48,13 @@ and the `playwright` npm package with its Chromium (`npx playwright install chro
 
 Useful test runner flags: `-- --filter rng` runs only test files or methods whose name contains
 `rng`.
+
+The expedition harness defaults to the original automated route. Its optional Shroud routes
+hold Vesper development until the requested outpost is built so that completion cannot skip
+the tested investment. Both optional outpost kinds select research cards with the same policy;
+`--research-cards` enables that policy on the default route too. These runs are deterministic
+coverage itineraries, not measurements of optimal play or balanced alternatives. Older preview
+saves retain their original map; start a new expedition to explore The Shroud.
 
 ## Layout
 

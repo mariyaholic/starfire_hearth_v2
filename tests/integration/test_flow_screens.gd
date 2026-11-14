@@ -182,3 +182,24 @@ func _audit(t: T, app: AppRoot, label: String) -> void:
 	t.ok(rep.checked_labels >= 3, "%s: audited %d labels" % [label, rep.checked_labels])
 	for issue: Dictionary in rep.issues.slice(0, 6):
 		t.fail("%s: %s %s | %s | %s" % [label, issue["rule"], issue["detail"], issue["text"], issue["path"]])
+
+
+func test_preview_launch_and_debrief_are_separate_from_campaign(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0])
+	app.progress = CampaignProgress.new()
+	app.go(AppRoot.CAMPAIGN)
+	await _frames(3)
+	t.ok(app.screen.find_child("PlayPreview", true, false) != null, "preview is immediately playable")
+	await _press(app, "PlayPreview")
+	t.eq(app.scenario_id, "m2a_expedition")
+	app.go(AppRoot.BEGIN, {"seed": 1})
+	await _frames(3)
+	Game.state.outcome = GameState.OUTCOME_WON
+	app.go(AppRoot.DEBRIEF)
+	await _frames(3)
+	t.not_ok(app.progress.is_won("m2a_expedition"), "preview win is not campaign progress")
+	t.not_ok(app.progress.is_unlocked("s2_the_crossing"), "preview win leaves campaign locked")
+	t.ok(app.screen.find_child("PickHint", true, false) == null, "no legacy hint for an empty selection")
+	var cont: SfButton = app.screen.find_child("Continue", true, false) as SfButton
+	t.ok(cont != null and not cont.disabled, "no legacy is needed to continue")
+	await _stop(app)

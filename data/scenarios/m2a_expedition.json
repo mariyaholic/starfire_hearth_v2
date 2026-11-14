@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "id": "m2a_expedition",
+  "name_key": "scenario.m2a.name",
+  "desc_key": "scenario.m2a.desc",
+  "briefing_key": "scenario.m2a.briefing",
+  "debrief_key": "scenario.m2a.debrief",
+  "status": "playable",
+  "origin": "generation_ark",
+  "expected_turns": 50,
+  "director_start": 9999,
+  "teaches": [
+    "colonies",
+    "economy",
+    "research",
+    "stability",
+    "governors",
+    "ordinances"
+  ],
+  "tech_pool": {
+    "exclude_military": true,
+    "always_offer": [
+      "habitat_domes"
+    ]
+  },
+  "locked_ordinances": [
+    "radio_silence"
+  ],
+  "locked_buildings": [
+    "foundry",
+    "market_exchange"
+  ],
+  "music": {
+    "briefing": "mus_title",
+    "main": "mus_slowboat_1"
+  },
+  "map": {
+    "systems": [
+      {
+        "id": "sys_ember",
+        "name_key": "system.ember.name",
+        "x": 0,
+        "y": 0,
+        "spectral": "K",
+        "magnitude": 3,
+        "specials": [],
+        "beacon": "none",
+        "planets": [
+          {
+            "id": "pl_aster",
+            "name_key": "planet.aster.name",
+            "type": "continental",
+            "size": "medium",
+            "orbit": 1,
+            "traits": [
+              "fertile_soil"
+            ],
+            "blocked_slots": [
+              7,
+              15
+            ],
+            "art_seed": 11
+          }
+        ]
+      },
+      {
+        "id": "sys_tessel",
+        "name_key": "system.tessel.name",
+        "x": 220,
+        "y": -90,
+        "spectral": "G",
+        "magnitude": 3,
+        "specials": [],
+        "beacon": "none",
+        "planets": [
+          {
+            "id": "pl_tessel",
+            "name_key": "planet.tessel.name",
+            "type": "asteroid_belt",
+            "size": "",
+            "orbit": 1,
+            "traits": [],
+            "blocked_slots": [],
+            "art_seed": 61
+          }
+        ]
+      },
+      {
+        "id": "sys_halden",
+        "name_key": "system.halden.name",
+        "x": 420,
+        "y": -180,
+        "spectral": "G",
+        "magnitude": 3,
+        "specials": [
+          "dormant_beacon"
+        ],
+        "beacon": "dormant",
+        "planets": []
+      },
+      {
+        "id": "sys_vesper",
+        "name_key": "system.vesper.name",
+        "x": -310,
+        "y": -260,
+        "spectral": "G",
+        "magnitude": 3,
+        "specials": [],
+        "beacon": "none",
+        "planets": [
+          {
+            "id": "pl_vesper",
+            "name_key": "planet.vesper.name",
+            "type": "ocean",
+            "size": "medium",
+            "orbit": 1,
+            "traits": [],
+            "blocked_slots": [],
+            "art_seed": 71
+          }
+        ]
+      },
+      {
+        "id": "sys_shroud",
+        "name_key": "system.shroud.name",
+        "x": -510,
+        "y": -260,
+        "spectral": "M",
+        "magnitude": 2,
+        "specials": [
+          "nebula",
+          "derelict"
+        ],
+        "beacon": "none",
+        "planets": [
+          {
+            "id": "pl_shroud_giant",
+            "name_key": "planet.shroud_giant.name",
+            "type": "gas_giant",
+            "size": "",
+            "orbit": 1,
+            "traits": [],
+            "blocked_slots": [],
+            "art_seed": 83
+          }
+        ]
+      }
+    ],
+    "lanes": [
+      {
+        "a": "sys_ember",
+        "b": "sys_tessel",
+        "length_cly": 200,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_tessel",
+        "b": "sys_halden",
+        "length_cly": 200,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_ember",
+        "b": "sys_vesper",
+        "length_cly": 350,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_vesper",
+        "b": "sys_shroud",
+        "length_cly": 200,
+        "kind": "deep"
+      }
+    ],
+    "fog_locked": []
+  },
+  "start": {
+    "empires": [
+      {
+        "id": "emp_player",
+        "faction": "ark",
+        "origin": "generation_ark",
+        "is_player": true,
+        "stock": {
+          "food": 30000,
+          "energy": 12000,
+          "minerals": 40000,
+          "alloys": 0,
+          "influence": 10000
+        },
+        "techs": [],
+        "known_systems": [
+          "sys_ember"
+        ],
+        "surveyed": [
+          "pl_aster"
+        ],
+        "research_hands": {
+          "physics": [
+            "fusion_efficiency",
+            "sensor_arrays"
+          ],
+          "society": [
+            "hydroponics",
+            "frontier_medicine",
+            "civic_charters"
+          ],
+          "engineering": [
+            "automated_mining",
+            "orbital_construction"
+          ]
+        },
+        "ships": [
+          {
+            "hull": "construction_ship",
+            "system": "sys_ember"
+          },
+          {
+            "hull": "survey_probe",
+            "system": "sys_ember"
+          },
+          {
+            "hull": "colony_ship",
+            "system": "sys_ember"
+          }
+        ],
+        "colonies": [
+          {
+            "planet": "pl_aster",
+            "pops": 10,
+            "capital": true,
+            "districts": [
+              {
+                "slot": 0,
+                "district": "habitation"
+              },
+              {
+                "slot": 1,
+                "district": "habitation"
+              },
+              {
+                "slot": 2,
+                "district": "agriculture"
+              },
+              {
+                "slot": 3,
+                "district": "agriculture"
+              },
+              {
+                "slot": 4,
+                "district": "energy"
+              },
+              {
+                "slot": 5,
+                "district": "mining"
+              }
+            ],
+            "buildings": [
+              {
+                "slot": -1,
+                "building": "ark_hull"
+              },
+              {
+                "slot": 6,
+                "building": "spaceport"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "objectives": {
+    "required": [
+      {
+        "id": "survey_frontier",
+        "type": "surveyed_planets",
+        "count": 1,
+        "exclude_system": "sys_ember",
+        "text_key": "objective.m2a.survey"
+      },
+      {
+        "id": "develop_vesper",
+        "type": "colonies_developed",
+        "count": 1,
+        "system": "sys_vesper",
+        "text_key": "objective.m2a.develop"
+      },
+      {
+        "id": "visit_gate",
+        "type": "visited_system",
+        "system": "sys_halden",
+        "text_key": "objective.m2a.gate"
+      },
+      {
+        "id": "m2a_resolve_cache",
+        "type": "flag",
+        "flag": "m2a_halden_resolved",
+        "text_key": "objective.m2a.cache"
+      }
+    ],
+    "optional": [
+      {
+        "id": "outpost_tessel",
+        "type": "outposts",
+        "count": 1,
+        "system": "sys_tessel",
+        "text_key": "objective.m2a.outpost"
+      }
+    ]
+  },
+  "tutorial": [],
+  "scripted_events": [
+    "m2a_halden_cache",
+    "m2a_shroud_derelict"
+  ],
+  "legacies": [],
+  "loss": [
+    {
+      "type": "capital_pops_zero"
+    },
+    {
+      "type": "capital_autonomy"
+    }
+  ],
+  "balance_scope": {
+    "districts": [
+      "habitation",
+      "agriculture",
+      "energy",
+      "mining",
+      "industry",
+      "research"
+    ],
+    "buildings": [
+      "storehouse",
+      "hydroponics_bay",
+      "fusion_plant",
+      "research_institute",
+      "civic_hall",
+      "park_commons",
+      "clinic",
+      "habitat_dome"
+    ],
+    "techs": [
+      "fusion_efficiency",
+      "sensor_arrays",
+      "plasma_containment",
+      "wake_theory",
+      "hydroponics",
+      "frontier_medicine",
+      "civic_charters",
+      "colonial_administration",
+      "habitat_domes",
+      "genetic_crop_tailoring",
+      "cultural_archive",
+      "research_network",
+      "automated_mining",
+      "orbital_construction",
+      "foundry_automation",
+      "advanced_districts"
+    ]
+  },
+  "finish_pending_events_before_victory": true
+}

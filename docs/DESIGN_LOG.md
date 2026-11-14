@@ -481,3 +481,50 @@ overruled by the Owner; overruled entries are struck through, not deleted.
      now flies a gold eight-pointed compass rose with no circle, which is how Meridian's emblem
      should be drawn from here on; Ilyin's expressions read clearly; Pell is now clearly younger
      than Ilyin, with a radio-dish badge.
+
+109. **M2A is a separate exploration preview** (14 November 2026). Build a complete civilian
+     expedition before introducing combat, pirates and active beacons. Keep canonical Scenario 2
+     and campaign progression unchanged, so a preview win cannot claim an unfinished chapter
+
+110. **Travel uses existing save fields and known waypoints**. Resolve deep-lane movement in the
+     existing movement phase using the slowest civilian hull and whole-turn ceiling. Reveal a
+     destination on arrival, require known intermediate systems and keep unknown planet details
+     hidden. Invalid loaded routes freeze with a warning; never silently reset a journey
+
+111. **Keep the world visible before appearance controls**. Actual desktop play exposed a system
+     map pushed below the fold by visual settings. Keep those settings behind a closed expander
+     and make travel destinations wrap above short action buttons at 200% phone text
+
+112. **Resolve Halden before preview victory**. Give the discovery a new required objective and
+     one-shot event memory, so arrival cannot immediately skip its choice or let an older
+     completed visit flag bypass the decision. Keep a free refusal to prevent a poverty softlock
+
+113. **Save survey automation as explicit intent**. Namespace integer flags by fleet ID, assign
+     at most one new task after commands, and let accepted manual orders clear the intent.
+     Disabling automation preserves existing routes, progress and surveys. Select unknown
+     destinations from public topology rather than reading their hidden planet payloads
+
+114. **Bound procedural story art to its illustration frame**. Actual desktop and 200% phone
+     captures exposed a fallback planet drawing across the portrait and body; clip it at the
+     StoryScene boundary while keeping the illustration and fixing the narrow beacon caption
+
+115. **Stop at the next system without cancelling elapsed travel**. Truncate only later route
+     legs and clear future automatic intent. Keep the current system and lane progress so
+     normal arrival timing and existing saves remain valid. This differs from disabling
+     automation, which preserves the whole route
+
+116. **Place The Shroud beyond Vesper as an optional investment**. Reuse the canonical nebula
+     and derelict landmarks, existing gas-giant outposts and one-shot discovery machinery.
+     Add no new required or optional checklist entries and no retroactive map injection.
+     The preview waits for outstanding player decisions before victory, after evaluating loss
+
+117. **Disclose the outpost economy before commitment**. Reuse the same simulation reports
+     for prospective and operating production, including branch-specific research modifiers
+     and energy upkeep. A surveyed site can be compared before the builder arrives. Initial
+     derelict reward costs avoid a direct market-conversion dominance; this is not a balance
+     certification
+
+118. **Show banked research and respect automatic orders**. Stored research remains visible
+     before a card is selected. A funded card completes in the next research phase, never
+     immediately on selection. An eligible opted-in probe awaiting its next automatic task
+     does not need a manual-order warning

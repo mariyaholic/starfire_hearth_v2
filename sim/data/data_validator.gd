@@ -226,6 +226,8 @@ func _check_scenario(sid: String, sc: Dictionary) -> void:
 		error(w, "status must be one of %s" % ", ".join(SCENARIO_STATUS))
 	if not db.has("origins", DictIO.str_of(sc, "origin")):
 		error(w, "origin \"%s\" is not a known origin" % DictIO.str_of(sc, "origin"))
+	if sc.has("finish_pending_events_before_victory") and typeof(sc["finish_pending_events_before_victory"]) != TYPE_BOOL:
+		error(w, "finish_pending_events_before_victory must be a boolean")
 	var map: Dictionary = DictIO.dict_of(sc, "map")
 	var systems: Dictionary[String, Dictionary] = {}
 	var planets: Dictionary[String, Dictionary] = {}
@@ -473,11 +475,15 @@ func _check_chain(cid: String, chain: Dictionary) -> void:
 		steps[n] = sd
 	if not steps.has(1):
 		error(w, "a chain needs a step 1")
+	var scenario_ids: Array[String] = DictIO.str_arr(chain, "scenarios")
+	for scenario_id: String in DictIO.sorted_keys(db.scenarios):
+		if DictIO.str_arr(db.scenarios[scenario_id], "scripted_events").has(cid) and not scenario_ids.has(scenario_id):
+			scenario_ids.append(scenario_id)
 	for n: int in steps.keys():
-		_check_step(cid, n, steps[n], steps)
+		_check_step(cid, n, steps[n], steps, scenario_ids)
 
 
-func _check_step(cid: String, n: int, sd: Dictionary, steps: Dictionary[int, Dictionary]) -> void:
+func _check_step(cid: String, n: int, sd: Dictionary, steps: Dictionary[int, Dictionary], scenario_ids: Array[String]) -> void:
 	var w: String = "events/%s.step%d" % [cid, n]
 	_check_key(sd.get("title_key"), w + ".title_key")
 	_check_key(sd.get("body_key"), w + ".body_key")
@@ -487,7 +493,7 @@ func _check_step(cid: String, n: int, sd: Dictionary, steps: Dictionary[int, Dic
 	var words: int = body.split(" ", false).size()
 	if not body.is_empty() and (words < BODY_WORDS_MIN or words > BODY_WORDS_MAX):
 		error(w, "the body has %d words; event bodies are %d to %d words (section 10.6)" % [words, BODY_WORDS_MIN, BODY_WORDS_MAX])
-	_check_trigger(DictIO.dict_of(sd, "trigger"), w + ".trigger")
+	_check_trigger(DictIO.dict_of(sd, "trigger"), w + ".trigger", scenario_ids)
 	var speaker: String = DictIO.str_of(sd, "speaker")
 	if not speaker.is_empty() and not db.has("portraits", speaker):
 		error(w, "speaker \"%s\" is not in portraits.json" % speaker)
@@ -512,7 +518,7 @@ func _check_step(cid: String, n: int, sd: Dictionary, steps: Dictionary[int, Dic
 			_check_value(ch["cost"], "res_map", cw + ".cost")
 		_check_effects(DictIO.arr_of(ch, "effects"), cw + ".effects")
 		if ch.has("requires"):
-			_check_trigger(DictIO.dict_of(ch, "requires"), cw + ".requires")
+			_check_trigger(DictIO.dict_of(ch, "requires"), cw + ".requires", scenario_ids)
 		if ch.has("locked_key"):
 			_check_key(ch["locked_key"], cw + ".locked_key")
 		_check_next(DictIO.dict_of(ch, "next"), steps, cw)
@@ -541,10 +547,32 @@ func _check_next(next: Dictionary, steps: Dictionary[int, Dictionary], w: String
 		error(w, "delay_turns is at least 1")
 
 
-func _check_trigger(trig: Dictionary, w: String) -> void:
+func _check_trigger(trig: Dictionary, w: String, scenario_ids: Array[String] = []) -> void:
 	for k: Variant in trig.keys():
 		if not Events.CONDITIONS.has(str(k)) and not ["weight", "scripted", "chance_bp"].has(str(k)):
 			error(w, "unknown trigger condition \"%s\"" % str(k))
+	if trig.has("visited_system"):
+		if typeof(trig["visited_system"]) != TYPE_STRING or str(trig["visited_system"]).is_empty():
+			error(w, "visited_system must be a non-empty system id")
+		else:
+			var target: String = str(trig["visited_system"])
+			var scopes: Array[String] = scenario_ids.duplicate()
+			if scopes.is_empty():
+				scopes.assign(DictIO.sorted_keys(db.scenarios))
+			var found: bool = false
+			for sid: String in scopes:
+				if not db.scenarios.has(sid):
+					continue
+				var exists: bool = false
+				for sys: Variant in DictIO.arr_of(DictIO.dict_of(db.scenarios[sid], "map"), "systems"):
+					if sys is Dictionary and DictIO.str_of(sys, "id") == target:
+						exists = true
+						found = true
+						break
+				if not scenario_ids.is_empty() and not exists:
+					error(w, "visited_system %s is not in scenario %s" % [target, sid])
+			if scenario_ids.is_empty() and not found:
+				error(w, "unknown visited_system %s" % target)
 	for t: Variant in DictIO.arr_of(trig, "techs_all"):
 		if not db.has("techs", str(t)):
 			error(w, "unknown tech \"%s\"" % str(t))

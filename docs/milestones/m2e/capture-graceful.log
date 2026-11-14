@@ -1,0 +1,139 @@
+WorkerThreadPool: 5 threads, 1 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+SDL: Init OK!
+Accessibility: AccessKit driver loaded.
+Xshape 1.1 detected.
+Xinerama 1.1 detected.
+Xrandr 1.6 detected.
+Xrender 0.11 detected.
+Xinput 2.2 detected.
+XInput: Refreshing devices.
+XInput: No touch devices found.
+Input method started.
+Detecting GPUs, set DRI_PRIME in the environment to override GPU detection logic.
+Only one GPU found, using default.
+Accessibility: window 0 adapter created.
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+XcursorGetTheme could not get cursor theme
+Failed loading custom cursor: crossed_circle
+DBus 1.16.2 detected.
+Using "default" pen tablet driver...
+Shader 'CanvasSdfShaderGLES3' SHA256: e1fc4015d45db07fce0346b99c312728ab006030520ec796da1461e1428345c5
+Shader 'SkeletonShaderGLES3' SHA256: e42116215ed2a92dea7085176e3b3f1089edcb71a3405ab67073ce8e77114587
+Shader 'ParticlesShaderGLES3' SHA256: ffb4401639aafac71f9f113685cb6db157587dac2f1a352495327188f37419b2
+Shader 'ParticlesCopyShaderGLES3' SHA256: 826f4c822241d48a5251f5069f9781b034e657d580e0c94bb916da952bee53b5
+Shader 'CopyShaderGLES3' SHA256: 8e9443aa4b684ddd8943bffac4063cca51daba573b73bd6ebb6a15a023b35d42
+Shader 'CubemapFilterShaderGLES3' SHA256: 7d0f7673e184bb74d9f911e0aa90b55d157f7c33b79e4672b4fca4fb3573ac00
+Shader 'GlowShaderGLES3' SHA256: 427cfd9bd0cc4045ecaa4bc4f23055a2a40660411d8e1663897a7c2cd3c80665
+Shader 'PostShaderGLES3' SHA256: d42fe4516c6fdc8d420760c688277f65a0eb2c3ab6939c556404e04b25605697
+Shader 'FeedShaderGLES3' SHA256: 9c5f15371d9ed62661ff3bb3ecc28f82cb15be9a4be89518b1f6fd8d372fbe4b
+Shader 'CanvasShaderGLES3' SHA256: 16f1396f2f5ac39d277138cd33a6d284e2d97309f2a547816c220d0ef0318826
+Shader 'CanvasOcclusionShaderGLES3' SHA256: 6baa8caaecef40c331cf27f156879d8ca7d8bf94ec84f8168903490f61264d2d
+Shader 'SceneShaderGLES3' SHA256: 31a20b10164e4dec5c32d2d55b7815f3753e61e5a14deee17dcbc8ad8ddad8d8
+Shader 'SkyShaderGLES3' SHA256: 018037c76675d5aa479b8d6fab4462587586616124093692f099b74ed4b847ef
+Shader 'TexBlitShaderGLES3' SHA256: 164ea8204afa014fcb0dc8b854e570f311fcde3c83c12332ea81730620f6a63d
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: /workspace/starfire-evidence/m2e/capture.gd remapped: /workspace/starfire-evidence/m2e/capture.gd
+Completed load for: '/workspace/starfire-evidence/m2e/capture.gd' remapped '/workspace/starfire-evidence/m2e/capture.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://app/settings.gd remapped: res://app/settings.gd
+Completed load for: 'res://app/settings.gd' remapped 'res://app/settings.gd' at thread -1
+Loading resource: res://app/display_settings.gd remapped: res://app/display_settings.gd
+Completed load for: 'res://app/display_settings.gd' remapped 'res://app/display_settings.gd' at thread -1
+Loading resource: res://app/strings.gd remapped: res://app/strings.gd
+Completed load for: 'res://app/strings.gd' remapped 'res://app/strings.gd' at thread -1
+Loading resource: res://app/layout.gd remapped: res://app/layout.gd
+Completed load for: 'res://app/layout.gd' remapped 'res://app/layout.gd' at thread -1
+Loading resource: res://app/overlay.gd remapped: res://app/overlay.gd
+Loading resource: res://ui/map/shaders/planet_surface.gdshader remapped: res://ui/map/shaders/planet_surface.gdshader
+Completed load for: 'res://ui/map/shaders/planet_surface.gdshader' remapped 'res://ui/map/shaders/planet_surface.gdshader' at thread -1
+Loading resource: res://ui/map/shaders/cloud_layer.gdshader remapped: res://ui/map/shaders/cloud_layer.gdshader
+Completed load for: 'res://ui/map/shaders/cloud_layer.gdshader' remapped 'res://ui/map/shaders/cloud_layer.gdshader' at thread -1
+Loading resource: res://ui/map/shaders/atmosphere.gdshader remapped: res://ui/map/shaders/atmosphere.gdshader
+Completed load for: 'res://ui/map/shaders/atmosphere.gdshader' remapped 'res://ui/map/shaders/atmosphere.gdshader' at thread -1
+Loading resource: res://ui/map/shaders/stellar_surface.gdshader remapped: res://ui/map/shaders/stellar_surface.gdshader
+Completed load for: 'res://ui/map/shaders/stellar_surface.gdshader' remapped 'res://ui/map/shaders/stellar_surface.gdshader' at thread -1
+Loading resource: res://ui/map/shaders/space_sky.gdshader remapped: res://ui/map/shaders/space_sky.gdshader
+Completed load for: 'res://ui/map/shaders/space_sky.gdshader' remapped 'res://ui/map/shaders/space_sky.gdshader' at thread -1
+Loading resource: res://ui/map/shaders/star_corona.gdshader remapped: res://ui/map/shaders/star_corona.gdshader
+Completed load for: 'res://ui/map/shaders/star_corona.gdshader' remapped 'res://ui/map/shaders/star_corona.gdshader' at thread -1
+Loading resource: res://ui/map/shaders/planet_ring.gdshader remapped: res://ui/map/shaders/planet_ring.gdshader
+Completed load for: 'res://ui/map/shaders/planet_ring.gdshader' remapped 'res://ui/map/shaders/planet_ring.gdshader' at thread -1
+Loading resource: res://ui/art/shaders/surface.gdshader remapped: res://ui/art/shaders/surface.gdshader
+Completed load for: 'res://ui/art/shaders/surface.gdshader' remapped 'res://ui/art/shaders/surface.gdshader' at thread -1
+Loading resource: res://ui/art/shaders/ground.gdshader remapped: res://ui/art/shaders/ground.gdshader
+Completed load for: 'res://ui/art/shaders/ground.gdshader' remapped 'res://ui/art/shaders/ground.gdshader' at thread -1
+Loading resource: res://ui/art/shaders/leaf.gdshader remapped: res://ui/art/shaders/leaf.gdshader
+Completed load for: 'res://ui/art/shaders/leaf.gdshader' remapped 'res://ui/art/shaders/leaf.gdshader' at thread -1
+Loading resource: res://ui/city/shaders/terrain.gdshader remapped: res://ui/city/shaders/terrain.gdshader
+Completed load for: 'res://ui/city/shaders/terrain.gdshader' remapped 'res://ui/city/shaders/terrain.gdshader' at thread -1
+Loading resource: res://ui/city/shaders/building.gdshader remapped: res://ui/city/shaders/building.gdshader
+Completed load for: 'res://ui/city/shaders/building.gdshader' remapped 'res://ui/city/shaders/building.gdshader' at thread -1
+Loading resource: res://ui/city/shaders/water.gdshader remapped: res://ui/city/shaders/water.gdshader
+Completed load for: 'res://ui/city/shaders/water.gdshader' remapped 'res://ui/city/shaders/water.gdshader' at thread -1
+Loading resource: res://ui/city/shaders/windows.gdshader remapped: res://ui/city/shaders/windows.gdshader
+Completed load for: 'res://ui/city/shaders/windows.gdshader' remapped 'res://ui/city/shaders/windows.gdshader' at thread -1
+Loading resource: res://ui/city/shaders/steam.gdshader remapped: res://ui/city/shaders/steam.gdshader
+Completed load for: 'res://ui/city/shaders/steam.gdshader' remapped 'res://ui/city/shaders/steam.gdshader' at thread -1
+Loading resource: res://ui/city/shaders/foliage.gdshader remapped: res://ui/city/shaders/foliage.gdshader
+Completed load for: 'res://ui/city/shaders/foliage.gdshader' remapped 'res://ui/city/shaders/foliage.gdshader' at thread -1
+Loading resource: res://ui/world/shaders/immersive_glass.gdshader remapped: res://ui/world/shaders/immersive_glass.gdshader
+Completed load for: 'res://ui/world/shaders/immersive_glass.gdshader' remapped 'res://ui/world/shaders/immersive_glass.gdshader' at thread -1
+Completed load for: 'res://app/overlay.gd' remapped 'res://app/overlay.gd' at thread -1
+Loaded system CA certificates
+Loading resource: res://assets/fonts/plex_sans/IBMPlexSans-Regular.ttf remapped: res://assets/fonts/plex_sans/IBMPlexSans-Regular.ttf
+Loading resource: res://.godot/imported/IBMPlexSans-Regular.ttf-62ff84c4a194a82b47901ae701aee945.fontdata remapped: res://.godot/imported/IBMPlexSans-Regular.ttf-62ff84c4a194a82b47901ae701aee945.fontdata
+Completed load for: 'res://assets/fonts/plex_sans/IBMPlexSans-Regular.ttf' remapped 'res://assets/fonts/plex_sans/IBMPlexSans-Regular.ttf' at thread -1
+Loading resource: res://assets/fonts/plex_sans/IBMPlexSans-SemiBold.ttf remapped: res://assets/fonts/plex_sans/IBMPlexSans-SemiBold.ttf
+Loading resource: res://.godot/imported/IBMPlexSans-SemiBold.ttf-9087bb38f7d02efd1432650defc38eca.fontdata remapped: res://.godot/imported/IBMPlexSans-SemiBold.ttf-9087bb38f7d02efd1432650defc38eca.fontdata
+Completed load for: 'res://assets/fonts/plex_sans/IBMPlexSans-SemiBold.ttf' remapped 'res://assets/fonts/plex_sans/IBMPlexSans-SemiBold.ttf' at thread -1
+Loading resource: res://assets/fonts/plex_sans/IBMPlexSans-Medium.ttf remapped: res://assets/fonts/plex_sans/IBMPlexSans-Medium.ttf
+Loading resource: res://.godot/imported/IBMPlexSans-Medium.ttf-3896a2182799357a5f48d976dd11247a.fontdata remapped: res://.godot/imported/IBMPlexSans-Medium.ttf-3896a2182799357a5f48d976dd11247a.fontdata
+Completed load for: 'res://assets/fonts/plex_sans/IBMPlexSans-Medium.ttf' remapped 'res://assets/fonts/plex_sans/IBMPlexSans-Medium.ttf' at thread -1
+Loading resource: res://assets/fonts/plex_mono/IBMPlexMono-Regular.ttf remapped: res://assets/fonts/plex_mono/IBMPlexMono-Regular.ttf
+Loading resource: res://.godot/imported/IBMPlexMono-Regular.ttf-eee7e19baff2509dafc4c1837e346050.fontdata remapped: res://.godot/imported/IBMPlexMono-Regular.ttf-eee7e19baff2509dafc4c1837e346050.fontdata
+Completed load for: 'res://assets/fonts/plex_mono/IBMPlexMono-Regular.ttf' remapped 'res://assets/fonts/plex_mono/IBMPlexMono-Regular.ttf' at thread -1
+Loading resource: res://assets/fonts/plex_mono/IBMPlexMono-Medium.ttf remapped: res://assets/fonts/plex_mono/IBMPlexMono-Medium.ttf
+Loading resource: res://.godot/imported/IBMPlexMono-Medium.ttf-deee8f3811e2e1da974814a06953e9a8.fontdata remapped: res://.godot/imported/IBMPlexMono-Medium.ttf-deee8f3811e2e1da974814a06953e9a8.fontdata
+Completed load for: 'res://assets/fonts/plex_mono/IBMPlexMono-Medium.ttf' remapped 'res://assets/fonts/plex_mono/IBMPlexMono-Medium.ttf' at thread -1
+Loading resource: /workspace/starfire-evidence/m2e/runner.gd remapped: /workspace/starfire-evidence/m2e/runner.gd
+Completed load for: '/workspace/starfire-evidence/m2e/runner.gd' remapped '/workspace/starfire-evidence/m2e/runner.gd' at thread -1
+Loading resource: res://ui/screens/app_root.tscn remapped: res://ui/screens/app_root.tscn
+Completed load for: 'res://ui/screens/app_root.tscn' remapped 'res://ui/screens/app_root.tscn' at thread -1
+Loading resource: res://assets/delivered/art/title.webp remapped: res://assets/delivered/art/title.webp
+Loading resource: res://.godot/imported/title.webp-5ec19fa80c6d0cd80b9bb2804a40476f.ctex remapped: res://.godot/imported/title.webp-5ec19fa80c6d0cd80b9bb2804a40476f.ctex
+Completed load for: 'res://assets/delivered/art/title.webp' remapped 'res://assets/delivered/art/title.webp' at thread -1
+Loading resource: res://assets/delivered/art/logo_light_on_dark.svg remapped: res://assets/delivered/art/logo_light_on_dark.svg
+Loading resource: res://.godot/imported/logo_light_on_dark.svg-09e105376d498ee400773ccd9394d472.ctex remapped: res://.godot/imported/logo_light_on_dark.svg-09e105376d498ee400773ccd9394d472.ctex
+Completed load for: 'res://assets/delivered/art/logo_light_on_dark.svg' remapped 'res://assets/delivered/art/logo_light_on_dark.svg' at thread -1
+Loading resource: res://assets/delivered/music/mus_title.ogg remapped: res://assets/delivered/music/mus_title.ogg
+Loading resource: res://.godot/imported/mus_title.ogg-a7864d3a1c5156c8e315fc249de0f6d0.oggvorbisstr remapped: res://.godot/imported/mus_title.ogg-a7864d3a1c5156c8e315fc249de0f6d0.oggvorbisstr
+Completed load for: 'res://assets/delivered/music/mus_title.ogg' remapped 'res://assets/delivered/music/mus_title.ogg' at thread -1
+Loading resource: res://assets/delivered/music/mus_slowboat_1.ogg remapped: res://assets/delivered/music/mus_slowboat_1.ogg
+Loading resource: res://.godot/imported/mus_slowboat_1.ogg-8b63ce924ea39123be7f9bed635b0bc6.oggvorbisstr remapped: res://.godot/imported/mus_slowboat_1.ogg-8b63ce924ea39123be7f9bed635b0bc6.oggvorbisstr
+Completed load for: 'res://assets/delivered/music/mus_slowboat_1.ogg' remapped 'res://assets/delivered/music/mus_slowboat_1.ogg' at thread -1
+Loading resource: res://assets/delivered/sfx/ui_page_turn_1.wav remapped: res://assets/delivered/sfx/ui_page_turn_1.wav
+Loading resource: res://.godot/imported/ui_page_turn_1.wav-7a76f57d93764ca04cefc28c4f03c120.sample remapped: res://.godot/imported/ui_page_turn_1.wav-7a76f57d93764ca04cefc28c4f03c120.sample
+Completed load for: 'res://assets/delivered/sfx/ui_page_turn_1.wav' remapped 'res://assets/delivered/sfx/ui_page_turn_1.wav' at thread -1
+Loading resource: res://assets/delivered/sfx/ui_page_turn_2.wav remapped: res://assets/delivered/sfx/ui_page_turn_2.wav
+Loading resource: res://.godot/imported/ui_page_turn_2.wav-e6d1744e081d925bd37ad43d5ce462d6.sample remapped: res://.godot/imported/ui_page_turn_2.wav-e6d1744e081d925bd37ad43d5ce462d6.sample
+Completed load for: 'res://assets/delivered/sfx/ui_page_turn_2.wav' remapped 'res://assets/delivered/sfx/ui_page_turn_2.wav' at thread -1
+Loading resource: res://assets/delivered/sfx/ui_page_turn_3.wav remapped: res://assets/delivered/sfx/ui_page_turn_3.wav
+Loading resource: res://.godot/imported/ui_page_turn_3.wav-ebb5ede260c1f122d55d044ef60865b7.sample remapped: res://.godot/imported/ui_page_turn_3.wav-ebb5ede260c1f122d55d044ef60865b7.sample
+Completed load for: 'res://assets/delivered/sfx/ui_page_turn_3.wav' remapped 'res://assets/delivered/sfx/ui_page_turn_3.wav' at thread -1
+capture: /workspace/starfire-evidence/m2e/captures/desktop100_banked.png
+capture: /workspace/starfire-evidence/m2e/captures/desktop100_funded_zero_rate.png
+capture: /workspace/starfire-evidence/m2e/captures/phone200_banked.png
+capture: /workspace/starfire-evidence/m2e/captures/phone200_funded_zero_rate.png
+Direct fixture rendering only; not manual play.
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Accessibility: window 0 adapter destroyed.
