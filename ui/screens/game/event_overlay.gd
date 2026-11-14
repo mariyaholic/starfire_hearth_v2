@@ -76,7 +76,10 @@ static func _choice(s: GameScreen, m: Modal, state: GameState, e: Empire, ev: Ev
 	var v: VBoxContainer = GameUI.column(Tokens.SPACE_XS)
 	v.name = "Choice_%d" % index
 	var res: Result = Events.can_choose(state, e.id, ev.id, index)
+	var session: int = Game.session_serial
 	var act: VBoxContainer = GameUI.action(Strings.fmt(DictIO.str_of(ch, "label_key")), "", res, func() -> void:
+		if not is_instance_valid(s) or not s.is_inside_tree() or Game.session_serial != session or not is_instance_valid(m) or not m.is_inside_tree() or m._closing:
+			return
 		var r: Result = s.order(ChooseEventCommand.create(e.id, ev.id, index))
 		if r.ok:
 			Audio.play("ui_choice_made")

@@ -83,6 +83,7 @@ func test_every_command_type_round_trips(t: T) -> void:
 		SetGovernorCommand.create("emp_player", cid, true, "research", 7000),
 		VetoPlanCommand.create("emp_player", cid, "district:mining"),
 		MoveFleetCommand.create("emp_player", "flt_0002", "sys_example"),
+		SetAutoExploreCommand.create("emp_player", "flt_0002", true),
 		SurveyCommand.create("emp_player", "shp_0002", "pl_brume"),
 		BuildOutpostCommand.create("emp_player", "shp_0001", "pl_dross", "research"),
 		ColoniseCommand.create("emp_player", "shp_0003", "pl_brume"),

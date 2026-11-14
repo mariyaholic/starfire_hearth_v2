@@ -24,6 +24,7 @@ func validate(state: GameState) -> Result:
 
 
 func apply(state: GameState) -> void:
+	AutoExplore.set_enabled(state, empire_id, fleet_id, false)
 	state.fleets[fleet_id].path = Travel.route(state, fleet_id, destination)
 
 

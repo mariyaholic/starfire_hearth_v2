@@ -27,6 +27,8 @@ static func build(s: GameScreen) -> Control:
 	row.add_child(star)
 	if sys.beacon != StarSystem.BEACON_NONE:
 		var b: Label = FlowScreen.label(Strings.fmt(BEACON_KEYS.get(sys.beacon, "ui.system.beacon_dormant")), &"CaptionLabel")
+		b.name = "SystemBeacon"
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		row.add_child(b)
 	head.add_body(row)
@@ -44,8 +46,8 @@ static func build(s: GameScreen) -> Control:
 	left.add_child(_fleets(s, sys))
 	var right: VBoxContainer = GameUI.column(Tokens.SPACE_M)
 	if s.planet_id.is_empty() or not s.state.planets.has(s.planet_id):
-		var hint: Card = Card.make(Strings.fmt("ui.system.pick_title"), "", "map_outpost", "text.secondary")
-		hint.add_text(Strings.fmt("ui.system.pick_hint"), &"CaptionLabel")
+		var hint: Card = Card.make(Strings.fmt("ui.3d.overview" if sys.planet_ids.is_empty() else "ui.system.pick_title"), "", "map_outpost", "text.secondary")
+		hint.add_text(Strings.fmt("ui.system.no_planets" if sys.planet_ids.is_empty() else "ui.system.pick_hint"), &"CaptionLabel")
 		right.add_child(hint)
 	else:
 		right.add_child(_panel(s, s.state.planets[s.planet_id]))
@@ -65,6 +67,7 @@ static func _planets(s: GameScreen, sys: StarSystem) -> Control:
 	planets.sort_custom(func(a: Planet, b: Planet) -> bool: return a.orbit < b.orbit)
 	for p: Planet in planets:
 		flow.add_child(_tile(s, p))
+	if planets.is_empty(): card.add_text(Strings.fmt("ui.system.no_planets"), &"CaptionLabel")
 	card.add_body(flow)
 	return card
 

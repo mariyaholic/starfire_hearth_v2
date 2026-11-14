@@ -3,6 +3,15 @@
 Newest first. A claim marked **Verified** names the command that proved it, run from the
 repository root after `godot --headless --path . --import`. Everything else is **Unverified**.
 
+## Unreleased: M2B discovery and survey automation
+
+- Add opt-in survey automation with safe manual overrides and saved intent
+- Add Halden's one-shot salvage, research or leave-intact decision
+- Keep pending discovery choices from being bypassed by victory
+- Explain empty systems and keep story illustrations inside their frame
+- **Verified:** Godot 4.7.2 full suite, 348 tests / 14,457 checks; all three exports
+- See `docs/milestones/M2B_REPORT.md` for replay, render and acceptance limits
+
 ## Unreleased: M2A exploration preview
 
 - Add a standalone four-system expedition without advancing the canonical campaign

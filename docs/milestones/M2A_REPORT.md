@@ -2,6 +2,10 @@
 
 14 November 2026 · source base `2c478cb`
 
+This records the first iteration at `0a3ce61`. The subsequent
+[M2B report](M2B_REPORT.md) supersedes its current-feature status while retaining
+these test results and screenshots as historical evidence
+
 ## What works
 
 Launch **M2A Exploration Preview** from Campaign without completing First Light.

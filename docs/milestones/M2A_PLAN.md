@@ -59,5 +59,19 @@ Fog must not disclose undiscovered planets or allow remote tasks. Midflight save
 must not reset travel, and rejected commands must explain why. Preview wins must
 not complete canonical Scenario 2 or unlock Scenario 3
 
-Combat, active beacons, Noise, diplomacy, anomaly rewards and full campaign
+Combat, active beacons, Noise, diplomacy, broader anomaly chains and full campaign
 balance remain later increments. Do not imply they are implemented
+
+
+## Exploration automation and Halden cache
+
+The standalone preview now asks the player to resolve a one-shot discovery at
+Halden’s Gate. A survey fleet can explore automatically; a valid manual move or
+survey stops the automation, while an in-progress leg or survey continues. The
+Gate remains dormant. Preview results do not alter campaign unlocks or legacies.
+
+The three seed-1 automated expedition replays (salvage, study and leave intact)
+each reached all required and optional goals on turn 44, with identical per-turn
+hashes on a repeat. The scenario's expected duration is 50 turns for this
+expanded route. This is a small deterministic smoke sample, not a balance study;
+manual play can follow a different itinerary.
