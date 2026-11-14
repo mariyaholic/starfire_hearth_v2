@@ -41,14 +41,16 @@ static func parse_centi(text: String) -> Array:
 	var m: RegExMatch = re.search(s)
 	if m == null:
 		return [false, 0]
-	var whole: int = m.get_string(2).to_int()
-	var frac_text: String = m.get_string(3)
-	var frac: int = 0
-	if frac_text.length() == 1:
-		frac = frac_text.to_int() * 10
-	elif frac_text.length() == 2:
-		frac = frac_text.to_int()
-	var value: int = whole * ONE + frac
-	if m.get_string(1) == "-":
-		value = -value
-	return [true, value]
+	# Compare decimal digits before converting or multiplying; Godot integer arithmetic wraps
+	# at 64 bits, so a large authoring amount could otherwise become a negative cost.
+	var negative: bool = m.get_string(1) == "-"
+	var digits: String = (m.get_string(2) + m.get_string(3).rpad(2, "0")).lstrip("0")
+	if digits.is_empty():
+		return [true, 0]
+	var limit: String = "9223372036854775808" if negative else "9223372036854775807"
+	if digits.length() > limit.length() or (digits.length() == limit.length() and digits > limit):
+		return [false, 0]
+	if negative and digits == "9223372036854775808":
+		return [true, -9223372036854775807 - 1]
+	var value: int = digits.to_int()
+	return [true, -value if negative else value]

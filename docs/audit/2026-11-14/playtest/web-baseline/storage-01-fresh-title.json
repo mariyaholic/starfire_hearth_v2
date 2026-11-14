@@ -1,0 +1,18 @@
+{
+  "local_storage": {},
+  "session_storage": {},
+  "databases": [
+    {
+      "name": "/userfs",
+      "version": 21,
+      "stores": [
+        {
+          "name": "FILE_DATA",
+          "entries": []
+        }
+      ]
+    }
+  ],
+  "service_workers": [],
+  "cookies": []
+}

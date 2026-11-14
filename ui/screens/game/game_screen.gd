@@ -76,6 +76,7 @@ var _refresh_queued: bool = false
 var _relayout_queued: bool = false
 var _step: Dictionary = {}
 var _event_overlay: Modal
+var _manual_save_pending: bool = false
 var _immersive_layout: bool = false
 var immersive_panel: String = "inspect"
 var immersive_panel_open: bool = false
@@ -674,6 +675,8 @@ func _refresh_advisor() -> void:
 
 
 func _acknowledge(st: Dictionary) -> void:
+	if not is_inside_tree() or _session != Game.session_serial:
+		return
 	Game.submit(AcknowledgeCommand.create(state.player_id, DictIO.str_of(st, "id")))
 
 
@@ -709,16 +712,18 @@ func end_turn() -> void:
 			next_event()
 			return
 	if checks.is_empty():
-		resolve_turn()
+		resolve_turn(Game.state)
 	else:
-		TurnReportOverlay.open_checklist(self, checks, resolve_turn)
+		TurnReportOverlay.open_checklist(self, checks, resolve_turn.bind(Game.state))
 
 
-func resolve_turn() -> void:
-	if not is_inside_tree() or _session != Game.session_serial:
+func resolve_turn(expected: GameState) -> void:
+	if not is_inside_tree() or _session != Game.session_serial or Game.state != expected:
 		return
 	Overlay.close_all()
 	var r: TurnResult = Game.end_turn()
+	if r == null:
+		return
 	if Game.state.is_over():
 		go(AppRoot.DEBRIEF)
 		return
@@ -770,6 +775,7 @@ func open_menu() -> void:
 		var cb: Callable = e[2]
 		var b: SfButton = SfButton.make(key, icon, SfButton.GHOST)
 		b.name = "Menu_" + key.get_slice(".", 2)
+		if key == "ui.game.save": b.disabled = _manual_save_pending
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.pressed.connect(func() -> void:
 			d.close()
@@ -810,11 +816,40 @@ func open_more() -> void:
 
 ## A manual save of the game as it stands (this turn's unspent orders are not part of it).
 func save_game() -> void:
-	var slot_name: String = SaveService.save_manual(Game.state)
+	if not is_inside_tree() or _session != Game.session_serial or _manual_save_pending or Game.state == null:
+		return
+	var expected: GameState = Game.state
+	var session: int = Game.session_serial
+	var slot_name: String = SaveService.save_manual(expected)
 	if slot_name.is_empty():
 		Overlay.toast(Strings.fmt("ui.game.save_failed"), ReportItem.SEVERITY_WARNING)
-	else:
+		return
+	if not OS.has_feature("web"):
 		Overlay.toast(Strings.fmt("ui.game.saved"), ReportItem.SEVERITY_GOOD)
+		return
+	_manual_save_pending = true
+	var pending_toast: Toast = Overlay.toast(Strings.fmt("ui.game.saving"), ReportItem.SEVERITY_INFO)
+	var path: String = SaveService._path(slot_name)
+	var written: String = FileAccess.get_file_as_string(path)
+	await _confirm_manual_save(expected, session, path, written, WebSaveVerifier.committed, pending_toast)
+
+
+func _confirm_manual_save(expected: GameState, session: int, path: String, written: String, verifier: Callable, pending_toast: Toast = null) -> void:
+	var confirmed: bool = false
+	if not written.is_empty():
+		confirmed = await verifier.call(path, written)
+	if is_instance_valid(pending_toast): pending_toast.dismiss()
+	if not is_inside_tree() or _session != session or Game.session_serial != session:
+		return
+	_manual_save_pending = false
+	var save_button: BaseButton = Overlay.root.find_child("Menu_save", true, false) as BaseButton
+	if save_button != null: save_button.disabled = false
+	if Game.state != expected:
+		return
+	if confirmed:
+		Overlay.toast(Strings.fmt("ui.game.saved"), ReportItem.SEVERITY_GOOD)
+	else:
+		Overlay.toast(Strings.fmt("ui.game.save_unconfirmed"), ReportItem.SEVERITY_WARNING)
 
 
 func _unhandled_input(event: InputEvent) -> void:

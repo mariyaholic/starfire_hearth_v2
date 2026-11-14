@@ -1,0 +1,1802 @@
+{
+  "checks": 367,
+  "failures": [],
+  "results": [
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/colony_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/colony_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/colony_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/construction_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/construction_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/construction_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/parts.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/survey_probe_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/survey_probe_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/3d/finish_v1/survey_probe_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/ceramic_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/ceramic_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/ceramic_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/concrete_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/concrete_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/concrete_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/leaf_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/leaf_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/leaf_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/metal_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/metal_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/metal_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/rock_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/rock_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/rock_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/soil_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/soil_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/soil_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/trim_ao.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 assets/textures/finish_v1/trim_normal.png",
+      "pass": true
+    },
+    {
+      "label": "manifest SHA256 tools/art/sources/finish_v1.blend",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/parts.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/parts.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.001",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cone",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Sphere",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Sphere.001",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Organic rib",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Leaf crown",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.002",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.001",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cone.001",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Sphere.002",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Sphere.003",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Organic rib.001",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Leaf crown.001",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.003",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.002",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cone.002",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Sphere.004",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Sphere.005",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Organic rib.002",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Leaf crown.002",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/parts.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/survey_probe_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/survey_probe_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.004",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.005",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.006",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.007",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.008",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.009",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.010",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.011",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.012",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.013",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.014",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.015",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.016",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.003",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.017",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.018",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/survey_probe_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/survey_probe_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/survey_probe_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/survey_probe_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.019",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.020",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.021",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.022",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.023",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.024",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.025",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.026",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.027",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.028",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.029",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.030",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.031",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.004",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.032",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.033",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/survey_probe_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/survey_probe_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/survey_probe_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/survey_probe_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.034",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.035",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.036",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.037",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.038",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.005",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.039",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.040",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/survey_probe_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/survey_probe_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/construction_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/construction_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.041",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.042",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.043",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.044",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.006",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.045",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.046",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.047",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.048",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.049",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.050",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.051",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.052",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.007",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.053",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.054",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.055",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.056",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.057",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.058",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/construction_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/construction_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/construction_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/construction_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.059",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.060",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.061",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.062",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.008",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.063",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.064",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.065",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.066",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.067",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.068",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.069",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.070",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.009",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.071",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.072",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.073",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.074",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.075",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.076",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/construction_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/construction_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/construction_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/construction_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.077",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.078",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.079",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.080",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.010",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.081",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.082",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.083",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.084",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.011",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.085",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.086",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/construction_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/construction_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/colony_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/colony_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.087",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.012",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.013",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.014",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.015",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.016",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.017",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.018",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.019",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.020",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.021",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.022",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.023",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.024",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.025",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.026",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.027",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.028",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.029",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.030",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.031",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.032",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.033",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.034",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.035",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.088",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.089",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.090",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.036",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.091",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.092",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.037",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.093",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/colony_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/colony_ship_lod0.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/colony_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/colony_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.094",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.038",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.039",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.040",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.041",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.042",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.043",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.044",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.045",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.046",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.047",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.048",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.049",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.050",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.051",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.052",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.053",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.054",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.055",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.056",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.057",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.058",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.059",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.060",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.061",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.095",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.096",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.097",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.062",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.098",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.099",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.063",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.100",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/colony_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/colony_ship_lod1.glb",
+      "pass": true
+    },
+    {
+      "label": "valid GLB assets/3d/finish_v1/colony_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "GLB JSON assets/3d/finish_v1/colony_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.101",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.064",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.065",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.066",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.067",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.068",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.069",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.102",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.103",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.104",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.070",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.105",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.106",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cylinder.071",
+      "pass": true
+    },
+    {
+      "label": "UV0/normals/tangents Cube.107",
+      "pass": true
+    },
+    {
+      "label": "triangle count assets/3d/finish_v1/colony_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "mapped civilian material roles assets/3d/finish_v1/colony_ship_lod2.glb",
+      "pass": true
+    },
+    {
+      "label": "texture resolution ceramic_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps ceramic_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage ceramic_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import ceramic_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression ceramic_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution ceramic_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps ceramic_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage ceramic_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import ceramic_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression ceramic_normal.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution ceramic_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps ceramic_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage ceramic_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import ceramic_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression ceramic_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution concrete_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps concrete_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage concrete_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import concrete_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression concrete_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution concrete_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps concrete_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage concrete_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import concrete_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression concrete_normal.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution concrete_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps concrete_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage concrete_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import concrete_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression concrete_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution leaf_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps leaf_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage leaf_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import leaf_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression leaf_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution leaf_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps leaf_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage leaf_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import leaf_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression leaf_normal.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution leaf_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps leaf_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage leaf_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import leaf_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression leaf_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution metal_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps metal_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage metal_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import metal_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression metal_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution metal_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps metal_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage metal_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import metal_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression metal_normal.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution metal_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps metal_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage metal_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import metal_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression metal_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution rock_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps rock_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage rock_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import rock_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression rock_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution rock_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps rock_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage rock_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import rock_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression rock_normal.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution rock_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps rock_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage rock_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import rock_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression rock_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution soil_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps soil_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage soil_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import soil_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression soil_albedo.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution soil_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps soil_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage soil_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import soil_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression soil_normal.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution soil_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps soil_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage soil_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import soil_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression soil_roughness.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution trim_ao.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps trim_ao.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage trim_ao.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import trim_ao.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression trim_ao.png",
+      "pass": true
+    },
+    {
+      "label": "texture resolution trim_normal.png",
+      "pass": true
+    },
+    {
+      "label": "mipmaps trim_normal.png",
+      "pass": true
+    },
+    {
+      "label": "lossless review storage trim_normal.png",
+      "pass": true
+    },
+    {
+      "label": "normal/data import trim_normal.png",
+      "pass": true
+    },
+    {
+      "label": "stable review compression trim_normal.png",
+      "pass": true
+    },
+    {
+      "label": "shared part set and nine hull GLBs",
+      "pass": true
+    },
+    {
+      "label": "six PBR map sets plus trim normal/AO",
+      "pass": true
+    },
+    {
+      "label": "no external asset provenance",
+      "pass": true
+    }
+  ],
+  "meshes": [
+    {
+      "file": "assets/3d/finish_v1/parts.glb",
+      "triangles": 6140,
+      "mesh_count": 21,
+      "bytes": 297528,
+      "roles": [
+        "arch",
+        "box",
+        "cone",
+        "cylinder",
+        "dome",
+        "foliage",
+        "sphere"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/survey_probe_lod0.glb",
+      "triangles": 3104,
+      "mesh_count": 16,
+      "bytes": 134108,
+      "roles": [
+        "foil",
+        "light",
+        "metal",
+        "solar"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/survey_probe_lod1.glb",
+      "triangles": 1808,
+      "mesh_count": 16,
+      "bytes": 85008,
+      "roles": [
+        "foil",
+        "light",
+        "metal",
+        "solar"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/survey_probe_lod2.glb",
+      "triangles": 584,
+      "mesh_count": 8,
+      "bytes": 36972,
+      "roles": [
+        "foil",
+        "light",
+        "metal",
+        "solar"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/construction_ship_lod0.glb",
+      "triangles": 3952,
+      "mesh_count": 20,
+      "bytes": 172832,
+      "roles": [
+        "foil",
+        "glass",
+        "light",
+        "metal",
+        "shell"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/construction_ship_lod1.glb",
+      "triangles": 2320,
+      "mesh_count": 20,
+      "bytes": 110240,
+      "roles": [
+        "foil",
+        "glass",
+        "light",
+        "metal",
+        "shell"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/construction_ship_lod2.glb",
+      "triangles": 992,
+      "mesh_count": 12,
+      "bytes": 56724,
+      "roles": [
+        "foil",
+        "glass",
+        "light",
+        "metal",
+        "shell"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/colony_ship_lod0.glb",
+      "triangles": 8700,
+      "mesh_count": 33,
+      "bytes": 447920,
+      "roles": [
+        "glass",
+        "light",
+        "metal",
+        "shell",
+        "solar"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/colony_ship_lod1.glb",
+      "triangles": 5644,
+      "mesh_count": 33,
+      "bytes": 305268,
+      "roles": [
+        "glass",
+        "light",
+        "metal",
+        "shell",
+        "solar"
+      ]
+    },
+    {
+      "file": "assets/3d/finish_v1/colony_ship_lod2.glb",
+      "triangles": 2516,
+      "mesh_count": 15,
+      "bytes": 119412,
+      "roles": [
+        "glass",
+        "light",
+        "metal",
+        "shell",
+        "solar"
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "file": "assets/textures/finish_v1/ceramic_albedo.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 270462,
+      "color_space": "sRGB albedo sampler",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/ceramic_normal.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 537596,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/ceramic_roughness.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 170829,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/concrete_albedo.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 250804,
+      "color_space": "sRGB albedo sampler",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/concrete_normal.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 537597,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/concrete_roughness.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 171076,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/leaf_albedo.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 284827,
+      "color_space": "sRGB albedo sampler",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/leaf_normal.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 537596,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/leaf_roughness.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 170650,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/metal_albedo.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 267485,
+      "color_space": "sRGB albedo sampler",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/metal_normal.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 537596,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/metal_roughness.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 170815,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/rock_albedo.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 228570,
+      "color_space": "sRGB albedo sampler",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/rock_normal.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 631798,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/rock_roughness.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 170764,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/soil_albedo.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 259538,
+      "color_space": "sRGB albedo sampler",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/soil_normal.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 631798,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/soil_roughness.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 157974,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/trim_ao.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 261516,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    },
+    {
+      "file": "assets/textures/finish_v1/trim_normal.png",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 185294,
+      "color_space": "linear",
+      "mipmaps": true,
+      "compression": "lossless"
+    }
+  ],
+  "sources": [
+    {
+      "file": "tools/art/build_finish_v1.py",
+      "bytes": 14875,
+      "sha256": "c993a81f7b8f1cc0accaa7aafa94abf90eb6e784bdfff438a1f46f1801adbbff"
+    },
+    {
+      "file": "tools/art/sources/finish_v1.blend",
+      "bytes": 1262432,
+      "sha256": "95b35d78c1313e83723125979a264b457e87d9373ac6cf20d44db6ee1b9d8401"
+    }
+  ],
+  "mesh_bytes": 1766012,
+  "texture_png_bytes": 6434585,
+  "qualification": "GLB structure, mappings, deterministic output checksums and import conventions. Visual UV/normal/seam/scale review is recorded separately. Lossless review maps with mips; target GPU compression remains Stage G."
+}

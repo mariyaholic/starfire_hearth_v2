@@ -1,0 +1,5 @@
+# Keep captured evidence byte-identical, including original TSV line endings.
+playtest/** -text
+playtest/web-baseline/qualified-input-timings.tsv whitespace=cr-at-eol
+# Engine logs can contain trailing spaces; preserve and inspect the original output.
+validation/*.log -text -whitespace

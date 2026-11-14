@@ -1,0 +1,81 @@
+{
+  "local_storage": {
+    "starfire_hearth.view_mode.v1": "command"
+  },
+  "session_storage": {},
+  "cookies": [],
+  "databases": [
+    {
+      "name": "/userfs",
+      "version": 21,
+      "stores": [
+        "FILE_DATA"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "key": "/userfs/godot/app_userdata/Starfire Hearth/saves/auto_2.json",
+      "bytes": 15763
+    },
+    {
+      "key": "/userfs/godot/app_userdata/Starfire Hearth/saves/auto_2.png",
+      "bytes": 17360
+    },
+    {
+      "key": "/userfs/godot/app_userdata/Starfire Hearth/settings.cfg",
+      "bytes": 614
+    }
+  ],
+  "directory_entry_count": 33,
+  "json_fields": {
+    "/userfs/godot/app_userdata/Starfire Hearth/saves/auto_2.json": {
+      "envelope": [
+        "checksum",
+        "format",
+        "game_version",
+        "presentation",
+        "rng_meta",
+        "scenario_id",
+        "seed",
+        "state",
+        "turn",
+        "version"
+      ],
+      "state": [
+        "colonies",
+        "counters",
+        "designs",
+        "difficulty_id",
+        "director_next",
+        "empires",
+        "event_log",
+        "event_memory",
+        "events_pending",
+        "events_scheduled",
+        "flags",
+        "fleets",
+        "game_seed",
+        "lanes",
+        "modifiers",
+        "objective_progress",
+        "objectives_done",
+        "outcome",
+        "outcome_reason",
+        "outcome_turn",
+        "planets",
+        "player_id",
+        "scenario_id",
+        "scheduled_effects",
+        "schema_version",
+        "ships",
+        "systems",
+        "turn"
+      ],
+      "seed": 1183028510,
+      "turn": 2,
+      "scenario_id": "s1_first_light"
+    }
+  },
+  "service_workers": []
+}

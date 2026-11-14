@@ -166,6 +166,8 @@ func _check_value(v: Variant, ftype: String, where: String) -> void:
 					error(where, "\"%s\" is not a resource" % str(k))
 				if typeof(m[k]) != TYPE_INT:
 					error("%s.%s" % [where, str(k)], "expected a whole number of centi-units")
+				elif int(m[k]) < 0:
+					error("%s.%s" % [where, str(k)], "resource amounts must be non-negative")
 		"effects":
 			_check_effects(v, where)
 		_:

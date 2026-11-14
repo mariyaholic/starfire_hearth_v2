@@ -36,6 +36,12 @@ CREDITS = ROOT / "CREDITS.md"
 REPORTS = ROOT / "reports/assets"
 TOKENS = ROOT / "ui/theme/tokens.gd"
 
+# Limits apply to uncompressed ZIP metadata before reading attacker-controlled delivery bytes.
+MAX_MANIFEST_BYTES = 1024 * 1024
+MAX_ASSET_BYTES = 256 * 1024 * 1024
+MAX_BATCH_BYTES = 1024 * 1024 * 1024
+MAX_ARCHIVE_ENTRIES = 4096
+
 # ---------------------------------------------------------------------------------------------
 # The briefs (§15.4-§15.9) as data.
 
@@ -818,19 +824,36 @@ def check_licence(meta):
     return fails, warns
 
 
+def _batch_failure(zip_path, reason):
+    item = Item("batch", zip_path.name)
+    item.fail(reason)
+    print(item.line())
+    return [item]
+
+
 def ingest(zip_path, args, index, today):
     """Checks and (unless --check) writes one batch. Returns its items."""
-    z = zipfile.ZipFile(zip_path)
     try:
+        z = zipfile.ZipFile(zip_path)
+        if len(z.infolist()) > MAX_ARCHIVE_ENTRIES:
+            return _batch_failure(zip_path, "too many archive entries")
+        if z.getinfo("manifest.json").file_size > MAX_MANIFEST_BYTES:
+            return _batch_failure(zip_path, "manifest exceeds the size limit")
         meta = json.loads(z.read("manifest.json"))
-    except (KeyError, json.JSONDecodeError) as e:
-        print("FAIL  batch    %-24s no readable manifest.json (%s)" % (zip_path.name, e))
-        return []
+    except (OSError, zipfile.BadZipFile, KeyError, json.JSONDecodeError, UnicodeDecodeError) as e:
+        return _batch_failure(zip_path, "no readable batch manifest (%s)" % e)
+    if not isinstance(meta, dict):
+        return _batch_failure(zip_path, "manifest must be an object")
     kind, batch = meta.get("kind"), meta.get("batch")
+    # Batch is later embedded in report paths and the asset catalogue; never accept arbitrary
+    # path components or unbounded integers from an untrusted delivery manifest.
+    if type(batch) is not int or not 1 <= batch <= 999999:
+        return _batch_failure(zip_path, "batch must be an integer from 1 to 999999")
     print("\n== %s: %s batch %s" % (zip_path.name, kind, batch))
-    if kind not in HANDLERS:
-        print("FAIL  batch    %-24s unknown kind %r" % (zip_path.name, kind))
-        return []
+    if not isinstance(kind, str) or kind not in HANDLERS:
+        return _batch_failure(zip_path, "unknown kind %r" % kind)
+    if not isinstance(meta.get("items"), list) or not meta["items"] or any(not isinstance(item, dict) for item in meta["items"]):
+        return _batch_failure(zip_path, "items must be a non-empty list of objects")
     if zip_path.name != "sfh_%s_batch%s.zip" % (kind, batch):
         print("WARN  batch    %-24s the zip should be named sfh_%s_batch%s.zip" % (zip_path.name, kind, batch))
     fails, warns = check_licence(meta)
@@ -839,7 +862,20 @@ def ingest(zip_path, args, index, today):
     if fails:
         for f in fails:
             print("FAIL  batch    %-24s %s" % (zip_path.name, f))
-        return []
+        return _batch_failure(zip_path, "batch licence requirements not satisfied")
+    # Bound all referenced inputs before running any decoder or writing any accepted item.
+    input_names = {str(item.get("file", "")) for item in meta.get("items", [])}
+    total_bytes = 0
+    for name in input_names:
+        try:
+            info = z.getinfo(name)
+        except KeyError:
+            continue  # The item loop produces the ordinary missing-file diagnostic.
+        if info.file_size > MAX_ASSET_BYTES:
+            return _batch_failure(zip_path, "an asset exceeds the uncompressed size limit")
+        total_bytes += info.file_size
+    if total_bytes > MAX_BATCH_BYTES:
+        return _batch_failure(zip_path, "batch exceeds the uncompressed size limit")
     groups, notes = {}, {}
     in_zip = set(z.namelist())
     items = []
@@ -882,7 +918,8 @@ def ingest(zip_path, args, index, today):
     ok = [i.id for i in items if not i.fails]
     if ok and not args.check:
         record_credits(kind, batch, meta, ok, today)
-    contact_sheet(items, REPORTS / ("%s_batch%s_contact.png" % (kind, batch)))
+    if not args.check:
+        contact_sheet(items, REPORTS / ("%s_batch%s_contact.png" % (kind, batch)))
     return items
 
 
@@ -918,8 +955,9 @@ def main():
     print("\nimport_assets: %d item(s): %d pass, %d warn, %d fail%s" % (
         len(every), counts["PASS"], counts["WARN"], counts["FAIL"], " (check only: nothing written)" if args.check else ""))
     within = budget_report()
-    REPORTS.mkdir(parents=True, exist_ok=True)
-    (REPORTS / "last_report.txt").write_text("\n".join(i.line() for i in every) + "\n")
+    if not args.check:
+        REPORTS.mkdir(parents=True, exist_ok=True)
+        (REPORTS / "last_report.txt").write_text("\n".join(i.line() for i in every) + "\n")
     sys.exit(1 if counts["FAIL"] or not within else 0)
 
 

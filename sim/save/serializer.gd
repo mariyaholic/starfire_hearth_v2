@@ -129,6 +129,8 @@ static func from_text(text: String) -> LoadResult:
 	# directly to Continue, whose screens and commands require one.
 	if lr.state.player() == null:
 		problems.append("save has no player empire")
+	elif not lr.state.player().is_player:
+		problems.append("designated player empire is not marked as a player")
 	if not problems.is_empty():
 		lr.state = null
 		lr.error_key = "save.error.corrupt"

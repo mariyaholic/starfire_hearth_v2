@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+telemetry_report: 6 run(s) from /workspace/starfire-evidence/audit-final/telemetry; policies { "balanced": 3, "random-legal": 3 }
+PASS  coverage: the requested run groups, seed sets and replay requirements are present
+PASS  invariants: 0 invariant problem(s) across runs
+PASS  determinism: 6 of 6 replayed run(s) matched their first hashes
+PASS  performance: end-turn p95 54.10 ms (budget 300 ms, 360 turns, desktop only)
+PASS  no_hoarding: 0 of 3 run(s) hoarded (limit 20%); streaks of over 10 turns, counted by resource {  }
+FAIL  everything_matters: too rarely used: fusion_plant 16%, civic_hall 0%, advanced_districts 0%
+FAIL  winnable (balanced, normal): 0 of 3 won (0%; band 60-90%)
+PASS  winnable (random-legal, normal): 0 of 3 won (0%; band 0-20%)
+SKIP  winnable (balanced, story): no runs
+SKIP  pacing: no balanced wins on Normal
+PASS  no_dead_turns: median dead-turn share 2% (limit 25%)
+NOTE  2 balance gate(s) failed; advisory mode, so they do not fail this run

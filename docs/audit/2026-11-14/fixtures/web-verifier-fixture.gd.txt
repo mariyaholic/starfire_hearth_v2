@@ -1,0 +1,19 @@
+extends Control
+var results: Dictionary = {}
+func _ready() -> void:
+ var a: FileAccess = FileAccess.open("user://verifier_audit_a", FileAccess.WRITE)
+ a.store_string("first payload")
+ a.close()
+ var b: FileAccess = FileAccess.open("user://verifier_audit_b", FileAccess.WRITE)
+ b.store_string("second payload")
+ b.close()
+ _verify("a", "user://verifier_audit_a", "first payload")
+ _verify("b", "user://verifier_audit_b", "second payload")
+ _verify("timeout", "user://verifier_audit_missing", "never written")
+ var pending: int = int(JavaScriptBridge.eval("Object.keys(window.__starfireSaveVerifications || {}).length", true))
+ JavaScriptBridge.eval("window.__auditLaunched=" + str(pending), true)
+func _verify(id: String, path: String, payload: String) -> void:
+ results[id] = await WebSaveVerifier.committed(path, payload)
+ var count: int = int(JavaScriptBridge.eval("Object.keys(window.__starfireSaveVerifications || {}).length", true))
+ var data: Dictionary = {"results": results, "pending": count}
+ JavaScriptBridge.eval("window.__auditResult=" + JSON.stringify(data), true)

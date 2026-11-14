@@ -18,6 +18,7 @@ var fresh_appearance: bool = false
 var session_serial: int = 0
 var _continuation_saving: bool = false
 var _continuation_generation: int = 0
+var _turn_resolving: bool = false
 
 
 func _init() -> void:
@@ -60,6 +61,8 @@ func submit(cmd: Command) -> Result:
 		return Result.fail("error.continue.saving")
 	if queue == null:
 		return Result.fail("error.command.unknown")
+	if cmd != null and state != null and cmd.empire_id != state.player_id:
+		return Result.fail("error.command.not_player")
 	var r: Result = queue.submit(cmd)
 	if r.ok:
 		orders_changed.emit()
@@ -83,12 +86,16 @@ func view() -> GameState:
 
 
 func end_turn() -> TurnResult:
+	if _turn_resolving or _continuation_saving or state == null or queue == null or state.is_over():
+		return null
+	_turn_resolving = true
 	var r: TurnResult = TurnProcessor.run(state, queue.commands())
 	state = r.state
 	queue = CommandQueue.new(state)
 	last_result = r
 	turn_resolved.emit(r)
 	orders_changed.emit()
+	_turn_resolving = false
 	return r
 
 

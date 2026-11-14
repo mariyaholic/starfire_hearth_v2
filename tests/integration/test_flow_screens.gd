@@ -16,6 +16,94 @@ var _tree: SceneTree
 var _root: Window
 
 
+func test_campaign_write_failure_warns_after_debrief_transition(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0])
+	var blocked: String = "user://test_campaign_block_%d" % Time.get_ticks_usec()
+	var f: FileAccess = FileAccess.open(blocked, FileAccess.WRITE)
+	f.store_string("not a directory")
+	f.close()
+	app.progress.file_path = blocked.path_join("campaign.json")
+	app.go(AppRoot.BEGIN, {"scenario": S1, "seed": 3})
+	Game.state.outcome = GameState.OUTCOME_WON
+	Game.state.outcome_turn = Game.state.turn
+	app.go(AppRoot.DEBRIEF)
+	await _frames(3)
+	var found: bool = false
+	for toast: Node in Overlay._toast_box.get_children():
+		if toast is Toast and (toast as Toast).text() == Strings.fmt("ui.campaign.save_failed"): found = true
+	t.ok(found, "campaign failure remains visible after the debrief transition")
+	t.ok(app.progress.is_won(S1), "the live session retains the win")
+	app.progress.file_path = ""
+	DirAccess.remove_absolute(blocked)
+	await _stop(app)
+
+
+func test_delete_requires_confirmation_and_preserves_replaced_slot(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0])
+	var old_dir: String = SaveService.dir
+	var dir: String = "user://test_delete_confirm_%d" % Time.get_ticks_usec()
+	SaveService.dir = dir
+	var saved: GameState = ScenarioLoader.build(Content.db(), S1, 3)
+	t.eq(SaveService.save("manual_1", saved), OK)
+	app.go(AppRoot.LOAD)
+	var screen: LoadScreen = app.screen as LoadScreen
+	screen._delete("manual_1")
+	var modal: Modal = Overlay.top() as Modal
+	t.ok(modal != null and modal.name == "DeleteSaveConfirmation")
+	t.ok(FileAccess.file_exists(dir.path_join("manual_1.json")), "opening confirmation does not delete")
+	var cancel: BaseButton = modal.find_child("CancelDelete", true, false) as BaseButton
+	cancel.pressed.emit()
+	await _frames(3)
+	t.ok(FileAccess.file_exists(dir.path_join("manual_1.json")), "cancel keeps save")
+	screen._delete("manual_1")
+	modal = Overlay.top() as Modal
+	var confirm: BaseButton = modal.find_child("ConfirmDelete", true, false) as BaseButton
+	saved.turn += 1
+	t.eq(SaveService.save("manual_1", saved), OK)
+	confirm.pressed.emit()
+	await _frames(3)
+	t.ok(FileAccess.file_exists(dir.path_join("manual_1.json")), "confirmation cannot delete a replaced slot")
+	screen._delete("manual_1")
+	modal = Overlay.top() as Modal
+	confirm = modal.find_child("ConfirmDelete", true, false) as BaseButton
+	app.go(AppRoot.TITLE)
+	confirm.pressed.emit()
+	t.ok(FileAccess.file_exists(dir.path_join("manual_1.json")), "detached confirmation cannot delete")
+	app.go(AppRoot.LOAD)
+	screen = app.screen as LoadScreen
+	screen._delete("manual_1")
+	modal = Overlay.top() as Modal
+	confirm = modal.find_child("ConfirmDelete", true, false) as BaseButton
+	confirm.pressed.emit()
+	await _frames(3)
+	t.not_ok(FileAccess.file_exists(dir.path_join("manual_1.json")), "confirmed unchanged slot is deleted")
+	DirAccess.remove_absolute(dir)
+	SaveService.dir = old_dir
+	await _stop(app)
+
+
+func test_detached_load_screen_cannot_load_or_delete(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0])
+	var old_dir: String = SaveService.dir
+	var dir: String = "user://test_stale_load_%d" % Time.get_ticks_usec()
+	SaveService.dir = dir
+	var saved: GameState = ScenarioLoader.build(Content.db(), S1, 3)
+	t.eq(SaveService.save("manual_1", saved), OK)
+	app.go(AppRoot.LOAD)
+	var old_screen: LoadScreen = app.screen as LoadScreen
+	app.go(AppRoot.TITLE)
+	var current: GameState = Game.state
+	old_screen._load("manual_1")
+	t.eq(app.route, AppRoot.TITLE, "detached load callback cannot navigate")
+	t.ok(Game.state == current, "detached load callback cannot replace session")
+	old_screen._delete("manual_1")
+	t.ok(FileAccess.file_exists(dir.path_join("manual_1.json")), "detached delete callback cannot remove a save")
+	SaveService.delete("manual_1")
+	DirAccess.remove_absolute(dir)
+	SaveService.dir = old_dir
+	await _stop(app)
+
+
 func test_flow_walks_from_title_to_debrief_and_back(t: T) -> void:
 	var app: AppRoot = await _start(PROFILES[0])
 	t.eq(app.route, AppRoot.TITLE, "the app opens on the title")

@@ -33,6 +33,12 @@ jobs:
       - name: Audit First Light visual catalog and asset manifests
         run: python3 tools/art/audit_finish_v1.py --out build/stage_g/asset_audit.json
 
+      - name: Test asset intake security
+        run: |
+          python3 -m venv "$RUNNER_TEMP/starfire-assets"
+          "$RUNNER_TEMP/starfire-assets/bin/python" -m pip install -r tools/requirements-assets.txt
+          "$RUNNER_TEMP/starfire-assets/bin/python" -m unittest discover -s tests/tools -p test_import_assets_security.py
+
       - name: Tests (unit, integration, golden, saves, data, boundary, headless UI audit)
         run: godot --headless --path . -s tests/run_tests.gd
 
@@ -52,7 +58,7 @@ jobs:
           done
 
       - name: Telemetry gates (invariants, determinism, performance; balance is advisory here)
-        run: godot --headless --path . -s tools/telemetry_report.gd -- --in telemetry --balance advisory
+        run: godot --headless --path . -s tools/telemetry_report.gd -- --in telemetry --balance advisory --expect-runs 6 --expect-seeds 1-3 --expect-scenario s1_first_light --expect-group balanced:normal:3 --expect-group random-legal:normal:3 --require-determinism
 
       - name: Palette report
         run: godot --headless --path . -s tools/palette_report.gd
@@ -84,7 +90,7 @@ jobs:
           if-no-files-found: ignore
 
   balance:
-    name: Balance telemetry (20 seeds x 4 policies, Scenario 1)
+    name: Balance telemetry (100 runs, 5 groups, Scenario 1)
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -97,15 +103,22 @@ jobs:
 
       - name: Bot runs (Normal for every policy, Story for balanced)
         run: |
+          source tools/wait_all.sh
+          bash tools/test_wait_all.sh
+          pids=()
           for policy in balanced economy turtle random-legal; do
             godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy "$policy" --seeds 1-20 --turns 105 --out balance > "balance_$policy.log" 2>&1 &
+            pids+=("$!")
           done
           godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy balanced --difficulty story --seeds 1-20 --turns 105 --out balance > balance_story.log 2>&1 &
-          wait
+          pids+=("$!")
+          status=0
+          wait_all "${pids[@]}" || status=1
           tail -n 3 balance_*.log
+          exit "$status"
 
       - name: Balance gates (advisory until the M1 gate)
-        run: godot --headless --path . -s tools/telemetry_report.gd -- --in balance --balance advisory
+        run: godot --headless --path . -s tools/telemetry_report.gd -- --in balance --balance advisory --expect-runs 100 --expect-seeds 1-20 --expect-scenario s1_first_light --expect-group balanced:normal:20 --expect-group economy:normal:20 --expect-group turtle:normal:20 --expect-group random-legal:normal:20 --expect-group balanced:story:20
 
       - uses: actions/upload-artifact@v4
         if: always()
@@ -169,6 +182,8 @@ jobs:
           godot --headless --path . --export-release "Web" build/web/index.html
           godot --headless --path . --export-release "Windows" build/windows/StarfireHearth.exe
           godot --headless --path . --export-release "Linux" build/linux/StarfireHearth.x86_64
+          mkdir -p build/web-smoke
+          godot --headless --path . --export-debug "Web" build/web-smoke/index.html
           test -f build/web/index.wasm
           test -f build/windows/StarfireHearth.exe
           test -f build/linux/StarfireHearth.x86_64
@@ -191,7 +206,8 @@ jobs:
           # The browser must reach the same state as the desktop after one turn.
           HASH=$(godot --headless --path . -s tools/smoke_hash.gd | tail -n 1)
           echo "desktop state after one turn: $HASH"
-          node tools/web_smoke.mjs --build build/web --out screens/web --expect-hash "$HASH"
+          node tools/web_release_probe.mjs build/web screens/web
+          node tools/web_smoke.mjs --build build/web-smoke --out screens/web --expect-hash "$HASH"
 
       - uses: actions/upload-artifact@v4
         if: always()
