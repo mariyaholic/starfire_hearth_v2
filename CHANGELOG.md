@@ -3,6 +3,19 @@
 Newest first. A claim marked **Verified** names the command that proved it, run from the
 repository root after `godot --headless --path . --import`. Everything else is **Unverified**.
 
+## Unreleased: M2C–M2E fleet control and optional exploration
+
+- Add Stop at next system without losing current-leg progress
+- Add The Shroud's optional derelict and energy or research outpost
+- Show projected and operating outpost production, modifiers and upkeep
+- Preserve pending optional decisions before preview victory
+- Show banked research and correct funded-card completion timing
+- Remove manual idle warnings for eligible automatic exploration
+- **Verified:** Godot 4.7.2 full suite, 376 tests / 14,777 checks; data validation
+  and all three exports; desktop, phone and tablet web startup/one-turn smoke
+- See `docs/milestones/M2C_REPORT.md`, `M2D_REPORT.md` and `M2E_REPORT.md`
+  for actual-control evidence, fixture limits and pending platform acceptance
+
 ## Unreleased: M2B discovery and survey automation
 
 - Add opt-in survey automation with safe manual overrides and saved intent

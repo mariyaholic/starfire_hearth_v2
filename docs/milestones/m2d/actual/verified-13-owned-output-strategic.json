@@ -1,0 +1,150 @@
+{
+  "auto_enabled": false,
+  "auto_status": "disabled",
+  "builder_param": "",
+  "builder_system": "sys_shroud",
+  "builder_task": "",
+  "builder_task_turns": 0,
+  "buttons": [
+    {
+      "disabled": false,
+      "name": "More",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@3454/@HBoxContainer@3455/More",
+      "rect": "[P: (1585.0, 4.0), S: (101.0, 40.0)]",
+      "text": "More"
+    },
+    {
+      "disabled": false,
+      "name": "Menu",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@3454/@HBoxContainer@3455/Menu",
+      "rect": "[P: (1868.0, 4.0), S: (40.0, 40.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_galaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_galaxy",
+      "rect": "[P: (12.0, 52.0), S: (181.0, 40.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_system",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_system",
+      "rect": "[P: (12.0, 100.0), S: (181.0, 40.0)]",
+      "text": "System"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_colony",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_colony",
+      "rect": "[P: (12.0, 148.0), S: (181.0, 40.0)]",
+      "text": "Colony"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_research",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_research",
+      "rect": "[P: (12.0, 196.0), S: (181.0, 40.0)]",
+      "text": "Research"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_ordinances",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_ordinances",
+      "rect": "[P: (12.0, 244.0), S: (181.0, 40.0)]",
+      "text": "Ordinances"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_market",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_market",
+      "rect": "[P: (12.0, 292.0), S: (181.0, 40.0)]",
+      "text": "Market"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_objectives",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Nav_objectives",
+      "rect": "[P: (12.0, 340.0), S: (181.0, 40.0)]",
+      "text": "Objectives"
+    },
+    {
+      "disabled": false,
+      "name": "FleetTravel",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/FleetTravel",
+      "rect": "[P: (12.0, 892.0), S: (181.0, 40.0)]",
+      "text": "Fleet travel"
+    },
+    {
+      "disabled": true,
+      "name": "ModeToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/ModeToggle",
+      "rect": "[P: (12.0, 940.0), S: (181.0, 40.0)]",
+      "text": "Immersive view"
+    },
+    {
+      "disabled": true,
+      "name": "Undo",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/Undo",
+      "rect": "[P: (12.0, 988.0), S: (181.0, 40.0)]",
+      "text": "Undo"
+    },
+    {
+      "disabled": false,
+      "name": "EndTurn",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/NavBar/@MarginContainer@3457/@VBoxContainer@3458/EndTurn",
+      "rect": "[P: (12.0, 1036.0), S: (181.0, 40.0)]",
+      "text": "End turn"
+    },
+    {
+      "disabled": false,
+      "name": "SystemGalaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/ViewHost/Scroll/@VBoxContainer@3461/View/@VBoxContainer@5089/SystemHeader/@VBoxContainer@5015/@HFlowContainer@5018/SystemGalaxy",
+      "rect": "[P: (421.0, 238.0), S: (115.0, 40.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "Appearance3D",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/ViewHost/Scroll/@VBoxContainer@3461/View/@VBoxContainer@5089/SystemHeader/@VBoxContainer@5015/@HFlowContainer@5018/Appearance3D",
+      "rect": "[P: (544.0, 238.0), S: (123.0, 40.0)]",
+      "text": "3D view"
+    },
+    {
+      "disabled": false,
+      "name": "Pick_pl_shroud_giant",
+      "path": "/root/AppRoot/GameScreen/Root/@HBoxContainer@3456/ViewHost/Scroll/@VBoxContainer@3461/View/@VBoxContainer@5089/@HBoxContainer@5088/@VBoxContainer@5086/Planets/@VBoxContainer@5025/@VBoxContainer@5027/@HFlowContainer@5037/Planet_pl_shroud_giant/Pick_pl_shroud_giant",
+      "rect": "[P: (437.0, 374.0), S: (80.0, 120.0)]",
+      "text": ""
+    }
+  ],
+  "energy": 26200,
+  "flags": {},
+  "food": 35100,
+  "global_flags": {
+    "m2a_shroud_resolved": 4,
+    "m2a_shroud_supplies": 4
+  },
+  "influence": 8200,
+  "logical_size": "(1920.0, 1080.0)",
+  "minerals": 38800,
+  "outpost_energy_net": -50,
+  "outpost_id": "col_0002",
+  "outpost_kind": "research",
+  "outpost_research": {
+    "engineering": 270,
+    "physics": 270,
+    "society": 270
+  },
+  "pending_events": [],
+  "probe_path": [],
+  "probe_progress": 0,
+  "probe_system": "sys_shroud",
+  "probe_task": "",
+  "remaining_eta": 0,
+  "route": "game",
+  "scale": 1.0,
+  "top_overlay": "",
+  "turn": 10
+}

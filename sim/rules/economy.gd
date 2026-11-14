@@ -134,6 +134,37 @@ static func colony(state: GameState, c: Colony) -> ColonyReport:
 	return r
 
 
+## A surveyed unclaimed outpost site's yield, derived with the same rules and modifiers as a
+## completed outpost. The temporary id cannot match any colony-scoped effect or mutate state.
+static func preview_outpost(state: GameState, empire_id: String, planet_id: String, kind: String) -> ColonyReport:
+	if not state.empires.has(empire_id) or not state.planets.has(planet_id):
+		return null
+	var planet: Planet = state.planets[planet_id]
+	if not state.empires[empire_id].surveyed_planets.has(planet_id) or not planet.colony_id.is_empty() or not ColonyRules.outpost_kinds(planet).has(kind):
+		return null
+	var used: Dictionary[String, bool] = {}
+	for id: String in DictIO.sorted_keys(state.colonies):
+		used[id] = true
+	for id: String in DictIO.sorted_keys(state.modifiers):
+		used[state.modifiers[id].colony_id] = true
+	var temporary_id: String = "preview_outpost"
+	while used.has(temporary_id):
+		temporary_id += "_"
+	var prospective: Colony = Colony.new()
+	prospective.id = temporary_id
+	prospective.planet_id = planet_id
+	prospective.owner_id = empire_id
+	prospective.outpost_kind = kind
+	return colony(state, prospective)
+
+
+## The separate upkeep component; the outpost's energy net already includes this amount.
+static func outpost_upkeep() -> Breakdown:
+	var b: Breakdown = Breakdown.for_resource("breakdown.outpost_upkeep", "energy", true)
+	b.flat("source.outpost_upkeep", -OUTPOST_UPKEEP, {}, null, "mechanic:outposts")
+	return b.finish()
+
+
 static func empire(state: GameState, empire_id: String) -> EmpireReport:
 	var db: ContentDb = Content.db()
 	var e: Empire = state.empires[empire_id]

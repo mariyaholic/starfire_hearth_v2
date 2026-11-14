@@ -1487,8 +1487,8 @@ ui.world.interface_blur,Blur
 ui.world.interface_gloss,Gloss
 ui.world.interface_edge,Edge light
 scenario.m2a.name,M2A Exploration Preview
-scenario.m2a.desc,A standalone expedition beyond Ember. Survey new worlds and develop a frontier colony.
-scenario.m2a.briefing,"Our slowboats can reach the neighbouring stars. Send the survey probe ahead, establish a colony in Vesper, and visit Halden’s Gate. Tessel offers a place for an optional outpost. Open Fleet Travel from the galaxy or system toolbar to plot a course or enable automatic exploration for the survey probe; unknown stars are numbered until a ship arrives. This preview stands apart from campaign progress."
+scenario.m2a.desc,A standalone expedition beyond Ember. Survey new worlds and develop a frontier colony. An optional branch leads farther out.
+scenario.m2a.briefing,"Our slowboats can reach the neighbouring stars. Send the survey probe ahead, establish a colony in Vesper, and visit Halden’s Gate. Tessel offers a place for an optional outpost, and another optional branch lies beyond Vesper. Open Fleet Travel from the galaxy or system toolbar to plot a course or enable automatic exploration for the survey probe; unknown stars are numbered until a ship arrives. This preview stands apart from campaign progress."
 scenario.m2a.debrief,Your expedition has carried the hearth beyond Ember. The stars are no longer just points on a chart.
 ui.campaign.preview_label,Standalone preview · available now
 planet.tessel.name,Tessel Reach
@@ -1534,8 +1534,34 @@ ui.auto_explore.status.disabled,Automatic exploration off
 ui.auto_explore.status.travelling,Exploring: travelling
 ui.auto_explore.status.surveying,Exploring: surveying
 ui.auto_explore.status.waiting,Exploring: waiting
-ui.auto_explore.hint,Automatic exploration sends an idle survey fleet to reachable unknown systems or unsurveyed planets. A manual travel or survey order stops it. Stopping leaves the current journey or survey in progress.
+ui.auto_explore.hint,Automatic exploration sends an idle survey fleet to reachable unknown systems or unsurveyed planets. A manual travel or survey order stops it. Stopping automatic exploration keeps the entire current route or survey.
 error.auto_explore.unavailable,This fleet cannot explore automatically.
 report.auto_explore_complete,Automatic exploration has no reachable systems or planets left.
 why.cond.visited_system,Visited {system}
 ui.system.no_planets,There are no planets in this system.
+ui.travel.stop_at,Stop at {system}
+ui.travel.stop_hint,Finish the current leg and remove later destinations. Automatic exploration also stops.
+ui.travel.stop_action,Stop at next system
+error.fleet.not_moving,This fleet is not travelling.
+error.fleet.already_stopping,This fleet is already stopping at its next system.
+error.fleet.invalid_route,This fleet’s route is blocked.
+planet.shroud_giant.name,Veil
+event.m2a_shroud.1.title,The Quiet Freighter
+event.m2a_shroud.1.body,"Pilot Nia Chen and engineer Ravi Das find a freighter drifting among the distant lights. Its crew left careful records and a cargo still sealed against the cold. The engines are silent, but the hull and provisions could help our settlements. We could recover either, spending energy to bring it home; storage limits may reduce what we can keep. Or we could leave the ship undisturbed and honour the people who brought it this far. Their log ends with a list of names, written as if someone expected them to be read."
+event.m2a_shroud.1.c0,Recover what remains of the hull
+event.m2a_shroud.1.c1,Recover the provisions
+event.m2a_shroud.1.c2,Honour the crew
+ui.system.outpost_kind,{resource} outpost
+ui.system.outpost_projected,Projected per turn with current modifiers
+ui.system.outpost_actual,Current output per turn
+ui.system.outpost_branch,{branch} research
+ui.system.outpost_energy_net,Energy net (includes upkeep)
+ui.system.outpost_upkeep,Energy upkeep
+ui.system.outpost_upkeep_included,Upkeep included in energy net
+breakdown.outpost_upkeep,Outpost energy upkeep
+ui.research.banked,Stored research: {amount}
+ui.research.bank_hint,Research accumulates even when no card is selected.
+ui.research.completes_next,Completes next turn
+ui.research.no_income,No research income
+breakdown.research_bank,Stored {branch} research
+source.research_bank,Stored research

@@ -6,6 +6,11 @@ extends RefCounted
 ## prerequisites are met. Draws are seeded on the RESEARCH stream and favour lower tiers and techs
 ## that build on ones already owned.
 
+## Negative ETA results distinguish absent selections, no income, and invalid input.
+const ETA_NO_CARD: int = -1
+const ETA_NO_INCOME: int = -2
+const ETA_INVALID: int = -3
+
 const HAND_SIZE: int = 3
 const TIER_COST: Dictionary[int, int] = {1: 5500, 2: 15000, 3: 45000, 4: 100000}
 const COST_PER_COLONY_BP: int = 500
@@ -25,6 +30,55 @@ static func cost(state: GameState, e: Empire, tech_id: String) -> Breakdown:
 	if colonies > 1:
 		b.mult("source.colony_count", COST_PER_COLONY_BP * (colonies - 1), {"count": colonies})
 	return b.finish()
+
+
+## Points carried in this branch, including when no card is selected.
+static func stored_progress(state: GameState, empire_id: String, branch: String) -> Breakdown:
+	var b: Breakdown = Breakdown.make("breakdown.research_bank", Breakdown.UNIT_CENTI, false, {"branch_key": Names.branch(branch)})
+	b.link_to("mechanic:research")
+	var points: int = 0
+	if state.empires.has(empire_id) and Empire.BRANCHES.has(branch) and state.empires[empire_id].research.has(branch):
+		points = state.empires[empire_id].research[branch].progress
+	b.base("source.research_bank", points)
+	return b.finish()
+
+
+## Whether the currently selected, valid card is already fully funded by stored points.
+static func card_funded(state: GameState, empire_id: String, branch: String) -> bool:
+	if not state.empires.has(empire_id) or not Empire.BRANCHES.has(branch):
+		return false
+	var e: Empire = state.empires[empire_id]
+	if not e.research.has(branch):
+		return false
+	var rb: ResearchBranch = e.research[branch]
+	var tech: Dictionary = Content.db().record("techs", rb.card)
+	if rb.card.is_empty() or tech.is_empty() or DictIO.str_of(tech, "branch") != branch or not rb.hand.has(rb.card):
+		return false
+	return rb.progress >= cost(state, e, rb.card).total
+
+
+## Current-rate estimate. A funded card completes during the next research phase even if the
+## branch earns nothing; income changes in later turns can change a longer estimate.
+static func turns_remaining(state: GameState, empire_id: String, branch: String) -> int:
+	if not state.empires.has(empire_id) or not Empire.BRANCHES.has(branch):
+		return ETA_INVALID
+	var e: Empire = state.empires[empire_id]
+	if not e.research.has(branch):
+		return ETA_NO_CARD
+	var rb: ResearchBranch = e.research[branch]
+	if rb.card.is_empty():
+		return ETA_NO_CARD
+	var tech: Dictionary = Content.db().record("techs", rb.card)
+	if tech.is_empty() or DictIO.str_of(tech, "branch") != branch or not rb.hand.has(rb.card):
+		return ETA_INVALID
+	var remaining: int = cost(state, e, rb.card).total - rb.progress
+	if remaining <= 0:
+		return 1
+	var er: Economy.EmpireReport = Economy.empire(state, empire_id)
+	var rate: int = maxi(0, er.research[branch].total) if er.research.has(branch) else 0
+	if rate == 0:
+		return ETA_NO_INCOME
+	return maxi(1, Fx.div_ceil(remaining, rate))
 
 
 ## Techs of a branch that could be offered now: prerequisites met, not owned, allowed here.

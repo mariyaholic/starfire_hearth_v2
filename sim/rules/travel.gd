@@ -130,6 +130,35 @@ static func can_move(state: GameState, empire_id: String, fleet_id: String, dest
 	return Result.success()
 
 
+## An order to finish the current leg and discard only later destinations.
+static func can_stop(state: GameState, empire_id: String, fleet_id: String) -> Result:
+	if not state.empires.has(empire_id):
+		return Result.fail("error.empire.not_found")
+	if not state.fleets.has(fleet_id):
+		return Result.fail("error.fleet.not_found")
+	var fleet: Fleet = state.fleets[fleet_id]
+	if fleet.owner_id != empire_id:
+		return Result.fail("error.fleet.not_owned")
+	if fleet.id != fleet_id or (fleet.path.is_empty() and fleet.move_progress != 0):
+		return Result.fail("error.fleet.invalid_route")
+	if fleet.path.is_empty():
+		return Result.fail("error.fleet.not_moving")
+	if not route_valid(state, fleet):
+		return Result.fail("error.fleet.invalid_route")
+	if fleet.path.size() == 1 and not AutoExplore.enabled(state, fleet_id):
+		return Result.fail("error.fleet.already_stopping")
+	return Result.success()
+
+
+## Called only after can_stop succeeds. Never resets the current lane or its progress.
+static func stop_next(state: GameState, fleet_id: String) -> void:
+	var fleet: Fleet = state.fleets[fleet_id]
+	var next: String = fleet.path[0]
+	fleet.path.clear()
+	fleet.path.append(next)
+	AutoExplore.set_enabled(state, fleet.owner_id, fleet_id, false)
+
+
 ## A preview of a new route, in turns. The generic lane label does not reveal unknown names.
 static func eta(state: GameState, fleet_id: String, destination: String) -> Breakdown:
 	var result: Breakdown = Breakdown.make("breakdown.travel_turns", Breakdown.UNIT_TURNS)

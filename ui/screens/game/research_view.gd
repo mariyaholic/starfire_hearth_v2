@@ -1,7 +1,7 @@
 class_name ResearchView
 extends RefCounted
 ## Research (§5.7, §7): three branches, each studying one card at a time and offering a hand of up
-## to three. Every cost is a breakdown; a branch with no card picked earns nothing yet.
+## to three. Every cost is a breakdown; research accumulates in each branch even without a card.
 
 const ROMAN: Array[String] = ["I", "II", "III", "IV", "V"]
 
@@ -34,11 +34,20 @@ static func _branch(s: GameScreen, e: Empire, branch: String) -> Card:
 	var rate_l: Label = Label.new()
 	rate_l.theme_type_variation = &"MonoStrongLabel"
 	rate_l.text = Strings.fmt("ui.fmt.rate", {"value": Fmt.centi(rate.total), "resource": Strings.fmt("res.research.name")})
-	card.add_body(Explainable.wrap(rate_l, rate))
+	var rate_view: Explainable = Explainable.wrap(rate_l, rate)
+	rate_view.name = "ResearchRate_" + branch
+	card.add_body(rate_view)
 	if rb == null:
 		return card
 	if not rb.card.is_empty():
-		card.add_body(_current(s, e, branch, rb, rate.total))
+		card.add_body(_current(s, e, branch, rb))
+	else:
+		var bank: Breakdown = Research.stored_progress(s.state, e.id, branch)
+		var bank_label: Label = FlowScreen.label(Strings.fmt("ui.research.banked", {"amount_c": bank.total}), &"MonoLabel")
+		var bank_view: Explainable = Explainable.wrap(bank_label, bank)
+		bank_view.name = "ResearchBank_" + branch
+		card.add_body(bank_view)
+		card.add_text(Strings.fmt("ui.research.bank_hint"), &"CaptionLabel")
 	if not rb.hand.is_empty():
 		card.add_body(GameUI.heading(Strings.fmt("ui.research.cards")))
 		for tech_id: String in rb.hand:
@@ -61,22 +70,30 @@ static func _branch(s: GameScreen, e: Empire, branch: String) -> Card:
 
 
 ## The card being studied: its progress against its cost, and what it will do.
-static func _current(s: GameScreen, e: Empire, branch: String, rb: ResearchBranch, rate: int) -> Control:
+static func _current(s: GameScreen, e: Empire, branch: String, rb: ResearchBranch) -> Control:
 	var tech: Dictionary = Content.db().record("techs", rb.card)
 	var cost: Breakdown = Research.cost(s.state, e, rb.card)
 	var v: VBoxContainer = GameUI.column(Tokens.SPACE_S)
 	v.name = "Current_" + branch
 	v.add_child(GameUI.heading(Strings.fmt("ui.research.studying")))
 	v.add_child(FlowScreen.label(Strings.fmt(DictIO.str_of(tech, "name_key")), &"H2Label"))
-	var m: Meter = Meter.make(float(mini(rb.progress, cost.total)), float(maxi(1, cost.total)), "sci.cyan")
+	var m: Meter = Meter.make(float(rb.progress), float(cost.total), "sci.cyan")
 	v.add_child(m)
 	var prog: Label = Label.new()
 	prog.theme_type_variation = &"MonoLabel"
-	prog.text = Strings.fmt("ui.research.progress", {"have_c": mini(rb.progress, cost.total), "need_c": cost.total})
+	prog.text = Strings.fmt("ui.research.progress", {"have_c": rb.progress, "need_c": cost.total})
 	v.add_child(Explainable.wrap(prog, cost))
-	if rate > 0:
-		var turns: int = Fx.div_ceil(maxi(0, cost.total - rb.progress), rate)
-		v.add_child(GameUI.exempt(GameUI.caption(Strings.fmt("ui.research.eta", {"turns": turns})), "an estimate from the cost and the branch's rate"))
+	var turns: int = Research.turns_remaining(s.state, e.id, branch)
+	var estimate: Label = null
+	if Research.card_funded(s.state, e.id, branch):
+		estimate = GameUI.caption(Strings.fmt("ui.research.completes_next"))
+	elif turns >= 0:
+		estimate = GameUI.caption(Strings.fmt("ui.research.eta", {"turns": turns}))
+	elif turns == Research.ETA_NO_INCOME:
+		estimate = GameUI.caption(Strings.fmt("ui.research.no_income"))
+	if estimate != null:
+		estimate.name = "ResearchEta_" + branch
+		v.add_child(GameUI.exempt(estimate, "research estimate from the simulation"))
 	v.add_child(FlowScreen.label(Strings.fmt(DictIO.str_of(tech, "desc_key")), &"CaptionLabel"))
 	var fx: Array = DictIO.arr_of(tech, "effects")
 	if not fx.is_empty():

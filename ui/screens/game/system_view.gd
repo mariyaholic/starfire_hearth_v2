@@ -137,12 +137,18 @@ static func _panel(s: GameScreen, p: Planet) -> Control:
 		card.add_text(Strings.fmt("ui.system.unsurveyed"))
 	if not p.colony_id.is_empty():
 		var c: Colony = st.colonies[p.colony_id]
+		if c.owner_id == e.id and c.is_outpost():
+			card.add_body(_outpost_summary(Economy.colony(st, c), c.outpost_kind, false))
 		if c.owner_id == e.id and not c.is_outpost():
 			var open: SfButton = SfButton.make("ui.system.open_colony", "ui_colony", SfButton.PRIMARY)
 			open.name = "OpenColony"
 			open.pressed.connect(s.open_colony.bind(c.id))
 			card.add_action(open)
 		return card
+	if surveyed:
+		for outpost_kind: String in ColonyRules.outpost_kinds(p):
+			var preview: Economy.ColonyReport = Economy.preview_outpost(st, e.id, p.id, outpost_kind)
+			if preview != null: card.add_body(_outpost_summary(preview, outpost_kind, true))
 	card.add_body(GameUI.heading(Strings.fmt("ui.system.orders")))
 	var any: bool = false
 	for sh: Ship in st.ships_of(e.id):
@@ -195,6 +201,35 @@ static func _outpost(s: GameScreen, e: Empire, sh: Ship, p: Planet, kind_id: Str
 	line.add_child(Explainable.wrap(tl, turns))
 	v.add_child(line)
 	return v
+
+
+## Each number comes from the same report used by production; upkeep is included in energy net.
+static func _outpost_summary(report: Economy.ColonyReport, kind: String, projected: bool) -> Control:
+	var resource_key: String = DictIO.str_of(Content.db().record("resources", kind), "name_key")
+	var title: String = Strings.fmt("ui.system.outpost_kind", {"resource_key": resource_key})
+	var card: Card = Card.make(title, Strings.fmt("ui.system.outpost_projected" if projected else "ui.system.outpost_actual"), "map_outpost", "accent.teal")
+	card.name = ("OutpostProjection_" + kind) if projected else "OutpostActual"
+	if kind == "research":
+		for branch: String in Empire.BRANCHES:
+			if not report.research.has(branch): continue
+			var b: Breakdown = report.research[branch]
+			var label: String = Strings.fmt("ui.system.outpost_branch", {"branch_key": Names.branch(branch)})
+			var value: String = Fmt.centi(b.total, true, 2) + " " + Strings.fmt("ui.fmt.per_turn")
+			var row: Control = GameUI.stat("res_research", "sci.cyan", label, value, b)
+			row.name = "OutpostResearch_" + branch
+			card.add_body(row)
+	elif report.net.has(kind):
+		var b: Breakdown = report.net[kind]
+		var label: String = Strings.fmt("ui.system.outpost_energy_net") if kind == "energy" else GameUI.name_of("resources", kind)
+		var row: Control = GameUI.stat(GameUI.icon_of("resources", kind), GameUI.token_of(kind), label, Fmt.centi(b.total, true, 2) + Fmt.suffix(b), b)
+		row.name = "OutpostNet_" + kind
+		card.add_body(row)
+	var upkeep: Breakdown = Economy.outpost_upkeep()
+	var upkeep_label: String = Strings.fmt("ui.system.outpost_upkeep_included" if kind == "energy" else "ui.system.outpost_upkeep")
+	var upkeep_row: Control = GameUI.stat(GameUI.icon_of("resources", "energy"), GameUI.token_of("energy"), upkeep_label, Fmt.centi(upkeep.total, true, 2) + Fmt.suffix(upkeep), upkeep)
+	upkeep_row.name = "OutpostUpkeep"
+	card.add_body(upkeep_row)
+	return card
 
 
 ## Why a planet has no orders: the ship it needs is elsewhere, busy, or not built yet.
