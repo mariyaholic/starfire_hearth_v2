@@ -7,6 +7,10 @@ extends FlowScreen
 
 var progress: CampaignProgress
 var state: GameState
+var _session: int = -1
+var _continuing: bool = false
+var _expedition: SfButton
+var _saving_label: Label
 ## The legacy picked on this screen (a replayed win starts from the earlier pick).
 var picked: String = ""
 var _continue: SfButton
@@ -22,6 +26,7 @@ static func make(p_progress: CampaignProgress, p_state: GameState) -> DebriefScr
 	s.name = "DebriefScreen"
 	s.progress = p_progress
 	s.state = p_state
+	s._session = Game.session_serial
 	if p_state != null:
 		s.picked = p_progress.legacy_of(p_state.scenario_id)
 		if p_state.outcome == GameState.OUTCOME_LOST:
@@ -50,6 +55,8 @@ func build_screen() -> void:
 	col.add_theme_constant_override("separation", Tokens.SPACE_L)
 	frame.add_child(col)
 	_continue = null
+	_expedition = null
+	_saving_label = null
 	_pick_hint = null
 	var actions: Array[Control] = _actions()
 	# Phones put the buttons in the heading row, leaving the rest of the short screen to the text.
@@ -63,6 +70,9 @@ func build_screen() -> void:
 	var body: VBoxContainer = VBoxContainer.new()
 	body.name = "Body"
 	body.add_theme_constant_override("separation", Tokens.SPACE_L)
+	_saving_label = FlowScreen.label(Strings.fmt("ui.debrief.saving_expedition"), &"StrongLabel")
+	_saving_label.name = "SavingExpedition"
+	_saving_label.visible = _continuing
 	var top: BoxContainer = _box(Layout.compact)
 	top.add_theme_constant_override("separation", Tokens.SPACE_L)
 	var outcome: Card = _outcome_card(rec)
@@ -77,6 +87,7 @@ func build_screen() -> void:
 	if won() and not legacies().is_empty():
 		body.add_child(_legacy_section())
 	col.add_child(FlowScreen.scroll_of(body))
+	col.add_child(_saving_label)
 	if in_footer:
 		var footer: HFlowContainer = HFlowContainer.new()
 		footer.name = "Footer"
@@ -192,7 +203,14 @@ func needs_pick() -> bool:
 func _actions() -> Array[Control]:
 	var out: Array[Control] = []
 	if won():
-		_continue = SfButton.make("ui.debrief.continue", "ui_chevron_right", SfButton.PRIMARY)
+		var can_continue: bool = ExpeditionContinuation.can_continue(state).ok
+		if can_continue:
+			_expedition = SfButton.make("ui.debrief.continue_expedition", "ui_play", SfButton.PRIMARY)
+			_expedition.name = "ContinueExpedition"
+			_expedition.disabled = _continuing
+			_expedition.pressed.connect(_continue_expedition.bind(state, _session))
+			out.append(_expedition)
+		_continue = SfButton.make("ui.debrief.return_campaign" if can_continue else "ui.debrief.continue", "ui_chevron_right", SfButton.SECONDARY if can_continue else SfButton.PRIMARY)
 		_continue.name = "Continue"
 		_continue.pressed.connect(_finish)
 		out.append(_continue)
@@ -232,7 +250,7 @@ func _refresh_legacies() -> void:
 		else:
 			card.remove_theme_stylebox_override("panel")
 	if _continue != null:
-		_continue.disabled = needs_pick()
+		_continue.disabled = needs_pick() or _continuing
 		_continue.tooltip_text = Strings.fmt("ui.debrief.pick_first") if needs_pick() else ""
 	if _pick_hint != null:
 		_pick_hint.visible = needs_pick()
@@ -247,6 +265,8 @@ func _load_checkpoint() -> void:
 
 
 func _finish() -> void:
+	if _continuing or not is_inside_tree() or state != Game.state or _session != Game.session_serial:
+		return
 	if needs_pick():
 		return
 	if won() and not picked.is_empty():
@@ -258,3 +278,26 @@ func demo(state_name: String) -> void:
 	if state_name.begins_with("pick:"):
 		pick(state_name.trim_prefix("pick:"))
 	await get_tree().process_frame
+
+
+func _continue_expedition(expected: GameState, session: int) -> void:
+	if _continuing or not is_inside_tree() or state != expected or Game.state != expected or Game.session_serial != session:
+		return
+	_set_continuing(true)
+	var result: Result = await Game.continue_expedition(expected, session)
+	if not is_inside_tree() or state != expected:
+		return
+	if not result.ok:
+		if Game.state == expected and Game.session_serial == session:
+			_set_continuing(false)
+			Overlay.toast(Strings.fmt(result.reason_key, result.args), ReportItem.SEVERITY_WARNING)
+	elif Game.session_serial == session + 1 and ExpeditionContinuation.is_continued(Game.state):
+		_set_continuing(false)
+		go(AppRoot.GAME)
+
+
+func _set_continuing(value: bool) -> void:
+	_continuing = value
+	if is_instance_valid(_expedition): _expedition.disabled = value
+	if is_instance_valid(_continue): _continue.disabled = value or needs_pick()
+	if is_instance_valid(_saving_label): _saving_label.visible = value

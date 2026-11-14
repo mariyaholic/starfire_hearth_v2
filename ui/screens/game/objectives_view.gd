@@ -6,8 +6,15 @@ extends RefCounted
 static func build(s: GameScreen) -> Control:
 	var col: VBoxContainer = GameUI.column(Tokens.SPACE_M)
 	var scenario: Dictionary = Content.db().scenarios.get(s.state.scenario_id, {})
-	var card: Card = Card.make(Strings.fmt(DictIO.str_of(scenario, "name_key")), Strings.fmt("ui.objectives.subtitle"), "ui_objective", "hearth.gold")
+	var continued: bool = ExpeditionContinuation.is_continued(s.state)
+	var card: Card = Card.make(Strings.fmt(DictIO.str_of(scenario, "name_key")), Strings.fmt("ui.objectives.continued" if continued else "ui.objectives.subtitle"), "ui_objective", "hearth.gold")
 	card.name = "Objectives"
+	if s.state.scenario_id == "m2a_expedition": card._title.set_meta("audit_numeric_ok", "preview milestone name")
+	if continued:
+		var completed_turn: int = ExpeditionContinuation.completion_turn(s.state)
+		var completion: Label = card.add_text(Strings.fmt("ui.objectives.completed_on", {"date": Fmt.date(completed_turn), "turn": completed_turn}), &"SecondaryLabel")
+		completion.name = "ExpeditionCompleted"
+		completion.set_meta("audit_numeric_ok", "the turn and date of the original victory")
 	var optional: Array[Objectives.Status] = []
 	card.add_body(GameUI.heading(Strings.fmt("ui.objectives.required")))
 	for st: Objectives.Status in Objectives.statuses(s.state):

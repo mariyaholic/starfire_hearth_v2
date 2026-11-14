@@ -1,0 +1,92 @@
+{
+  "userfs_prefix": "/userfs/godot/app_userdata/Starfire Hearth/",
+  "method": "Fresh production Web export in Chromium SwiftShader. Synthetic nearwin SaveSerializer file and text200 settings seeded into IndexedDB BEFORE first app load; subsequent gameplay only actual touchscreen taps. No smoke hooks or runtime game/state calls.",
+  "build": "/workspace/starfire-evidence/m2f-fixed-build/web",
+  "actions": [
+    {
+      "action": "INITIAL SETUP seed normal SaveSerializer file + text200 settings in IndexedDB",
+      "timestamp": 1794643317.5518942
+    },
+    {
+      "tap": [
+        678,
+        55
+      ],
+      "capture": "raw-002.png",
+      "timestamp": 1794643342.4569583
+    },
+    {
+      "tap": [
+        825,
+        357
+      ],
+      "capture": "raw-003.png",
+      "timestamp": 1794643346.2072668
+    },
+    {
+      "tap": [
+        704,
+        350
+      ],
+      "wait": 2000,
+      "capture": "raw-004.png",
+      "read_idb": "won-storage.json",
+      "timestamp": 1794643349.3839648
+    },
+    {
+      "ack_reload": [
+        338,
+        352
+      ],
+      "wait": 1200,
+      "capture": "raw-005.png",
+      "read_idb": "after-ack-reload.json",
+      "timestamp": 1794643368.7711616
+    },
+    {
+      "tap": [
+        678,
+        55
+      ],
+      "capture": "raw-006.png",
+      "read_idb": "after-ack-title-continue.json",
+      "timestamp": 1794643388.0376124
+    },
+    {
+      "quit": true,
+      "timestamp": 1794643414.222206
+    }
+  ],
+  "errors": [],
+  "captures": [
+    "raw-001.png",
+    "raw-002.png",
+    "raw-003.png",
+    "raw-004.png",
+    "raw-005.png",
+    "raw-006.png"
+  ],
+  "ack_reload": {
+    "tap_start_to_detection_ms": 3091.23,
+    "detection_to_reload_call_ms": 0.0018,
+    "polls": [
+      {
+        "elapsed_ms": 1547.8,
+        "rgb": [
+          11,
+          22,
+          34
+        ]
+      },
+      {
+        "elapsed_ms": 3091.22,
+        "rgb": [
+          19,
+          38,
+          58
+        ]
+      }
+    ],
+    "visual_detection": "First actual rendered active-game topbar sample RGB19,38,58; no post-detection delay, capture or saved-record read."
+  }
+}

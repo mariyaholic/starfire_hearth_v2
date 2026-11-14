@@ -3,6 +3,17 @@
 Newest first. A claim marked **Verified** names the command that proved it, run from the
 repository root after `godot --headless --path . --import`. Everything else is **Unverified**.
 
+## Unreleased: M2F expedition continuation
+
+- Keep exploring after preview victory without advancing a turn
+- Retain the original completion date and allow later defeat
+- Resume saved tasks and optional investments without repeated victory
+- Preserve checkpoints and leave the winning session intact after a failed save
+- Block stale and repeated debrief actions
+- Confirm browser storage before making continued play available
+- **Verified:** Godot 4.7.2, 390 tests / 14,907 checks, clean data and three exports
+- See `docs/milestones/M2F_REPORT.md` for native, browser and stress-test scope
+
 ## Unreleased: M2C–M2E fleet control and optional exploration
 
 - Add Stop at next system without losing current-leg progress

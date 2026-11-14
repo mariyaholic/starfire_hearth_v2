@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "action": "ContinueExpedition \u2192 Quit to title \u2192 title Continue before any EndTurn",
+  "turn_before": 41,
+  "turn_after": 41,
+  "completion_turn": 40,
+  "equal_authoritative_dict": true,
+  "route_after": "game",
+  "outcome_after": ""
+}

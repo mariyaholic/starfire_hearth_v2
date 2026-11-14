@@ -3,6 +3,7 @@ extends SceneTree
 ## --route default|shroud-first|vesper-first; --outpost energy|research (non-default routes).
 ## --choice 0|1|2 selects the same index at each discovery; --seed N and --trace replay paths.
 ## Non-default routes pick cards in every branch; --research-cards applies that policy to default.
+## --continue plays on after victory and completes an outpost or an additional technology.
 
 var submission_error: bool = false
 var waiting: Dictionary[String, int] = {}
@@ -160,6 +161,9 @@ func _initialize() -> void:
 	print("expedition seed=%d route=%s outcome=%s turn=%d hash=%s" % [seed, route, state.outcome, state.turn, state.state_hash()])
 	for status: Objectives.Status in Objectives.statuses(state):
 		print("%s: %d/%d done=%s" % [status.id, status.progress, status.target, str(status.done)])
+	if state.outcome == GameState.OUTCOME_WON and args.has("--continue"):
+		quit(0 if _play_after_victory(state, trace) else 1)
+		return
 	quit(0 if state.outcome == GameState.OUTCOME_WON else 1)
 
 
@@ -173,3 +177,60 @@ func _survey_system(q: CommandQueue, eid: String, ship_id: String, fleet: Fleet,
 func _mark(milestones: Dictionary[String, int], key: String, condition: bool, turn: int) -> void:
 	if condition and not milestones.has(key):
 		milestones[key] = turn
+
+
+## Continue the actual winning state and issue validated orders for a later investment.
+func _play_after_victory(won: GameState, trace: bool) -> bool:
+	var original_hash: String = won.state_hash()
+	var original_turn: int = won.turn
+	var transition: ExpeditionContinuation.Transition = ExpeditionContinuation.begin(won)
+	if not transition.ok:
+		printerr("continuation rejected: " + transition.error_key)
+		return false
+	var state: GameState = transition.state
+	if state.turn != original_turn or won.state_hash() != original_hash:
+		printerr("continuation changed the winning snapshot or advanced time")
+		return false
+	var saved: SaveSerializer.LoadResult = SaveSerializer.from_text(SaveSerializer.to_text(state, "continuation-test"))
+	if not saved.ok or saved.state.state_hash() != state.state_hash():
+		printerr("immediate continuation save did not round trip")
+		return false
+	state = saved.state
+	var start_techs: int = state.player().techs.size()
+	var build_outpost: bool = state.planets.has("pl_shroud_giant") and state.planets["pl_shroud_giant"].colony_id.is_empty()
+	if not build_outpost and not state.planets.has("pl_shroud_giant"):
+		printerr("this itinerary needs the newer Shroud map")
+		return false
+	for unused: int in range(80):
+		if state.is_over():
+			printerr("continuation ended before its later investment: " + state.outcome)
+			return false
+		var q: CommandQueue = CommandQueue.new(state)
+		for event: EventInstance in Events.pending_for(state, state.player_id):
+			_try(q, ChooseEventCommand.create(state.player_id, event.id, 2))
+		if build_outpost:
+			for ship: Ship in state.ships_of(state.player_id):
+				if Ships.role(ship) != Ships.ROLE_CONSTRUCTION or ship.is_busy(): continue
+				var fleet: Fleet = state.fleets[ship.fleet_id]
+				if not fleet.path.is_empty(): continue
+				if fleet.system_id != "sys_shroud":
+					_try(q, MoveFleetCommand.create(state.player_id, fleet.id, "sys_shroud"))
+				elif state.player().surveyed_planets.has("pl_shroud_giant") and state.planets["pl_shroud_giant"].colony_id.is_empty():
+					_try(q, BuildOutpostCommand.create(state.player_id, ship.id, "pl_shroud_giant", "energy"))
+		else:
+			for branch: String in Empire.BRANCHES:
+				var rb: ResearchBranch = q.preview().player().branch(branch)
+				if rb.card.is_empty() and not rb.hand.is_empty():
+					_try(q, PickResearchCommand.create(state.player_id, branch, rb.hand[0]))
+		var result: TurnResult = TurnProcessor.run(state, q.commands())
+		if submission_error or not result.rejected.is_empty() or not Invariants.check(result.state).is_empty():
+			printerr("continuation command or invariant failure on turn %d" % state.turn)
+			return false
+		state = result.state
+		if trace: print("continued turn=%d hash=%s" % [state.turn, state.state_hash()])
+		var complete: bool = not state.planets["pl_shroud_giant"].colony_id.is_empty() if build_outpost else state.player().techs.size() > start_techs
+		if complete:
+			print("continued investment=%s turn=%d original_win_turn=%d hash=%s" % ["shroud_outpost" if build_outpost else "research", state.turn - 1, ExpeditionContinuation.completion_turn(state), state.state_hash()])
+			return state.outcome == GameState.OUTCOME_NONE and ExpeditionContinuation.is_continued(state)
+	printerr("continuation investment did not finish within 80 turns")
+	return false
