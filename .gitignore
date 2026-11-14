@@ -27,3 +27,4 @@ Thumbs.db
 
 # Python tools
 __pycache__/
+.progress.md
