@@ -119,6 +119,31 @@
             "art_seed": 71
           }
         ]
+      },
+      {
+        "id": "sys_shroud",
+        "name_key": "system.shroud.name",
+        "x": -510,
+        "y": -260,
+        "spectral": "M",
+        "magnitude": 2,
+        "specials": [
+          "nebula",
+          "derelict"
+        ],
+        "beacon": "none",
+        "planets": [
+          {
+            "id": "pl_shroud_giant",
+            "name_key": "planet.shroud_giant.name",
+            "type": "gas_giant",
+            "size": "",
+            "orbit": 1,
+            "traits": [],
+            "blocked_slots": [],
+            "art_seed": 83
+          }
+        ]
       }
     ],
     "lanes": [
@@ -138,6 +163,12 @@
         "a": "sys_ember",
         "b": "sys_vesper",
         "length_cly": 350,
+        "kind": "deep"
+      },
+      {
+        "a": "sys_vesper",
+        "b": "sys_shroud",
+        "length_cly": 200,
         "kind": "deep"
       }
     ],
@@ -280,7 +311,8 @@
   },
   "tutorial": [],
   "scripted_events": [
-    "m2a_halden_cache"
+    "m2a_halden_cache",
+    "m2a_shroud_derelict"
   ],
   "legacies": [],
   "loss": [
@@ -328,5 +360,6 @@
       "foundry_automation",
       "advanced_districts"
     ]
-  }
+  },
+  "finish_pending_events_before_victory": true
 }

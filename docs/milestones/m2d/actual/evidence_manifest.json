@@ -1,0 +1,184 @@
+[
+  {
+    "file": ".gdignore",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "M2D_ACTUAL_QA_REPORT.md",
+    "bytes": 7630,
+    "sha256": "469cadcd76fa4ace53cfd7869fc9a4d0e14fef16ef1912fa609580417d19a40c"
+  },
+  {
+    "file": "fixture_v2.log",
+    "bytes": 176,
+    "sha256": "ec3a7a64369861f0266ad2d277e295d1b4c0b4d693e8cb7140578954e2cc6195"
+  },
+  {
+    "file": "game_v2.log",
+    "bytes": 383,
+    "sha256": "ff6bf8ad4efd66e27c43ce7c1aa584a7bbf55144a4b08c14057b6984053797e3"
+  },
+  {
+    "file": "seed_fixture.gd",
+    "bytes": 1115,
+    "sha256": "46c621656a9819539d76693752ddb8ce349cdc8d2316197f4e4e5dcb368c9d17"
+  },
+  {
+    "file": "source_hashes.txt",
+    "bytes": 382,
+    "sha256": "07d4796af709c78623888238b9007e19ab0bfc8f12c188016ded837cd08d40e5"
+  },
+  {
+    "file": "verified-01-discovery-desktop.json",
+    "bytes": 19345,
+    "sha256": "49cb561837f225dd3465f37085e2a4292eab5f12b00d71fad3d972656a3158f4"
+  },
+  {
+    "file": "verified-01-discovery-desktop.png",
+    "bytes": 284780,
+    "sha256": "50be3c8dee4062a12b5e5cf061db2980c78df2101601696d2fe8781f9c885bbd"
+  },
+  {
+    "file": "verified-02-discovery-phone200-top.json",
+    "bytes": 18889,
+    "sha256": "fba3d7b837a34fcae838efd55e36b225a4bd3500797d04b4c89532f5be323ee8"
+  },
+  {
+    "file": "verified-02-discovery-phone200-top.png",
+    "bytes": 146555,
+    "sha256": "3c737b8a6340bba7287a5cb7ede1d249dc91a8698be5199fddcf3c2431a89d49"
+  },
+  {
+    "file": "verified-03-discovery-phone200-choices.json",
+    "bytes": 18888,
+    "sha256": "03aaf3b269cc7e9210c2d246bcaddacbc073a1e122990c72918d25bbea807d4f"
+  },
+  {
+    "file": "verified-03-discovery-phone200-choices.png",
+    "bytes": 118878,
+    "sha256": "3fd7be99c0037679890bd8692b75e45470039bd09d3fb3b7496bf1394f24ebce"
+  },
+  {
+    "file": "verified-04-projections-before-builder-3d.json",
+    "bytes": 8581,
+    "sha256": "f61e5c39374d3a9e6a82b244a1a5487d151db5eb9a3d91f9eef8ecf63142294e"
+  },
+  {
+    "file": "verified-04-projections-before-builder-3d.png",
+    "bytes": 757903,
+    "sha256": "8a88798762beec27b2754e83a10dd15ae12fce42c3638223928bd536b67b27de"
+  },
+  {
+    "file": "verified-05-projections-before-builder-strategic.json",
+    "bytes": 5203,
+    "sha256": "44fae998260ce94de1333c8fd555a5e028fc8507a946ee31e8b833531e65ffb4"
+  },
+  {
+    "file": "verified-05-projections-before-builder-strategic.png",
+    "bytes": 129946,
+    "sha256": "fcb3de9637bc22aa29a34abd88f2fe9e121dfa9d6748f24b9883a9a0b80f9aed"
+  },
+  {
+    "file": "verified-06-builder-arrived-orders-desktop.json",
+    "bytes": 6122,
+    "sha256": "563fc66d5c110ce22c1f8c935ee13e855dae3afdaca33aa62a0e03df6fe5938a"
+  },
+  {
+    "file": "verified-06-builder-arrived-orders-desktop.png",
+    "bytes": 147788,
+    "sha256": "05a8f7bcc2466533e6d0103d0580793d91644685ead8e7d7062b3f6d58023864"
+  },
+  {
+    "file": "verified-07-energy-order-phone200.json",
+    "bytes": 5230,
+    "sha256": "f583c3dcebd3716bca9d8a0dc7b5e11604513957995802ce94a567ac0bb4197f"
+  },
+  {
+    "file": "verified-07-energy-order-phone200.png",
+    "bytes": 169255,
+    "sha256": "147cda7b5b198a1ca4ea89eaea632ce4e456f4c5cc937ececa197e90d8b1e10a"
+  },
+  {
+    "file": "verified-08-research-order-phone200.json",
+    "bytes": 5229,
+    "sha256": "a4f36b14b106efe8e6a707957377c578ee849116fafc235c4e9a901ddfb993d8"
+  },
+  {
+    "file": "verified-08-research-order-phone200.png",
+    "bytes": 212510,
+    "sha256": "a40372326ad2bab69cb198d62522875515441859496eb549c4285cac40829256"
+  },
+  {
+    "file": "verified-09-energy-order-queued.json",
+    "bytes": 6133,
+    "sha256": "0e7c071646f76db4b705a3ec9bc3d133d5c5aa306b26a6a7331898949b8855d0"
+  },
+  {
+    "file": "verified-09-energy-order-queued.png",
+    "bytes": 154439,
+    "sha256": "1779f6c64dba66de84ddc2935ae10a46e0cd556c444414e5866dd9aa417cb533"
+  },
+  {
+    "file": "verified-10-undo-energy-order.json",
+    "bytes": 6122,
+    "sha256": "e13e5b5ee6057e7f353f95b94adf00881fecdbd94eb423a739e4367e9e05c85f"
+  },
+  {
+    "file": "verified-10-undo-energy-order.png",
+    "bytes": 147801,
+    "sha256": "4b4da6c9f97474410a30e15cc2b528838657f069761d27af9ba86c4be6d3f63e"
+  },
+  {
+    "file": "verified-11-research-order-queued.json",
+    "bytes": 6135,
+    "sha256": "0dad62f4a3500bbf8e4daff86050b6de812dff61e93f674f00662717e8c233cf"
+  },
+  {
+    "file": "verified-11-research-order-queued.png",
+    "bytes": 154470,
+    "sha256": "41cbaae12db18f9a01c60c25aba4ee4f915f18a6db3ffdbd289258c854607cda"
+  },
+  {
+    "file": "verified-12-research-outpost-completion-report.json",
+    "bytes": 6219,
+    "sha256": "b0340511f7423d3e4e682d2fb0230e3265a98f7347d9d266887c3a924c2282e0"
+  },
+  {
+    "file": "verified-12-research-outpost-completion-report.png",
+    "bytes": 101182,
+    "sha256": "3ad84d68c7cc48d5d8b3efb782c675db6e21a6702cccd2a01b64f1656ba55dc2"
+  },
+  {
+    "file": "verified-13-owned-output-strategic.json",
+    "bytes": 5361,
+    "sha256": "e213f0811430a1bc6e704e3150e8be74e0aa5078e487a8d5e94c0337cc601c8c"
+  },
+  {
+    "file": "verified-13-owned-output-strategic.png",
+    "bytes": 111901,
+    "sha256": "4923c4d297d0405fe7f522ef0a40495e049fb611f804d2b48b32bd390cd158d5"
+  },
+  {
+    "file": "verified-14-owned-output-3d.json",
+    "bytes": 9488,
+    "sha256": "9b3ca6c5494ef0a36a158209c7cb5d002b7367278247fe51e583da4c7cbc0d66"
+  },
+  {
+    "file": "verified-14-owned-output-3d.png",
+    "bytes": 616093,
+    "sha256": "b10ea1ba6d539285be46fb5764c43e2f1d68e4140daddf5bc06f9d45fe2207a8"
+  },
+  {
+    "file": "verified-save-summary.json",
+    "bytes": 1305,
+    "sha256": "dff0ec5ae49b219ca4fc20dc0c6576a30e6a3fbe1d760adcffe776ea4276f0ac"
+  },
+  {
+    "file": "window_identity_v2.txt",
+    "bytes": 326,
+    "sha256": "a3fa43fb139d01de3038a19a02180722d4bb79afb2a1ed1cb34a174d157196da",
+    "raw_source_sha256": "d055fc2b141f1385ae7c57b4978f3772329ba6fa621e1d76725af154fd35a588",
+    "normalization": "Repository copy removes terminal blank lines; original cloud capture is preserved"
+  }
+]

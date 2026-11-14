@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "id": "m2a_shroud_derelict",
+  "kind": "scripted",
+  "scenarios": [
+    "m2a_expedition"
+  ],
+  "vignette": "derelict_freighter",
+  "cooldown": 0,
+  "steps": [
+    {
+      "step": 1,
+      "trigger": {
+        "visited_system": "sys_shroud"
+      },
+      "speaker": "archivist_sola",
+      "expression": "neutral",
+      "music": "mood_light",
+      "title_key": "event.m2a_shroud.1.title",
+      "body_key": "event.m2a_shroud.1.body",
+      "choices": [
+        {
+          "label_key": "event.m2a_shroud.1.c0",
+          "cost": {
+            "energy": 3000
+          },
+          "effects": [
+            {
+              "key": "add_stock:alloys",
+              "value": 2000
+            }
+          ],
+          "set_flags": [
+            "m2a_shroud_resolved",
+            "m2a_shroud_salvage"
+          ]
+        },
+        {
+          "label_key": "event.m2a_shroud.1.c1",
+          "cost": {
+            "energy": 1000
+          },
+          "effects": [
+            {
+              "key": "add_stock:food",
+              "value": 5000
+            }
+          ],
+          "set_flags": [
+            "m2a_shroud_resolved",
+            "m2a_shroud_supplies"
+          ]
+        },
+        {
+          "label_key": "event.m2a_shroud.1.c2",
+          "effects": [
+            {
+              "key": "add_stock:influence",
+              "value": 1000
+            }
+          ],
+          "set_flags": [
+            "m2a_shroud_resolved",
+            "m2a_shroud_honour"
+          ]
+        }
+      ]
+    }
+  ]
+}

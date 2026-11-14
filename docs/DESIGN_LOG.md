@@ -507,3 +507,24 @@ overruled by the Owner; overruled entries are struck through, not deleted.
 114. **Bound procedural story art to its illustration frame**. Actual desktop and 200% phone
      captures exposed a fallback planet drawing across the portrait and body; clip it at the
      StoryScene boundary while keeping the illustration and fixing the narrow beacon caption
+
+115. **Stop at the next system without cancelling elapsed travel**. Truncate only later route
+     legs and clear future automatic intent. Keep the current system and lane progress so
+     normal arrival timing and existing saves remain valid. This differs from disabling
+     automation, which preserves the whole route
+
+116. **Place The Shroud beyond Vesper as an optional investment**. Reuse the canonical nebula
+     and derelict landmarks, existing gas-giant outposts and one-shot discovery machinery.
+     Add no new required or optional checklist entries and no retroactive map injection.
+     The preview waits for outstanding player decisions before victory, after evaluating loss
+
+117. **Disclose the outpost economy before commitment**. Reuse the same simulation reports
+     for prospective and operating production, including branch-specific research modifiers
+     and energy upkeep. A surveyed site can be compared before the builder arrives. Initial
+     derelict reward costs avoid a direct market-conversion dominance; this is not a balance
+     certification
+
+118. **Show banked research and respect automatic orders**. Stored research remains visible
+     before a card is selected. A funded card completes in the next research phase, never
+     immediately on selection. An eligible opted-in probe awaiting its next automatic task
+     does not need a manual-order warning

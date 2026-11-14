@@ -1,0 +1,136 @@
+{
+  "auto_enabled": false,
+  "auto_status": "disabled",
+  "builder_param": "",
+  "builder_system": "sys_shroud",
+  "builder_task": "",
+  "builder_task_turns": 0,
+  "buttons": [
+    {
+      "disabled": false,
+      "name": "More",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@3068/@HBoxContainer@3069/More",
+      "rect": "[P: (643.0, 4.0), S: (149.0, 60.0)]",
+      "text": "More"
+    },
+    {
+      "disabled": false,
+      "name": "Menu",
+      "path": "/root/AppRoot/GameScreen/Root/TopBar/@MarginContainer@3068/@HBoxContainer@3069/Menu",
+      "rect": "[P: (800.0, 4.0), S: (60.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "SystemGalaxy",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/ViewHost/Scroll/@VBoxContainer@3075/View/@VBoxContainer@3217/SystemHeader/@VBoxContainer@3108/@HFlowContainer@3111/SystemGalaxy",
+      "rect": "[P: (24.0, -1315.0), S: (172.0, 60.0)]",
+      "text": "Galaxy"
+    },
+    {
+      "disabled": false,
+      "name": "Appearance3D",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/ViewHost/Scroll/@VBoxContainer@3075/View/@VBoxContainer@3217/SystemHeader/@VBoxContainer@3108/@HFlowContainer@3111/Appearance3D",
+      "rect": "[P: (204.0, -1315.0), S: (186.0, 60.0)]",
+      "text": "3D view"
+    },
+    {
+      "disabled": false,
+      "name": "Pick_pl_shroud_giant",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/ViewHost/Scroll/@VBoxContainer@3075/View/@VBoxContainer@3217/@VBoxContainer@3216/@VBoxContainer@3214/Planets/@VBoxContainer@3118/@VBoxContainer@3120/@HFlowContainer@3130/Planet_pl_shroud_giant/Pick_pl_shroud_giant",
+      "rect": "[P: (36.0, -1147.0), S: (200.0, 149.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "@Button@3196",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/ViewHost/Scroll/@VBoxContainer@3075/View/@VBoxContainer@3217/@VBoxContainer@3216/@VBoxContainer@3215/PlanetPanel/@VBoxContainer@3146/@VBoxContainer@3148/@VBoxContainer@3204/Outpost_energy/@Button@3196",
+      "rect": "[P: (24.0, 56.0), S: (818.0, 60.0)]",
+      "text": "Build a Energy outpost with the Construction Ship"
+    },
+    {
+      "disabled": false,
+      "name": "@Button@3205",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/ViewHost/Scroll/@VBoxContainer@3075/View/@VBoxContainer@3217/@VBoxContainer@3216/@VBoxContainer@3215/PlanetPanel/@VBoxContainer@3146/@VBoxContainer@3148/@VBoxContainer@3213/Outpost_research/@Button@3205",
+      "rect": "[P: (24.0, 176.0), S: (818.0, 60.0)]",
+      "text": "Build a Research outpost with the Construction Ship"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_system",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/Nav_system",
+      "rect": "[P: (44.0, 316.0), S: (179.0, 60.0)]",
+      "text": "System"
+    },
+    {
+      "disabled": false,
+      "name": "Nav_colony",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/Nav_colony",
+      "rect": "[P: (231.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_research",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/Nav_research",
+      "rect": "[P: (315.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "Nav_more",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/Nav_more",
+      "rect": "[P: (399.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "FleetTravel",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/FleetTravel",
+      "rect": "[P: (532.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": true,
+      "name": "ModeToggle",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/ModeToggle",
+      "rect": "[P: (616.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": true,
+      "name": "Undo",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/Undo",
+      "rect": "[P: (700.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    },
+    {
+      "disabled": false,
+      "name": "EndTurn",
+      "path": "/root/AppRoot/GameScreen/Root/@VBoxContainer@3070/NavBar/@MarginContainer@3071/@HBoxContainer@3072/EndTurn",
+      "rect": "[P: (784.0, 316.0), S: (76.0, 60.0)]",
+      "text": ""
+    }
+  ],
+  "energy": 22600,
+  "flags": {},
+  "food": 30200,
+  "global_flags": {
+    "m2a_shroud_resolved": 4,
+    "m2a_shroud_supplies": 4
+  },
+  "influence": 11600,
+  "logical_size": "(872.7273, 392.7273)",
+  "minerals": 34400,
+  "outpost_id": "",
+  "pending_events": [],
+  "probe_path": [],
+  "probe_progress": 0,
+  "probe_system": "sys_shroud",
+  "probe_task": "",
+  "remaining_eta": 0,
+  "route": "game",
+  "scale": 2.75,
+  "top_overlay": "",
+  "turn": 6
+}

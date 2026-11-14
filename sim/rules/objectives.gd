@@ -122,6 +122,9 @@ static func update(state: GameState, r: TurnResult) -> void:
 				return
 		elif not state.objectives_done.has(DictIO.str_of(d, "id")):
 			return
+	# A scenario may preserve outstanding player decisions before ending. Loss still wins priority.
+	if DictIO.bool_of(scenario(state), "finish_pending_events_before_victory") and not Events.pending_for(state, e.id).is_empty():
+		return
 	# Every required objective is done: "never" objectives that held count as done now.
 	for d: Dictionary in definitions(state):
 		if DictIO.str_of(d, "type") == "never_flag" and not status(state, d).failed:

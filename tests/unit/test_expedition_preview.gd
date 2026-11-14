@@ -15,7 +15,7 @@ func test_exploration_objectives_and_fog(t: T) -> void:
 		if marker["id"] == "sys_vesper":
 			t.not_ok(marker.has("name_key"), "unknown system name is not disclosed")
 			t.eq(marker.get("label_key"), "ui.travel.unknown", "unknown star carries a sanitized label")
-			t.eq(marker.get("label_args", {}).get("number"), "4", "label matches the destination selector")
+			t.eq(marker.get("label_args", {}).get("number"), str(DictIO.sorted_keys(s.systems).find("sys_vesper") + 1), "label matches the destination selector")
 	for lane: Dictionary in galaxy["lanes"]:
 		t.not_ok(lane["locked"], "preview deep lanes are open")
 	var first_light: GameState = ScenarioLoader.build(Content.db(), "s1_first_light", 1)

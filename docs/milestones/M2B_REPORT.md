@@ -2,6 +2,9 @@
 
 14 November 2026 · continue from `0a3ce61` on the existing PR #9 branch
 
+This report records the M2B checkpoint `93f8cb3`. Later additions are documented in
+[M2C](M2C_REPORT.md), [M2D](M2D_REPORT.md) and [M2E](M2E_REPORT.md)
+
 ## What changed
 
 Survey probes can receive an explicit automatic-exploration order. Idle probes
@@ -131,16 +134,18 @@ waiting and retries; no generated imagery, state injection or fake turns were us
 
 ## Remaining work
 
-The original `0a3ce61` CI run passed every nondeployment job. The consolidated
-follow-up needs its own CI result. Native Windows execution, physical graphics,
+Both the original `0a3ce61` CI run and the M2B checkpoint
+[run 43568733880](https://github.com/mariyaholic/starfire_hearth_v2/actions/runs/43568733880)
+passed every nondeployment job. These runs do not establish acceptance of later
+changes. Native Windows execution, physical graphics,
 physical phones, audible audio and the complete phone Web save/reload regression
 remain unverified
 
 Use a new preview to exercise the added discovery path; these changes do not
 retroactively replay a completed earlier preview
 
-Astra recommends a safe stop-at-next-system order before adding The Shroud as
-another optional destination. The current automation-off control does not cancel
-an already planned multi-leg journey. Neither feature is implemented here
+Astra recommended a safe stop-at-next-system order before adding The Shroud as
+another optional destination. Those features were not part of this M2B checkpoint;
+their later implementation and acceptance are documented separately
 
 No main merge, live deployment or release was performed

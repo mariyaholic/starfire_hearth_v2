@@ -409,3 +409,360 @@ func test_preview_empty_gate_system_copy_and_beacon(t: T) -> void:
 			if beacon_label != null: t.eq(beacon_label.get_line_count(), 1, "desktop beacon caption does not wrap per character")
 		t.not_ok(invalid_hint, mode + " does not ask for a nonexistent planet")
 	await _stop(app)
+
+
+func test_preview_stop_fleet_order_and_undo_in_both_map_modes(t: T) -> void:
+	for profile_index: int in [0, 3]:
+		var app: AppRoot = await _start(PROFILES[profile_index], 1)
+		var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+		state.turn = 2
+		state.player().known_systems["sys_tessel"] = Empire.FOG_SURVEYED
+		var fleet: Fleet = state.fleets["flt_0002"]
+		fleet.path = ["sys_tessel", "sys_halden"] as Array[String]
+		fleet.move_progress = 1
+		AutoExplore.set_enabled(state, state.player_id, fleet.id, true)
+		Settings.set_appearance("strategic" if profile_index == 0 else "3d")
+		Settings.set_view_mode("command" if profile_index == 0 else "immersive")
+		app.go(AppRoot.CONTINUE, {"state": state})
+		await _frames(5)
+		Overlay.close_all()
+		var gs: GameScreen = app.screen as GameScreen
+		gs.show_view(GameScreen.GALAXY)
+		await _frames(3)
+		t.ok(gs.find_child("FleetTravel", true, false) != null, "map mode exposes shared fleet drawer")
+		gs.open_travel()
+		await _frames(3)
+		var drawer: Drawer = Overlay.top() as Drawer
+		var button: BaseButton = drawer.find_child("StopFleet_flt_0002", true, false) as BaseButton if drawer != null else null
+		t.ok(button != null and not button.disabled, "stop order is offered for an active multileg route")
+		if button != null:
+			var original_eta: int = Travel.remaining_eta(Game.view(), fleet.id).total
+			var expected: GameState = state.clone()
+			Travel.stop_next(expected, fleet.id)
+			var expected_eta: int = Travel.remaining_eta(expected, fleet.id).total
+			button.pressed.emit()
+			t.eq(Game.view().fleets[fleet.id].path, ["sys_tessel"] as Array[String], "only the current leg remains")
+			t.eq(Game.view().fleets[fleet.id].move_progress, 1, "stop preserves progress")
+			t.not_ok(AutoExplore.enabled(Game.view(), fleet.id), "stop clears auto-explore")
+			t.eq(Travel.remaining_eta(Game.view(), fleet.id).total, expected_eta, "remaining ETA follows the retained leg")
+			t.ok(expected_eta < original_eta, "removed leg no longer contributes to ETA")
+			await _frames(4)
+			gs.open_travel()
+			await _frames(3)
+			drawer = Overlay.top() as Drawer
+			var fleet_card: Node = drawer.find_child("Fleet_flt_0002", true, false) if drawer != null else null
+			var destination_visible: bool = false
+			var eta_visible: bool = false
+			if fleet_card != null:
+				for item: Node in fleet_card.find_children("*", "Label", true, false):
+					if (item as Label).text == Strings.fmt("ui.travel.en_route", {"system": Strings.fmt("system.tessel.name")}): destination_visible = true
+				for item: Node in fleet_card.find_children("*", "Explainable", true, false):
+					var explanation: Explainable = item as Explainable
+					if explanation.breakdown != null and explanation.breakdown.label_key == "breakdown.travel_turns" and explanation.breakdown.total == expected_eta: eta_visible = true
+			t.ok(destination_visible, "drawer shows the revised destination")
+			t.ok(eta_visible, "drawer exposes the revised simulation ETA as an Explainable")
+			Overlay.close_all()
+			Game.undo()
+			t.eq(Game.view().fleets[fleet.id].path, ["sys_tessel", "sys_halden"] as Array[String], "undo restores route")
+			t.eq(Game.view().fleets[fleet.id].move_progress, 1, "undo preserves original progress")
+			t.ok(AutoExplore.enabled(Game.view(), fleet.id), "undo restores auto-explore")
+			Overlay.close_all()
+			await _frames(4)
+			gs.open_travel()
+			await _frames(3)
+			drawer = Overlay.top() as Drawer
+			button = drawer.find_child("StopFleet_flt_0002", true, false) as BaseButton
+			t.ok(button != null, "undo restores stop action")
+			Game.new_game("m2a_expedition", 1)
+			if button != null: button.pressed.emit()
+			t.eq(Game.queue.size(), 0, "stale stop callback cannot affect a new session")
+		Settings.set_view_mode("command")
+		await _stop(app)
+
+
+func test_preview_stop_fleet_unknown_next_and_single_leg_auto(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 1)
+	var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+	state.turn = 2
+	var fleet: Fleet = state.fleets["flt_0002"]
+	fleet.path = ["sys_vesper"] as Array[String]
+	fleet.move_progress = 1
+	AutoExplore.set_enabled(state, state.player_id, fleet.id, true)
+	app.go(AppRoot.CONTINUE, {"state": state})
+	await _frames(5)
+	Overlay.close_all()
+	var gs: GameScreen = app.screen as GameScreen
+	gs.show_view(GameScreen.GALAXY)
+	gs.open_travel()
+	await _frames(3)
+	var drawer: Drawer = Overlay.top() as Drawer
+	var card: Node = drawer.find_child("Fleet_flt_0002", true, false) if drawer != null else null
+	t.ok(card != null, "survey fleet is listed")
+	if card != null:
+		var has_unknown: bool = false
+		var leaked: bool = false
+		for label: Node in card.find_children("*", "Label", true, false):
+			var content: String = (label as Label).text
+			if content == Strings.fmt("ui.travel.stop_at", {"system": Strings.fmt("ui.travel.unknown", {"number": str(DictIO.sorted_keys(state.systems).find("sys_vesper") + 1)})}): has_unknown = true
+			if content.contains(Strings.fmt("system.vesper.name")): leaked = true
+		t.ok(has_unknown, "next system uses the numbered unknown label")
+		t.not_ok(leaked, "undiscovered destination name is not disclosed")
+		var button: BaseButton = card.find_child("StopFleet_flt_0002", true, false) as BaseButton
+		t.ok(button != null and not button.disabled, "single-leg fleet with automation can stop at arrival")
+		if button != null:
+			button.pressed.emit()
+			t.eq(Game.view().fleets[fleet.id].path, ["sys_vesper"] as Array[String], "current leg remains")
+			t.not_ok(AutoExplore.enabled(Game.view(), fleet.id), "stopping prevents another automatic assignment")
+			Game.end_turn()
+			await _frames(4)
+			Overlay.close_all()
+			gs.open_travel()
+			await _frames(3)
+			drawer = Overlay.top() as Drawer
+			card = drawer.find_child("Fleet_flt_0002", true, false) if drawer != null else null
+			button = card.find_child("StopFleet_flt_0002", true, false) as BaseButton if card != null else null
+			t.ok(button != null and button.disabled, "single-leg fleet already stopping cannot repeat stop")
+	await _stop(app)
+
+
+func test_shroud_giant_outpost_choices_in_both_map_modes(t: T) -> void:
+	for profile_index: int in [0, 3]:
+		var app: AppRoot = await _start(PROFILES[profile_index], 1)
+		var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+		state.turn = 2
+		state.player().known_systems["sys_shroud"] = Empire.FOG_SURVEYED
+		state.player().surveyed_planets.append("pl_shroud_giant")
+		state.fleets["flt_0001"].system_id = "sys_shroud"
+		Settings.set_view_mode("command")
+		Settings.set_appearance("strategic" if profile_index == 0 else "3d")
+		app.go(AppRoot.CONTINUE, {"state": state})
+		await _frames(5)
+		Overlay.close_all()
+		var gs: GameScreen = app.screen as GameScreen
+		gs.open_planet("pl_shroud_giant")
+		await _frames(4)
+		for kind: String in ["energy", "research"]:
+			var action: Node = gs.find_child("Outpost_" + kind, true, false)
+			t.ok(action != null, "gas giant offers %s outpost in this map mode" % kind)
+			if action == null: continue
+			var buttons: Array[Node] = action.find_children("*", "BaseButton", true, false)
+			var button: BaseButton = buttons[0] as BaseButton if not buttons.is_empty() else null
+			t.ok(button != null and not button.disabled, "outpost choice is available")
+			if button == null or button.disabled: continue
+			button.pressed.emit()
+			t.eq(Game.view().ships["shp_0001"].task_param, kind, "selected output is sent through the command bus")
+			Game.undo()
+			await _frames(4)
+		await _stop(app)
+
+
+func test_shroud_event_choices_visible_after_discovery(t: T) -> void:
+	for profile_index: int in [0, 3]:
+		var app: AppRoot = await _start(PROFILES[profile_index], 1)
+		var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+		state.turn = 2
+		state.player().known_systems["sys_shroud"] = Empire.FOG_SURVEYED
+		Events.run(state, TurnResult.new())
+		app.go(AppRoot.CONTINUE, {"state": state})
+		await _frames(5)
+		var modal: Modal = Overlay.top() as Modal
+		t.ok(modal != null and modal.name == "EventOverlay", "Shroud discovery opens the event")
+		if modal != null:
+			var first: Node = modal.find_child("Choice_0", true, false)
+			var second: Node = modal.find_child("Choice_1", true, false)
+			var third: Node = modal.find_child("Choice_2", true, false)
+			t.ok(first != null and second != null and third != null, "all three choices render")
+			if first != null and second != null and third != null:
+				t.ok(first.find_child("Cost_energy", true, false) != null, "hull recovery shows its energy cost")
+				t.ok(second.find_child("Cost_energy", true, false) != null, "provisions show their energy cost")
+				t.ok(third.find_child("Cost_energy", true, false) == null, "honouring the crew is free")
+				for option: Node in [first, second, third]:
+					t.ok(option.find_children("*", "EffectList", true, false).size() > 0, "choice reward is visible")
+		await _stop(app)
+
+
+func test_shroud_outpost_projection_without_builder_and_actual_output(t: T) -> void:
+	for profile_index: int in [0, 3]:
+		var app: AppRoot = await _start(PROFILES[profile_index], 1)
+		var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+		state.turn = 2
+		state.player().known_systems["sys_shroud"] = Empire.FOG_SURVEYED
+		state.player().surveyed_planets.append("pl_shroud_giant")
+		var mod: Modifier = Modifier.new()
+		mod.id = "mod_preview_test"
+		mod.empire_id = state.player_id
+		mod.source_key = "event.m2a_halden.1.title"
+		mod.effects = [{"key": "research_bp:all", "value": 5000}] as Array[Dictionary]
+		mod.turns_left = 10
+		state.modifiers[mod.id] = mod
+		Settings.set_view_mode("command")
+		Settings.set_appearance("strategic" if profile_index == 0 else "3d")
+		app.go(AppRoot.CONTINUE, {"state": state})
+		await _frames(4)
+		Overlay.close_all()
+		var gs: GameScreen = app.screen as GameScreen
+		var original_hash: String = Game.view().state_hash()
+		gs.open_planet("pl_shroud_giant")
+		await _frames(4)
+		await _audit(t, "Shroud outpost options in map mode at profile %d" % profile_index)
+		var energy: Node = gs.find_child("OutpostProjection_energy", true, false)
+		var research: Node = gs.find_child("OutpostProjection_research", true, false)
+		t.ok(energy != null and research != null, "surveyed gas giant shows both options without a builder")
+		t.ok(gs.find_child("Outpost_energy", true, false) == null, "no remote construction command is offered")
+		if energy != null and research != null:
+			var energy_net: Explainable = energy.find_child("OutpostNet_energy", true, false) as Explainable
+			var energy_upkeep: Explainable = energy.find_child("OutpostUpkeep", true, false) as Explainable
+			var expected_energy: Economy.ColonyReport = Economy.preview_outpost(state, state.player_id, "pl_shroud_giant", "energy")
+			t.ok(energy_net != null and energy_net.breakdown.total == expected_energy.net["energy"].total, "energy net uses the simulation preview")
+			t.ok(energy_upkeep != null and energy_upkeep.breakdown.total == Economy.outpost_upkeep().total, "upkeep is explicit and explainable")
+			var expected_research: Economy.ColonyReport = Economy.preview_outpost(state, state.player_id, "pl_shroud_giant", "research")
+			for branch: String in Empire.BRANCHES:
+				var row: Explainable = research.find_child("OutpostResearch_" + branch, true, false) as Explainable
+				t.ok(row != null and row.breakdown.total == expected_research.research[branch].total, "each research branch uses modifier-aware simulation output")
+		t.eq(Game.view().state_hash(), original_hash, "opening previews does not mutate gameplay")
+		var built: GameState = state.clone()
+		var c: Colony = Colony.new()
+		c.id = "col_preview_test"
+		c.owner_id = built.player_id
+		c.planet_id = "pl_shroud_giant"
+		c.outpost_kind = "research"
+		built.colonies[c.id] = c
+		built.planets[c.planet_id].colony_id = c.id
+		app.go(AppRoot.CONTINUE, {"state": built})
+		await _frames(4)
+		Overlay.close_all()
+		gs = app.screen as GameScreen
+		gs.open_planet("pl_shroud_giant")
+		await _frames(4)
+		var actual: Node = gs.find_child("OutpostActual", true, false)
+		t.ok(actual != null, "owned outpost shows current output")
+		if actual != null:
+			var report: Economy.ColonyReport = Economy.colony(built, c)
+			for branch: String in Empire.BRANCHES:
+				var row: Explainable = actual.find_child("OutpostResearch_" + branch, true, false) as Explainable
+				t.ok(row != null and row.breakdown.total == report.research[branch].total, "owned outpost shows actual branch output")
+		await _stop(app)
+
+
+func test_shroud_marker_remains_unnamed_until_discovered(t: T) -> void:
+	for profile_index: int in [0, 3]:
+		var app: AppRoot = await _start(PROFILES[profile_index], 1)
+		var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+		state.turn = 2
+		Settings.set_view_mode("command")
+		Settings.set_appearance("strategic" if profile_index == 0 else "3d")
+		app.go(AppRoot.CONTINUE, {"state": state})
+		await _frames(4)
+		Overlay.close_all()
+		var gs: GameScreen = app.screen as GameScreen
+		gs.show_view(GameScreen.GALAXY)
+		await _frames(4)
+		var expected_number: String = str(DictIO.sorted_keys(state.systems).find("sys_shroud") + 1)
+		t.eq(gs.system_label("sys_shroud"), Strings.fmt("ui.travel.unknown", {"number": expected_number}), "marker uses an unnamed position label")
+		var marker: Node = gs.find_child("System_sys_shroud", true, false)
+		t.ok(marker != null, "the unknown star remains selectable on the map")
+		var leaked: bool = false
+		if marker != null:
+			if marker is Button and (marker as Button).text.contains(Strings.fmt("system.shroud.name")): leaked = true
+			for label: Node in marker.find_children("*", "Label", true, false):
+				if (label as Label).text.contains(Strings.fmt("system.shroud.name")): leaked = true
+		t.not_ok(leaked, "the visible marker does not reveal its hidden name")
+		var disclosed: GameState = state.clone()
+		disclosed.player().known_systems["sys_shroud"] = Empire.FOG_SURVEYED
+		app.go(AppRoot.CONTINUE, {"state": disclosed})
+		await _frames(4)
+		Overlay.close_all()
+		gs = app.screen as GameScreen
+		t.eq(gs.system_label("sys_shroud"), Strings.fmt("system.shroud.name"), "arrival reveals the system name")
+		await _stop(app)
+
+
+func _idle_probe_checks(state: GameState) -> int:
+	var count: int = 0
+	for item: ReportItem in GameModel.end_turn_checks(state, Economy.empire(state, state.player_id)):
+		if item.text_key == "ui.endturn.ship_idle" and item.args.get("ship_key", "") == "hull.survey_probe.name": count += 1
+	return count
+
+
+func test_auto_explore_readiness_checks_keep_critical_events(t: T) -> void:
+	var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+	var fleet: Fleet = state.fleets["flt_0002"]
+	var probe: Ship = state.ships[fleet.ship_ids[0]]
+	t.eq(_idle_probe_checks(state), 1, "disabled idle probe still prompts for orders")
+	AutoExplore.set_enabled(state, state.player_id, fleet.id, true)
+	t.eq(_idle_probe_checks(state), 0, "enabled valid probe waiting for an assignment is not idle")
+	state.player().known_systems["sys_halden"] = Empire.FOG_SURVEYED
+	Events.run(state, TurnResult.new())
+	var blocking: bool = false
+	for item: ReportItem in GameModel.end_turn_checks(state, Economy.empire(state, state.player_id)):
+		if item.text_key == "ui.endturn.event" and item.blocks_end_turn: blocking = true
+	t.ok(blocking, "a pending decision remains a blocking checklist item")
+	t.eq(_idle_probe_checks(state), 0, "an automated probe waiting on a decision is not called idle")
+	AutoExplore.set_enabled(state, state.player_id, fleet.id, false)
+	probe.task = Ship.TASK_SURVEY
+	probe.task_target = "pl_aster"
+	probe.task_turns = 1
+	t.eq(_idle_probe_checks(state), 0, "a busy probe is not reported idle")
+	probe.task = Ship.TASK_NONE
+	probe.task_target = ""
+	probe.task_turns = 0
+	fleet.path = ["sys_vesper"] as Array[String]
+	t.eq(_idle_probe_checks(state), 0, "a travelling probe is not reported idle")
+	fleet.path.clear()
+	AutoExplore.set_enabled(state, state.player_id, fleet.id, true)
+	probe.design_id = "invalid_design"
+	t.eq(_idle_probe_checks(state), 1, "invalid automation does not hide a genuinely idle probe")
+
+
+func test_research_banked_progress_and_completion_estimate_in_both_layouts(t: T) -> void:
+	for profile_index: int in [0, 3]:
+		var app: AppRoot = await _start(PROFILES[profile_index], 1)
+		var state: GameState = ScenarioLoader.build(Content.db(), "m2a_expedition", 1)
+		state.turn = 2
+		var empire: Empire = state.player()
+		empire.branch("physics").progress = 1234
+		var society: ResearchBranch = empire.branch("society")
+		society.card = society.hand[0]
+		society.progress = Research.cost(state, empire, society.card).total + 100
+		var engineering: ResearchBranch = empire.branch("engineering")
+		engineering.card = engineering.hand[0]
+		engineering.progress = 0
+		var mod: Modifier = Modifier.new()
+		mod.id = "mod_no_research"
+		mod.empire_id = empire.id
+		mod.source_key = "event.m2a_halden.1.title"
+		mod.effects = [{"key": "research_bp:all", "value": -9000}] as Array[Dictionary]
+		mod.turns_left = 10
+		state.modifiers[mod.id] = mod
+		Settings.set_view_mode("command")
+		app.go(AppRoot.CONTINUE, {"state": state})
+		await _frames(4)
+		Overlay.close_all()
+		var gs: GameScreen = app.screen as GameScreen
+		gs.show_view(GameScreen.RESEARCH)
+		await _frames(4)
+		var bank: Explainable = gs.find_child("ResearchBank_physics", true, false) as Explainable
+		t.ok(bank != null and bank.breakdown != null and bank.breakdown.total == 1234, "empty branch shows explainable banked research")
+		if bank != null:
+			var label: Label = bank.find_child("*", true, false) as Label
+			t.ok(label != null and label.text == Strings.fmt("ui.research.banked", {"amount_c": 1234}), "bank label shows the stored amount")
+		var rate: Explainable = gs.find_child("ResearchRate_society", true, false) as Explainable
+		t.ok(rate != null and rate.breakdown.total == 0, "funded fixture has zero research income")
+		var funded: Label = gs.find_child("ResearchEta_society", true, false) as Label
+		t.ok(funded != null and funded.text == Strings.fmt("ui.research.completes_next"), "fully banked card completes next turn even at zero rate")
+		var no_income: Label = gs.find_child("ResearchEta_engineering", true, false) as Label
+		t.ok(no_income != null and no_income.text == Strings.fmt("ui.research.no_income"), "unfunded zero-rate card reports no income")
+		await _audit(t, "research bank and funded estimate at profile %d" % profile_index)
+		var normal: GameState = state.clone()
+		normal.modifiers.erase(mod.id)
+		normal.player().branch("society").progress = 0
+		app.go(AppRoot.CONTINUE, {"state": normal})
+		await _frames(4)
+		Overlay.close_all()
+		gs = app.screen as GameScreen
+		gs.show_view(GameScreen.RESEARCH)
+		await _frames(4)
+		var eta: Label = gs.find_child("ResearchEta_society", true, false) as Label
+		var turns: int = Research.turns_remaining(normal, normal.player_id, "society")
+		t.ok(turns > 0 and eta != null and eta.text == Strings.fmt("ui.research.eta", {"turns": turns}), "normal estimate uses the simulation")
+		await _stop(app)

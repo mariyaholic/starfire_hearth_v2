@@ -50,6 +50,16 @@ static func open(screen: GameScreen) -> void:
 				card.add_body(Explainable.wrap(remaining_label, remaining))
 			else:
 				card.add_text(Strings.fmt("report.fleet_route_blocked"), &"CaptionLabel")
+			var next_label: Label = card.add_text(Strings.fmt("ui.travel.stop_at", {"system": screen.system_label(fleet.path[0])}), &"StrongLabel")
+			next_label.set_meta("audit_numeric_ok", "unknown star marker identifier")
+			card.add_text(Strings.fmt("ui.travel.stop_hint"), &"CaptionLabel")
+			var stop_check: Result = Travel.can_stop(screen.state, screen.state.player_id, fid)
+			var stop: SfButton = SfButton.make("ui.travel.stop_action", "", SfButton.SECONDARY)
+			stop.name = "StopFleet_" + fid
+			stop.disabled = not stop_check.ok
+			stop.pressed.connect(_stop.bind(screen, d, fid, Game.session_serial))
+			card.add_body(stop)
+			if not stop_check.ok: card.add_body(GameUI.refusal(stop_check))
 		else:
 			card.add_text(Strings.fmt("ui.travel.at", {"system": location}), &"SecondaryLabel")
 			var has_route: bool = false
@@ -91,3 +101,10 @@ static func _set_auto(screen: GameScreen, drawer: Drawer, fleet_id: String, enab
 		return
 	drawer.close()
 	screen.order(SetAutoExploreCommand.create(screen.state.player_id, fleet_id, enabled))
+
+
+static func _stop(screen: GameScreen, drawer: Drawer, fleet_id: String, session: int) -> void:
+	if not is_instance_valid(screen) or not screen.is_inside_tree() or Game.session_serial != session or not is_instance_valid(drawer) or not drawer.is_inside_tree() or drawer._closing:
+		return
+	drawer.close()
+	screen.order(StopFleetCommand.create(screen.state.player_id, fleet_id))
