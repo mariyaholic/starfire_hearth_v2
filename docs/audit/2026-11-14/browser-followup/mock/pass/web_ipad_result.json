@@ -1,0 +1,38 @@
+{
+  "device": "ipad",
+  "profile": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15",
+    "viewport": {
+      "width": 1180,
+      "height": 820
+    },
+    "deviceScaleFactor": 2,
+    "hasTouch": true
+  },
+  "booted": true,
+  "bootSeconds": "0.0",
+  "layout": "compact, touch",
+  "expectedLayout": "compact, touch",
+  "smokeLine": "Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)",
+  "expectedHash": "911cdd430061",
+  "timingsMs": {
+    "titleScreenshot": 1,
+    "gameToSmoke": 0,
+    "gameScreenshot": 0
+  },
+  "errors": [],
+  "consoleTail": [
+    {
+      "page": "title",
+      "type": "log",
+      "text": "Starfire Hearth layout: compact, touch, mock"
+    },
+    {
+      "page": "new game",
+      "type": "log",
+      "text": "Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)"
+    }
+  ],
+  "diagnostics": [],
+  "problems": []
+}

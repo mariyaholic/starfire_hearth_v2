@@ -66,6 +66,8 @@ static func check(state: GameState) -> Array[String]:
 
 	for lid: String in DictIO.sorted_keys(state.lanes):
 		var l: Lane = state.lanes[lid]
+		if l.id != lid:
+			problems.append("lane key %s holds id %s" % [lid, l.id])
 		if not state.systems.has(l.a) or not state.systems.has(l.b):
 			problems.append("lane %s has a missing endpoint" % lid)
 		if l.length_cly <= 0:
@@ -73,6 +75,8 @@ static func check(state: GameState) -> Array[String]:
 
 	for pid: String in DictIO.sorted_keys(state.planets):
 		var p: Planet = state.planets[pid]
+		if p.id != pid:
+			problems.append("planet key %s holds id %s" % [pid, p.id])
 		if not state.systems.has(p.system_id):
 			problems.append("planet %s is in missing system %s" % [pid, p.system_id])
 		if p.colony_id != "" and not state.colonies.has(p.colony_id):
@@ -80,6 +84,8 @@ static func check(state: GameState) -> Array[String]:
 
 	for cid: String in DictIO.sorted_keys(state.colonies):
 		var c: Colony = state.colonies[cid]
+		if c.id != cid:
+			problems.append("colony key %s holds id %s" % [cid, c.id])
 		if not state.planets.has(c.planet_id):
 			problems.append("colony %s is on missing planet %s" % [cid, c.planet_id])
 		elif state.planets[c.planet_id].colony_id != cid:
@@ -87,6 +93,10 @@ static func check(state: GameState) -> Array[String]:
 		_check_owner(state, "colony " + cid, c.owner_id, problems)
 		if c.pops < 0:
 			problems.append("colony %s has negative pops" % cid)
+		# Growth is normalized below one completion at every stable turn/save boundary.
+		# Unbounded values otherwise trigger one loop and report per banked completion.
+		if c.growth < 0 or c.growth >= Population.GROWTH_NEEDED:
+			problems.append("colony %s has unnormalized growth %d" % [cid, c.growth])
 		if c.stability < 0 or c.stability > 100:
 			problems.append("colony %s stability %d outside 0..100" % [cid, c.stability])
 		if c.pops > 0 and c.is_outpost():
@@ -146,12 +156,23 @@ static func check(state: GameState) -> Array[String]:
 
 	for shid: String in DictIO.sorted_keys(state.ships):
 		var sh: Ship = state.ships[shid]
+		if sh.id != shid:
+			problems.append("ship key %s holds id %s" % [shid, sh.id])
 		if sh.design_id != "" and not state.designs.has(sh.design_id):
 			problems.append("ship %s has missing design %s" % [shid, sh.design_id])
 		if sh.design_id == "" and sh.hull == "":
 			problems.append("ship %s has neither a design nor a hull" % shid)
-		if sh.task != "" and sh.task_turns < 0:
-			problems.append("ship %s has %d task turns" % [shid, sh.task_turns])
+		if sh.hull != "" and not Content.db().has("hulls", sh.hull):
+			problems.append("ship %s has unknown hull %s" % [shid, sh.hull])
+		if sh.task != "":
+			if not [Ship.TASK_SURVEY, Ship.TASK_OUTPOST, Ship.TASK_COLONISE].has(sh.task):
+				problems.append("ship %s has unknown task %s" % [shid, sh.task])
+			if sh.task_turns <= 0:
+				problems.append("ship %s has %d task turns" % [shid, sh.task_turns])
+			if not state.planets.has(sh.task_target):
+				problems.append("ship %s has missing task target %s" % [shid, sh.task_target])
+			elif state.fleets.has(sh.fleet_id) and state.planets[sh.task_target].system_id != state.fleets[sh.fleet_id].system_id:
+				problems.append("ship %s task target is in another system" % shid)
 		if sh.fleet_id != "" and not state.fleets.has(sh.fleet_id):
 			problems.append("ship %s is in missing fleet %s" % [shid, sh.fleet_id])
 		elif sh.fleet_id != "" and not state.fleets[sh.fleet_id].ship_ids.has(shid):
@@ -161,22 +182,32 @@ static func check(state: GameState) -> Array[String]:
 			problems.append("ship %s has negative structure" % shid)
 
 	for did: String in DictIO.sorted_keys(state.designs):
+		if state.designs[did].id != did:
+			problems.append("design key %s holds id %s" % [did, state.designs[did].id])
 		_check_owner(state, "design " + did, state.designs[did].owner_id, problems)
 
 	for mid: String in DictIO.sorted_keys(state.modifiers):
 		var m: Modifier = state.modifiers[mid]
+		if m.id != mid:
+			problems.append("modifier key %s holds id %s" % [mid, m.id])
 		if not state.empires.has(m.empire_id):
 			problems.append("modifier %s belongs to missing empire %s" % [mid, m.empire_id])
 		if m.colony_id != "" and not state.colonies.has(m.colony_id):
 			problems.append("modifier %s is on missing colony %s" % [mid, m.colony_id])
 		if m.turns_left == 0 or m.turns_left < -1:
 			problems.append("modifier %s has %d turns left" % [mid, m.turns_left])
-	for list: Array in [state.events_pending, state.events_scheduled]:
-		for ev: EventInstance in list:
+	for pending: bool in [true, false]:
+		var event_list: Array[EventInstance] = state.events_pending if pending else state.events_scheduled
+		for ev: EventInstance in event_list:
 			if not state.empires.has(ev.empire_id):
 				problems.append("event %s belongs to missing empire %s" % [ev.id, ev.empire_id])
 			if ev.colony_id != "" and not state.colonies.has(ev.colony_id):
 				problems.append("event %s is about missing colony %s" % [ev.id, ev.colony_id])
+			var step: Dictionary = Events.step_of(ev.chain, ev.step)
+			if step.is_empty():
+				problems.append("event %s has unknown chain or step %s:%d" % [ev.id, ev.chain, ev.step])
+			elif pending and DictIO.arr_of(step, "choices").is_empty():
+				problems.append("pending event %s has no choices" % ev.id)
 	for se: ScheduledEffect in state.scheduled_effects:
 		if se.elapsed < 0 or se.elapsed > se.over_turns:
 			problems.append("scheduled effect %s has elapsed %d of %d" % [se.id, se.elapsed, se.over_turns])

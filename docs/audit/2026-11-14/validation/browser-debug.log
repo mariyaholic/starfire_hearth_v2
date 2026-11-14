@@ -1,0 +1,4 @@
+PASS  pc: started in 22.6 s, layout "wide, pointer"; Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)
+PASS  phone: started in 12.8 s, layout "compact, touch"; Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)
+PASS  ipad: started in 10.9 s, layout "compact, touch"; Starfire Hearth smoke: new game at turn 2, state 911cdd430061, 1 save(s)
+web_smoke: 3 of 3 device(s) passed; screenshots in /workspace/starfire-evidence/audit-final/browser-debug

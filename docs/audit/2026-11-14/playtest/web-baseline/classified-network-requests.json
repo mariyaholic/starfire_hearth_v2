@@ -1,0 +1,72 @@
+[
+  {
+    "timestamp": 1794644293.1667182,
+    "url": "http://127.0.0.1:34437/index.html",
+    "method": "GET",
+    "type": "document",
+    "body_bytes": 0,
+    "origin": "http://127.0.0.1:34437",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin HTTP"
+  },
+  {
+    "timestamp": 1794644293.1887014,
+    "url": "http://127.0.0.1:34437/index.png",
+    "method": "GET",
+    "type": "image",
+    "body_bytes": 0,
+    "origin": "http://127.0.0.1:34437",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin HTTP"
+  },
+  {
+    "timestamp": 1794644293.1888754,
+    "url": "http://127.0.0.1:34437/index.js",
+    "method": "GET",
+    "type": "script",
+    "body_bytes": 0,
+    "origin": "http://127.0.0.1:34437",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin HTTP"
+  },
+  {
+    "timestamp": 1794644293.6088748,
+    "url": "http://127.0.0.1:34437/index.wasm",
+    "method": "GET",
+    "type": "fetch",
+    "body_bytes": 0,
+    "origin": "http://127.0.0.1:34437",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin HTTP"
+  },
+  {
+    "timestamp": 1794644293.6114168,
+    "url": "http://127.0.0.1:34437/index.pck",
+    "method": "GET",
+    "type": "fetch",
+    "body_bytes": 0,
+    "origin": "http://127.0.0.1:34437",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin HTTP"
+  },
+  {
+    "timestamp": 1794644293.6742394,
+    "url": "http://127.0.0.1:34437/index.icon.png",
+    "method": "GET",
+    "type": "other",
+    "body_bytes": 0,
+    "origin": "http://127.0.0.1:34437",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin HTTP"
+  },
+  {
+    "timestamp": 1794644298.197139,
+    "url": "blob:http://127.0.0.1:34437/644bee9e-ba8c-4ff8-adef-23cd08178290",
+    "method": "GET",
+    "type": "other",
+    "body_bytes": 0,
+    "origin": "blob://",
+    "effective_origin": "http://127.0.0.1:34437",
+    "classification": "same-origin local blob"
+  }
+]

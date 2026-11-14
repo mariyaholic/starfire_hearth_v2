@@ -1,0 +1,106 @@
+{
+  "userfs_prefix": "/userfs/godot/app_userdata/Starfire Hearth/",
+  "method": "Fresh production Web export in Chromium SwiftShader. Synthetic nearwin SaveSerializer file and text200 settings seeded into IndexedDB BEFORE first app load; subsequent gameplay only actual touchscreen taps. No smoke hooks or runtime game/state calls.",
+  "build": "/workspace/starfire-evidence/m2f-build/web",
+  "actions": [
+    {
+      "action": "INITIAL SETUP seed normal SaveSerializer file + text200 settings in IndexedDB",
+      "timestamp": 1794642448.531064
+    },
+    {
+      "tap": [
+        678,
+        55
+      ],
+      "capture": "raw-002.png",
+      "timestamp": 1794642466.2875676
+    },
+    {
+      "tap": [
+        825,
+        357
+      ],
+      "capture": "raw-003.png",
+      "timestamp": 1794642482.169715
+    },
+    {
+      "tap": [
+        704,
+        350
+      ],
+      "wait": 2000,
+      "capture": "raw-004.png",
+      "read_idb": "won-storage.json",
+      "timestamp": 1794642499.5786183
+    },
+    {
+      "tap": [
+        338,
+        352
+      ],
+      "wait": 500,
+      "capture": "raw-005.png",
+      "read_idb": "continued-before-reload.json",
+      "timestamp": 1794642521.5836499
+    },
+    {
+      "reload": true,
+      "wait": 1200,
+      "capture": "raw-006.png",
+      "read_idb": "after-page-reload.json",
+      "timestamp": 1794642543.1345527
+    },
+    {
+      "tap": [
+        678,
+        55
+      ],
+      "capture": "raw-007.png",
+      "read_idb": "active-after-reload.json",
+      "timestamp": 1794642575.5948672
+    },
+    {
+      "tap": [
+        825,
+        357
+      ],
+      "capture": "raw-008.png",
+      "timestamp": 1794642608.1347225
+    },
+    {
+      "tap": [
+        704,
+        350
+      ],
+      "wait": 3500,
+      "capture": "raw-009.png",
+      "read_idb": "next-turn-storage.json",
+      "timestamp": 1794642611.0417986
+    },
+    {
+      "tap": [
+        755,
+        350
+      ],
+      "capture": "raw-010.png",
+      "timestamp": 1794642631.5084264
+    },
+    {
+      "quit": true,
+      "timestamp": 1794642633.9154475
+    }
+  ],
+  "errors": [],
+  "captures": [
+    "raw-001.png",
+    "raw-002.png",
+    "raw-003.png",
+    "raw-004.png",
+    "raw-005.png",
+    "raw-006.png",
+    "raw-007.png",
+    "raw-008.png",
+    "raw-009.png",
+    "raw-010.png"
+  ]
+}

@@ -53,6 +53,8 @@ func demo(_state_name: String) -> void:
 
 
 func go(route: String, args: Dictionary = {}) -> void:
+	if not is_inside_tree():
+		return
 	navigate.emit(route, args)
 
 

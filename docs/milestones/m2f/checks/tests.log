@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+  slow golden/test_golden_hashes.gd::test_s1_survives_save_and_load_every_turn (768 ms)
+  slow integration/test_flow_screens.gd::test_every_flow_screen_passes_the_audit (1946 ms)
+  slow integration/test_flow_screens.gd::test_flow_walks_from_title_to_debrief_and_back (575 ms)
+  slow integration/test_game_screen.gd::test_every_view_and_overlay_passes_the_audit (7212 ms)
+  slow integration/test_game_screen.gd::test_orders_are_given_from_the_views (579 ms)
+  slow integration/test_game_screen.gd::test_preview_stop_fleet_order_and_undo_in_both_map_modes (720 ms)
+  slow integration/test_game_screen.gd::test_research_banked_progress_and_completion_estimate_in_both_layouts (679 ms)
+  slow integration/test_game_screen.gd::test_shroud_giant_outpost_choices_in_both_map_modes (730 ms)
+  slow integration/test_game_screen.gd::test_shroud_marker_remains_unnamed_until_discovered (544 ms)
+  slow integration/test_game_screen.gd::test_shroud_outpost_projection_without_builder_and_actual_output (807 ms)
+  slow integration/test_immersive.gd::test_phone_contexts_fit_visible_map_and_scroll_to_quality_at_large_text (1648 ms)
+  slow integration/test_immersive.gd::test_switching_keeps_renderer_selection_camera_orders_and_saved_world (3790 ms)
+  slow integration/test_issue7_ui.gd::test_game_codex_browses_and_returns_to_same_screen (514 ms)
+  slow integration/test_skeleton_run.gd::test_balanced_bot_runs_clean (1635 ms)
+  slow integration/test_skeleton_run.gd::test_random_legal_bot_is_deterministic (2118 ms)
+  slow integration/test_traffic_lifecycle.gd::test_legacy_visible_access_keeps_saved_recipes_and_safe_traffic (2080 ms)
+  slow integration/test_ui_audit.gd::test_showcase_passes_audit (714 ms)
+  slow unit/test_assets.gd::test_every_delivered_id_loads (3152 ms)
+  slow unit/test_audio.gd::test_every_sound_id_has_a_fallback (1192 ms)
+  slow unit/test_city_incorporation.gd::test_chunked_region_core_ring_skirts_and_scheduler_parity (992 ms)
+  slow unit/test_region_continuity.gd::test_all_actual_m1_parcel_sizes_and_modifiers_have_feasible_footings (1030 ms)
+  slow unit/test_region_continuity.gd::test_region_jobs_lod_shared_edges_cancellation_and_backend_parity (742 ms)
+WARNING: Strings: missing key ui.voice.key_that_does_not_exist
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] fmt (res://app/strings.gd:36)
+         [1] text_for (res://app/voice_service.gd:124)
+         [2] test_registry_is_stable_and_localization_falls_back_to_key (res://tests/unit/test_voice.gd:21)
+         [3] _run (res://tests/run_tests.gd:78)
+         [4] test_desktop_quit_controls_use_graceful_path (res://tests/unit/test_resource_retirement.gd:99)
+  slow unit/test_world_space.gd::test_every_world_and_stellar_family_has_a_selectable_representation (501 ms)
+
+390 passed, 0 failed, 14907 checks, 72 files, 49.7 s

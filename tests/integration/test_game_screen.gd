@@ -17,6 +17,139 @@ var _tree: SceneTree
 var _root: Window
 
 
+class SaveGate:
+	extends RefCounted
+	signal released
+	var answer: bool = false
+	func verify(_path: String, _written: String) -> bool:
+		await released
+		return answer
+
+
+func test_manual_browser_confirmation_waits_and_guards_session(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 3)
+	var gs: GameScreen = app.screen as GameScreen
+	Overlay.close_all()
+	var current: GameState = Game.state
+	var session: int = Game.session_serial
+	var gate: SaveGate = SaveGate.new()
+	gs._manual_save_pending = true
+	gs._confirm_manual_save(current, session, "fixture", "fixture", gate.verify)
+	gs.open_menu()
+	var button: BaseButton = Overlay.root.find_child("Menu_save", true, false) as BaseButton
+	t.ok(button != null and button.disabled, "save action is disabled during browser confirmation")
+	t.eq(Overlay._toast_box.get_child_count(), 0, "save success is not announced before confirmation")
+	gate.answer = true
+	gate.released.emit()
+	await _frames(2)
+	t.not_ok(gs._manual_save_pending)
+	t.not_ok(button.disabled, "the open menu permits another save after confirmation")
+	var found: bool = false
+	for toast: Node in Overlay._toast_box.get_children():
+		if toast is Toast and (toast as Toast).text() == Strings.fmt("ui.game.saved"): found = true
+	t.ok(found, "success is announced only after confirmation")
+	Overlay.close_all()
+	gate = SaveGate.new()
+	gs._manual_save_pending = true
+	gs._confirm_manual_save(current, session, "fixture", "fixture", gate.verify)
+	Game.new_game(S1, 3)
+	gate.released.emit()
+	await _frames(2)
+	t.eq(Overlay._toast_box.get_child_count(), 0, "a stale save callback cannot report into the new session")
+	await _stop(app)
+
+
+func test_game_facade_refuses_foreign_empire_orders(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 3)
+	var s: GameState = TinyState.build()
+	var c: Colony = Colony.new()
+	c.id = s.next_id("col")
+	c.owner_id = "emp_meridian"
+	c.planet_id = "pl_brume"
+	c.pops = 1
+	s.colonies[c.id] = c
+	s.planets[c.planet_id].colony_id = c.id
+	Game.resume(s)
+	var order: Command = RenameColonyCommand.create(c.owner_id, c.id, "Foreign")
+	t.ok(order.validate(s).ok, "foreign order is otherwise valid for that empire")
+	var submitted: Result = Game.submit(order)
+	t.not_ok(submitted.ok, "player facade rejects a foreign actor")
+	t.eq(submitted.reason_key, "error.command.not_player")
+	t.eq(Game.queue.size(), 0)
+	await _stop(app)
+
+
+func test_autosave_failure_warns_after_turn(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 3)
+	var old_dir: String = SaveService.dir
+	var blocker: String = "user://test_autosave_block_%d" % Time.get_ticks_usec()
+	var f: FileAccess = FileAccess.open(blocker, FileAccess.WRITE)
+	f.store_string("not a directory")
+	f.close()
+	SaveService.dir = blocker
+	Settings.persist = true
+	var gs: GameScreen = app.screen as GameScreen
+	Overlay.close_all()
+	var before: int = Game.state.turn
+	gs.resolve_turn(Game.state)
+	Settings.persist = false
+	await _frames(3)
+	t.eq(Game.state.turn, before + 1, "the turn resolves despite the save error")
+	var found: bool = false
+	for toast: Node in Overlay._toast_box.get_children():
+		if toast is Toast and (toast as Toast).text() == Strings.fmt("ui.game.autosave_failed"):
+			found = true
+	t.ok(found, "automatic save failure remains visible after opening the turn report")
+	Overlay.clear_toasts()
+	await _frames(2)
+	var failed_attempt: int = SaveService._save_attempt
+	SaveService._save_attempt += 1
+	SaveService._notify_autosave_failure(Game.session_serial, failed_attempt)
+	t.eq(Overlay._toast_box.get_child_count(), 0, "a newer save attempt suppresses an old warning")
+	SaveService._notify_autosave_failure(Game.session_serial - 1, SaveService._save_attempt)
+	t.eq(Overlay._toast_box.get_child_count(), 0, "an old session cannot warn over a new one")
+	SaveService.dir = old_dir
+	DirAccess.remove_absolute(blocker)
+	await _stop(app)
+
+
+func test_old_advisor_callback_cannot_submit_into_new_session(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 3)
+	var old_screen: GameScreen = app.screen as GameScreen
+	Game.new_game(S1, 3)
+	var before: int = Game.queue.size()
+	old_screen._acknowledge({"id": "t_report"})
+	t.eq(Game.queue.size(), before, "advisor callback from old session cannot queue into new game")
+	await _stop(app)
+
+
+func test_end_turn_guards_terminal_reentrancy_and_stale_confirmation(t: T) -> void:
+	var app: AppRoot = await _start(PROFILES[0], 3)
+	var gs: GameScreen = app.screen as GameScreen
+	Overlay.close_all()
+	var before: GameState = Game.state
+	var initial_turn: int = before.turn
+	var nested: Array[TurnResult] = []
+	var callback: Callable = func(_r: TurnResult) -> void: nested.append(Game.end_turn())
+	Game.turn_resolved.connect(callback)
+	gs.resolve_turn(before)
+	Game.turn_resolved.disconnect(callback)
+	t.eq(Game.state.turn, initial_turn + 1, "one confirmation advances one turn")
+	t.eq(nested.size(), 1)
+	t.ok(nested[0] == null, "a synchronous turn-resolved listener cannot resolve another turn")
+	var current: GameState = Game.state
+	gs.resolve_turn(before)
+	t.ok(Game.state == current, "a stale confirmation cannot advance the next turn")
+	Game._continuation_saving = true
+	t.ok(Game.end_turn() == null, "turns are blocked while continuation persistence is pending")
+	Game._continuation_saving = false
+	Game.state.outcome = GameState.OUTCOME_WON
+	var won_turn: int = Game.state.turn
+	t.ok(Game.end_turn() == null, "a terminal game cannot advance")
+	t.eq(Game.state.turn, won_turn)
+	await _stop(app)
+
+
 func test_a_game_opens_with_orders_and_plays_a_turn(t: T) -> void:
 	var app: AppRoot = await _start(PROFILES[0], 3)
 	var gs: GameScreen = app.screen as GameScreen

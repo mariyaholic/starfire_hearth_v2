@@ -113,7 +113,10 @@ func test_invalid_orders_do_not_mutate_state(t: T) -> void:
 	s.empires[other.id] = other
 	var q: CommandQueue = CommandQueue.new(s)
 	var start_hash: String = q.preview().state_hash()
-	t.eq(q.submit(StopFleetCommand.create("other", id)).reason_key, "error.fleet.not_owned")
+	var foreign: StopFleetCommand = StopFleetCommand.create("other", id)
+	t.eq(foreign.validate(s).reason_key, "error.fleet.not_owned", "the fleet belongs to another empire")
+	t.eq(q.submit(foreign).reason_key, "error.command.not_player", "the player queue rejects a foreign actor")
+	t.eq(q.preview().state_hash(), start_hash)
 	t.eq(q.submit(StopFleetCommand.create(P, "missing")).reason_key, "error.fleet.not_found")
 	t.eq(q.preview().state_hash(), start_hash)
 	s.fleets[id].path.assign(["stop_b", "missing"])

@@ -1,0 +1,11 @@
+{"seconds": 0.0, "action": "Click Continue (turn 0)"}
+{"seconds": 0.0, "action": "Click Menu (turn 2)"}
+{"seconds": 0.72, "action": "Click Menu_save (turn 2)"}
+{"seconds": 0.0, "action": "Click Menu (turn 2)"}
+{"seconds": 0.72, "action": "Click Menu_save (turn 2)"}
+{"seconds": 0.0, "action": "Click EndTurn (turn 2)"}
+{"seconds": 1.37, "action": "Click EndAnyway (turn 2)"}
+{"seconds": 0.0, "action": "Click Continue (turn 3)"}
+{"seconds": 1.38, "action": "Click Menu (turn 3)"}
+{"seconds": 2.75, "action": "Click Menu_quit (turn 3)"}
+{"seconds": 4.12, "action": "Click Quit (turn 3)"}

@@ -1,0 +1,772 @@
+[
+  {
+    "label": "title Campaign",
+    "click_call_wall_ms": 84.66297200084227,
+    "browser_window_ms": 2234.800000000745,
+    "events": [
+      {
+        "event": "pointerdown",
+        "event_to_next_raf_callback_ms": 154.20000000018626,
+        "trusted": true
+      },
+      {
+        "event": "mousedown",
+        "event_to_next_raf_callback_ms": 154.09999999962747,
+        "trusted": true
+      },
+      {
+        "event": "pointerup",
+        "event_to_next_raf_callback_ms": 137.20000000018626,
+        "trusted": true
+      },
+      {
+        "event": "mouseup",
+        "event_to_next_raf_callback_ms": 137.20000000018626,
+        "trusted": true
+      },
+      {
+        "event": "click",
+        "event_to_next_raf_callback_ms": 75.0,
+        "trusted": true
+      }
+    ],
+    "raf_interval_ms": {
+      "count": 26,
+      "median": 83.29999999999927,
+      "p95": 116.60000000000218,
+      "max": 216.60000000000218
+    },
+    "cdp_metrics_delta": {
+      "TaskDuration": 2.119847,
+      "ScriptDuration": 2.0760240000000003,
+      "LayoutDuration": 0.0,
+      "RecalcStyleDuration": 0.0
+    },
+    "raw": {
+      "started": 26878,
+      "ended": 29112.800000000745,
+      "frames": [
+        {
+          "timestamp": 26876.3,
+          "callback_now": 26966.800000000745
+        },
+        {
+          "timestamp": 27092.9,
+          "callback_now": 27136.200000000186
+        },
+        {
+          "timestamp": 27126.3,
+          "callback_now": 27210.60000000056
+        },
+        {
+          "timestamp": 27209.7,
+          "callback_now": 27291.700000000186
+        },
+        {
+          "timestamp": 27276.3,
+          "callback_now": 27386.200000000186
+        },
+        {
+          "timestamp": 27376.3,
+          "callback_now": 27451.10000000056
+        },
+        {
+          "timestamp": 27442.9,
+          "callback_now": 27539.60000000056
+        },
+        {
+          "timestamp": 27526.3,
+          "callback_now": 27616.800000000745
+        },
+        {
+          "timestamp": 27609.6,
+          "callback_now": 27691.10000000056
+        },
+        {
+          "timestamp": 27676.3,
+          "callback_now": 27763.5
+        },
+        {
+          "timestamp": 27759.6,
+          "callback_now": 27881.400000000373
+        },
+        {
+          "timestamp": 27876.2,
+          "callback_now": 27884.200000000186
+        },
+        {
+          "timestamp": 27893,
+          "callback_now": 27977.400000000373
+        },
+        {
+          "timestamp": 28042.9,
+          "callback_now": 28094.400000000373
+        },
+        {
+          "timestamp": 28093,
+          "callback_now": 28161.5
+        },
+        {
+          "timestamp": 28159.6,
+          "callback_now": 28237
+        },
+        {
+          "timestamp": 28226.2,
+          "callback_now": 28335.900000000373
+        },
+        {
+          "timestamp": 28326.3,
+          "callback_now": 28426.200000000186
+        },
+        {
+          "timestamp": 28426.2,
+          "callback_now": 28502
+        },
+        {
+          "timestamp": 28492.9,
+          "callback_now": 28593.200000000186
+        },
+        {
+          "timestamp": 28576.2,
+          "callback_now": 28661.400000000373
+        },
+        {
+          "timestamp": 28659.6,
+          "callback_now": 28735.200000000186
+        },
+        {
+          "timestamp": 28726.2,
+          "callback_now": 28811.900000000373
+        },
+        {
+          "timestamp": 28809.6,
+          "callback_now": 28889.700000000186
+        },
+        {
+          "timestamp": 28876.2,
+          "callback_now": 28959.5
+        },
+        {
+          "timestamp": 28942.9,
+          "callback_now": 29031.200000000186
+        },
+        {
+          "timestamp": 29026.2,
+          "callback_now": 29111.10000000056
+        }
+      ],
+      "inputs": [
+        {
+          "type": "pointerdown",
+          "now": 26982,
+          "event_time": 26979.400000000373,
+          "trusted": true
+        },
+        {
+          "type": "mousedown",
+          "now": 26982.10000000056,
+          "event_time": 26979.400000000373,
+          "trusted": true
+        },
+        {
+          "type": "pointerup",
+          "now": 26999,
+          "event_time": 26980,
+          "trusted": true
+        },
+        {
+          "type": "mouseup",
+          "now": 26999,
+          "event_time": 26980,
+          "trusted": true
+        },
+        {
+          "type": "click",
+          "now": 27061.200000000186,
+          "event_time": 26980,
+          "trusted": true
+        }
+      ]
+    },
+    "qualification": "No screenshot/readback during timing window. Event\u2192next JS requestAnimationFrame callback and main-thread CDP durations; NOT visible-paint feedback or GPU/render frame cost."
+  },
+  {
+    "label": "S1 Begin",
+    "click_call_wall_ms": 1128.9487960002589,
+    "browser_window_ms": 3378.7999999998137,
+    "events": [
+      {
+        "event": "pointerdown",
+        "event_to_next_raf_callback_ms": 1146.2999999998137,
+        "trusted": true
+      },
+      {
+        "event": "mousedown",
+        "event_to_next_raf_callback_ms": 1146.2999999998137,
+        "trusted": true
+      },
+      {
+        "event": "pointerup",
+        "event_to_next_raf_callback_ms": 1144.9000000003725,
+        "trusted": true
+      },
+      {
+        "event": "mouseup",
+        "event_to_next_raf_callback_ms": 1144.9000000003725,
+        "trusted": true
+      },
+      {
+        "event": "click",
+        "event_to_next_raf_callback_ms": 158.29999999981374,
+        "trusted": true
+      }
+    ],
+    "raf_interval_ms": {
+      "count": 12,
+      "median": 183.34999999999854,
+      "p95": 383.1999999999971,
+      "max": 1150.0
+    },
+    "cdp_metrics_delta": {
+      "TaskDuration": 3.2495910000000094,
+      "ScriptDuration": 3.2127100000000013,
+      "LayoutDuration": 0.0,
+      "RecalcStyleDuration": 0.0
+    },
+    "raw": {
+      "started": 76931.80000000075,
+      "ended": 80310.60000000056,
+      "frames": [
+        {
+          "timestamp": 76924.3,
+          "callback_now": 77046.80000000075
+        },
+        {
+          "timestamp": 77040.9,
+          "callback_now": 77186.30000000075
+        },
+        {
+          "timestamp": 77174.3,
+          "callback_now": 78333.40000000037
+        },
+        {
+          "timestamp": 78324.3,
+          "callback_now": 78710.30000000075
+        },
+        {
+          "timestamp": 78707.5,
+          "callback_now": 78893
+        },
+        {
+          "timestamp": 78890.9,
+          "callback_now": 79085.5
+        },
+        {
+          "timestamp": 79074.2,
+          "callback_now": 79304.80000000075
+        },
+        {
+          "timestamp": 79290.9,
+          "callback_now": 79496.60000000056
+        },
+        {
+          "timestamp": 79490.8,
+          "callback_now": 79691.5
+        },
+        {
+          "timestamp": 79690.9,
+          "callback_now": 79884.5
+        },
+        {
+          "timestamp": 79874.1,
+          "callback_now": 80029.60000000056
+        },
+        {
+          "timestamp": 80024.2,
+          "callback_now": 80160.70000000019
+        },
+        {
+          "timestamp": 80157.5,
+          "callback_now": 80309.5
+        }
+      ],
+      "inputs": [
+        {
+          "type": "pointerdown",
+          "now": 77187.10000000056,
+          "event_time": 77049.90000000037,
+          "trusted": true
+        },
+        {
+          "type": "mousedown",
+          "now": 77187.10000000056,
+          "event_time": 77049.90000000037,
+          "trusted": true
+        },
+        {
+          "type": "pointerup",
+          "now": 77188.5,
+          "event_time": 77051.30000000075,
+          "trusted": true
+        },
+        {
+          "type": "mouseup",
+          "now": 77188.5,
+          "event_time": 77051.30000000075,
+          "trusted": true
+        },
+        {
+          "type": "click",
+          "now": 78175.10000000056,
+          "event_time": 77051.30000000075,
+          "trusted": true
+        }
+      ]
+    },
+    "qualification": "No screenshot/readback during timing window. Event\u2192next JS requestAnimationFrame callback and main-thread CDP durations; NOT visible-paint feedback or GPU/render frame cost."
+  },
+  {
+    "label": "game Menu open",
+    "click_call_wall_ms": 14.21149899942975,
+    "browser_window_ms": 2078.2999999998137,
+    "events": [
+      {
+        "event": "pointerdown",
+        "event_to_next_raf_callback_ms": 2070.5999999996275,
+        "trusted": true
+      },
+      {
+        "event": "mousedown",
+        "event_to_next_raf_callback_ms": 2070.5999999996275,
+        "trusted": true
+      },
+      {
+        "event": "pointerup",
+        "event_to_next_raf_callback_ms": 2069.5,
+        "trusted": true
+      },
+      {
+        "event": "mouseup",
+        "event_to_next_raf_callback_ms": 2069.5,
+        "trusted": true
+      },
+      {
+        "event": "click",
+        "event_to_next_raf_callback_ms": 2061.7000000001863,
+        "trusted": true
+      }
+    ],
+    "raf_interval_ms": {
+      "count": 0,
+      "median": null,
+      "p95": null,
+      "max": null
+    },
+    "cdp_metrics_delta": {
+      "TaskDuration": 0.6454270000000122,
+      "ScriptDuration": 0.6264479999999963,
+      "LayoutDuration": 0.0,
+      "RecalcStyleDuration": 0.00011699999999999992
+    },
+    "raw": {
+      "started": 129511.80000000075,
+      "ended": 131590.10000000056,
+      "frames": [
+        {
+          "timestamp": 131005.4,
+          "callback_now": 131588.7000000002
+        }
+      ],
+      "inputs": [
+        {
+          "type": "pointerdown",
+          "now": 129518.10000000056,
+          "event_time": 129517.40000000037,
+          "trusted": true
+        },
+        {
+          "type": "mousedown",
+          "now": 129518.10000000056,
+          "event_time": 129517.40000000037,
+          "trusted": true
+        },
+        {
+          "type": "pointerup",
+          "now": 129519.20000000019,
+          "event_time": 129517.60000000056,
+          "trusted": true
+        },
+        {
+          "type": "mouseup",
+          "now": 129519.20000000019,
+          "event_time": 129517.60000000056,
+          "trusted": true
+        },
+        {
+          "type": "click",
+          "now": 129527,
+          "event_time": 129517.60000000056,
+          "trusted": true
+        }
+      ]
+    },
+    "qualification": "No screenshot/readback during timing window. Event\u2192next JS requestAnimationFrame callback and main-thread CDP durations; NOT visible-paint feedback or GPU/render frame cost."
+  },
+  {
+    "label": "game Settings open",
+    "click_call_wall_ms": 1018.6308100001042,
+    "browser_window_ms": 3042.2000000001863,
+    "events": [
+      {
+        "event": "pointerdown",
+        "event_to_next_raf_callback_ms": 947.0999999996275,
+        "trusted": true
+      },
+      {
+        "event": "mousedown",
+        "event_to_next_raf_callback_ms": 947.0999999996275,
+        "trusted": true
+      },
+      {
+        "event": "pointerup",
+        "event_to_next_raf_callback_ms": 946.0999999996275,
+        "trusted": true
+      },
+      {
+        "event": "mouseup",
+        "event_to_next_raf_callback_ms": 946.0999999996275,
+        "trusted": true
+      },
+      {
+        "event": "click",
+        "event_to_next_raf_callback_ms": 792.7000000001863,
+        "trusted": true
+      }
+    ],
+    "raf_interval_ms": {
+      "count": 19,
+      "median": 66.69999999998254,
+      "p95": 866.6000000000058,
+      "max": 1016.6000000000058
+    },
+    "cdp_metrics_delta": {
+      "TaskDuration": 3.0736090000000047,
+      "ScriptDuration": 3.0129639999999824,
+      "LayoutDuration": 0.0,
+      "RecalcStyleDuration": 0.0
+    },
+    "raw": {
+      "started": 159164.2000000002,
+      "ended": 162206.40000000037,
+      "frames": [
+        {
+          "timestamp": 159154.4,
+          "callback_now": 160028.90000000037
+        },
+        {
+          "timestamp": 160021,
+          "callback_now": 160976.7000000002
+        },
+        {
+          "timestamp": 161037.6,
+          "callback_now": 161065.40000000037
+        },
+        {
+          "timestamp": 161054.3,
+          "callback_now": 161068.5
+        },
+        {
+          "timestamp": 161071,
+          "callback_now": 161163.5
+        },
+        {
+          "timestamp": 161154.2,
+          "callback_now": 161235.5
+        },
+        {
+          "timestamp": 161220.9,
+          "callback_now": 161301.30000000075
+        },
+        {
+          "timestamp": 161287.6,
+          "callback_now": 161394.10000000056
+        },
+        {
+          "timestamp": 161387.6,
+          "callback_now": 161486.5
+        },
+        {
+          "timestamp": 161470.9,
+          "callback_now": 161545.10000000056
+        },
+        {
+          "timestamp": 161537.6,
+          "callback_now": 161611.10000000056
+        },
+        {
+          "timestamp": 161604.2,
+          "callback_now": 161682.7000000002
+        },
+        {
+          "timestamp": 161670.9,
+          "callback_now": 161745.2000000002
+        },
+        {
+          "timestamp": 161737.5,
+          "callback_now": 161810.5
+        },
+        {
+          "timestamp": 161804.2,
+          "callback_now": 161882.60000000056
+        },
+        {
+          "timestamp": 161870.9,
+          "callback_now": 161950.5
+        },
+        {
+          "timestamp": 161937.6,
+          "callback_now": 162009.10000000056
+        },
+        {
+          "timestamp": 162004.2,
+          "callback_now": 162086.60000000056
+        },
+        {
+          "timestamp": 162070.9,
+          "callback_now": 162140.30000000075
+        },
+        {
+          "timestamp": 162137.5,
+          "callback_now": 162205.7000000002
+        }
+      ],
+      "inputs": [
+        {
+          "type": "pointerdown",
+          "now": 160029.60000000056,
+          "event_time": 159168.30000000075,
+          "trusted": true
+        },
+        {
+          "type": "mousedown",
+          "now": 160029.60000000056,
+          "event_time": 159168.30000000075,
+          "trusted": true
+        },
+        {
+          "type": "pointerup",
+          "now": 160030.60000000056,
+          "event_time": 159177.30000000075,
+          "trusted": true
+        },
+        {
+          "type": "mouseup",
+          "now": 160030.60000000056,
+          "event_time": 159177.30000000075,
+          "trusted": true
+        },
+        {
+          "type": "click",
+          "now": 160184,
+          "event_time": 159177.30000000075,
+          "trusted": true
+        }
+      ]
+    },
+    "qualification": "No screenshot/readback during timing window. Event\u2192next JS requestAnimationFrame callback and main-thread CDP durations; NOT visible-paint feedback or GPU/render frame cost."
+  },
+  {
+    "label": "End turn checklist",
+    "click_call_wall_ms": 900.5475119993207,
+    "browser_window_ms": 3714.899999999441,
+    "events": [
+      {
+        "event": "pointerdown",
+        "event_to_next_raf_callback_ms": 817.9000000003725,
+        "trusted": true
+      },
+      {
+        "event": "mousedown",
+        "event_to_next_raf_callback_ms": 817.9000000003725,
+        "trusted": true
+      },
+      {
+        "event": "pointerup",
+        "event_to_next_raf_callback_ms": 812.9000000003725,
+        "trusted": true
+      },
+      {
+        "event": "mouseup",
+        "event_to_next_raf_callback_ms": 812.9000000003725,
+        "trusted": true
+      },
+      {
+        "event": "click",
+        "event_to_next_raf_callback_ms": 803.9000000003725,
+        "trusted": true
+      }
+    ],
+    "raf_interval_ms": {
+      "count": 3,
+      "median": 883.1999999999825,
+      "p95": 883.1999999999825,
+      "max": 916.6999999999825
+    },
+    "cdp_metrics_delta": {
+      "TaskDuration": 3.7037750000000074,
+      "ScriptDuration": 3.668738000000019,
+      "LayoutDuration": 0.0,
+      "RecalcStyleDuration": 0.0
+    },
+    "raw": {
+      "started": 229503.10000000056,
+      "ended": 233218,
+      "frames": [
+        {
+          "timestamp": 229501.6,
+          "callback_now": 230399.60000000056
+        },
+        {
+          "timestamp": 230384.8,
+          "callback_now": 231218.30000000075
+        },
+        {
+          "timestamp": 231218.1,
+          "callback_now": 232144.7000000002
+        },
+        {
+          "timestamp": 232134.8,
+          "callback_now": 233206.5
+        }
+      ],
+      "inputs": [
+        {
+          "type": "pointerdown",
+          "now": 230400.40000000037,
+          "event_time": 229515.7000000002,
+          "trusted": true
+        },
+        {
+          "type": "mousedown",
+          "now": 230400.40000000037,
+          "event_time": 229515.7000000002,
+          "trusted": true
+        },
+        {
+          "type": "pointerup",
+          "now": 230405.40000000037,
+          "event_time": 229516.10000000056,
+          "trusted": true
+        },
+        {
+          "type": "mouseup",
+          "now": 230405.40000000037,
+          "event_time": 229516.10000000056,
+          "trusted": true
+        },
+        {
+          "type": "click",
+          "now": 230414.40000000037,
+          "event_time": 229516.10000000056,
+          "trusted": true
+        }
+      ]
+    },
+    "qualification": "No screenshot/readback during timing window. Event\u2192next JS requestAnimationFrame callback and main-thread CDP durations; NOT visible-paint feedback or GPU/render frame cost."
+  },
+  {
+    "label": "confirm End turn (with autosave)",
+    "click_call_wall_ms": 1140.7759060002718,
+    "browser_window_ms": 3670.399999999441,
+    "events": [
+      {
+        "event": "pointerdown",
+        "event_to_next_raf_callback_ms": 1360.3999999994412,
+        "trusted": true
+      },
+      {
+        "event": "mousedown",
+        "event_to_next_raf_callback_ms": 1360.3999999994412,
+        "trusted": true
+      },
+      {
+        "event": "pointerup",
+        "event_to_next_raf_callback_ms": 1359.2999999998137,
+        "trusted": true
+      },
+      {
+        "event": "mouseup",
+        "event_to_next_raf_callback_ms": 1359.2999999998137,
+        "trusted": true
+      },
+      {
+        "event": "click",
+        "event_to_next_raf_callback_ms": 1354.2999999998137,
+        "trusted": true
+      }
+    ],
+    "raf_interval_ms": {
+      "count": 2,
+      "median": 1250.0,
+      "p95": 1150.0,
+      "max": 1350.0
+    },
+    "cdp_metrics_delta": {
+      "TaskDuration": 3.6730510000000436,
+      "ScriptDuration": 3.6522600000000125,
+      "LayoutDuration": 0.0,
+      "RecalcStyleDuration": 0.0
+    },
+    "raw": {
+      "started": 305831.30000000075,
+      "ended": 309501.7000000002,
+      "frames": [
+        {
+          "timestamp": 305815.1,
+          "callback_now": 306966.60000000056
+        },
+        {
+          "timestamp": 306965.1,
+          "callback_now": 308328.5
+        },
+        {
+          "timestamp": 308315.1,
+          "callback_now": 309486.80000000075
+        }
+      ],
+      "inputs": [
+        {
+          "type": "pointerdown",
+          "now": 306968.10000000056,
+          "event_time": 305835.7000000002,
+          "trusted": true
+        },
+        {
+          "type": "mousedown",
+          "now": 306968.10000000056,
+          "event_time": 305835.7000000002,
+          "trusted": true
+        },
+        {
+          "type": "pointerup",
+          "now": 306969.2000000002,
+          "event_time": 305836.4000000004,
+          "trusted": true
+        },
+        {
+          "type": "mouseup",
+          "now": 306969.2000000002,
+          "event_time": 305836.4000000004,
+          "trusted": true
+        },
+        {
+          "type": "click",
+          "now": 306974.2000000002,
+          "event_time": 305836.4000000004,
+          "trusted": true
+        }
+      ]
+    },
+    "qualification": "No screenshot/readback during timing window. Event\u2192next JS requestAnimationFrame callback and main-thread CDP durations; NOT visible-paint feedback or GPU/render frame cost."
+  }
+]

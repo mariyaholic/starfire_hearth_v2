@@ -1,0 +1,117 @@
+[
+  {
+    "file": "/tmp/starfire-m2f-actual-data/godot/app_userdata/Starfire Hearth/saves/auto_1.json",
+    "sha256": "0ef51a513f2e0c936eda111abe021dabe16123972c21fa8619598aad61d09940",
+    "turn": 41,
+    "outcome": "",
+    "flags": {
+      "expedition:completed_turn": 40,
+      "expedition:continued": 1,
+      "m2a_halden_resolved": 35,
+      "m2a_halden_salvage": 35,
+      "m2a_shroud_resolved": 36,
+      "m2a_shroud_supplies": 36
+    },
+    "builder": {
+      "armor": 0,
+      "design_id": "",
+      "fleet_id": "flt_0001",
+      "hull": "construction_ship",
+      "id": "shp_0001",
+      "owner_id": "emp_player",
+      "shield": 0,
+      "structure": 0,
+      "task": "outpost",
+      "task_param": "research",
+      "task_target": "pl_shroud_giant",
+      "task_turns": 2
+    },
+    "probe": {
+      "admiral_id": "",
+      "id": "flt_0002",
+      "move_progress": 2,
+      "owner_id": "emp_player",
+      "path": [
+        "sys_vesper"
+      ],
+      "ship_ids": [
+        "shp_0002"
+      ],
+      "stance": "balanced",
+      "system_id": "sys_ember"
+    },
+    "outpost": null
+  },
+  {
+    "file": "/tmp/starfire-m2f-actual-data/godot/app_userdata/Starfire Hearth/saves/manual_1.json",
+    "sha256": "067a0de7bc5c8d8d19c265ce5158b07aadc4df2e2e910c376cd4d0c81f0c1f6d",
+    "turn": 43,
+    "outcome": "",
+    "flags": {
+      "expedition:completed_turn": 40,
+      "expedition:continued": 1,
+      "m2a_halden_resolved": 35,
+      "m2a_halden_salvage": 35,
+      "m2a_shroud_resolved": 36,
+      "m2a_shroud_supplies": 36
+    },
+    "builder": {
+      "armor": 0,
+      "design_id": "",
+      "fleet_id": "flt_0001",
+      "hull": "construction_ship",
+      "id": "shp_0001",
+      "owner_id": "emp_player",
+      "shield": 0,
+      "structure": 0,
+      "task": "",
+      "task_param": "",
+      "task_target": "",
+      "task_turns": 0
+    },
+    "probe": {
+      "admiral_id": "",
+      "id": "flt_0002",
+      "move_progress": 4,
+      "owner_id": "emp_player",
+      "path": [
+        "sys_vesper"
+      ],
+      "ship_ids": [
+        "shp_0002"
+      ],
+      "stance": "balanced",
+      "system_id": "sys_ember"
+    },
+    "outpost": {
+      "autonomous_from": "",
+      "autonomy_turns": 0,
+      "buildings": [],
+      "districts": [],
+      "famine_turns": 0,
+      "founded_turn": 42,
+      "governor_budget_bp": 5000,
+      "governor_focus": "balanced",
+      "governor_funds": 0,
+      "governor_on": false,
+      "governor_vetoes": {},
+      "growth": 0,
+      "id": "col_0003",
+      "job_priority": [
+        "food",
+        "energy",
+        "minerals",
+        "alloys",
+        "research",
+        "clerks"
+      ],
+      "name": "",
+      "outpost_kind": "research",
+      "owner_id": "emp_player",
+      "planet_id": "pl_shroud_giant",
+      "pops": 0,
+      "queue": [],
+      "stability": 50
+    }
+  }
+]

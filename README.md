@@ -11,6 +11,8 @@ Scenario 2 or unlock later campaign chapters. Opt a survey probe into automatic 
 or resolve a one-shot discovery at Halden's dormant gate. Stop a journey at its next system,
 or take an optional detour beyond Vesper to The Shroud's derelict and energy/research outpost.
 Surveyed outpost sites show projected production and upkeep before a builder arrives.
+After preview victory, choose Continue expedition to finish optional investments
+while retaining the original completion date; later defeat still applies.
 See `docs/milestones/` for plans, evidence and platform acceptance limits.
 
 ## Requirements
@@ -29,6 +31,7 @@ godot --headless --path . --import                      # import assets, registe
 godot --headless --path . -s tools/validate_data.gd     # data schema and cross-reference checks
 godot --headless --path . -s tests/run_tests.gd         # full headless test suite
 godot --headless --path . -s tools/expedition_bot.gd -- --seed 1 --trace  # M2A expedition
+godot --headless --path . -s tools/expedition_bot.gd -- --seed 1 --continue --trace  # continue into a later investment
 godot --headless --path . -s tools/expedition_bot.gd -- --seed 1 --route vesper-first --outpost research --trace  # optional Shroud itinerary
 godot --headless --path . -s tools/bot_run.gd -- --scenario s1 --policy random-legal --seeds 1-3 --turns 60 --out telemetry/ --check-determinism
 godot --headless --path . -s tools/telemetry_report.gd -- --in telemetry/

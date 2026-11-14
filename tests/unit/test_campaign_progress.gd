@@ -6,6 +6,27 @@ const S2: String = "s2_the_crossing"
 const S3: String = "s3_neighbours"
 
 
+func test_failed_atomic_write_keeps_prior_file_and_notifies(t: T) -> void:
+	var dir: String = "user://campaign_test_%d" % Time.get_ticks_usec()
+	DirAccess.make_dir_recursive_absolute(dir)
+	var path: String = dir.path_join("campaign.json")
+	var p: CampaignProgress = CampaignProgress.load_file(path)
+	p.set_difficulty("hard")
+	var prior: String = FileAccess.get_file_as_string(path)
+	DirAccess.make_dir_recursive_absolute(path + ".pending")
+	var failures: Array[int] = []
+	p.persistence_failed.connect(func(revision: int) -> void: failures.append(revision))
+	p.record_win(S1)
+	t.ok(p.is_won(S1), "failed disk write does not discard the live win")
+	t.eq(failures.size(), 1, "failure is reported")
+	t.eq(FileAccess.get_file_as_string(path), prior, "failed write preserves the previous file")
+	DirAccess.remove_absolute(path + ".pending")
+	p.pick_legacy(S1, "steady_hands")
+	t.eq(CampaignProgress.load_file(path).legacy_of(S1), "steady_hands", "a later successful write saves live progress")
+	DirAccess.remove_absolute(path)
+	DirAccess.remove_absolute(dir)
+
+
 func test_scenarios_unlock_in_order(t: T) -> void:
 	var p: CampaignProgress = CampaignProgress.new()
 	t.ok(p.is_unlocked(S1), "the first scenario is always open")
