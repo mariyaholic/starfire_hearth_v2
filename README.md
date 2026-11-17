@@ -1,8 +1,6 @@
 # Starfire Hearth
 
-A turn-based space 4X for PC and mobile, built in Godot 4 with GDScript in a clean modern-flat
-style. You lead a slowboat colony a hundred years into the Long Silence, the century since the Sol
-relay stopped transmitting.
+Hello! This is Starfire Hearth, my turn-based space 4X for PC and mobile. It is built in Godot 4 with GDScript in a clean modern-flat style. You lead a slowboat colony a hundred years into the Long Silence, the century since the Sol relay stopped transmitting. This one is close to my heart, and I hope you enjoy your time in it as much as I enjoy making it.
 
 **Status:** milestone M1 (First Light): Scenario 1 plays from the title to the debrief on PC and in
 a phone browser. A separate **M2A Exploration Preview** adds civilian interstellar travel,
@@ -61,6 +59,8 @@ saves retain their original map; start a new expedition to explore The Shroud.
 
 ## Layout
 
+Here is where everything lives:
+
 | Path | What lives there |
 | --- | --- |
 | `sim/` | Pure simulation: state, rules, commands, turn processing, RNG, saves. No nodes, no UI. |
@@ -75,6 +75,8 @@ saves retain their original map; start a new expedition to explore The Shroud.
 
 ## Rules of the codebase
 
+A few rules I hold myself to:
+
 - `sim/` never touches `Node`, `SceneTree`, `Input` or `ui/`; a test scans for it.
 - Simulation state is integers only: resources in hundredths, percentages in basis points.
 - The UI never recomputes game math. It shows the `Breakdown` and `ReportItem` objects the
@@ -85,3 +87,5 @@ saves retain their original map; start a new expedition to explore The Shroud.
 
 All rights reserved until the Owner chooses otherwise; see `LICENSE`. Third-party assets are listed
 in `CREDITS.md`.
+
+Thank you for reading. ♡
